@@ -10,6 +10,7 @@ Please be aware that I'm a student thus take nothing in my code for granted, the
 
 - [@senolem (GitHub)](https://www.github.com/senolem)
 - [melones#4454 (Discord)](#)
+- [me@melones.fr (Email)](mailto:me@melones.fr)
 
 
 ## FAQ
