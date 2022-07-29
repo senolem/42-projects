@@ -6,21 +6,14 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:45:37 by albaur            #+#    #+#             */
-/*   Updated: 2022/06/14 10:37:18 by albaur           ###   ########.fr       */
+/*   Updated: 2022/07/18 15:06:07 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-
-void	process_input(t_data *data)
-{
-	if (data->mode && data->input[0] != '\0')
-		add_history(data->input);
-}
+#include "minishell.h"
 
 int	main(int argc, char **argv)
 {
-	int		i;
 	t_data	*data;
 
 	data = malloc(sizeof(t_data));
@@ -29,15 +22,21 @@ int	main(int argc, char **argv)
 	init_shell(data);
 	while (!data->exit)
 	{
-		data->input = readline("~$ ");
-		if (!data->input)
+		data->prompt = ft_concat(env_get_pwd(), " $ ");
+		data->input = readline(data->prompt);
+		if (data->input == NULL)
 			break ;
-		i = 0;
-		while(ft_isspace(data->input[i]))
-			++i;
-		if (data->input)
-			process_input(data);
-		free(data->input);
+		process_input(data);
+		free(data->prompt);
 	}
+	data->shlvl = env_get_shlvl();
+	data->tmp = ft_itoa(data->shlvl - 1);
+	if (data->shlvl == 1)
+		unlink(ENV_FILE);
+	env_set_arg("SHLVL", data->tmp);
+	free(data->tmp);
+	free(data->prompt);
+	free(data->input);
+	free(data);
 	return (0);
 }
