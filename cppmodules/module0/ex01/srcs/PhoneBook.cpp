@@ -6,14 +6,16 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 12:12:27 by albaur            #+#    #+#             */
-/*   Updated: 2022/08/01 20:09:08 by albaur           ###   ########.fr       */
+/*   Updated: 2022/08/01 21:37:08 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
 
-PhoneBook::PhoneBook() : size() {
-	contacts = new Contact[8];
+PhoneBook::PhoneBook()
+{
+	oldest = 0;
+	size = 0;
 }
 
 int	PhoneBook::getSize(void)
@@ -30,8 +32,18 @@ void	PhoneBook::add(void)
 	prompt(Contact::Nickname, newContact);
 	prompt(Contact::PhoneNumber, newContact);
 	prompt(Contact::DarkestSecret, newContact);
-	contacts[size % 8] = newContact;
-	++size;
+	if (size == 8)
+	{
+		contacts[oldest] = newContact;
+		oldest++;
+		if (oldest > 7)
+			oldest = 0;
+	}
+	else
+	{
+		contacts[size % 8] = newContact;
+		++size;
+	}
 }
 
 void	PhoneBook::prompt(size_t i, Contact &contact)
@@ -84,9 +96,10 @@ void	PhoneBook::search(void)
 	{
 		nb = -1;
 	}
-	if (nb < 0 || nb > 8)
-		std::cout << "Invalid input! Index must an unsigned integer smaller than 8." << std::endl;
-	else if (nb >= (int)size)
+	nb--;
+	if (nb < 0 || nb >= 8)
+		std::cout << "Invalid input! Index must an unsigned integer greater than 0 and smaller or equal to 8." << std::endl;
+	else if (nb > (int)size)
 		std::cout << "Contact doesn't exist. Current contacts count : " << size << std::endl;
 	else
 		printInfo(nb);
@@ -111,9 +124,11 @@ void	PhoneBook::printInfo(size_t i)
 
 void	PhoneBook::printColumn(Contact contact, size_t i)
 {
-	std::cout << '|' << std::right << std::setw(10) << i << '|';
+	std::cout << '|' << std::right << std::setw(10) << i + 1 << '|';
 	for (size_t j = 0; j < 3; j++)
 		std::cout << std::right << std::setw(10) << getOutput(contact.infos[j]) << '|';
+	if (i < size - 1)
+		std::cout << std::endl;
 }
 
 std::string	PhoneBook::getOutput(std::string &str)

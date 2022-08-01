@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 13:51:40 by albaur            #+#    #+#             */
-/*   Updated: 2022/08/01 19:40:39 by albaur           ###   ########.fr       */
+/*   Updated: 2022/08/01 21:37:50 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ class PhoneBook
 {
 	private:
 	size_t	size;
-	Contact	*contacts;
+	size_t	oldest;
+	Contact	contacts[8];
 
 	public:
 	PhoneBook(void);
