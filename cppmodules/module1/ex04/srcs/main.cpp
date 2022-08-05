@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 12:33:48 by albaur            #+#    #+#             */
-/*   Updated: 2022/08/04 14:05:45 by albaur           ###   ########.fr       */
+/*   Updated: 2022/08/05 11:52:06 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 		std::cout << "usage: <filename> <string1> <string2>" << std::endl;
 		return (1);
 	}
-	file.open(argv[1], std::ofstream::in | std::ofstream::out);
+	file.open(argv[1]);
 	if (file.fail())
 	{
 		std::cout << "Error: " << argv[1] << ": ";
@@ -34,5 +34,5 @@ int	main(int argc, char **argv)
 	while (!file.eof() && file >> std::noskipws >> c)
 		str += c;
 	file.close();
-	return (0);
+	return (str_replace_fd(str, argv[1], argv[2], argv[3]));
 }
