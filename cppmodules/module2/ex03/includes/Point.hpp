@@ -1,0 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Point.hpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/30 17:57:22 by albaur            #+#    #+#             */
+/*   Updated: 2022/08/30 23:03:24 by albaur           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef POINT_HPP
+# define POINT_HPP
+
+# include "Fixed.hpp"
+
+class Point
+{
+	private:
+	const Fixed	x;
+	const Fixed	y;
+
+	public:
+	Point(void);
+	Point(const float f1, const float f2);
+	Point(const Point &src);
+	Point	&operator=(const Point &src);
+	~Point(void);
+
+	float getX(void) const;
+	float getY(void) const;
+
+};
+
+bool	bsp(Point const a, Point const b, Point const c, Point const point);
+
+#endif
