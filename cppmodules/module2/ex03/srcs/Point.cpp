@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 18:03:26 by albaur            #+#    #+#             */
-/*   Updated: 2022/08/30 23:03:08 by albaur           ###   ########.fr       */
+/*   Updated: 2022/08/31 14:55:57 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@ Point::~Point(void)
 	//std::cout << "Destructor called" << std::endl;
 }
 
+bool	Point::operator==(Point src) const
+{
+	if (this->getX() == src.getX() && this->getY() == src.getY())
+		return (true);
+	else
+		return (false);
+}
+
 float	Point::getX(void) const
 {
 	return (this->x.toFloat());
@@ -47,4 +55,9 @@ float	Point::getX(void) const
 float	Point::getY(void) const
 {
 	return (this->y.toFloat());
+}
+
+std::ostream	&operator<<(std::ostream &stream, const Point &src)
+{
+	return (stream << "[" << src.getX() << ", " << src.getY() << "]");
 }
