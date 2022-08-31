@@ -6,14 +6,15 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 16:35:32 by albaur            #+#    #+#             */
-/*   Updated: 2022/08/31 18:42:19 by albaur           ###   ########.fr       */
+/*   Updated: 2022/08/31 18:54:23 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(void) : Name("CL4P-0000")
+ClapTrap::ClapTrap(void) : Name(DEFAULT_CODENAME)
 {
+	std::cout << "ClapTrap initialized without codename, using default one: (" << DEFAULT_CODENAME << ")." << std::endl;
 	std::cout << "ClapTrap codename \'" << this->Name << "\' booting up..." << std::endl;
 	this->HitPoints = 10;
 	this->EnergyPoints = 10;
@@ -105,10 +106,12 @@ void	ClapTrap::beRepaired(unsigned int amount)
 
 void	ClapTrap::boostAttack(unsigned int amount)
 {
-	std::cout << "Supercharging ClapTrap codename \'" << this->Name << "\' of " << amount << " points!" << std::endl;
+	std::cout << "Supercharging ClapTrap codename \'" << this->Name << "\' of " << amount << " AttackDamage points!" << std::endl;
 	this->AttackDamage += amount;
 	if (amount <= 2)
 		std::cout << "[" << this->Name << "] : \"Like this is gonna help...\"" << std::endl;
+	else if (amount <= 5)
+		std::cout << "[" << this->Name << "] : \"Okay, this might help a little bit...\"" << std::endl;
 	else
 		std::cout << "[" << this->Name << "] : \"*cracks his robotic fingers* How about this?!\"" << std::endl;
 }

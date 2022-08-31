@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 16:35:18 by albaur            #+#    #+#             */
-/*   Updated: 2022/08/31 18:42:52 by albaur           ###   ########.fr       */
+/*   Updated: 2022/08/31 18:54:58 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(void)
 	Bot1.boostAttack(10);
 	Bot2.boostAttack(1);
 	Bot3.boostAttack(999999);
-	Bot4.boostAttack(2);
+	Bot4.boostAttack(3);
 	Bot0.attack("His shadow");
 	Bot1.attack("Weak oldman");
 	Bot2.attack("Teenager");
@@ -32,8 +32,8 @@ int	main(void)
 	Bot4.attack("A random salesman passing by");
 	Bot0.takeDamage(999999);
 	Bot1.takeDamage(1);
-	Bot2.takeDamage(10);
-	Bot3.takeDamage(9);
+	Bot2.takeDamage(9);
+	Bot3.takeDamage(10);
 	Bot4.takeDamage(100);
 	Bot0.attack("His shadow");
 	Bot1.attack("Weak oldman");

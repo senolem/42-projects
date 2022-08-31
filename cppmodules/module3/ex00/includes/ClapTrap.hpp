@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 16:38:44 by albaur            #+#    #+#             */
-/*   Updated: 2022/08/31 18:34:01 by albaur           ###   ########.fr       */
+/*   Updated: 2022/08/31 18:47:42 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <iostream>
 
 #define MAX_HP 10
+#define DEFAULT_CODENAME "CL4P-0000"
 
 class ClapTrap
 {
