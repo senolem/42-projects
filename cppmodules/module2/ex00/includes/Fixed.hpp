@@ -6,14 +6,14 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 12:19:56 by albaur            #+#    #+#             */
-/*   Updated: 2022/08/28 15:09:01 by albaur           ###   ########.fr       */
+/*   Updated: 2022/08/31 16:39:26 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FIXED_HPP
 # define FIXED_HPP
 
-#include <iostream>
+# include <iostream>
 
 class Fixed
 {

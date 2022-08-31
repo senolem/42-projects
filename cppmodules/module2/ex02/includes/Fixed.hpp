@@ -6,15 +6,15 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 12:19:56 by albaur            #+#    #+#             */
-/*   Updated: 2022/08/29 15:12:04 by albaur           ###   ########.fr       */
+/*   Updated: 2022/08/31 16:39:40 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FIXED_HPP
 # define FIXED_HPP
 
-#include <iostream>
-#include <cmath>
+# include <iostream>
+# include <cmath>
 
 class Fixed
 {
