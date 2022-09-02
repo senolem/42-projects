@@ -6,15 +6,15 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 16:35:32 by albaur            #+#    #+#             */
-/*   Updated: 2022/09/02 14:31:29 by albaur           ###   ########.fr       */
+/*   Updated: 2022/09/02 14:31:38 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(void) : Name(DEFAULT_CODENAME)
+ClapTrap::ClapTrap(void) : Name(DEFAULT_CLAP_CODENAME)
 {
-	std::cout << "ClapTrap initialized without codename, using default one: (" << DEFAULT_CODENAME << ")." << std::endl;
+	std::cout << "ClapTrap initialized without codename, using default one: (" << DEFAULT_CLAP_CODENAME << ")." << std::endl;
 	std::cout << "ClapTrap codename \'" << this->Name << "\' booting up..." << std::endl;
 	this->HitPoints = 10;
 	this->EnergyPoints = 10;
