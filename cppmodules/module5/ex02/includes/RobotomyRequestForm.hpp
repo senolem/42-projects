@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 13:35:11 by albaur            #+#    #+#             */
-/*   Updated: 2022/09/14 17:55:22 by albaur           ###   ########.fr       */
+/*   Updated: 2022/09/14 18:43:27 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <iostream>
 # include <string>
-# include <fstream>
 # include <time.h>
 # include "Form.hpp"
 # include "Bureaucrat.hpp"
@@ -34,7 +33,7 @@ class RobotomyRequestForm : public Form
 	RobotomyRequestForm(std::string const target);
 
 	std::string	getTarget(void) const;
-	virtual void	execute(Bureaucrat const &executor) const;
+	virtual bool	execute(Bureaucrat const &executor) const;
 	void	robotomize(void) const;
 };
 

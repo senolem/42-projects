@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 17:52:18 by albaur            #+#    #+#             */
-/*   Updated: 2022/09/12 19:14:58 by albaur           ###   ########.fr       */
+/*   Updated: 2022/09/14 18:22:29 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,17 @@ Form::Form(Form const &src) : name(src.getName()), requiredSignGrade(src.getRequ
 Form::~Form(void)
 {
 	std::cout << "The recycle bin ate your form." << std::endl;
+}
+
+Form	&Form::operator=(const Form &src)
+{
+	if (this == &src)
+		return (*this);
+	else
+	{
+		std::cout << "Error : cannot assign values from a form to another because of const variables. You must instantiate a new form." << std::endl;
+		return (*this);
+	}	
 }
 
 std::ostream	&operator<<(std::ostream &stream, const Form &form)
