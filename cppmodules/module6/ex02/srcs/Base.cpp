@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Contact.hpp                                        :+:      :+:    :+:   */
+/*   Base.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/01 14:05:11 by albaur            #+#    #+#             */
-/*   Updated: 2022/09/21 10:37:28 by albaur           ###   ########.fr       */
+/*   Created: 2022/09/19 14:50:41 by albaur            #+#    #+#             */
+/*   Updated: 2022/09/19 16:28:15 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONTACT_HPP
-# define CONTACT_HPP
+#include "Base.hpp"
 
-# include <string>
-# include <iostream>
-
-class Contact
+Base	*generate(void)
 {
-	private:
-	std::string			infos[5];
+	Base							*ptr;
+	default_random_engine			generator;
+	uniform_int_distribution<int>	distribution(1, 3);
+	int								RNG = distribution(generator);
 
-	public:
-	static std::string	fields[5];
-	enum Field
+	switch(RNG)
 	{
-		FirstName = 0,
-		LastName,
-		Nickname,
-		PhoneNumber,
-		DarkestSecret
-	};
-	std::string	getInfo(size_t i) const;
-	void		setInfo(std::string str, size_t i);
-};
+		case 1:
+			ptr = new A;
+		case 2:
+			ptr = new B;
+		case 3:
+			ptr = new C;
+	}
+	return (ptr);
+}
 
-#endif
+void	identify(Base *p)
+{
+
+}
+//void	identify(Base &p);
