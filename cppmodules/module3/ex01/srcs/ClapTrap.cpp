@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 16:35:32 by albaur            #+#    #+#             */
-/*   Updated: 2022/09/02 14:31:38 by albaur           ###   ########.fr       */
+/*   Updated: 2022/09/21 18:42:01 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ ClapTrap::ClapTrap(std::string Name) : Name(Name)
 	this->HitPoints = 10;
 	this->EnergyPoints = 10;
 	this->AttackDamage = 0;
+}
+
+ClapTrap::ClapTrap(std::string Name, int HitPoints, unsigned int EnergyPoints, unsigned int AttackDamage) : Name(Name), HitPoints(HitPoints), EnergyPoints(EnergyPoints), AttackDamage(AttackDamage)
+{
+	std::cout << "ClapTrap codename \'" << this->Name << "\' booting up..." << std::endl;
 }
 
 void	ClapTrap::attack(const std::string& target)

@@ -1,35 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FragTrap.hpp                                       :+:      :+:    :+:   */
+/*   whatever.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/02 15:12:22 by albaur            #+#    #+#             */
-/*   Updated: 2022/09/21 18:50:24 by albaur           ###   ########.fr       */
+/*   Created: 2022/09/21 15:28:52 by albaur            #+#    #+#             */
+/*   Updated: 2022/09/21 17:41:58 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FragTrap_HPP
-# define FragTrap_HPP
+#ifndef WHATEVER_HPP
+# define WHATEVER_HPP
 
+# include <string>
 # include <iostream>
-# include "ClapTrap.hpp"
 
-#define MAX_HP 10
-#define DEFAULT_FRAG_CODENAME "FR4G-0000"
-#define HIGH_FIVE_COST 2
-
-class FragTrap : public ClapTrap
+template<typename T>
+void	swap(T &a, T &b)
 {
-	public:
-	FragTrap(void);
-	FragTrap(FragTrap const &src);
-	~FragTrap(void);
-	FragTrap &operator=(FragTrap const &src);
-	FragTrap(std::string Name);
+	T	tmp;
 
-	void	highFivesGuys(void);
-};
+	tmp = a;
+	a = b;
+	b = tmp;
+}
+
+template<typename T>
+T	min(T a, T b)
+{
+	return (a <= b ? a : b);
+}
+
+template<typename T>
+T	max(T a, T b)
+{
+	return (a >= b ? a : b);
+}
 
 #endif

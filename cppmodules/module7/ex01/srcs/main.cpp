@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FragTrap.hpp                                       :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/02 15:12:22 by albaur            #+#    #+#             */
-/*   Updated: 2022/09/21 18:50:24 by albaur           ###   ########.fr       */
+/*   Created: 2022/09/21 17:54:08 by albaur            #+#    #+#             */
+/*   Updated: 2022/09/21 18:00:59 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FragTrap_HPP
-# define FragTrap_HPP
+#include "Iter.hpp"
 
-# include <iostream>
-# include "ClapTrap.hpp"
-
-#define MAX_HP 10
-#define DEFAULT_FRAG_CODENAME "FR4G-0000"
-#define HIGH_FIVE_COST 2
-
-class FragTrap : public ClapTrap
+void	rockit(T const &)
 {
-	public:
-	FragTrap(void);
-	FragTrap(FragTrap const &src);
-	~FragTrap(void);
-	FragTrap &operator=(FragTrap const &src);
-	FragTrap(std::string Name);
 
-	void	highFivesGuys(void);
-};
+}
 
-#endif
+int	main(void)
+{
+	template<typename T>
+	void	rockit(T const &)
+	{
+		std::cout << T << std::endl;
+	}
+	
+	int intTab[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+	::iter(&intTab, 10, rockit);
+}
