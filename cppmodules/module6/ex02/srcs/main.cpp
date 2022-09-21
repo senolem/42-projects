@@ -6,13 +6,16 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 15:24:58 by albaur            #+#    #+#             */
-/*   Updated: 2022/09/19 16:06:07 by albaur           ###   ########.fr       */
+/*   Updated: 2022/09/21 15:23:38 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Base.hpp"
+#include "Identify.hpp"
 
 int	main(void)
 {
-	Base	test;
+	Base	*test;
+
+	test = generate();
+	identify(test);
 }
