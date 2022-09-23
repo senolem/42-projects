@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:43:44 by albaur            #+#    #+#             */
-/*   Updated: 2022/09/12 13:24:32 by albaur           ###   ########.fr       */
+/*   Updated: 2022/09/23 14:59:41 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ class WrongAnimal
 	WrongAnimal &operator=(WrongAnimal const &src);
 	WrongAnimal(std::string type);
 	
-	virtual void	makeSound(void) const;
+	void	makeSound(void) const;
 	std::string	getType(void) const;
 };
 
