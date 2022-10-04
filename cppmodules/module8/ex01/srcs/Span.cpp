@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 10:25:17 by albaur            #+#    #+#             */
-/*   Updated: 2022/10/03 16:54:27 by albaur           ###   ########.fr       */
+/*   Updated: 2022/10/04 16:13:19 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ Span	&Span::operator=(const Span &src)
 	return (*this);
 }
 
-Span::Span(unsigned int sizeN) : N(sizeN), nb(0), array(sizeN)
+Span::Span(unsigned int sizeN) : N(sizeN), nb(0), array(0)
 {
 	
 }
@@ -50,7 +50,10 @@ void	Span::addNumber(int newNumber)
 		if (nb >= N)
 			throw(Exception("Span::CannotAddMoreNumbersException"));
 		else
-			array[nb++] = newNumber;
+		{
+			++nb;
+			array.push_back(newNumber);
+		}
 	}
 	catch(const std::exception& e)
 	{
@@ -60,45 +63,76 @@ void	Span::addNumber(int newNumber)
 
 unsigned int		Span::shortestSpan(void)
 {
-	int									nb;
-	std::vector<int>					tmp(array);
-	std::vector<int>::const_iterator	min = min_element(tmp.begin(), tmp.end());
+	int							dist = 0;
+	int							tmpDist = 0;
+	std::vector<int>			tmp(array);
+	std::vector<int>::iterator	iter;
+	std::vector<int>::iterator	tmpIter;
 
-	nb = (*min);
-	tmp.erase(min);
-	std::vector<int>::const_iterator	min2 = min_element(tmp.begin(), tmp.end());
-	return (static_cast<int>(*min2) - nb);
+	try
+	{
+		if (array.size() == 0)
+			throw(Exception("Span::EmptyVectorException"));
+		else if (array.size() == 1)
+			throw(Exception("Span::OnlyElementException"));
+		else
+		{
+			std::sort(tmp.begin(), tmp.end());
+			for (iter = tmp.begin(); iter != tmp.end(); ++iter)
+			{
+				tmpIter = iter;
+				++tmpIter;
+				tmpDist = *tmpIter - *iter;
+				if (iter == tmp.begin() || (tmpDist < dist && tmpIter != tmp.end()))
+					dist = tmpDist;
+			}
+			return (dist);
+		}
+	}
+	catch (std::exception &e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+	return (1);
 }
 
 unsigned int		Span::longestSpan(void)
 {
 	std::vector<int>::const_iterator	min = min_element(array.begin(), array.end());
 	std::vector<int>::const_iterator	max = max_element(array.begin(), array.end());
-
-	return (static_cast<int>(*max) - static_cast<int>(*min));
+	try
+	{
+		if (array.size() == 0)
+			throw(Exception("Span::EmptyVectorException"));
+		else if (array.size() == 1)
+			throw(Exception("Span::OnlyElementException"));
+		else
+			return (static_cast<int>(*max) - static_cast<int>(*min));
+	}
+	catch (std::exception &e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+	return (1);
 }
 
 void	Span::displayArray(void)
 {
-	std::vector<int>::iterator iter;
-	std::vector<int>::iterator tmp;
-
 	std::cout << "[";
-	for (iter = array.begin(); iter != array.end(); ++iter)
+	for (size_t i = 0; i < nb; ++i)
 	{
-		std::cout << *iter;
-		tmp = iter;
-		if (++tmp != array.end())
+		std::cout << array[i];
+		if (i + 1 < nb)
 			std::cout << ", ";
 	}
-	std::cout << "] (" << array.size() << " elements)" << std::endl;
+	std::cout << "] (" << nb << " elements)" << std::endl;
 }
 
 void	Span::addNumberRandom(void)
 {
 	srand(time(NULL));
-	std::generate(array.begin() + nb, array.end(), getRNG);
-	nb = N;
+	for (size_t i = 0; i < N; ++i)
+		this->addNumber(getRNG());
 }
 
 int	Span::getSize(void)
