@@ -6,13 +6,13 @@
 #    By: albaur <albaur@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/16 11:47:12 by faventur          #+#    #+#              #
-#    Updated: 2022/09/21 17:39:05 by albaur           ###   ########.fr        #
+#    Updated: 2022/10/04 17:25:37 by albaur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #		( ͡° ͜ʖ ͡°)			COMPILATION			( ͡° ͜ʖ ͡°)
 
-NAME = whatever
+NAME = MutantStack
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 LINKS =
