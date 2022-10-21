@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 10:46:51 by albaur            #+#    #+#             */
-/*   Updated: 2022/10/20 14:38:13 by albaur           ###   ########.fr       */
+/*   Updated: 2022/10/21 16:22:00 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	main(int argc, char **argv, char **env)
 	int	start = 1;
 
 	if (argc <= 1)
-		throw_error();
+		return (0);		
 	for(int i = 1; argv[i]; i++)
 	{
 		if (strcmp(argv[i], "|") == 0 || strcmp(argv[i], ";") == 0)
