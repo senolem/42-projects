@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:59 by albaur            #+#    #+#             */
-/*   Updated: 2022/11/24 15:36:02 by albaur           ###   ########.fr       */
+/*   Updated: 2022/11/24 16:29:58 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ namespace ft
 			bool				empty(void) const;
 			size_type			size(void) const;
 			value_type			&top(void);
-			const value_type	top(void) const;
+			const value_type	&top(void) const;
 			void				push(const value_type &val);
 			void				pop(void);
 

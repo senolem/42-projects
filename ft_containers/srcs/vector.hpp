@@ -6,8 +6,12 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:44:03 by albaur            #+#    #+#             */
-/*   Updated: 2022/11/22 14:52:23 by albaur           ###   ########.fr       */
+/*   Updated: 2022/11/24 16:33:14 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector_class.hpp"
+#ifndef VECTOR_HPP
+# define VECTOR_HPP
+# include "vector_class.hpp"
+
+#endif

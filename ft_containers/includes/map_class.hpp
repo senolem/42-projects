@@ -6,7 +6,11 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:25 by albaur            #+#    #+#             */
-/*   Updated: 2022/11/22 14:43:25 by albaur           ###   ########.fr       */
+/*   Updated: 2022/11/24 16:35:26 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MAP_CLASS_HPP
+# define MAP_CLASS_HPP
+
+#endif

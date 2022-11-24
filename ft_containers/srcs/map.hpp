@@ -6,8 +6,12 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:44:10 by albaur            #+#    #+#             */
-/*   Updated: 2022/11/22 14:47:24 by albaur           ###   ########.fr       */
+/*   Updated: 2022/11/24 16:34:16 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map_class.hpp"
+#ifndef MAP_HPP
+# define MAP_HPP
+# include "map_class.hpp"
+
+#endif
