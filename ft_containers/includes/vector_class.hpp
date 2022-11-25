@@ -6,12 +6,13 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:49 by albaur            #+#    #+#             */
-/*   Updated: 2022/11/24 14:47:27 by albaur           ###   ########.fr       */
+/*   Updated: 2022/11/25 11:19:25 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_CLASS_HPP
 # define VECTOR_CLASS_HPP
+# include <memory>
 # include "RandomAccessIterator.hpp"
 # include "ReverseRandomAccessIterator.hpp"
 
@@ -89,7 +90,7 @@ namespace ft
 					friend const_iterator	operator+(difference_type n, const iterator &rhs)
 					{
 						return (rhs.operator+(n));
-					};
+					}
 					const_iterator		&operator++(void);
 					const_iterator		operator++(int);
 					const_iterator		&operator--(void);
@@ -145,7 +146,8 @@ namespace ft
     		void					insert(iterator position, size_type n, const value_type &val);
 			template <class InputIterator>
 			void					insert(iterator position, InputIterator first, InputIterator last);
-			iterator				erase(iterator position);iterator erase (iterator first, iterator last);
+			iterator				erase(iterator position);
+			iterator				erase(iterator first, iterator last);
 			void					swap(vector &x);
 			void					clear(void);
 
