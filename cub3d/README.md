@@ -6,6 +6,8 @@ Anonymous user, 4chan: <https://archive.4plebs.org/x/thread/22661164/#22666250>
 
 This is a backrooms version of the cub3d project based on the rewritten version of MLX42, with cool features such as enemies, jumpscares, audio, a slender-based quest...
 
+You will need GLFW to compile this project (used by MLX42).
+
 <p align="center">
   <img src="https://i.imgur.com/bg3H6uw.png">
 </p>
