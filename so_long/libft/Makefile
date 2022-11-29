@@ -3,45 +3,113 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: albaur <albaur@student.42mulhouse.fr>      +#+  +:+       +#+         #
+#    By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/03/01 16:17:00 by albaur            #+#    #+#              #
-#    Updated: 2022/04/22 07:28:49 by albaur           ###   ########.fr        #
+#    Created: 2022/07/20 21:47:06 by albaur            #+#    #+#              #
+#    Updated: 2022/11/11 10:59:23 by faventur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+#		( ͡° ͜ʖ ͡°)			COMPILATION			( ͡° ͜ʖ ͡°)
+
 NAME = libft.a
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-RM = rm -f
-SRC = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
-ft_isdigit.c ft_isprint.c ft_itoa.c ft_memchr.c ft_memcmp.c ft_memcpy.c \
-ft_memmove.c ft_memset.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
-ft_putstr_fd.c ft_split.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c \
-ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c \
-ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c ft_strcpy.c \
-ft_printf.c ft_putstr.c ft_putptr.c ft_putnbr.c ft_putchar.c ft_itohex.c \
-ft_putint_unsigned.c ft_putchar_fd.c ft_itoa.c get_next_line.c \
-get_next_line_utils.c ft_getlastint.c
-SRCBONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
-ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
-OBJ = $(SRC:.c=.o)
-OBJBONUS = $(SRCBONUS:.c=.o)
+CFLAGS = -g3 -Wall -Wextra -Werror
+LINKS =
+LIBLINKS = -I./includes
+SRC_PATH = srcs/
+OBJ_PATH = bin/
+C_EXTENSION = .c
 
-$(NAME): $(OBJ)
-				ar rcs $(NAME) $(OBJ)
+#		눈_눈			SOURCES			눈_눈
 
-bonus: $(OBJ) $(OBJBONUS)
-				ar rcs $(NAME) $(OBJ) $(OBJBONUS)
+ARR_PATH	=	arr/
+ARR_FILES	=	ft_arrdup_after ft_arrdup_before ft_arrdup ft_arrjoin \
+				ft_arrlen ft_arrndup ft_arr_display ft_arr_freer ft_arr_freer_index \
+				ft_print_int_arr
+SRCS_FILES	+=	$(addprefix $(ARR_PATH), $(ARR_FILES))
+
+ERROR_PATH	=	error/
+ERROR_FILES =	ret_null ret_err throw_error ft_puterror throw_err_ex
+SRCS_FILES	+=	$(addprefix $(ERROR_PATH), $(ERROR_FILES))
+
+GNL_PATH	=	gnl/
+GNL_FILES	=	get_next_line_utils get_next_line
+SRCS_FILES	+=	$(addprefix $(GNL_PATH), $(GNL_FILES))
+
+IS_PATH		=	is/
+IS_FILES	=	ft_isalnum ft_isalpha ft_isascii ft_isdigit ft_isprint ft_isspace
+SRCS_FILES	+=	$(addprefix $(IS_PATH), $(IS_FILES))
+
+LST_PATH	=	lst/
+LST_FILES	=	ft_lstadd_back ft_lstadd_front ft_lstclear ft_lstdelone \
+				ft_lstiter ft_lstlast ft_lstmap ft_lstnew ft_lstsize
+SRCS_FILES	+=	$(addprefix $(LST_PATH), $(LST_FILES))
+
+MEM_PATH	=	mem/
+MEM_FILES	=	ft_bzero ft_calloc ft_memchr ft_memcmp ft_memcpy ft_memmove \
+				ft_memset ft_memsalloc
+SRCS_FILES	+=	$(addprefix $(MEM_PATH), $(MEM_FILES))
+
+PUT_PATH	=	put/
+PUT_FILES	=	ft_putchar_fd ft_putchar ft_putendl_fd ft_putint_unsigned \
+				ft_putnbr_fd ft_putnbr ft_putptr ft_putstr_fd ft_putstr
+SRCS_FILES	+=	$(addprefix $(PUT_PATH), $(PUT_FILES))
+
+STR_PATH	=	str/
+STR_FILES	=	ft_atoi ft_concat ft_dectobin ft_getlastint ft_intlen ft_itoa \
+				ft_itohex ft_printf ft_split ft_strcat ft_strchr ft_strcmp \
+				ft_strcpy ft_strdup ft_striteri ft_strjoin ft_strlcat \
+				ft_strlcpy ft_strlen ft_strmapi ft_strncmp ft_strnstr \
+				ft_strrchr ft_strtololo ft_substr ft_tolower ft_toupper ft_strstr
+SRCS_FILES	+=	$(addprefix $(STR_PATH), $(STR_FILES))
+
+STACK_PATH	=	stacks/
+STACK_FILES	=	ft_stacknew ft_newnode ft_stackadd_top ft_stackadd_bottom \
+				ft_stackdelone ft_stackclear ft_stackinsert ft_stackiter \
+				ft_stacksize ft_stacksort ft_stackiter_if ft_stack_remove_if \
+				ft_create_chartab ft_charr_to_stack_converter ft_stacktablen \
+				ft_stacklen
+SRCS_FILES	+=	$(addprefix $(STACK_PATH), $(STACK_FILES))
+
+SRCS_FILES_EXT		+=	$(addsuffix $(C_EXTENSION), $(SRCS_FILES))
+SRCS				+=	$(addprefix $(SRC_PATH), $(SRCS_FILES_EXT))
+OBJS				=	$(addprefix $(OBJ_PATH), $(SRCS_FILES_EXT:c=o))
+
+#		(҂◡_◡)			UTILS			(҂◡_◡)
+
+RM = rm -rf
+
+#		(｡◕‿◕｡)			COLORS			(｡◕‿◕｡)
+
+NONE = \033[0m
+HIRED = \033[31m
+HIGREEN = \033[92m
+HIBLUE = \033[94m
+CURSIVE = \033[3m
+
+#		( ಠ ʖ̯ ಠ)		RULES			( ಠ ʖ̯ ಠ)
 
 all: $(NAME)
 
+$(NAME):  $(OBJS)
+			@echo "$(HIRED)Compiling libft...$(NONE)"
+			@ar -rcs $@ $^
+			@echo "$(HIGREEN)Done.$(NONE)"
+
+.c.o:
+	@$(CC) $(FLAGS) -c ${LIBLINKS} $< -o ${<:.c=.o} 
+
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c 
+	@mkdir -p $(dir $@)
+	${CC} ${CFLAGS} $(LIBLINKS) -c $< -o $@
+
 clean:
-				$(RM) $(OBJ) $(OBJBONUS)
+	$(RM) -r $(OBJ_PATH)
 
 fclean: clean
-				$(RM) $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: clean fclean re all
+.phony: all clean fclean re

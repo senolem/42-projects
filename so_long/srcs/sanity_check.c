@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sanity_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42mulhouse.fr>      +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 16:18:22 by albaur            #+#    #+#             */
-/*   Updated: 2022/04/22 05:06:17 by albaur           ###   ########.fr       */
+/*   Updated: 2022/11/29 10:24:56 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	ext_check(char *fileName)
 	int		cmp;
 
 	ext = ft_strrchr(fileName, '.');
+	if (!ext)
+		error_handler("\x1B[31mError : map file extension is not .ber");
 	cmp = ft_strncmp(ext, ".ber", 4);
 	if (cmp)
 		error_handler("\x1B[31mError : map file extension is not .ber");

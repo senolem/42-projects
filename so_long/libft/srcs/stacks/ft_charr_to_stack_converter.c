@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   ft_charr_to_stack_converter.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/01 15:08:53 by albaur            #+#    #+#             */
-/*   Updated: 2022/03/03 12:08:39 by albaur           ###   ########.fr       */
+/*   Created: 2022/07/20 10:12:30 by faventur          #+#    #+#             */
+/*   Updated: 2022/10/11 16:42:12 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putendl_fd(char *s, int fd)
+t_stack	*ft_charr_to_stack_converter(char **arr)
 {
-	int	i;
+	t_stack	*new;
+	size_t	i;
 
+	if (!arr || !*arr)
+		return (NULL);
 	i = 0;
-	if (fd < 0 || !s)
-		return ;
-	while (s[i] != '\0')
+	new = ft_stacknew();
+	while (arr[i])
 	{
-		write(fd, &s[i], 1);
+		ft_stackadd_bottom(new, ft_newnode(arr[i]));
 		i++;
 	}
-	write(fd, "\n", 1);
+	return (new);
 }

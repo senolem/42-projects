@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 18:42:24 by albaur            #+#    #+#             */
-/*   Updated: 2022/04/28 13:49:55 by albaur           ###   ########.fr       */
+/*   Updated: 2022/11/29 10:21:27 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // librairies
 # include <mlx.h>
 # include <fcntl.h>
-# include "../libft/libft.h"
+# include "../libft/includes/libft.h"
 
 // variables
 # define T_S 63
