@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:49:08 by albaur            #+#    #+#             */
-/*   Updated: 2022/12/08 11:38:14 by albaur           ###   ########.fr       */
+/*   Updated: 2022/12/08 16:35:25 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,6 +346,116 @@ namespace ft
 	typename vector<T, Alloc>::size_type	vector<T, Alloc>::size(void) const
 	{
 		return (_size);
+	}
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::size_type	vector<T, Alloc>::max_size(void) const
+	{
+		return (_max_size);
+	}
+
+	template <class T, class Alloc>
+	void	vector<T, Alloc>::resize(size_type n, value_type val)
+	{
+		if (n < size())
+		{
+			while (n != _size)
+				_alloc.destroy(&_data[_size--]);
+		}
+		else
+		{
+			if (n <= _capacity * 2)
+				reserve(_capacity * 2);
+			else
+				reserve(n);
+			while (_size < n)
+			{
+				_alloc.construct(&_data[_size], val);
+				++_size;
+			}
+		}
+	}
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::size_type	vector<T, Alloc>::capacity(void) const
+	{
+		return (_capacity);
+	}
+
+	template <class T, class Alloc>
+	bool	vector<T, Alloc>::empty(void) const
+	{
+		if (size() > 0)
+			return (true);
+		return (false);
+	}
+
+	template <class T, class Alloc>
+	void	vector<T, Alloc>::reserve(size_type n)
+	{
+		if (n > _capacity)
+		{
+			T	*tmp;
+
+			_capacity = n;
+			tmp = _alloc.allocate(n);
+			for (size_type i = 0; i < _size; i++)
+			{
+				_alloc.construct(&tmp[i], _data[i]);
+				_alloc.destroy(&_data[i]);
+			}
+			_data = tmp;
+		}
+	}
+
+	// element access
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::reference	vector<T, Alloc>::operator[](size_type n)
+	{
+		return (_data[n]);
+	}
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::const_reference	vector<T, Alloc>::operator[](size_type n) const
+	{
+		return (_data[n]);
+	}
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::reference	vector<T, Alloc>::at(size_type n)
+	{
+		return (_data[n]);
+	}
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::const_reference	vector<T, Alloc>::at(size_type n) const
+	{
+		return (_data[n]);
+	}
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::reference	vector<T, Alloc>::front(void)
+	{
+		return (_data[0]);
+	}
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::const_reference	vector<T, Alloc>::front(void) const
+	{
+		return (_data[0]);
+	}
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::reference	vector<T, Alloc>::back(void)
+	{
+		return (_data[size() - 1]);
+	}
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::const_reference	vector<T, Alloc>::back(void) const
+	{
+		return (_data[size() - 1]);
 	}
 }
 

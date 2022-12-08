@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:49 by albaur            #+#    #+#             */
-/*   Updated: 2022/12/01 14:21:34 by albaur           ###   ########.fr       */
+/*   Updated: 2022/12/08 16:36:05 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ namespace ft
 			reference				front(void);
 			const_reference			front(void) const;
 			reference				back(void);
-			reference				back(void) const;
+			const_reference			back(void) const;
 
 			// modifiers
 			template <class InputIt> 
