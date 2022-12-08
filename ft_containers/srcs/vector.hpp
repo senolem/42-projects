@@ -1,18 +1,19 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   vector.hpp										 :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: albaur <albaur@student.42.fr>			  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2022/11/22 14:44:03 by albaur			#+#	#+#			 */
-/*   Updated: 2022/11/29 14:42:45 by albaur		   ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vector.hpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/08 09:49:08 by albaur            #+#    #+#             */
+/*   Updated: 2022/12/08 11:38:14 by albaur           ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 # include "vector_class.hpp"
+# include "utils.hpp"
 
 namespace ft
 {
@@ -81,13 +82,13 @@ namespace ft
 	template<class T, class Alloc>
 	typename vector<T, Alloc>::iterator::difference_type	vector<T, Alloc>::iterator::operator-(const RandomAccessIterator<T> &n) const
 	{
-		return (RandomAccessIterator<T>operator-(n));
+		return (RandomAccessIterator<T>::operator-(n));
 	}
 
 	template<class T, class Alloc>
 	typename vector<T, Alloc>::iterator	vector<T, Alloc>::iterator::operator-(difference_type n) const
 	{
-		return (RandomAccessIterator<T>operator-(n));
+		return (RandomAccessIterator<T>::operator-(n));
 	}
 
 	template <class T, class Alloc>
@@ -113,7 +114,7 @@ namespace ft
 	typename vector<T, Alloc>::iterator& vector<T, Alloc>::iterator::operator--(void)
 	{
 		RandomAccessIterator<T>::operator--();
-		(return *this);
+		return (*this);
 	}
 
 	template <class T, class Alloc>
@@ -232,7 +233,7 @@ namespace ft
 	vector<T, Alloc>::vector(size_type n, const value_type &val, const allocator_type &alloc) : _alloc(alloc), _size(n), _capacity(n)
 	{
 		_data = _alloc.allocate(n);
-		for (size_t i = 0; i < n; i++)
+		for (size_type i = 0; i < n; i++)
 			_alloc.construct(&_data[i], val);
 	}
 
@@ -242,9 +243,9 @@ namespace ft
 	{
 		_capacity = ft::InputIt_get_len(first, last);
 		_data = _alloc.allocate(_capacity);
-		for (size_t i = 0; first != last; i++)
+		for (size_type i = 0; first != last; i++)
 		{
-			_alloc.construct(&data[i], *first);
+			_alloc.construct(&_data[i], *first);
 			++_size;
 		}
 	}
@@ -254,12 +255,98 @@ namespace ft
 	{
 		_max_size = other.max_size();
 		_data = _alloc.allocate(_capacity);
-		for (size_t i = 0; i < _size; i++)
+		for (size_type i = 0; i < _size; i++)
 			_alloc.construct(&_data[i], other[i]);
 	}
 
 	template <class T, class Alloc>
-	vector<T, Alloc>
+	vector<T, Alloc>::~vector(void)
+	{
+		clear();
+		_data = NULL;
+	}
+
+	template <class T, class Alloc>
+	vector<T, Alloc> & vector<T, Alloc>::operator=(const vector &other)
+    {
+        vector<T, Alloc> tmp;
+        if (this != &other)
+        {
+			for (size_type i = 0; i < _size; i++)
+				_alloc.destroy(&_data[i]);
+			if (other.size() > tmp._capacity)
+				tmp._capacity = other.size();
+			if (other.capacity() < _capacity)
+				tmp._capacity = _capacity;
+			tmp._data = _alloc.allocate(tmp._capacity);
+			const_iterator first = other.begin();
+			const_iterator last = other.end();
+			for (size_type i = 0; first != last; ++first)
+				tmp._alloc.construct(&tmp._data[i++], *first);
+			_data = tmp._data;
+			_size = other.size();
+			_capacity = tmp._capacity;
+		}
+		return (*this);
+	}
+
+	// iterators
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::iterator	vector<T, Alloc>::begin(void)
+	{
+		return (iterator(_data));
+	}
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::const_iterator	vector<T, Alloc>::begin(void) const
+	{
+		return (const_iterator(_data));
+	}
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::iterator	vector<T, Alloc>::end(void)
+	{
+		return (iterator(_data + _size));
+	}
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::const_iterator	vector<T, Alloc>::end(void) const
+	{
+		return (const_iterator(_data + _size));
+	}
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::reverse_iterator	vector<T, Alloc>::rbegin(void)
+	{
+		return (reverse_iterator(end()));
+	}
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::const_reverse_iterator	vector<T, Alloc>::rbegin(void) const
+	{
+		return (const_reverse_iterator(end()));
+	}
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::reverse_iterator	vector<T, Alloc>::rend(void)
+	{
+		return (reverse_iterator(begin()));
+	}
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::const_reverse_iterator	vector<T, Alloc>::rend(void) const
+	{
+		return (const_reverse_iterator(begin()));
+	}
+
+	// capacity
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::size_type	vector<T, Alloc>::size(void) const
+	{
+		return (_size);
+	}
 }
 
 #endif
