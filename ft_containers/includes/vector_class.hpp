@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:49 by albaur            #+#    #+#             */
-/*   Updated: 2022/11/25 11:19:25 by albaur           ###   ########.fr       */
+/*   Updated: 2022/12/01 14:21:34 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,11 @@ namespace ft
 
 			explicit vector(const allocator_type &alloc = allocator_type());
 			explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type());
-			template <class InputIterator>
-			vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type());
-			vector(const vector &x);
+			template <class InputIt>
+			vector(InputIt first, InputIt last, const allocator_type &alloc = allocator_type());
+			vector(const vector &other);
 			~vector(void);
-			vector& operator=(const vector &x);
+			vector& operator=(const vector &other);
 
 			// iterators
 			iterator				begin(void);
@@ -137,15 +137,15 @@ namespace ft
 			reference				back(void) const;
 
 			// modifiers
-			template <class InputIterator> 
-			void					assign(InputIterator first, InputIterator last);
+			template <class InputIt> 
+			void					assign(InputIt first, InputIt last);
 			void					assign(size_type n, const value_type &val);
 			void					push_back (const value_type &val);
 			void					pop_back(void);
 			iterator				insert(iterator position, const value_type  &val);
     		void					insert(iterator position, size_type n, const value_type &val);
-			template <class InputIterator>
-			void					insert(iterator position, InputIterator first, InputIterator last);
+			template <class InputIt>
+			void					insert(iterator position, InputIt first, InputIt last);
 			iterator				erase(iterator position);
 			iterator				erase(iterator first, iterator last);
 			void					swap(vector &x);
@@ -153,6 +153,13 @@ namespace ft
 
 			// allocator
 			allocator_type			get_allocator() const;
+
+			private:
+				T*				_data;
+        		allocator_type	_alloc;
+				size_type		_size;
+				size_type		_capacity;
+				size_type		_max_size;
 	};
 
 	// non member function overloads
