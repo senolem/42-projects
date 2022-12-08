@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:49:08 by albaur            #+#    #+#             */
-/*   Updated: 2022/12/08 16:35:25 by albaur           ###   ########.fr       */
+/*   Updated: 2022/12/08 16:59:16 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,11 +135,11 @@ namespace ft
 
 	}
 
-	// template<class T, class Alloc>
-	// vector<T, Alloc>::const_iterator::const_iterator(const RandomAccessIterator<T> &src) : RandomAccessIterator<T>(src)
-	// {
+	template<class T, class Alloc>
+	vector<T, Alloc>::const_iterator::const_iterator(const RandomAccessIterator<T> &src) : RandomAccessIterator<T>(src)
+	{
 
-	// }
+	}
 
 	template<class T, class Alloc>
 	vector<T, Alloc>::const_iterator::~const_iterator()

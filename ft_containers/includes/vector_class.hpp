@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:49 by albaur            #+#    #+#             */
-/*   Updated: 2022/12/08 16:36:05 by albaur           ###   ########.fr       */
+/*   Updated: 2022/12/08 17:00:51 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ namespace ft
 				
 					const_iterator(void);
 					const_iterator(T *src);
-					const_iterator(iterator const &src);
+					const_iterator(const RandomAccessIterator<value_type> &src);
 					virtual ~const_iterator(void);
 
 					reference				operator*(void) const;
@@ -87,7 +87,7 @@ namespace ft
 					difference_type			operator-(const RandomAccessIterator<value_type> &n) const;
 					const_iterator			operator-(difference_type n) const;
 					const_iterator			operator+(difference_type n) const;
-					friend const_iterator	operator+(difference_type n, const iterator &rhs)
+					friend const_iterator	operator+(difference_type n, const const_iterator &rhs)
 					{
 						return (rhs.operator+(n));
 					}
