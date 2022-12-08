@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:49:08 by albaur            #+#    #+#             */
-/*   Updated: 2022/12/08 16:59:16 by albaur           ###   ########.fr       */
+/*   Updated: 2022/12/08 17:52:39 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -426,12 +426,14 @@ namespace ft
 	typename vector<T, Alloc>::reference	vector<T, Alloc>::at(size_type n)
 	{
 		return (_data[n]);
+		// add exception
 	}
 
 	template <class T, class Alloc>
 	typename vector<T, Alloc>::const_reference	vector<T, Alloc>::at(size_type n) const
 	{
 		return (_data[n]);
+		// add exception
 	}
 
 	template <class T, class Alloc>
@@ -456,6 +458,47 @@ namespace ft
 	typename vector<T, Alloc>::const_reference	vector<T, Alloc>::back(void) const
 	{
 		return (_data[size() - 1]);
+	}
+
+	// modifiers
+
+	template <class T, class Alloc>
+	template <class InputIt>
+	void	vector<T, Alloc>::assign(InputIt first, InputIt last)
+	{
+		size_type	len = InputIt_get_len(first, last);
+
+		clear();
+		if (len > capacity())
+		{
+			_alloc.deallocate(_data, _capacity);
+			_capacity = len;
+			_size = 0;
+			_data = _alloc.allocate(len);
+		}
+		for (; first != last; first++)
+			_alloc.construct(&_data[_size++], *first);
+	}
+
+	template <class T, class Alloc>
+	void	vector<T, Alloc>::assign(size_type n, const value_type &val)
+	{
+		clear();
+		if (n > capacity())
+		{
+			_alloc.deallocate(_data, _capacity);
+			_capacity = n;
+			_size = 0;
+			_data = _alloc.allocate(n);
+		}
+		for (size_type i = 0; i < n; i++)
+			_alloc.construct(&_data[_size++], val);
+	}
+
+	template <class T, class Alloc>
+	void	vector<T, Alloc>::push_back(const value_type &val)
+	{
+		
 	}
 }
 

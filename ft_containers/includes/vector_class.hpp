@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:49 by albaur            #+#    #+#             */
-/*   Updated: 2022/12/08 17:00:51 by albaur           ###   ########.fr       */
+/*   Updated: 2022/12/08 17:43:03 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ namespace ft
 			template <class InputIt> 
 			void					assign(InputIt first, InputIt last);
 			void					assign(size_type n, const value_type &val);
-			void					push_back (const value_type &val);
+			void					push_back(const value_type &val);
 			void					pop_back(void);
 			iterator				insert(iterator position, const value_type  &val);
     		void					insert(iterator position, size_type n, const value_type &val);
