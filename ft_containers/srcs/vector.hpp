@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:49:08 by albaur            #+#    #+#             */
-/*   Updated: 2022/12/08 17:52:39 by albaur           ###   ########.fr       */
+/*   Updated: 2022/12/09 11:55:40 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -497,6 +497,70 @@ namespace ft
 
 	template <class T, class Alloc>
 	void	vector<T, Alloc>::push_back(const value_type &val)
+	{
+		if (_size == _capacity)
+			resize(_size + 1, val);
+		else
+			_alloc.construct(&_data[_size++], val);
+	}
+
+	template <class T, class Alloc>
+	void	vector<T, Alloc>::pop_back(void)
+	{
+		_alloc.destroy(&_data[_size--]);
+	}
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::iterator	vector<T, Alloc>::insert(iterator position, const value_type &val)
+	{
+		difference_type	pos = position - begin();
+
+		insert(position, 1, val);
+		return (iterator(begin() + pos));
+	}
+
+	template <class T, class Alloc>
+	void	vector<T, Alloc>::insert(iterator position, size_type n, const value_type &val)
+	{
+		difference_type	pos = position - begin();
+		difference_type	pos2 = end() - begin();
+		iterator		iter;
+		iterator		iter2;
+
+		resize(_size + n);
+		iter = begin() + pos2;
+		iter2 = end();
+		position = begin() + pos;
+		while (iter != position)
+			*(--iter2) = *(--iter);
+		while (n > 0)
+		{
+			*(position++) = val;
+			--n;
+		}
+	}
+
+	template <class T, class Alloc>
+	template <class InputIt>
+	void	vector<T, Alloc>::insert(iterator position, InputIt first, InputIt last)
+	{
+		difference_type	pos = position - begin();
+		difference_type	pos2 = end() - begin();
+		iterator		iter;
+		iterator		iter2;
+
+		resize(_size + InputIt_get_len(first, last));
+		iter = begin() + pos2;
+		iter2 = end();
+
+		while (iter != position)
+			*(--iter2) = *(--iter);
+		while (first != last)
+			position++ = *(first++);
+	}
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::iterator	vector<T, Alloc>::erase(iterator position)
 	{
 		
 	}
