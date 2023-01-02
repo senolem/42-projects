@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:49:08 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/02 14:34:56 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/02 17:07:16 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -387,8 +387,8 @@ namespace ft
 	bool	vector<T, Alloc>::empty(void) const
 	{
 		if (size() > 0)
-			return (true);
-		return (false);
+			return (false);
+		return (true);
 	}
 
 	template <class T, class Alloc>
