@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:49:08 by albaur            #+#    #+#             */
-/*   Updated: 2022/12/09 11:55:40 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/02 11:18:08 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define VECTOR_HPP
 # include "vector_class.hpp"
 # include "utils.hpp"
+# include "Exception.hpp"
 
 namespace ft
 {
@@ -425,15 +426,19 @@ namespace ft
 	template <class T, class Alloc>
 	typename vector<T, Alloc>::reference	vector<T, Alloc>::at(size_type n)
 	{
-		return (_data[n]);
-		// add exception
+		if (n >= size())
+			throw (Exception("out_of_range"));
+		else
+			return (_data[n]);
 	}
 
 	template <class T, class Alloc>
 	typename vector<T, Alloc>::const_reference	vector<T, Alloc>::at(size_type n) const
 	{
-		return (_data[n]);
-		// add exception
+		if (n >= size())
+			throw (Exception("out_of_range"));
+		else
+			return (_data[n]);
 	}
 
 	template <class T, class Alloc>
@@ -544,7 +549,6 @@ namespace ft
 	template <class InputIt>
 	void	vector<T, Alloc>::insert(iterator position, InputIt first, InputIt last)
 	{
-		difference_type	pos = position - begin();
 		difference_type	pos2 = end() - begin();
 		iterator		iter;
 		iterator		iter2;
@@ -562,7 +566,56 @@ namespace ft
 	template <class T, class Alloc>
 	typename vector<T, Alloc>::iterator	vector<T, Alloc>::erase(iterator position)
 	{
-		
+		_alloc.destroy(position);
+		std::copy(position + 1, end(), position);
+		_size--;
+		return (position);
+	}
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::iterator	vector<T, Alloc>::erase(iterator first, iterator last)
+	{
+		difference_type	diff = last - first;
+		for (iterator iter; iter < last; iter++)
+			_alloc.destroy(iter);
+		std::copy(last, end(), first);
+		_size -= diff;
+		return (first);
+	}
+
+	template <class T, class Alloc>
+	void	vector<T, Alloc>::swap(vector &x)
+	{
+		T*				tmp_data;
+		allocator_type	tmp_alloc;
+		size_type		tmp_size;
+		size_type		tmp_capacity;
+		size_type		tmp_max_size;
+
+		tmp_data = x._data;
+		tmp_alloc = x._alloc;
+		tmp_size = x._size;
+		tmp_capacity = x._capacity;
+		tmp_max_size = x._max_size;
+		x._data = _data;
+		x._alloc = _alloc;
+		x._size = _size;
+		x._capacity = _capacity;
+		x._max_size = _max_size;
+		_data = tmp_data;
+		_alloc = tmp_alloc;
+		_size = tmp_size;
+		_capacity = tmp_capacity;
+		_max_size = tmp_max_size;
+	}
+
+	template <class T, class Alloc>
+	void	vector<T, Alloc>::clear()
+	{
+		iterator	iter = begin();
+		for (size_type i = 0; i < _capacity; i++)
+			_alloc.destroy(&*iter++);
+		_size = 0;
 	}
 }
 
