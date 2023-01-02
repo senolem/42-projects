@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:49:08 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/02 11:18:08 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/02 14:34:56 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -352,7 +352,7 @@ namespace ft
 	template <class T, class Alloc>
 	typename vector<T, Alloc>::size_type	vector<T, Alloc>::max_size(void) const
 	{
-		return (_max_size);
+		return (_alloc.max_size());
 	}
 
 	template <class T, class Alloc>

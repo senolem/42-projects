@@ -1,110 +1,73 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/02 13:12:23 by albaur            #+#    #+#             */
+/*   Updated: 2023/01/02 14:36:21 by albaur           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <iostream>
 #include <string>
 #include <deque>
-//#include "map.hpp"
 #include <map>
 #include "stack.hpp"
+#include <vector>
 #include "vector.hpp"
+#define MAX_ITER 10
 
-#include <stdlib.h>
-
-#define MAX_RAM 4294967296
-#define BUFFER_SIZE 4096
-struct Buffer
+int	main(int argc, char **argv)
 {
-	int idx;
-	char buff[BUFFER_SIZE];
-};
-
-
-#define COUNT (MAX_RAM / (int)sizeof(Buffer))
-
-template<typename T>
-class MutantStack : public ft::stack<T>
-{
-public:
-	MutantStack() {}
-	MutantStack(const MutantStack<T>& src) { *this = src; }
-	MutantStack<T>& operator=(const MutantStack<T>& rhs) 
-	{
-		this->c = rhs.c;
-		return *this;
-	}
-	~MutantStack() {}
-
-	typedef typename ft::stack<T>::container_type::iterator iterator;
-
-	iterator begin() { return this->c.begin(); }
-	iterator end() { return this->c.end(); }
-};
-
-int main(int argc, char** argv) {
 	if (argc != 2)
 	{
 		std::cerr << "Usage: ./test seed" << std::endl;
 		std::cerr << "Provide a seed please" << std::endl;
-		std::cerr << "Count value:" << COUNT << std::endl;
-		return 1;
+		return (1);
 	}
-	const int seed = atoi(argv[1]);
+
+	const int	seed = atoi(argv[1]);
+
+	std::cout << "Current seed : " << seed << std::endl;
+	ft::vector<std::string>		vector1;
+	ft::vector<int>				vector2;
+	std::vector<std::string>	vector3;
+	std::vector<int>			vector4;
+
+	std::cout << "Testing : ft::vector" << std::endl;
 	srand(seed);
+	for (size_t i = 0; i < MAX_ITER; i++)
+		vector2.push_back(rand() % MAX_ITER);
+	ft::vector<int>::iterator iter = vector2.begin();
+	for (; iter != vector2.end(); iter++)
+		std::cout << *iter << " ";
+	std::cout << *iter << std::endl;
+	std::cout << "First element = " << *(vector2.begin()) << std::endl;
+	std::cout << "Last element = " << *(vector2.end()) << std::endl;
+	std::cout << "ReverseFirst element = " << *(vector2.rbegin()) << std::endl;
+	std::cout << "ReverseLast element = " << *(vector2.rend()) << std::endl;
+	std::cout << "Size = " << vector2.size() << " (expected " << MAX_ITER << ")" << std::endl;
+	std::cout << "Max Size = " << vector2.max_size() << std::endl;
+	std::cout << "Capacity = " << vector2.capacity() << std::endl;
 
-	ft::vector<std::string> vector_str;
-	ft::vector<int> vector_int;
-	ft::stack<int> stack_int;
-	ft::vector<Buffer> vector_buffer;
-	ft::stack<Buffer, std::deque<Buffer> > stack_deq_buffer;
-	std::map<int, int> map_int;
+	std::cout << std::endl << std::endl;
 
-	for (int i = 0; i < COUNT; i++)
-	{
-		vector_buffer.push_back(Buffer());
-	}
-
-	for (int i = 0; i < COUNT; i++)
-	{
-		const int idx = rand() % COUNT;
-		vector_buffer[idx].idx = 5;
-	}
-	ft::vector<Buffer>().swap(vector_buffer);
-
-	try
-	{
-		for (int i = 0; i < COUNT; i++)
-		{
-			const int idx = rand() % COUNT;
-			vector_buffer.at(idx);
-			std::cerr << "Error: THIS VECTOR SHOULD BE EMPTY!!" <<std::endl;
-		}
-	}
-	catch(const std::exception& e)
-	{
-		//NORMAL ! :P
-	}
-	
-	for (int i = 0; i < COUNT; ++i)
-	{
-		map_int.insert(std::make_pair(rand(), rand()));
-	}
-
-	int sum = 0;
-	for (int i = 0; i < 10000; i++)
-	{
-		int access = rand();
-		sum += map_int[access];
-	}
-	std::cout << "should be constant with the same seed: " << sum << std::endl;
-
-	{
-		std::map<int, int> copy = map_int;
-	}
-	MutantStack<char> iterable_stack;
-	for (char letter = 'a'; letter <= 'z'; letter++)
-		iterable_stack.push(letter);
-	for (MutantStack<char>::iterator it = iterable_stack.begin(); it != iterable_stack.end(); it++)
-	{
-		std::cout << *it;
-	}
-	std::cout << std::endl;
+	std::cout << "Testing : std::vector" << std::endl;
+	srand(seed);
+	for (size_t i = 0; i < MAX_ITER; i++)
+		vector4.push_back(rand() % MAX_ITER);
+	std::vector<int>::iterator iter2 = vector4.begin();
+	for (; iter2 != vector4.end(); iter2++)
+		std::cout << *iter2 << " ";
+	std::cout << *iter << std::endl;
+	std::cout << "First element = " << *(vector4.begin()) << std::endl;
+	std::cout << "Last element = " << *(vector4.end()) << std::endl;
+	std::cout << "ReverseFirst element = " << *(vector4.rbegin()) << std::endl;
+	std::cout << "ReverseLast element = " << *(vector4.rend()) << std::endl;
+	std::cout << "Size = " << vector4.size() << " (expected " << MAX_ITER << ")" << std::endl;
+	std::cout << "Max Size = " << vector4.max_size() << std::endl;
+	std::cout << "Capacity = " << vector2.capacity() << std::endl;
 	return (0);
 }
