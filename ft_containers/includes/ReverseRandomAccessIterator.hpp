@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:34:58 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/03 14:33:24 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/03 16:26:48 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ namespace ft
 
 			iterator_type	base(void) const {return (_base);};
 
-			reference		operator*(void) const {return (*_base);}
+			reference		operator*(void) const {return *(_base);}
 			pointer			operator->(void) const {return (&(operator*()));}
 			reference		operator[](difference_type n) const {return *(*this + n);}
 			ReverseRandomAccessIterator	operator+(difference_type n) const {return (ReverseRandomAccessIterator(_base - n));}

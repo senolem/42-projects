@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:49:08 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/03 15:11:16 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/03 15:22:17 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -568,7 +568,7 @@ namespace ft
 	template <class T, class Alloc>
 	typename vector<T, Alloc>::iterator	vector<T, Alloc>::erase(iterator position)
 	{
-		_alloc.destroy(position);
+		_alloc.destroy(&*position);
 		std::copy(position + 1, end(), position);
 		_size--;
 		return (position);
@@ -578,8 +578,8 @@ namespace ft
 	typename vector<T, Alloc>::iterator	vector<T, Alloc>::erase(iterator first, iterator last)
 	{
 		difference_type	diff = last - first;
-		for (iterator iter; iter < last; iter++)
-			_alloc.destroy(iter);
+		for (iterator iter = first; iter < last; iter++)
+			_alloc.destroy(&*iter);
 		std::copy(last, end(), first);
 		_size -= diff;
 		return (first);
