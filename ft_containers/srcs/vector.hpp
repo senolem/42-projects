@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:49:08 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/03 10:31:39 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/03 15:11:16 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ namespace ft
 
 	template <class T, class Alloc>
 	template <class InputIt>
-	vector<T, Alloc>::vector(InputIt first, InputIt last, const allocator_type &alloc) : _alloc(alloc), _size(0), _capacity(0)
+	vector<T, Alloc>::vector(typename ft::enable_if<!std::numeric_limits<InputIt>::is_integer, InputIt>::type first, InputIt last, const allocator_type &alloc) : _alloc(alloc), _size(0), _capacity(0)
 	{
 		_capacity = ft::InputIt_get_len(first, last);
 		_data = _alloc.allocate(_capacity);
@@ -469,7 +469,7 @@ namespace ft
 
 	template <class T, class Alloc>
 	template <class InputIt>
-	void	vector<T, Alloc>::assign(InputIt first, InputIt last)
+	void	vector<T, Alloc>::assign(typename ft::enable_if<!std::numeric_limits<InputIt>::is_integer, InputIt>::type first, InputIt last)
 	{
 		size_type	len = InputIt_get_len(first, last);
 
@@ -549,6 +549,7 @@ namespace ft
 	template <class InputIt>
 	void	vector<T, Alloc>::insert(iterator position, InputIt first, typename ft::enable_if<!std::numeric_limits<InputIt>::is_integer, InputIt>::type last)
 	{
+		difference_type	pos = position - begin();
 		difference_type	pos2 = end() - begin();
 		iterator		iter;
 		iterator		iter2;
@@ -556,11 +557,12 @@ namespace ft
 		resize(_size + InputIt_get_len(first, last));
 		iter = begin() + pos2;
 		iter2 = end();
+		position = begin() + pos;
 
 		while (iter != position)
 			*(--iter2) = *(--iter);
 		while (first != last)
-			position++ = (first++);
+			*position++ = *(first++);
 	}
 
 	template <class T, class Alloc>

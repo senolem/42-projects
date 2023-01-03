@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:49 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/03 10:33:40 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/03 15:05:12 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ namespace ft
 			explicit vector(const allocator_type &alloc = allocator_type());
 			explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type());
 			template <class InputIt>
-			vector(InputIt first, InputIt last, const allocator_type &alloc = allocator_type());
+			vector(typename ft::enable_if<!std::numeric_limits<InputIt>::is_integer, InputIt>::type first, InputIt last, const allocator_type &alloc = allocator_type());
 			vector(const vector &other);
 			~vector(void);
 			vector& operator=(const vector &other);
@@ -139,7 +139,7 @@ namespace ft
 
 			// modifiers
 			template <class InputIt> 
-			void					assign(InputIt first, InputIt last);
+			void					assign(typename ft::enable_if<!std::numeric_limits<InputIt>::is_integer, InputIt>::type first, InputIt last);
 			void					assign(size_type n, const value_type &val);
 			void					push_back(const value_type &val);
 			void					pop_back(void);
