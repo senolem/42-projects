@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:35:50 by albaur            #+#    #+#             */
-/*   Updated: 2022/11/24 15:23:36 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/03 11:46:39 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ namespace ft
 			RandomAccessIterator<T> 		operator++(int) {RandomAccessIterator<T>	tmp(*this); val++; return (tmp);}
 			RandomAccessIterator<T> 		&operator--(void) {val--; return (*this);}
 			RandomAccessIterator<T> 		operator--(int) {RandomAccessIterator<T>	tmp(*this); val--; return (tmp);}
-			RandomAccessIterator<T>			operator+(difference_type n) {return RandomAccessIterator(val + n);}
+			RandomAccessIterator<T>			operator+(difference_type n) const {return RandomAccessIterator(val + n);}
 			friend RandomAccessIterator<T>	operator+(difference_type n, RandomAccessIterator const &rhs) {return (rhs.operator+(n));}
 			RandomAccessIterator<T>			operator-(difference_type n) const {return (RandomAccessIterator(val +n));}
 			difference_type					operator-(RandomAccessIterator const &n) const {return (val - n.val);}

@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:46:06 by albaur            #+#    #+#             */
-/*   Updated: 2022/12/08 09:49:03 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/03 10:31:15 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 
 namespace ft
 {
+	template <bool, class _type = void>
+	struct enable_if{};
+
+	template <class _type>
+	struct enable_if<true, _type> {typedef _type type;};
+
 	template <class InputIt>
 	size_t	InputIt_get_len(InputIt first, InputIt last)
 	{

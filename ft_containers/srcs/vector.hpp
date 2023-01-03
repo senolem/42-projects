@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:49:08 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/02 17:07:16 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/03 10:31:39 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -547,7 +547,7 @@ namespace ft
 
 	template <class T, class Alloc>
 	template <class InputIt>
-	void	vector<T, Alloc>::insert(iterator position, InputIt first, InputIt last)
+	void	vector<T, Alloc>::insert(iterator position, InputIt first, typename ft::enable_if<!std::numeric_limits<InputIt>::is_integer, InputIt>::type last)
 	{
 		difference_type	pos2 = end() - begin();
 		iterator		iter;
@@ -560,7 +560,7 @@ namespace ft
 		while (iter != position)
 			*(--iter2) = *(--iter);
 		while (first != last)
-			position++ = *(first++);
+			position++ = (first++);
 	}
 
 	template <class T, class Alloc>
