@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:34:58 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/05 10:06:58 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/05 17:32:42 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,104 @@ namespace ft
 			typedef typename Iterator::pointer			pointer;
 			typedef typename Iterator::reference		reference;
 
-			ReverseRandomAccessIterator(void) : _base(NULL) {}
-			explicit ReverseRandomAccessIterator(iterator_type i) : _base(i) {}
-			template <class Iter>
-			ReverseRandomAccessIterator(const ReverseRandomAccessIterator<Iter> &i) : _base(i.base()) {}
-			template <class Iter>
-			ReverseRandomAccessIterator	&operator=(const ReverseRandomAccessIterator<Iter> &i) {_base = i.base; return (*this);}
+			ReverseRandomAccessIterator(void) : _base(NULL)
+			{
 
-			iterator_type	base(void) const {return (_base);};
+			}
+			
+			explicit ReverseRandomAccessIterator(iterator_type i) : _base(i)
+			{
 
-			reference		operator*(void) const {return *(_base);}
-			pointer			operator->(void) const {return (&(operator*()));}
-			reference		operator[](difference_type n) const {return *(*this + n);}
-			ReverseRandomAccessIterator	operator+(difference_type n) const {return (ReverseRandomAccessIterator(_base - n));}
-			ReverseRandomAccessIterator	operator-(difference_type n) const {return (ReverseRandomAccessIterator(_base + n));}
+			}
+
+			template <class Iter>
+			ReverseRandomAccessIterator(const ReverseRandomAccessIterator<Iter> &i) : _base(i.base())
+			{
+
+			}
+
+			template <class Iter>
+			ReverseRandomAccessIterator	&operator=(const ReverseRandomAccessIterator<Iter> &i)
+			{
+				_base = i.base;
+				return (*this);
+			}
+
+			iterator_type	base(void) const
+			{
+				return (_base);
+			}
+
+			reference		operator*(void) const
+			{
+				return *(_base);
+			}
+
+			pointer			operator->(void) const
+			{
+				return (&(operator*()));
+			}
+
+			reference		operator[](difference_type n) const
+			{
+				return *(*this + n);
+			}
+
+			ReverseRandomAccessIterator	operator+(difference_type n) const
+			{
+				return (ReverseRandomAccessIterator(_base - n));
+			}
+
+			ReverseRandomAccessIterator	operator-(difference_type n) const
+			{
+				return (ReverseRandomAccessIterator(_base + n));
+			}
+
 			template <class T>
-			difference_type	operator-(ReverseRandomAccessIterator<T> const &n) {return (n.base().operator-(_base));}
-			ReverseRandomAccessIterator	&operator++(void) {--_base; return(*this);}
-			ReverseRandomAccessIterator	operator++(int) {ReverseRandomAccessIterator	tmp(*this); --_base; return (tmp);}
-			ReverseRandomAccessIterator	&operator--(void) {++_base; return(*this);}
-			ReverseRandomAccessIterator	operator--(int) {ReverseRandomAccessIterator	tmp(*this); ++_base; return (tmp);}
-			ReverseRandomAccessIterator	&operator+=(difference_type n) {_base -= n; return (*this);}
-			ReverseRandomAccessIterator	&operator-=(difference_type n) {_base += n; return (*this);}
+			difference_type	operator-(ReverseRandomAccessIterator<T> const &n)
+			{
+				return (n.base().operator-(_base));
+			}
+
+			ReverseRandomAccessIterator	&operator++(void)
+			{
+				--_base;
+				return(*this);
+			}
+
+			ReverseRandomAccessIterator	operator++(int) 
+			{
+				ReverseRandomAccessIterator	tmp(*this);
+
+				--_base;
+				return (tmp);
+			}
+
+			ReverseRandomAccessIterator	&operator--(void)
+			{
+				++_base;
+				return(*this);
+			}
+
+			ReverseRandomAccessIterator	operator--(int)
+			{
+				ReverseRandomAccessIterator	tmp(*this);
+
+				++_base;
+				return (tmp);
+			}
+
+			ReverseRandomAccessIterator	&operator+=(difference_type n)
+			{
+				_base -= n;
+				return (*this);
+			}
+
+			ReverseRandomAccessIterator	&operator-=(difference_type n)
+			{
+				_base += n;
+				return (*this);
+			}
 	};
 
 	template <class Iter1, class Iter2>
