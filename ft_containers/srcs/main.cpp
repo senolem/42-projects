@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 13:12:23 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/05 11:50:44 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/05 15:15:16 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,8 @@ void	test_ft_stack(void)
 	stack1.pop();
 	std::cout << "Popping top element = ";
 	print_ft_vector(stack1.top());
-	stack1.pop();
+	std::cout << "Size = " << stack1.size() << " (expected 1)" << std::endl;
 	print_is_empty(stack1.empty(), true);
-	std::cout << "Size = " << stack1.size() << " (expected 0)" << std::endl;
 }
 
 void	test_std_stack(void)
@@ -100,9 +99,8 @@ void	test_std_stack(void)
 	stack1.pop();
 	std::cout << "Popping top element = ";
 	print_std_vector(stack1.top());
-	stack1.pop();
+	std::cout << "Size = " << stack1.size() << " (expected 1)" << std::endl;
 	print_is_empty(stack1.empty(), true);
-	std::cout << "Size = " << stack1.size() << " (expected 0)" << std::endl;
 }
 
 void	test_ft_vector(void)

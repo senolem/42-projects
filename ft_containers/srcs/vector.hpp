@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:49:08 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/05 10:42:38 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/05 16:48:26 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,32 +151,32 @@ namespace ft
 	template <class T, class Alloc> 
 	typename vector<T, Alloc>::const_iterator::reference vector<T, Alloc>::const_iterator::operator*() const
 	{
-		return *(this->_val);
+		return *(this->val);
 	}
 
 	template <class T, class Alloc>
 	typename vector<T, Alloc>::const_iterator::pointer vector<T, Alloc>::const_iterator::operator->() const
 	{
-		return (this->_val);
+		return (this->val);
 	}
 
 	template <class T, class Alloc>
 	typename vector<T, Alloc>::const_iterator::const_reference vector<T, Alloc>::const_iterator::operator[](size_type n) const
 	{
-		return (this->_val[n]);
+		return (this->val[n]);
 	}
 
 	template <class T, class Alloc>
 	typename vector<T, Alloc>::const_iterator& vector<T, Alloc>::const_iterator::operator+=(difference_type n)
 	{
-		this->_val += n;
+		this->val += n;
 		return (*this);
 	}
 
 	template <class T, class Alloc>
 	typename vector<T, Alloc>::const_iterator& vector<T, Alloc>::const_iterator::operator-=(difference_type n)
 	{
-		this->_val -= n;
+		this->val -= n;
 		return (*this);
 	}
 
@@ -361,18 +361,23 @@ namespace ft
 		if (n < size())
 		{
 			while (n != _size)
-				_alloc.destroy(&_data[_size--]);
+				pop_back();
 		}
 		else
 		{
-			if (n <= _capacity * 2)
-				reserve(_capacity * 2);
-			else
-				reserve(n);
-			while (_size < n)
+			if (n > _capacity)
+			{
+				if (_capacity == 0)
+					reserve(1);
+				else if (n > _capacity * 2)
+					reserve(n);
+				else
+					reserve(_capacity * 2);
+			}
+			while (n != _size)
 			{
 				_alloc.construct(&_data[_size], val);
-				++_size;
+				_size++;
 			}
 		}
 	}
@@ -394,17 +399,18 @@ namespace ft
 	template <class T, class Alloc>
 	void	vector<T, Alloc>::reserve(size_type n)
 	{
-		if (n > _capacity)
+		if (n > max_size())
+			throw Exception("length_error");
+		if (n != 0 && n > _capacity)
 		{
-			T	*tmp;
+			T	*tmp = _alloc.allocate(n);
 
 			_capacity = n;
-			tmp = _alloc.allocate(n);
-			for (size_type i = 0; i < _size; i++)
-			{
+			for (size_t i = 0; i < _size; i++)
 				_alloc.construct(&tmp[i], _data[i]);
+			for (size_t i = 0; i < _size; i++)
 				_alloc.destroy(&_data[i]);
-			}
+			_alloc.deallocate(_data, _capacity);
 			_data = tmp;
 		}
 	}
@@ -512,7 +518,7 @@ namespace ft
 	template <class T, class Alloc>
 	void	vector<T, Alloc>::pop_back(void)
 	{
-		_alloc.destroy(&_data[_size--]);
+		_alloc.destroy(&_data[--_size]);
 	}
 
 	template <class T, class Alloc>

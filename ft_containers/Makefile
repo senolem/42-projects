@@ -6,7 +6,7 @@
 #    By: albaur <albaur@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/16 11:47:12 by faventur          #+#    #+#              #
-#    Updated: 2023/01/02 11:36:53 by albaur           ###   ########.fr        #
+#    Updated: 2023/01/05 16:35:57 by albaur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME = ft_containers
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -g3 -fsanitize=address
 LINKS =
 LIBLINKS = -I./includes -I./srcs
 SRC_PATH = srcs/
