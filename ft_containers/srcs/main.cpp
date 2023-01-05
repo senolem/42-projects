@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 13:12:23 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/05 11:31:03 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/05 11:50:44 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,58 @@ void	print_ft_vector(ft::vector<int> vector)
 
 void	test_ft_stack(void)
 {
-	ft::stack<std::string>	stack1;
+	ft::stack<ft::vector<int> >	stack1;
+	ft::vector<int>				vector1;
+	ft::vector<int>				vector2;
 
 	print_is_empty(stack1.empty(), true);
 	std::cout << "Size = " << stack1.size() << " (expected 0)" << std::endl;
-	stack1.push("cahsohtoa");
-	std::cout << "Pushing string \"cahsohtoa\" = " << stack1.top() << std::endl;
-	stack1.push("i am a banana");
-	std::cout << "Pushing string \"i am a banana\" = " << stack1.top() << std::endl;
+	vector1.push_back(0);
+	vector1.push_back(1);
+	vector2.push_back(2);
+	vector2.push_back(3);
+	stack1.push(vector1);
+	std::cout << "Pushing vector 0 to 1 = ";
+	print_ft_vector(stack1.top());
+	stack1.push(vector2);
+	std::cout << "Pushing vector 2 to 3 = ";
+	print_ft_vector(stack1.top());
 	std::cout << "Size = " << stack1.size() << " (expected 2)" << std::endl;
 	print_is_empty(stack1.empty(), false);
 	stack1.pop();
-	std::cout << "Popping top element = " << stack1.top() << std::endl;
+	std::cout << "Popping top element = ";
+	print_ft_vector(stack1.top());
+	stack1.pop();
+	print_is_empty(stack1.empty(), true);
+	std::cout << "Size = " << stack1.size() << " (expected 0)" << std::endl;
+}
+
+void	test_std_stack(void)
+{
+	std::stack<std::vector<int> >	stack1;
+	std::vector<int>				vector1;
+	std::vector<int>				vector2;
+
+	print_is_empty(stack1.empty(), true);
+	std::cout << "Size = " << stack1.size() << " (expected 0)" << std::endl;
+	vector1.push_back(0);
+	vector1.push_back(1);
+	vector2.push_back(2);
+	vector2.push_back(3);
+	stack1.push(vector1);
+	std::cout << "Pushing vector 0 to 1 = ";
+	print_std_vector(stack1.top());
+	stack1.push(vector2);
+	std::cout << "Pushing vector 2 to 3 = ";
+	print_std_vector(stack1.top());
+	std::cout << "Size = " << stack1.size() << " (expected 2)" << std::endl;
 	print_is_empty(stack1.empty(), false);
-	std::cout << "Size = " << stack1.size() << " (expected 1)" << std::endl;
+	stack1.pop();
+	std::cout << "Popping top element = ";
+	print_std_vector(stack1.top());
+	stack1.pop();
+	print_is_empty(stack1.empty(), true);
+	std::cout << "Size = " << stack1.size() << " (expected 0)" << std::endl;
 }
 
 void	test_ft_vector(void)
@@ -242,6 +280,9 @@ int	main(int argc, char **argv)
 	{
 		std::cout << "Testing : std::vector" << std::endl << std::endl;
 		test_std_vector();
+		std::cout << "______________________________________________________________________________" << std::endl;
+		std::cout << "Testing : std::stack" << std::endl << std::endl;
+		test_std_stack();
 	}
 	return (0);
 }
