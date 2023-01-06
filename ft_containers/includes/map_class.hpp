@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/06 16:29:24 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/06 16:32:07 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 namespace ft
 {
 	template <class T>
-	struct less : std::binary_function <T, T, bool>
+	struct less : std::binary_function<T, T, bool>
 	{
 		bool operator()(const T &first, const T &second) const
 		{

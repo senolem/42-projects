@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:46:06 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/06 16:29:37 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/06 16:35:34 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,29 +39,29 @@ namespace ft
 	}
 
 	template <class InputIt1, class InputIt2>
-	bool	lexicographical_compare(InputIt1 first1, InputIt1 last1, InputIt2 first2, InputIt2 last2)
+	bool	lexicographical_compare(InputIt1 lhs_begin, InputIt1 lhs_end, InputIt2 rhs_begin, InputIt2 rhs_end)
 	{
-		while (first1 != last1)
+		while (lhs_begin != lhs_end)
 		{
-			if (first2 == last2 || *first2 < *first1)
+			if (rhs_begin == rhs_end || *rhs_begin < *lhs_begin)
 				return (false);
-			else if (*first1 < *first2)
+			else if (*lhs_begin < *rhs_begin)
 				return (true);
-			++first1;
-			++first2;
+			++lhs_begin;
+			++rhs_begin;
 		}
-		return (first2 != last2);
+		return (rhs_begin != rhs_end);
 	}
 
 	template <class InputIt1, class InputIt2>
-	bool equal (InputIt1 first1, InputIt1 last1, InputIt2 first2)
+	bool equal (InputIt1 lhs_begin, InputIt1 lhs_end, InputIt2 rhs_begin)
 	{
-		while (first1 != last1)
+		while (lhs_begin != lhs_end)
 		{
-			if (*first1 != *first2)
+			if (*lhs_begin != *rhs_begin)
 				return (false);
-			++first1;
-			++first2;
+			++lhs_begin;
+			++rhs_begin;
 		}
 		return (true);
 	}
