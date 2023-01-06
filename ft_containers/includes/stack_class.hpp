@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:59 by albaur            #+#    #+#             */
-/*   Updated: 2022/11/24 16:29:58 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/06 10:14:38 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ namespace ft
 	class stack
 	{
 		public:
-			typedef T			value_type;
-			typedef Container	container_type;
-			typedef size_t		size_type;
+			typedef Container									container_type;
+			typedef typename container_type::value_type			value_type;
+			typedef typename container_type::reference			reference;
+			typedef typename container_type::const_reference	const_reference;
+			typedef typename container_type::size_type			size_type;
 		
 			explicit			stack(const container_type &ctnr = container_type());
 			virtual				~stack(void);

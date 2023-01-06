@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 13:12:23 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/05 17:06:29 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/06 14:59:47 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <string>
 #include <deque>
 #include <map>
+#include "map.hpp"
 #include <stack>
 #include "stack.hpp"
 #include <vector>
