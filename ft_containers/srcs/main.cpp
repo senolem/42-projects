@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 13:12:23 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/09 13:09:04 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/09 16:12:46 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,9 @@ void	test_ft_vector(void)
 		vector1.push_back(rand() % MAX_ITER);
 	print_ft_vector(vector1);
 	std::cout << "Begin = " << *(vector1.begin()) << std::endl;
-	std::cout << "End = " << *(vector1.end()) << std::endl;
+	//std::cout << "End = " << *(vector1.end()) << std::endl;
 	std::cout << "ReverseBegin = " << *(vector1.rbegin()) << std::endl;
-	std::cout << "ReverseEnd = " << *(vector1.rend()) << std::endl;
+	//std::cout << "ReverseEnd = " << *(vector1.rend()) << std::endl;
 	std::cout << "Size = " << vector1.size() << " (expected " << MAX_ITER << ")" << std::endl;
 	std::cout << "Max Size = " << vector1.max_size() << std::endl;
 	std::cout << "Capacity = " << vector1.capacity() << std::endl;

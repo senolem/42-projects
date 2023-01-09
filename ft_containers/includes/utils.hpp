@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:46:06 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/09 15:43:48 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/09 17:37:35 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ namespace ft
 		return (true);
 	}
 
-		template <class Iter>
+	template <class Iter>
 	struct iterator_traits
 	{
-		typedef typename Iter::difference_type	difference_type;
-		typedef typename Iter::value_type		value_type;
-		typedef typename Iter::pointer			pointer;
-		typedef typename Iter::reference		reference;
+		typedef typename Iter::difference_type				difference_type;
+		typedef typename Iter::value_type					value_type;
+		typedef typename Iter::pointer						pointer;
+		typedef typename Iter::reference					reference;
 		typedef typename std::random_access_iterator_tag	iterator_category;
 	};
 

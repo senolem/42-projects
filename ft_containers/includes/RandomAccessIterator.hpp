@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:35:50 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/09 16:11:17 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/09 17:14:29 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,149 +16,185 @@
 
 namespace ft
 {
-	template <class T, bool use_const = false>
-	class Iterator
+
+	template<class _iterator_category, class _value_type, class _difference_type = ptrdiff_t, class _pointer = _value_type*, class _reference = _value_type&>
+	struct iterator
 	{
-		protected:
-			T	*val;
+		typedef _value_type			value_type;
+		typedef _difference_type	difference_type;
+		typedef _pointer			pointer;
+		typedef _reference			reference;
+		typedef _iterator_category	iterator_category;
+	};
+
+	template <class Iter>
+	class IteratorWrapper
+	{
 
 		public:
-			typedef typename enable_const<use_const, T&, const T&>::type	reference;
-			typedef typename enable_const<use_const, T*, const T*>::type	pointer;
-			typedef iterator_traits<Iterator>								iter_traits;
-			typedef typename iter_traits::difference_type					difference_type;
-			typedef typename iter_traits::value_type						value_type;
+			typedef Iter														iterator_type;
+			typedef typename iterator_traits<iterator_type>::difference_type	difference_type;
+			typedef typename iterator_traits<iterator_type>::value_type			value_type;
+			typedef typename iterator_traits<iterator_type>::pointer			pointer;
+			typedef typename iterator_traits<iterator_type>::reference			reference;
+			typedef typename iterator_traits<iterator_type>::iterator_category	iterator_category;
+			typedef size_t														size_type;
 
-			Iterator(void) : val(NULL)
+
+			IteratorWrapper(void) : _base(NULL)
 			{
 
 			}
 
-			Iterator(T *src) : val(src)
+			IteratorWrapper(Iter *src) : _base(src)
 			{
 
 			}
 
-			Iterator(const Iterator<T, false> &src) : val(NULL)
+			IteratorWrapper(const IteratorWrapper<Iter> &src) : _base(NULL)
 			{
 				*this = src;
 			}
 
-			virtual ~Iterator(void)
+			virtual ~IteratorWrapper(void)
 			{
 
 			}
 
-			Iterator			&operator=(Iterator const &rhs)
+			IteratorWrapper	&operator=(IteratorWrapper const &rhs)
 			{
 				if (this != &rhs)
-					val = rhs.val;
+					_base = rhs._base;
 				return (*this);
 			}
 
-			bool							operator==(Iterator const &rhs) const
+			IteratorWrapper<Iter>	&operator++(void)
 			{
-				return (val == rhs.val);
-			}
-
-			bool							operator!=(Iterator const &rhs) const
-			{
-				return (val != rhs.val);
-			}
-
-			bool							operator>(Iterator const &rhs) const
-			{
-				return (val > rhs.val);
-			}
-
-			bool							operator>=(Iterator const &rhs) const
-			{
-				return (val >= rhs.val);
-			}
-
-			bool							operator<(Iterator const &rhs) const
-			{
-				return (val < rhs.val);
-			}
-
-			bool							operator<=(Iterator const &rhs) const
-			{
-				return (val <= rhs.val);
-			}
-
-			Iterator<T> 		&operator++(void)
-			{
-				val++;
+				_base++;
 				return (*this);
 			}
 
-			Iterator<T> 		operator++(int)
+			IteratorWrapper<Iter>	operator++(int)
 			{
-				Iterator<T>	tmp(*this);
-				val++;
+				IteratorWrapper<Iter>	tmp(*this);
+				_base++;
 				return (tmp);
 			}
 
-			Iterator<T> 		&operator--(void)
+			IteratorWrapper<Iter>	&operator--(void)
 			{
-				val--;
+				_base--;
 				return (*this);
 			}
 
-			Iterator<T> 		operator--(int)
+			IteratorWrapper<Iter>	operator--(int)
 			{
-				Iterator<T>	tmp(*this);
-				val--;
+				IteratorWrapper<Iter>	tmp(*this);
+				_base--;
 				return (tmp);
 			}
 
-			Iterator<T>			operator+(difference_type n) const
+			IteratorWrapper<Iter>	operator+(difference_type n) const
 			{
-				return Iterator(val + n);
+				return IteratorWrapper(_base + n);
 			}
 
-			friend Iterator<T>	operator+(difference_type n, Iterator const &rhs)
+			friend IteratorWrapper<Iter>	operator+(difference_type n, IteratorWrapper const &rhs)
 			{
 				return (rhs.operator+(n));
 			}
 
-			Iterator<T>			operator-(difference_type n) const
+			IteratorWrapper<Iter>	operator-(difference_type n) const
 			{
-				return (Iterator(val + n));
+				return (IteratorWrapper(_base + n));
 			}
 
-			difference_type					operator-(Iterator const &n) const
+			difference_type	operator-(IteratorWrapper const &n) const
 			{
-				return (val - n.val);
+				return (_base - n._base);
 			}
 
-			Iterator<T>			&operator+=(difference_type n)
+			IteratorWrapper<Iter>	&operator+=(difference_type n)
 			{
-				val += n;
+				_base += n;
 				return (*this);
 			}
 
-			Iterator<T>			&operator-=(difference_type n)
+			IteratorWrapper<Iter>	&operator-=(difference_type n)
 			{
-				val -= n;
+				_base -= n;
 				return (*this);
 			}
 
-			reference						operator*(void) const
+			reference	operator*(void) const
 			{
-				return (*val);
+				return (*_base);
 			}
 
-			pointer							operator->(void) const
+			pointer	operator->(void) const
 			{
-				return (val);
+				return (_base);
 			}
 
-			reference						operator[](size_type n) const
+			reference	operator[](size_type n) const
 			{
-				return (val[n]);
+				return (_base[n]);
 			}
+
+			template <class Iter1, class Iter2> friend
+			bool operator==(const IteratorWrapper<Iter1>&, const IteratorWrapper<Iter2>&);
+			template <class Iter1, class Iter2> friend
+			bool operator<(const IteratorWrapper<Iter1>&, const IteratorWrapper<Iter2>&);
+			template <class Iter1, class Iter2> friend
+			bool operator!=(const IteratorWrapper<Iter1>&, const IteratorWrapper<Iter2>&);
+			template <class Iter1, class Iter2> friend
+			bool operator>(const IteratorWrapper<Iter1>&, const IteratorWrapper<Iter2>&);
+			template <class Iter1, class Iter2> friend
+			bool operator>=(const IteratorWrapper<Iter1>&, const IteratorWrapper<Iter2>&);
+			template <class Iter1, class Iter2> friend
+			bool operator<=(const IteratorWrapper<Iter1>&, const IteratorWrapper<Iter2>&);
+			template <class Iter1, class Iter2> friend
+			bool operator+(const IteratorWrapper<Iter1>&, const IteratorWrapper<Iter2>&);
+
+		private:
+			iterator_type	_base;
 	};
+
+	template <class Iter1, class Iter2>
+	bool	operator==(const IteratorWrapper<Iter1> &lhs, const IteratorWrapper<Iter2> &rhs)
+	{
+		return (lhs.base() == rhs.base());
+	}
+
+	template <class Iter1, class Iter2>
+	bool	operator!=(const IteratorWrapper<Iter1> &lhs, const IteratorWrapper<Iter2> &rhs)
+	{
+		return (lhs.base() != rhs.base());
+	}
+
+	template <class Iter1, class Iter2>
+	bool	operator<(const IteratorWrapper<Iter1> &lhs, const IteratorWrapper<Iter2> &rhs)
+	{
+		return (lhs.base() < rhs.base());
+	}
+
+	template <class Iter1, class Iter2>
+	bool	operator<=(const IteratorWrapper<Iter1> &lhs, const IteratorWrapper<Iter2> &rhs)
+	{
+		return (lhs.base() <= rhs.base());
+	}
+
+	template <class Iter1, class Iter2>
+	bool	operator>(const IteratorWrapper<Iter1> &lhs, const IteratorWrapper<Iter2> &rhs)
+	{
+		return (lhs.base() > rhs.base());
+	}
+	
+	template <class Iter1, class Iter2>
+	bool	operator>=(const IteratorWrapper<Iter1> &lhs, const IteratorWrapper<Iter2> &rhs)
+	{
+		return (lhs.base() >= rhs.base());
+	}
 }
 
 #endif
