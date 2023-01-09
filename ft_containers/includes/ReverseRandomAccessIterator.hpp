@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:34:58 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/09 14:08:56 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/09 16:08:37 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 namespace ft
 {
 	template <class Iterator>
-	class ReverseIteratorWrapper
+	class ReverseIterator
 	{
 		protected:
 			Iterator	_base;
@@ -30,24 +30,24 @@ namespace ft
 			typedef typename iter_traits::difference_type	difference_type;
 			typedef typename iter_traits::value_type		value_type;
 
-			ReverseIteratorWrapper(void) : _base(NULL)
+			ReverseIterator(void) : _base(NULL)
 			{
 
 			}
 			
-			explicit ReverseIteratorWrapper(iterator_type i) : _base(i)
+			explicit ReverseIterator(iterator_type i) : _base(i)
 			{
 
 			}
 
 			template <class Iter>
-			ReverseIteratorWrapper(const ReverseIteratorWrapper<Iter> &i) : _base(i.base())
+			ReverseIterator(const ReverseIterator<Iter> &i) : _base(i.base())
 			{
 
 			}
 
 			template <class Iter>
-			ReverseIteratorWrapper	&operator=(const ReverseIteratorWrapper<Iter> &i)
+			ReverseIterator	&operator=(const ReverseIterator<Iter> &i)
 			{
 				_base = i.base;
 				return (*this);
@@ -73,57 +73,57 @@ namespace ft
 				return *(*this + n);
 			}
 
-			ReverseIteratorWrapper	operator+(difference_type n) const
+			ReverseIterator	operator+(difference_type n) const
 			{
-				return (ReverseIteratorWrapper(_base - n));
+				return (ReverseIterator(_base - n));
 			}
 
-			ReverseIteratorWrapper	operator-(difference_type n) const
+			ReverseIterator	operator-(difference_type n) const
 			{
-				return (ReverseIteratorWrapper(_base + n));
+				return (ReverseIterator(_base + n));
 			}
 
 			template <class T>
-			difference_type	operator-(ReverseIteratorWrapper<T> const &n)
+			difference_type	operator-(ReverseIterator<T> const &n)
 			{
 				return (n.base().operator-(_base));
 			}
 
-			ReverseIteratorWrapper	&operator++(void)
+			ReverseIterator	&operator++(void)
 			{
 				--_base;
 				return(*this);
 			}
 
-			ReverseIteratorWrapper	operator++(int) 
+			ReverseIterator	operator++(int) 
 			{
-				ReverseIteratorWrapper	tmp(*this);
+				ReverseIterator	tmp(*this);
 
 				--_base;
 				return (tmp);
 			}
 
-			ReverseIteratorWrapper	&operator--(void)
+			ReverseIterator	&operator--(void)
 			{
 				++_base;
 				return(*this);
 			}
 
-			ReverseIteratorWrapper	operator--(int)
+			ReverseIterator	operator--(int)
 			{
-				ReverseIteratorWrapper	tmp(*this);
+				ReverseIterator	tmp(*this);
 
 				++_base;
 				return (tmp);
 			}
 
-			ReverseIteratorWrapper	&operator+=(difference_type n)
+			ReverseIterator	&operator+=(difference_type n)
 			{
 				_base -= n;
 				return (*this);
 			}
 
-			ReverseIteratorWrapper	&operator-=(difference_type n)
+			ReverseIterator	&operator-=(difference_type n)
 			{
 				_base += n;
 				return (*this);
@@ -131,49 +131,49 @@ namespace ft
 	};
 
 	template <class Iter1, class Iter2>
-	bool	operator==(const ReverseIteratorWrapper<Iter1> &lhs, const ReverseIteratorWrapper<Iter2> &rhs)
+	bool	operator==(const ReverseIterator<Iter1> &lhs, const ReverseIterator<Iter2> &rhs)
 	{
 		return (lhs.base() == rhs.base());
 	}
 
 	template <class Iter1, class Iter2>
-	bool	operator!=(const ReverseIteratorWrapper<Iter1> &lhs, const ReverseIteratorWrapper<Iter2> &rhs)
+	bool	operator!=(const ReverseIterator<Iter1> &lhs, const ReverseIterator<Iter2> &rhs)
 	{
 		return (lhs.base() != rhs.base());
 	}
 
 	template <class Iter1, class Iter2>
-	bool	operator<(const ReverseIteratorWrapper<Iter1> &lhs, const ReverseIteratorWrapper<Iter2> &rhs)
+	bool	operator<(const ReverseIterator<Iter1> &lhs, const ReverseIterator<Iter2> &rhs)
 	{
 		return (lhs.base() < rhs.base());
 	}
 
 	template <class Iter1, class Iter2>
-	bool	operator<=(const ReverseIteratorWrapper<Iter1> &lhs, const ReverseIteratorWrapper<Iter2> &rhs)
+	bool	operator<=(const ReverseIterator<Iter1> &lhs, const ReverseIterator<Iter2> &rhs)
 	{
 		return (lhs.base() <= rhs.base());
 	}
 
 	template <class Iter1, class Iter2>
-	bool	operator>(const ReverseIteratorWrapper<Iter1> &lhs, const ReverseIteratorWrapper<Iter2> &rhs)
+	bool	operator>(const ReverseIterator<Iter1> &lhs, const ReverseIterator<Iter2> &rhs)
 	{
 		return (lhs.base() > rhs.base());
 	}
 	
 	template <class Iter1, class Iter2>
-	bool	operator>=(const ReverseIteratorWrapper<Iter1> &lhs, const ReverseIteratorWrapper<Iter2> &rhs)
+	bool	operator>=(const ReverseIterator<Iter1> &lhs, const ReverseIterator<Iter2> &rhs)
 	{
 		return (lhs.base() >= rhs.base());
 	}
 	
 	template <class Iterator>
-	ReverseIteratorWrapper<Iterator>	operator+(typename ReverseIteratorWrapper<Iterator>::difference_type n, const ReverseIteratorWrapper<Iterator> &i)
+	ReverseIterator<Iterator>	operator+(typename ReverseIterator<Iterator>::difference_type n, const ReverseIterator<Iterator> &i)
 	{
-		return (ReverseIteratorWrapper<Iterator>(i.base() - n));
+		return (ReverseIterator<Iterator>(i.base() - n));
 	}
 
 	template <class Iterator>
-	typename ReverseIteratorWrapper<Iterator>::difference_type	operator-(const ReverseIteratorWrapper<Iterator> &lhs, const ReverseIteratorWrapper<Iterator> &rhs)
+	typename ReverseIterator<Iterator>::difference_type	operator-(const ReverseIterator<Iterator> &lhs, const ReverseIterator<Iterator> &rhs)
 	{
 		return (lhs.base() - rhs.base());
 	}
