@@ -6,136 +6,139 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:35:50 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/05 17:31:29 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/09 15:41:34 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RANDOMACCESSITERATOR_HPP
 # define RANDOMACCESSITERATOR_HPP
+# include "utils.hpp"
 
 namespace ft
 {
-	template <class T>
-	class RandomAccessIterator
+	template <class T, bool use_const = false>
+	class IteratorWrapper
 	{
 		protected:
 			T	*val;
 
 		public:
-			typedef T&			reference;
-			typedef T*			pointer;
-			typedef ptrdiff_t	difference_type;
+			typedef typename enable_const<use_const, T&, const T&>::type	reference;
+			typedef typename enable_const<use_const, T*, const T*>::type	pointer;
+			typedef ptrdiff_t												difference_type;
+			typedef T														value_type;
+			typedef size_t													size_type;
 
-			RandomAccessIterator(void) : val(NULL)
+			IteratorWrapper(void) : val(NULL)
 			{
 
 			}
 
-			RandomAccessIterator(T *src) : val(src)
+			IteratorWrapper(T *src) : val(src)
 			{
 
 			}
 
-			RandomAccessIterator(RandomAccessIterator const &src) : val(NULL)
+			IteratorWrapper(const IteratorWrapper<T, false> &src) : val(NULL)
 			{
 				*this = src;
 			}
 
-			virtual ~RandomAccessIterator(void)
+			virtual ~IteratorWrapper(void)
 			{
 
 			}
 
-			RandomAccessIterator			&operator=(RandomAccessIterator const &rhs)
+			IteratorWrapper			&operator=(IteratorWrapper const &rhs)
 			{
 				if (this != &rhs)
 					val = rhs.val;
 				return (*this);
 			}
 
-			bool							operator==(RandomAccessIterator const &rhs) const
+			bool							operator==(IteratorWrapper const &rhs) const
 			{
 				return (val == rhs.val);
 			}
 
-			bool							operator!=(RandomAccessIterator const &rhs) const
+			bool							operator!=(IteratorWrapper const &rhs) const
 			{
 				return (val != rhs.val);
 			}
 
-			bool							operator>(RandomAccessIterator const &rhs) const
+			bool							operator>(IteratorWrapper const &rhs) const
 			{
 				return (val > rhs.val);
 			}
 
-			bool							operator>=(RandomAccessIterator const &rhs) const
+			bool							operator>=(IteratorWrapper const &rhs) const
 			{
 				return (val >= rhs.val);
 			}
 
-			bool							operator<(RandomAccessIterator const &rhs) const
+			bool							operator<(IteratorWrapper const &rhs) const
 			{
 				return (val < rhs.val);
 			}
 
-			bool							operator<=(RandomAccessIterator const &rhs) const
+			bool							operator<=(IteratorWrapper const &rhs) const
 			{
 				return (val <= rhs.val);
 			}
 
-			RandomAccessIterator<T> 		&operator++(void)
+			IteratorWrapper<T> 		&operator++(void)
 			{
 				val++;
 				return (*this);
 			}
 
-			RandomAccessIterator<T> 		operator++(int)
+			IteratorWrapper<T> 		operator++(int)
 			{
-				RandomAccessIterator<T>	tmp(*this);
+				IteratorWrapper<T>	tmp(*this);
 				val++;
 				return (tmp);
 			}
 
-			RandomAccessIterator<T> 		&operator--(void)
+			IteratorWrapper<T> 		&operator--(void)
 			{
 				val--;
 				return (*this);
 			}
 
-			RandomAccessIterator<T> 		operator--(int)
+			IteratorWrapper<T> 		operator--(int)
 			{
-				RandomAccessIterator<T>	tmp(*this);
+				IteratorWrapper<T>	tmp(*this);
 				val--;
 				return (tmp);
 			}
 
-			RandomAccessIterator<T>			operator+(difference_type n) const
+			IteratorWrapper<T>			operator+(difference_type n) const
 			{
-				return RandomAccessIterator(val + n);
+				return IteratorWrapper(val + n);
 			}
 
-			friend RandomAccessIterator<T>	operator+(difference_type n, RandomAccessIterator const &rhs)
+			friend IteratorWrapper<T>	operator+(difference_type n, IteratorWrapper const &rhs)
 			{
 				return (rhs.operator+(n));
 			}
 
-			RandomAccessIterator<T>			operator-(difference_type n) const
+			IteratorWrapper<T>			operator-(difference_type n) const
 			{
-				return (RandomAccessIterator(val + n));
+				return (IteratorWrapper(val + n));
 			}
 
-			difference_type					operator-(RandomAccessIterator const &n) const
+			difference_type					operator-(IteratorWrapper const &n) const
 			{
 				return (val - n.val);
 			}
 
-			RandomAccessIterator<T>			&operator+=(difference_type n)
+			IteratorWrapper<T>			&operator+=(difference_type n)
 			{
 				val += n;
 				return (*this);
 			}
 
-			RandomAccessIterator<T>			&operator-=(difference_type n)
+			IteratorWrapper<T>			&operator-=(difference_type n)
 			{
 				val -= n;
 				return (*this);
@@ -151,11 +154,219 @@ namespace ft
 				return (val);
 			}
 
-			reference						operator[](difference_type n) const
+			reference						operator[](size_type n) const
 			{
 				return (val[n]);
 			}
 	};
+
+	template <class T>
+	class iter : public IteratorWrapper<T>
+			{
+				public:
+					typedef T										iterator_type;
+					typedef iterator_traits<T>						iter_traits;
+					typedef typename iter_traits::reference			reference;
+					typedef typename iter_traits::pointer			pointer;
+					typedef typename iter_traits::difference_type	difference_type;
+					typedef typename iter_traits::value_type		value_type;
+					typedef size_t									size_type;
+				
+					iter(void) : IteratorWrapper<T>(NULL)
+					{
+
+					}
+
+					iter(T *src) : IteratorWrapper<T>(src)
+					{
+
+					}
+
+					iter(iter const &src) : IteratorWrapper<T>(src)
+					{
+
+					}
+
+					virtual ~iter(void)
+					{
+
+					}
+
+					reference		operator*(void) const
+					{
+						return (*this->val);
+					}
+
+					pointer			operator->(void) const
+					{
+						return (this->val);
+					}
+
+					reference		operator[](size_type n) const
+					{
+						return (this->val[n]);
+					}
+
+					iter			&operator+=(difference_type n)
+					{
+						this->val += n;
+						return (*this);
+					}
+
+					iter			&operator-=(difference_type n)
+					{
+						this->val -= n;
+						return (*this);
+					}
+
+					difference_type	operator-(const IteratorWrapper<value_type> &n) const
+					{
+						return (IteratorWrapper<T>::operator-(n));
+					}
+
+					iter			operator-(difference_type n) const
+					{
+						return (IteratorWrapper<T>::operator-(n));
+					}
+
+					iter			operator+(difference_type n) const
+					{
+						return (IteratorWrapper<T>::operator+(n));
+					}
+
+					friend iter		operator+(difference_type n, const iter &rhs)
+					{
+						return (rhs.operator+(n));
+					};
+
+					iter		&operator++(void)
+					{
+						IteratorWrapper<T>::operator++();
+						return (*this);
+					}
+
+					iter		operator++(int)
+					{
+						return (IteratorWrapper<T>::operator++(0));
+					}
+
+					iter		&operator--(void)
+					{
+						IteratorWrapper<T>::operator--();
+						return (*this);
+					}
+
+					iter		operator--(int)
+					{
+						return (IteratorWrapper<T>::operator--(0));
+					}
+
+				private:
+					typedef IteratorWrapper<T>	type;
+					iter(const IteratorWrapper<T> &src);
+			};
+
+			template <class T>
+			class const_iter : public IteratorWrapper<T>
+			{
+				public:
+					typedef T										iterator_type;
+					typedef iterator_traits<T>						iter_traits;
+					typedef typename iter_traits::reference			reference;
+					typedef typename iter_traits::pointer			pointer;
+					typedef typename iter_traits::difference_type	difference_type;
+					typedef typename iter_traits::value_type		value_type;
+					typedef size_t									size_type;
+				
+					const_iter(void) : IteratorWrapper<T>()
+					{
+
+					}
+
+					const_iter(T *src) : IteratorWrapper<T>(src)
+					{
+
+					}
+
+					const_iter(const IteratorWrapper<value_type> &src) : IteratorWrapper<T>(src)
+					{
+
+					}
+
+					virtual ~const_iter(void)
+					{
+
+					}
+
+					reference			operator*(void) const
+					{
+						return *(this->val);
+					}
+
+					pointer				operator->(void) const
+					{
+						return (this->val);
+					}
+
+					reference			operator[](size_type n) const
+					{
+						return (this->val[n]);
+					}
+
+					const_iter			&operator+=(difference_type n)\
+					{
+						this->val += n;
+						return (*this);
+					}
+
+					const_iter			&operator-=(difference_type n)
+					{
+						this->val -= n;
+						return (*this);
+					}
+
+					difference_type		operator-(const IteratorWrapper<value_type> &n) const
+					{
+						return (IteratorWrapper<T>::operator-(n));
+					}
+					
+					const_iter			operator-(difference_type n) const
+					{
+						return (IteratorWrapper<T>::operator-(n));
+					}
+
+					const_iter			operator+(difference_type n) const
+					{
+						return (IteratorWrapper<T>::operator+(n));
+					}
+					
+					friend const_iter	operator+(difference_type n, const const_iter &rhs)
+					{
+						return (rhs.operator+(n));
+					}
+
+					const_iter		&operator++(void)
+					{
+						IteratorWrapper<T>::operator++();
+						return (*this);
+					}
+
+					const_iter		operator++(int)
+					{
+						return (IteratorWrapper<T>::operator++(0));
+					}
+
+					const_iter		&operator--(void)
+					{
+						IteratorWrapper<T>::operator--();
+						return (*this);
+					}
+					
+					const_iter		operator--(int)
+					{
+						return (IteratorWrapper<T>::operator--(0));
+					}
+			};
 }
 
 #endif

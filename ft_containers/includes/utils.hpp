@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:46:06 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/06 16:35:34 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/09 15:43:48 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,51 @@ namespace ft
 		}
 		return (true);
 	}
+
+		template <class Iter>
+	struct iterator_traits
+	{
+		typedef typename Iter::difference_type	difference_type;
+		typedef typename Iter::value_type		value_type;
+		typedef typename Iter::pointer			pointer;
+		typedef typename Iter::reference		reference;
+		typedef typename std::random_access_iterator_tag	iterator_category;
+	};
+
+	template <class Iter>
+	struct iterator_traits<Iter *>
+	{
+		typedef ptrdiff_t						difference_type;
+		typedef Iter							value_type;
+		typedef Iter*							pointer;
+		typedef Iter&							reference;
+		typedef std::random_access_iterator_tag	iterator_category;
+	};
+
+	template <class Iter>
+	struct iterator_traits<const Iter *>
+	{
+		typedef ptrdiff_t						difference_type;
+		typedef Iter							value_type;
+		typedef const Iter*						pointer;
+		typedef const Iter&						reference;
+		typedef std::random_access_iterator_tag	iterator_category;
+	};
+
+	template <bool use_const, typename const_false, typename const_true>
+	struct enable_const {};
+
+	template <typename const_false, typename const_true>
+	struct enable_const<false, const_false, const_true>
+	{
+		typedef const_false	type;
+	};
+
+	template <typename const_false, typename const_true>
+	struct enable_const<true, const_false, const_true>
+	{
+		typedef const_true	type;
+	};
 }
 
 #endif

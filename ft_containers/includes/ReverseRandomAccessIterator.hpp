@@ -6,46 +6,48 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 13:34:58 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/05 17:32:42 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/09 14:08:56 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef REVERSERANDOMACCESSITERATOR_HPP
 # define REVERSERANDOMACCESSITERATOR_HPP
-# include "RandomAccessIterator.hpp"
+# include "utils.hpp"
 
 namespace ft
 {
 	template <class Iterator>
-	class ReverseRandomAccessIterator
+	class ReverseIteratorWrapper
 	{
 		protected:
 			Iterator	_base;
 
 		public:
-			typedef Iterator							iterator_type;
-			typedef typename Iterator::difference_type	difference_type;
-			typedef typename Iterator::pointer			pointer;
-			typedef typename Iterator::reference		reference;
+			typedef Iterator								iterator_type;
+			typedef iterator_traits<Iterator>				iter_traits;
+			typedef typename iter_traits::reference			reference;
+			typedef typename iter_traits::pointer			pointer;
+			typedef typename iter_traits::difference_type	difference_type;
+			typedef typename iter_traits::value_type		value_type;
 
-			ReverseRandomAccessIterator(void) : _base(NULL)
+			ReverseIteratorWrapper(void) : _base(NULL)
 			{
 
 			}
 			
-			explicit ReverseRandomAccessIterator(iterator_type i) : _base(i)
+			explicit ReverseIteratorWrapper(iterator_type i) : _base(i)
 			{
 
 			}
 
 			template <class Iter>
-			ReverseRandomAccessIterator(const ReverseRandomAccessIterator<Iter> &i) : _base(i.base())
+			ReverseIteratorWrapper(const ReverseIteratorWrapper<Iter> &i) : _base(i.base())
 			{
 
 			}
 
 			template <class Iter>
-			ReverseRandomAccessIterator	&operator=(const ReverseRandomAccessIterator<Iter> &i)
+			ReverseIteratorWrapper	&operator=(const ReverseIteratorWrapper<Iter> &i)
 			{
 				_base = i.base;
 				return (*this);
@@ -71,57 +73,57 @@ namespace ft
 				return *(*this + n);
 			}
 
-			ReverseRandomAccessIterator	operator+(difference_type n) const
+			ReverseIteratorWrapper	operator+(difference_type n) const
 			{
-				return (ReverseRandomAccessIterator(_base - n));
+				return (ReverseIteratorWrapper(_base - n));
 			}
 
-			ReverseRandomAccessIterator	operator-(difference_type n) const
+			ReverseIteratorWrapper	operator-(difference_type n) const
 			{
-				return (ReverseRandomAccessIterator(_base + n));
+				return (ReverseIteratorWrapper(_base + n));
 			}
 
 			template <class T>
-			difference_type	operator-(ReverseRandomAccessIterator<T> const &n)
+			difference_type	operator-(ReverseIteratorWrapper<T> const &n)
 			{
 				return (n.base().operator-(_base));
 			}
 
-			ReverseRandomAccessIterator	&operator++(void)
+			ReverseIteratorWrapper	&operator++(void)
 			{
 				--_base;
 				return(*this);
 			}
 
-			ReverseRandomAccessIterator	operator++(int) 
+			ReverseIteratorWrapper	operator++(int) 
 			{
-				ReverseRandomAccessIterator	tmp(*this);
+				ReverseIteratorWrapper	tmp(*this);
 
 				--_base;
 				return (tmp);
 			}
 
-			ReverseRandomAccessIterator	&operator--(void)
+			ReverseIteratorWrapper	&operator--(void)
 			{
 				++_base;
 				return(*this);
 			}
 
-			ReverseRandomAccessIterator	operator--(int)
+			ReverseIteratorWrapper	operator--(int)
 			{
-				ReverseRandomAccessIterator	tmp(*this);
+				ReverseIteratorWrapper	tmp(*this);
 
 				++_base;
 				return (tmp);
 			}
 
-			ReverseRandomAccessIterator	&operator+=(difference_type n)
+			ReverseIteratorWrapper	&operator+=(difference_type n)
 			{
 				_base -= n;
 				return (*this);
 			}
 
-			ReverseRandomAccessIterator	&operator-=(difference_type n)
+			ReverseIteratorWrapper	&operator-=(difference_type n)
 			{
 				_base += n;
 				return (*this);
@@ -129,49 +131,49 @@ namespace ft
 	};
 
 	template <class Iter1, class Iter2>
-	bool	operator==(const ReverseRandomAccessIterator<Iter1> &lhs, const ReverseRandomAccessIterator<Iter2> &rhs)
+	bool	operator==(const ReverseIteratorWrapper<Iter1> &lhs, const ReverseIteratorWrapper<Iter2> &rhs)
 	{
 		return (lhs.base() == rhs.base());
 	}
 
 	template <class Iter1, class Iter2>
-	bool	operator!=(const ReverseRandomAccessIterator<Iter1> &lhs, const ReverseRandomAccessIterator<Iter2> &rhs)
+	bool	operator!=(const ReverseIteratorWrapper<Iter1> &lhs, const ReverseIteratorWrapper<Iter2> &rhs)
 	{
 		return (lhs.base() != rhs.base());
 	}
 
 	template <class Iter1, class Iter2>
-	bool	operator<(const ReverseRandomAccessIterator<Iter1> &lhs, const ReverseRandomAccessIterator<Iter2> &rhs)
+	bool	operator<(const ReverseIteratorWrapper<Iter1> &lhs, const ReverseIteratorWrapper<Iter2> &rhs)
 	{
 		return (lhs.base() < rhs.base());
 	}
 
 	template <class Iter1, class Iter2>
-	bool	operator<=(const ReverseRandomAccessIterator<Iter1> &lhs, const ReverseRandomAccessIterator<Iter2> &rhs)
+	bool	operator<=(const ReverseIteratorWrapper<Iter1> &lhs, const ReverseIteratorWrapper<Iter2> &rhs)
 	{
 		return (lhs.base() <= rhs.base());
 	}
 
 	template <class Iter1, class Iter2>
-	bool	operator>(const ReverseRandomAccessIterator<Iter1> &lhs, const ReverseRandomAccessIterator<Iter2> &rhs)
+	bool	operator>(const ReverseIteratorWrapper<Iter1> &lhs, const ReverseIteratorWrapper<Iter2> &rhs)
 	{
 		return (lhs.base() > rhs.base());
 	}
 	
 	template <class Iter1, class Iter2>
-	bool	operator>=(const ReverseRandomAccessIterator<Iter1> &lhs, const ReverseRandomAccessIterator<Iter2> &rhs)
+	bool	operator>=(const ReverseIteratorWrapper<Iter1> &lhs, const ReverseIteratorWrapper<Iter2> &rhs)
 	{
 		return (lhs.base() >= rhs.base());
 	}
 	
 	template <class Iterator>
-	ReverseRandomAccessIterator<Iterator>	operator+(typename ReverseRandomAccessIterator<Iterator>::difference_type n, const ReverseRandomAccessIterator<Iterator> &i)
+	ReverseIteratorWrapper<Iterator>	operator+(typename ReverseIteratorWrapper<Iterator>::difference_type n, const ReverseIteratorWrapper<Iterator> &i)
 	{
-		return (ReverseRandomAccessIterator<Iterator>(i.base() - n));
+		return (ReverseIteratorWrapper<Iterator>(i.base() - n));
 	}
 
 	template <class Iterator>
-	typename ReverseRandomAccessIterator<Iterator>::difference_type	operator-(const ReverseRandomAccessIterator<Iterator> &lhs, const ReverseRandomAccessIterator<Iterator> &rhs)
+	typename ReverseIteratorWrapper<Iterator>::difference_type	operator-(const ReverseIteratorWrapper<Iterator> &lhs, const ReverseIteratorWrapper<Iterator> &rhs)
 	{
 		return (lhs.base() - rhs.base());
 	}

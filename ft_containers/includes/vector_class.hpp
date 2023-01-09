@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:49 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/06 15:31:09 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/09 16:01:14 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,74 +32,10 @@ namespace ft
 			typedef typename allocator_type::pointer				pointer;
 			typedef typename allocator_type::const_pointer			const_pointer;
 
-			class iterator : public RandomAccessIterator<value_type>
-			{
-				public:
-					typedef value_type			&reference;
-					typedef value_type const	&const_reference;
-					typedef value_type			*pointer;
-					typedef	ptrdiff_t			difference_type;
-				
-					iterator(void);
-					iterator(T *src);
-					iterator(iterator const &src);
-					virtual ~iterator(void);
-
-					reference		operator*(void) const;
-					pointer			operator->(void) const;
-					reference		operator[](size_type n) const;
-					iterator		&operator+=(difference_type n);
-					iterator		&operator-=(difference_type n);
-					difference_type	operator-(const RandomAccessIterator<value_type> &n) const;
-					iterator		operator-(difference_type n) const;
-					iterator		operator+(difference_type n) const;
-					friend iterator	operator+(difference_type n, const iterator &rhs)
-					{
-						return (rhs.operator+(n));
-					};
-					iterator		&operator++(void);
-					iterator		operator++(int);
-					iterator		&operator--(void);
-					iterator		operator--(int);
-
-				private:
-					typedef RandomAccessIterator<T>	type;
-					iterator(const RandomAccessIterator<T> &src);
-			};
-
-			class const_iterator : public RandomAccessIterator<value_type>
-			{
-				public:
-					typedef value_type const	&reference;
-					typedef value_type const	&const_reference;
-					typedef value_type const	*pointer;
-					typedef	ptrdiff_t const		difference_type;
-				
-					const_iterator(void);
-					const_iterator(T *src);
-					const_iterator(const RandomAccessIterator<value_type> &src);
-					virtual ~const_iterator(void);
-
-					reference				operator*(void) const;
-					pointer					operator->(void) const;
-					reference				operator[](size_type n) const;
-					const_iterator			&operator+=(difference_type n);
-					const_iterator			&operator-=(difference_type n);
-					difference_type			operator-(const RandomAccessIterator<value_type> &n) const;
-					const_iterator			operator-(difference_type n) const;
-					const_iterator			operator+(difference_type n) const;
-					friend const_iterator	operator+(difference_type n, const const_iterator &rhs)
-					{
-						return (rhs.operator+(n));
-					}
-					const_iterator		&operator++(void);
-					const_iterator		operator++(int);
-					const_iterator		&operator--(void);
-					const_iterator		operator--(int);
-			};
-
-			typedef ft::ReverseRandomAccessIterator<iterator>		reverse_iterator;
-			typedef ft::ReverseRandomAccessIterator<const_iterator>	const_reverse_iterator;
+			typedef IteratorWrapper<T>								iterator;
+			typedef IteratorWrapper<T, true>						const_iterator;
+			typedef ReverseIteratorWrapper<iterator>				reverse_iterator;
+			typedef ReverseIteratorWrapper<const_iterator>			const_reverse_iterator;
 
 			explicit vector(const allocator_type &alloc = allocator_type());
 			explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type());
