@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:49 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/09 17:33:19 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/09 18:05:46 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ namespace ft
 			typedef typename allocator_type::pointer				pointer;
 			typedef typename allocator_type::const_pointer			const_pointer;
 
-			typedef IteratorWrapper<T>								iterator;
-			typedef IteratorWrapper<T>								const_iterator;
+			typedef IteratorWrapper<pointer>						iterator;
+			typedef IteratorWrapper<const_pointer>					const_iterator;
 			typedef ReverseIteratorWrapper<iterator>				reverse_iterator;
 			typedef ReverseIteratorWrapper<const_iterator>			const_reverse_iterator;
 

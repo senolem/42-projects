@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:35:50 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/09 17:14:29 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/09 18:07:51 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,37 +163,37 @@ namespace ft
 	template <class Iter1, class Iter2>
 	bool	operator==(const IteratorWrapper<Iter1> &lhs, const IteratorWrapper<Iter2> &rhs)
 	{
-		return (lhs.base() == rhs.base());
+		return (lhs._base == rhs._base);
 	}
 
 	template <class Iter1, class Iter2>
 	bool	operator!=(const IteratorWrapper<Iter1> &lhs, const IteratorWrapper<Iter2> &rhs)
 	{
-		return (lhs.base() != rhs.base());
+		return (lhs._base != rhs._base);
 	}
 
 	template <class Iter1, class Iter2>
 	bool	operator<(const IteratorWrapper<Iter1> &lhs, const IteratorWrapper<Iter2> &rhs)
 	{
-		return (lhs.base() < rhs.base());
+		return (lhs._base < rhs._base);
 	}
 
 	template <class Iter1, class Iter2>
 	bool	operator<=(const IteratorWrapper<Iter1> &lhs, const IteratorWrapper<Iter2> &rhs)
 	{
-		return (lhs.base() <= rhs.base());
+		return (lhs._base <= rhs._base);
 	}
 
 	template <class Iter1, class Iter2>
 	bool	operator>(const IteratorWrapper<Iter1> &lhs, const IteratorWrapper<Iter2> &rhs)
 	{
-		return (lhs.base() > rhs.base());
+		return (lhs._base > rhs._base);
 	}
 	
 	template <class Iter1, class Iter2>
 	bool	operator>=(const IteratorWrapper<Iter1> &lhs, const IteratorWrapper<Iter2> &rhs)
 	{
-		return (lhs.base() >= rhs.base());
+		return (lhs._base >= rhs._base);
 	}
 }
 
