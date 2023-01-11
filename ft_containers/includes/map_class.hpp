@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/09 13:08:46 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/11 23:19:25 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MAP_CLASS_HPP
 # include <functional>
 # include <iostream>
+# include "map_iterator.hpp"
+# include "vector_iterator.hpp"
 # include "utils.hpp"
 
 namespace ft
@@ -106,21 +108,22 @@ namespace ft
 	class map
 	{
 		public:
-			typedef Key							key_type;
-			typedef T							mapped_type;
-			typedef std::pair<const Key, T>		value_type;
-			typedef size_t						size_type;
-			typedef ptrdiff_t					difference_type;
-			typedef Compare						key_compare;
-			typedef Allocator					allocator_type;
-			typedef value_type					&reference;
-			typedef const value_type			&const_reference;
-			typedef typename Allocator::pointer			pointer;
-			typedef typename Allocator::const_pointer	const_pointer;
-			typedef map_iterator				iterator;
-			typedef map_const_iterator			const_iterator;
-			typedef map_reverse_iterator		reverse_iterator;
-			typedef map_const_reverse_iterator	const_reverse_iterator;
+			typedef Key										key_type;
+			typedef T										mapped_type;
+			typedef std::pair<const Key, T>					value_type;
+			typedef size_t									size_type;
+			typedef ptrdiff_t								difference_type;
+			typedef Compare									key_compare;
+			typedef Allocator								allocator_type;
+			typedef value_type								&reference;
+			typedef const value_type						&const_reference;
+			typedef typename Allocator::pointer				pointer;
+			typedef typename Allocator::const_pointer		const_pointer;
+			
+			typedef MapIterator<T>							iterator;
+			typedef MapIterator<const T>					const_iterator;
+			typedef VectorReverseIterator<iterator>			reverse_iterator;
+			typedef VectorReverseIterator<const_iterator>	const_reverse_iterator;
 			
 			class value_compare : public std::binary_function<value_type, value_type, bool>
 			{
@@ -130,6 +133,7 @@ namespace ft
 					typedef bool		result_type;
 					typedef value_type	first_argument_type;
 					typedef value_type	second_argument_type;
+					
 					bool	operator()(const value_type &lhs, const value_type &rhs) const
 					{
 						return comp(lhs.first, rhs.first);

@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RandomAccessIterator.hpp                           :+:      :+:    :+:   */
+/*   vector_iterator.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:35:50 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/11 18:03:25 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/11 23:14:31 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RANDOMACCESSITERATOR_HPP
-# define RANDOMACCESSITERATOR_HPP
+#ifndef VECTOR_ITERATOR_HPP
+# define VECTOR_ITERATOR_HPP
 # include "utils.hpp"
 
 namespace ft
 {
-	template <class _iterator_category, class _value_type, class _difference_type = ptrdiff_t, class _pointer = _value_type*, class _reference = _value_type&>
+	template <class _Category, class _Tp, class _Distance = ptrdiff_t, class _Pointer = _Tp*, class _Reference = _Tp&>
 	struct iterator
 	{
-		typedef _iterator_category	iterator_category;
-		typedef _value_type			value_type;
-		typedef _difference_type	difference_type;
-		typedef _pointer			pointer;
-		typedef _reference			reference;
+		typedef _Category	iterator_category;
+		typedef _Tp			value_type;
+		typedef _Distance	difference_type;
+		typedef _Pointer	pointer;
+		typedef _Reference	reference;
 	};
 
 	template <class Iter>
@@ -167,7 +167,7 @@ namespace ft
 	}
 
 	template <class T>
-	class Iterator : public iterator<std::random_access_iterator_tag, T>
+	class VectorIterator : public iterator<std::random_access_iterator_tag, T>
 	{
 		public:
 			typedef T																		value_type;
@@ -179,12 +179,12 @@ namespace ft
 			pointer	_pointer;
 		
 		public:
-			Iterator(void) : _pointer()
+			VectorIterator(void) : _pointer()
 			{
 
 			}
 
-			Iterator(value_type *pointer) : _pointer(pointer)
+			VectorIterator(value_type *pointer) : _pointer(pointer)
 			{
 
 			}
@@ -204,97 +204,97 @@ namespace ft
 				return &(operator*());
 			}
 
-			Iterator	&operator++(void)
+			VectorIterator	&operator++(void)
 			{
 				_pointer++;
 				return *this;
 			}
 
-			Iterator	operator++(int)
+			VectorIterator	operator++(int)
 			{
-				Iterator tmp = *this;
+				VectorIterator tmp = *this;
 				++(*this);
 				return tmp;
 			}
 
-			Iterator	&operator--(void)
+			VectorIterator	&operator--(void)
 			{
 				_pointer--;
 				return *this;
 			}
 
-			Iterator	operator--(int)
+			VectorIterator	operator--(int)
 			{
-				Iterator tmp = *this;
+				VectorIterator tmp = *this;
 				--(*this);
 				return tmp;
 			}
 
-			Iterator	&operator+=(std::size_t n)
+			VectorIterator	&operator+=(std::size_t n)
 			{
 				_pointer += n;
 				return *this;
 			}
 
-			Iterator	&operator-=(std::size_t n)
+			VectorIterator	&operator-=(std::size_t n)
 			{
 				_pointer -= n;
 				return *this;
 			}
 
-			Iterator	operator+(std::size_t n) const
+			VectorIterator	operator+(std::size_t n) const
 			{
 				return (_pointer + n);
 			}
 
-			Iterator	operator-(std::size_t n) const
+			VectorIterator	operator-(std::size_t n) const
 			{ 
 				return (_pointer - n);
 			}
 
-			Iterator	&operator[](std::size_t index) const
+			VectorIterator	&operator[](std::size_t index) const
 			{
 				return *(*this + index);
 			}
 
-			ptrdiff_t	operator-(const Iterator &x)
+			ptrdiff_t	operator-(const VectorIterator &x)
 			{
 				return (_pointer - x._pointer);
 			}
 
-			bool	operator== (const Iterator &x)
+			bool	operator== (const VectorIterator &x)
 			{
 				return (this->base() == x.base());
 			}
 
-			bool	operator!=(const Iterator &x)
+			bool	operator!=(const VectorIterator &x)
 			{
 				return (this->base() != x.base());
 			}
 
-			bool	operator<(const Iterator &x)
+			bool	operator<(const VectorIterator &x)
 			{
 				return (this->base() < x.base());
 			}
 
-			bool	operator<=(const Iterator &x)
+			bool	operator<=(const VectorIterator &x)
 			{
 				return (this->base() <= x.base());
 			}
 
-			bool	operator>(const Iterator &x)
+			bool	operator>(const VectorIterator &x)
 			{
 				return (this->base() > x.base());
 			}
 
-			bool	operator>=(const Iterator &x)
+			bool	operator>=(const VectorIterator &x)
 			{
 				return (this->base() >= x.base());
 			}
 	};
 
 	template <class T>
-	class ConstIterator : public iterator<std::random_access_iterator_tag, T>
+	class VectorConstIterator : public iterator<std::random_access_iterator_tag, T>
 	{
 		public:
 			typedef T																		value_type;
@@ -306,12 +306,12 @@ namespace ft
 			pointer	_pointer;
 		
 		public:
-			ConstIterator(void) : _pointer()
+			VectorConstIterator(void) : _pointer()
 			{
 
 			}
 
-			ConstIterator(value_type *ptr) : _pointer(ptr)
+			VectorConstIterator(value_type *ptr) : _pointer(ptr)
 			{
 
 			}
@@ -331,97 +331,97 @@ namespace ft
 				return &(operator*());
 			}
 			
-			const ConstIterator	&operator++(void)
+			const VectorConstIterator	&operator++(void)
 			{
 				_pointer++;
 				return (*this);
 			}
 
-			const ConstIterator	operator++(int)
+			const VectorConstIterator	operator++(int)
 			{
-				ConstIterator tmp = *this;
+				VectorConstIterator tmp = *this;
 				++(*this);
 				return (tmp);
 			}
 
-			const ConstIterator	&operator--(void)
+			const VectorConstIterator	&operator--(void)
 			{
 				_pointer--;
 				return (*this);
 			}
 
-			const ConstIterator	operator--(int)
+			const VectorConstIterator	operator--(int)
 			{
-				ConstIterator tmp = *this;
+				VectorConstIterator tmp = *this;
 				--(*this);
 				return (tmp);
 			}
 			
-			const ConstIterator	&operator+=(std::size_t n)
+			const VectorConstIterator	&operator+=(std::size_t n)
 			{
 				_pointer += n;
 				return (*this);
 			}
 
-			const ConstIterator	&operator-=(std::size_t n)
+			const VectorConstIterator	&operator-=(std::size_t n)
 			{
 				_pointer -= n;
 				return (*this);
 			}
 
-			const ConstIterator	operator+(std::size_t n)
+			const VectorConstIterator	operator+(std::size_t n)
 			{
 				return (_pointer + n);
 			}
 
-			const ConstIterator	operator-(std::size_t n)
+			const VectorConstIterator	operator-(std::size_t n)
 			{
 				return (_pointer - n);
 			}
 
-			const ConstIterator	&operator[](std::size_t n)
+			const VectorConstIterator	&operator[](std::size_t n)
 			{
 				return *(*this + n);
 			}
 
-			ptrdiff_t	operator-(const ConstIterator &x)
+			ptrdiff_t	operator-(const VectorConstIterator &x)
 			{
 				return (_pointer - x._pointer);
 			}
 
-			bool	operator==(const ConstIterator &x)
+			bool	operator==(const VectorConstIterator &x)
 			{
 				return (this->base() == x.base());
 			}
 
-			bool	operator!=(const ConstIterator &x)
+			bool	operator!=(const VectorConstIterator &x)
 			{
 				return (this->base() != x.base());
 			}
 
-			bool	operator<(const ConstIterator &x)
+			bool	operator<(const VectorConstIterator &x)
 			{
 				return (this->base() < x.base());
 			}
 
-			bool		operator<=(const ConstIterator &x)
+			bool		operator<=(const VectorConstIterator &x)
 			{
 				return (this->base() <= x.base());
 			}
 
-			bool		operator>(const ConstIterator &x)
+			bool		operator>(const VectorConstIterator &x)
 			{
 				return (this->base() > x.base());
 			}
 
-			bool		operator>=(const ConstIterator &x)
+			bool		operator>=(const VectorConstIterator &x)
 			{
 				return (this->base() >= x.base());
 			}
 	};
 
 	template <class Iter>
-	class ReverseIterator
+	class VectorReverseIterator
 	{
 		protected:
 			Iter											_base;
@@ -434,18 +434,18 @@ namespace ft
 			typedef typename iter_traits::pointer			pointer;
 			typedef std::size_t								size_type;
 
-			ReverseIterator(void) : _base(Iter())
+			VectorReverseIterator(void) : _base(Iter())
 			{
 
 			}
 
-			ReverseIterator(const value_type &it) : _base(it)
+			VectorReverseIterator(const value_type &it) : _base(it)
 			{
 
 			}
 
 			template <class T>
-			ReverseIterator(const ReverseIterator<T> &other): _base(other.base())
+			VectorReverseIterator(const VectorReverseIterator<T> &other): _base(other.base())
 			{
 
 			}
@@ -465,97 +465,97 @@ namespace ft
 				return (_base);
 			}
 
-			ReverseIterator	&operator++(void)
+			VectorReverseIterator	&operator++(void)
 			{
 				_base--;
 				return (*this);
 			}
 
-			ReverseIterator	operator++(int)
+			VectorReverseIterator	operator++(int)
 			{
-				ReverseIterator tmp = *this;
+				VectorReverseIterator tmp = *this;
 				--(*this);
 				return (tmp);
 			}
 
-			ReverseIterator	&operator--(void)
+			VectorReverseIterator	&operator--(void)
 			{
 				_base++;
 				return (*this);
 			}
 
-			ReverseIterator	operator--(int)
+			VectorReverseIterator	operator--(int)
 			{
-				ReverseIterator tmp = *this;
+				VectorReverseIterator tmp = *this;
 				++(*this);
 				return (tmp);
 			}
 
-			ReverseIterator	&operator+=(std::size_t n)
+			VectorReverseIterator	&operator+=(std::size_t n)
 			{
 				_base += n;
 				return (*this);
 			}
 
-			ReverseIterator	&operator-=(std::size_t n)
+			VectorReverseIterator	&operator-=(std::size_t n)
 			{
 				_base -= n;
 				return (*this);
 			}
 
-			ReverseIterator	operator+(std::size_t n)
+			VectorReverseIterator	operator+(std::size_t n)
 			{
 				return (_base + n);
 			}
 
-			ReverseIterator	operator-(std::size_t n)
+			VectorReverseIterator	operator-(std::size_t n)
 			{
 				return (_base - n);
 			}
 
-			ReverseIterator	&operator[](std::size_t n)
+			VectorReverseIterator	&operator[](std::size_t n)
 			{
 				return *(*this + n);
 			}
 
-			ptrdiff_t		operator-(const ReverseIterator &x)
+			ptrdiff_t		operator-(const VectorReverseIterator &x)
 			{
 				return (_base - x._base);
 			}
 	};
 
 	template <class Iter1, class Iter2>
-	bool operator== (const ReverseIterator<Iter1> &lhs, const ReverseIterator<Iter2> &rhs)
+	bool operator== (const VectorReverseIterator<Iter1> &lhs, const VectorReverseIterator<Iter2> &rhs)
 	{
 		return (lhs.base() == rhs.base());
 	}
 
 	template <class Iter1, class Iter2>
-	bool operator!= (const ReverseIterator<Iter1> &lhs, const ReverseIterator<Iter2> &rhs)
+	bool operator!= (const VectorReverseIterator<Iter1> &lhs, const VectorReverseIterator<Iter2> &rhs)
 	{
 		return (lhs.base() != rhs.base());
 	}
 
 	template <class Iter1, class Iter2>
-	bool operator< (const ReverseIterator<Iter1> &lhs, const ReverseIterator<Iter2> &rhs)
+	bool operator< (const VectorReverseIterator<Iter1> &lhs, const VectorReverseIterator<Iter2> &rhs)
 	{
 		return (lhs.base() < rhs.base());
 	}
 
 	template <class Iter1, class Iter2>
-	bool operator<= (const ReverseIterator<Iter1> &lhs, const ReverseIterator<Iter2> &rhs)
+	bool operator<= (const VectorReverseIterator<Iter1> &lhs, const VectorReverseIterator<Iter2> &rhs)
 	{
 		return (lhs.base() <= rhs.base());
 	}
 
 	template <class Iter1, class Iter2>
-	bool operator> (const ReverseIterator<Iter1> &lhs, const ReverseIterator<Iter2> &rhs)
+	bool operator> (const VectorReverseIterator<Iter1> &lhs, const VectorReverseIterator<Iter2> &rhs)
 	{
 		return (lhs.base() > rhs.base());
 	}
 
 	template <class Iter1, class Iter2>
-	bool operator>= (const ReverseIterator<Iter1> &lhs, const ReverseIterator<Iter2> &rhs)
+	bool operator>= (const VectorReverseIterator<Iter1> &lhs, const VectorReverseIterator<Iter2> &rhs)
 	{
 		return lhs.base() >= rhs.base();
 	}
