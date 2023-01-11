@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:35:50 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/11 17:53:06 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/11 18:03:25 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ namespace ft
 
 			pointer	operator->(void)
 			{
-				return (_pointer);
+				return &(operator*());
 			}
 
 			Iterator	&operator++(void)
@@ -328,7 +328,7 @@ namespace ft
 
 			pointer	operator->(void) const
 			{
-				return (_pointer);
+				return &(operator*());
 			}
 			
 			const ConstIterator	&operator++(void)
@@ -450,7 +450,7 @@ namespace ft
 
 			}
 
-			reference	operator*(void) const
+			reference	operator*(void)
 			{
 				return *(_base);
 			}
