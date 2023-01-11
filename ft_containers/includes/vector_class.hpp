@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:49 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/09 18:05:46 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/11 17:16:50 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define VECTOR_CLASS_HPP
 # include <memory>
 # include "RandomAccessIterator.hpp"
-# include "ReverseRandomAccessIterator.hpp"
 # include "utils.hpp"
 
 namespace ft
@@ -32,10 +31,10 @@ namespace ft
 			typedef typename allocator_type::pointer				pointer;
 			typedef typename allocator_type::const_pointer			const_pointer;
 
-			typedef IteratorWrapper<pointer>						iterator;
-			typedef IteratorWrapper<const_pointer>					const_iterator;
-			typedef ReverseIteratorWrapper<iterator>				reverse_iterator;
-			typedef ReverseIteratorWrapper<const_iterator>			const_reverse_iterator;
+			typedef Iterator<value_type>							iterator;
+			typedef ConstIterator<value_type>						const_iterator;
+			typedef ReverseIterator<iterator>						reverse_iterator;
+			typedef ReverseIterator<const_iterator>					const_reverse_iterator;
 
 			explicit vector(const allocator_type &alloc = allocator_type());
 			explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type());
