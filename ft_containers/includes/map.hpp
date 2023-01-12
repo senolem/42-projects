@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_class.hpp                                      :+:      :+:    :+:   */
+/*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/11 23:19:25 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/12 21:45:02 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,96 +14,13 @@
 # define MAP_CLASS_HPP
 # include <functional>
 # include <iostream>
-# include "map_iterator.hpp"
+# include "rb_tree.hpp"
+# include "rb_iterator.hpp"
 # include "vector_iterator.hpp"
 # include "utils.hpp"
 
 namespace ft
 {
-	template <class T>
-	struct less : std::binary_function<T, T, bool>
-	{
-		bool operator()(const T &first, const T &second) const
-		{
-			return (first < second);
-		}
-	};
-
-	template <class T1, class T2>
-	struct pair
-	{
-		typedef T1	first_type;
-		typedef T2	second_type;
-
-		first_type	first;
-		second_type	second;
-
-		pair(void) : first(), second()
-		{
-
-		}
-
-		pair(const T1 &x, const T2 &y) : first(x), second(y)
-		{
-
-		}
-
-		template <class U1, class U2>
-		pair(const pair<U1, U2> &p) : first(p.first), second(p.second)
-		{
-
-		}
-
-		pair	&operator=(const pair &other)
-		{
-			first = other.first;
-			second = other.second;
-			return (*this);
-		}
-	};
-
-	template <class T1, class T2>
-	pair<T1, T2>	make_pair(T1 t, T2 u)
-	{
-		return (pair<T1, T2>(t, u));
-	}
-
-	template <class T1, class T2>
-	bool	operator==(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs)
-	{
-		return (lhs.first == rhs.first && lhs.second == rhs.second);
-	}
-
-	template <class T1, class T2>
-	bool	operator!=(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs)
-	{
-		return (lhs.first != rhs.first && lhs.second != rhs.second);
-	}
-
-	template <class T1, class T2>
-	bool	operator<(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs)
-	{
-		return (lhs.first < rhs.first && lhs.second < rhs.second);
-	}
-
-	template <class T1, class T2>
-	bool	operator<=(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs)
-	{
-		return (lhs.first <= rhs.first && lhs.second <= rhs.second);
-	}
-
-	template <class T1, class T2>
-	bool	operator>(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs)
-	{
-		return (lhs.first > rhs.first && lhs.second > rhs.second);
-	}
-
-	template <class T1, class T2>
-	bool	operator>=(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs)
-	{
-		return (lhs.first >= rhs.first && lhs.second >= rhs.second);
-	}
-
 	template <class Key, class T, class Compare = ft::less<Key>, class Allocator = std::allocator<ft::pair<const Key, T> > >
 	class map
 	{
@@ -120,8 +37,8 @@ namespace ft
 			typedef typename Allocator::pointer				pointer;
 			typedef typename Allocator::const_pointer		const_pointer;
 			
-			typedef MapIterator<T>							iterator;
-			typedef MapIterator<const T>					const_iterator;
+			typedef RBIterator<T>							iterator;
+			typedef RBIterator<const T>					const_iterator;
 			typedef VectorReverseIterator<iterator>			reverse_iterator;
 			typedef VectorReverseIterator<const_iterator>	const_reverse_iterator;
 			
@@ -147,9 +64,8 @@ namespace ft
 						
 					}
 			};
-
-			map(void);
-			explicit map(const Compare &comp, const Allocator &alloc= Allocator());
+			
+			explicit map(const key_compare &comp, const Allocator &alloc= Allocator());
 			template <class InputIt>
 			map(InputIt first, InputIt last, const Compare &comp = Compare(), const Allocator &alloc = Allocator());
 			map(const map &other);

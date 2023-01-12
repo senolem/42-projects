@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_iterator.hpp                                   :+:      :+:    :+:   */
+/*   rb_iterator.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 09:55:57 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/11 23:17:19 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/12 18:51:58 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_ITERATOR_HPP
-# define MAP_ITERATOR_HPP
+#ifndef RB_ITERATOR_HPP
+# define RB_ITERATOR_HPP
 # include <memory>
 
 namespace ft
@@ -70,7 +70,7 @@ namespace ft
 	};
 	
 	template <class I>
-	class MapIterator
+	class RBIterator
 	{
 		public:
 			typedef I								value_type;
@@ -83,29 +83,29 @@ namespace ft
 			typedef I*								pointer;
 			typedef const I*						const_pointer;
 			
-			typedef MapIterator<I>					iterator;
-			typedef MapIterator<const I>			const_iterator;
+			typedef RBIterator<I>					iterator;
+			typedef RBIterator<const I>			const_iterator;
 
 		private:
 			tree_node	*node;
 		
 		public:
-			MapIterator(void) : node(NULL)
+			RBIterator(void) : node(NULL)
 			{
 
 			}
 
-			MapIterator(tree_node *current) : node(current)
+			RBIterator(tree_node *current) : node(current)
 			{
 
 			}
 
-			MapIterator(MapIterator const &other) : node(other.base())
+			RBIterator(RBIterator const &other) : node(other.base())
 			{
 
 			}
 
-			MapIterator	&operator=(MapIterator const &other)
+			RBIterator	&operator=(RBIterator const &other)
 			{
 				if (*this != &other)
 					node = other.base();
@@ -137,7 +137,7 @@ namespace ft
 				return &(node->data);
 			}
 
-			MapIterator	&operator++(void)
+			RBIterator	&operator++(void)
 			{
 				if (!node->leaf)
 					return (*this);
@@ -160,7 +160,7 @@ namespace ft
 				return (*this);
 			}
 
-			MapIterator	&operator--(void)
+			RBIterator	&operator--(void)
 			{
 				if (!node->leaf)
 				{
@@ -189,46 +189,46 @@ namespace ft
 				return (*this);
 			}
 
-			MapIterator	operator++(int)
+			RBIterator	operator++(int)
 			{
-				MapIterator	tmp(*this);
+				RBIterator	tmp(*this);
 				operator++();
 				return (tmp);
 			}
 
-			MapIterator	operator--(int)
+			RBIterator	operator--(int)
 			{
-				MapIterator	tmp(*this);
+				RBIterator	tmp(*this);
 				operator--();
 				return (tmp);
 			}
 
-			bool	operator==(MapIterator const &other)
+			bool	operator==(RBIterator const &other)
 			{
 				return (node == other.node);
 			}
 
-			bool	operator!=(MapIterator const &other)
+			bool	operator!=(RBIterator const &other)
 			{
 				return (node != other.node);
 			}
 
-			bool	operator>(MapIterator const &other)
+			bool	operator>(RBIterator const &other)
 			{
 				return (node > other.node);
 			}
 
-			bool	operator>=(MapIterator const &other)
+			bool	operator>=(RBIterator const &other)
 			{
 				return (node >= other.node);
 			}
 
-			bool	operator<(MapIterator const &other)
+			bool	operator<(RBIterator const &other)
 			{
 				return (node < other.node);
 			}
 
-			bool	operator<=(MapIterator const &other)
+			bool	operator<=(RBIterator const &other)
 			{
 				return (node <= other.node);
 			}
