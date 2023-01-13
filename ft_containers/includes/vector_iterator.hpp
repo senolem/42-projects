@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:35:50 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/11 23:14:31 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/13 11:27:42 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,8 +299,8 @@ namespace ft
 		public:
 			typedef T																		value_type;
 			typedef typename iterator<std::random_access_iterator_tag, T>::difference_type	difference_type;
-			typedef typename iterator<std::random_access_iterator_tag, T>::reference		reference;
-			typedef typename iterator<std::random_access_iterator_tag, T>::pointer			pointer;
+			typedef typename iterator<std::random_access_iterator_tag, T>::reference const	reference;
+			typedef typename iterator<std::random_access_iterator_tag, T>::pointer const	pointer;
 		
 		protected:
 			pointer	_pointer;

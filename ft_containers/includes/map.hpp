@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/12 21:45:02 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/13 09:56:43 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ namespace ft
 			value_compare							value_comp(void) const;
 
 			// allocator
-
 			allocator_type							get_allocator(void) const;
 	};
 

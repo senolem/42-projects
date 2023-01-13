@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:49 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/11 23:14:53 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/13 11:26:08 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ namespace ft
 			typedef typename allocator_type::pointer				pointer;
 			typedef typename allocator_type::const_pointer			const_pointer;
 
-			typedef VectorIterator<value_type>							iterator;
-			typedef VectorConstIterator<value_type>						const_iterator;
-			typedef VectorReverseIterator<iterator>						reverse_iterator;
-			typedef VectorReverseIterator<const_iterator>					const_reverse_iterator;
+			typedef VectorIterator<value_type>						iterator;
+			typedef VectorConstIterator<value_type>					const_iterator;
+			typedef VectorReverseIterator<iterator>					reverse_iterator;
+			typedef VectorReverseIterator<const_iterator>			const_reverse_iterator;
 
 			explicit vector(const allocator_type &alloc = allocator_type());
 			explicit vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type());
