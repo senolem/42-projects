@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:46:06 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/12 19:03:31 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/13 16:04:11 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,15 +109,6 @@ namespace ft
 	struct enable_const<true, const_false, const_true>
 	{
 		typedef const_true	type;
-	};
-
-	template <class T>
-	struct less : std::binary_function<T, T, bool>
-	{
-		bool operator()(const T &first, const T &second) const
-		{
-			return (first < second);
-		}
 	};
 
 	template <class T1, class T2>

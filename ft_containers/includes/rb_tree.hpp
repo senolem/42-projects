@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:59:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/13 14:54:38 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/13 16:20:12 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 namespace ft
 {
-	template <class T, class Compare = ft::less<T>, class Allocator = std::allocator<T> >
+	template <class T, class Compare = std::less<T>, class Allocator = std::allocator<T> >
 	class RBTree
 	{
 		public:
@@ -158,29 +158,29 @@ namespace ft
 				_root = _node_ptr;
 			}
 			
-			ft::pair<iterator, bool>	insert(const value_type &value)
+			ft::pair<iterator, bool>	insert(const value_type &data)
 			{
 				node_tree	*node;
 				node_tree	*parent;
 
 				if (_root == _node_ptr)
 				{
-					_root = newTreeNode(value, _node_ptr, 2);
+					_root = newTreeNode(data, _node_ptr, 2);
 					_root->color = BLACK;
 					return (ft::make_pair(iterator(_root), true));
 				}
 				while (node != _node_ptr)
 				{
 					parent = node;
-					if (_comp(value, node->value))
+					if (_comp(data, node->data))
 						node = node->left;
-					else if (_comp(node->value, value))
+					else if (_comp(node->data, data))
 						node = node->right;
 					else
 						return (ft::make_pair(iterator(node), false));
 				}
-				node = newTreeNode(value, parent, 1);
-				if (_comp(value, parent->value))
+				node = newTreeNode(data, parent, 1);
+				if (_comp(data, parent->data))
 					parent->left = node;
 				else
 					parent->right = node;
@@ -190,10 +190,10 @@ namespace ft
 				return (ft::make_pair(iterator(node), true));
 			}
 
-			iterator	insert(iterator pos, const value_type &value)
+			iterator	insert(iterator pos, const value_type &data)
 			{
 				(void)pos;
-				return (insert(value).first);
+				return (insert(data).first);
 			}
 
 			template <class InputIterator>
@@ -249,9 +249,9 @@ namespace ft
 				deleteTreeNode(node);
 			}
 
-			size_type	erase(const value_type &value)
+			size_type	erase(const value_type &data)
 			{
-				node_tree *tmp = search(_root, value);
+				node_tree *tmp = search(_root, data);
 				if (tmp)
 				{
 					erase(tmp);
@@ -271,30 +271,30 @@ namespace ft
 			}
 
 			// lookup
-			iterator	find(const value_type &value)
+			iterator	find(const value_type &data)
 			{
-				node_tree	*result = search(_root, value);
+				node_tree	*result = search(_root, data);
 				if (result)
 					return (iterator(result));
 				return (iterator(getMax(_root)));
 			}
 
-			const_iterator	find(const value_type &value) const
+			const_iterator	find(const value_type &data) const
 			{
-				node_tree	*result = search(_root, value);
+				node_tree	*result = search(_root, data);
 				if (result)
 					return (const_iterator(result));
 				return (const_iterator(getMax(_root)));
 			}
 
-			node_tree	*lower_bound(const value_type &value)
+			node_tree	*lower_bound(const value_type &data)
 			{
 				node_tree	*node = _root;
 				node_tree	*tmp = _node_ptr;
 
 				while (node != tmp)
 				{
-					if (!_comp(node->value, value))
+					if (!_comp(node->data, data))
 					{
 						tmp = node;
 						node = node->left;
@@ -305,14 +305,14 @@ namespace ft
 				return (tmp);
 			}
 
-			node_tree	*lower_bound(const value_type &value) const
+			node_tree	*lower_bound(const value_type &data) const
 			{
 				node_tree	*node = _root;
 				node_tree	*tmp = _node_ptr;
 
 				while (node != tmp)
 				{
-					if (!_comp(node->value, value))
+					if (!_comp(node->data, data))
 					{
 						tmp = node;
 						node = node->left;
@@ -323,14 +323,14 @@ namespace ft
 				return (tmp);
 			}
 
-			node_tree	*upper_bound(const value_type &value)
+			node_tree	*upper_bound(const value_type &data)
 			{
 				node_tree	*node = _root;
 				node_tree	*tmp = _node_ptr;
 
 				while (node != tmp)
 				{
-					if (!_comp(value, node->value))
+					if (!_comp(data, node->data))
 					{
 						tmp = node;
 						node = node->left;
@@ -341,14 +341,14 @@ namespace ft
 				return (tmp);
 			}
 
-			node_tree	*upper_bound(const value_type &value) const
+			node_tree	*upper_bound(const value_type &data) const
 			{
 				node_tree	*node = _root;
 				node_tree	*tmp = _node_ptr;
 
 				while (node != tmp)
 				{
-					if (!_comp(value, node->value))
+					if (!_comp(data, node->data))
 					{
 						tmp = node;
 						node = node->left;
@@ -369,7 +369,7 @@ namespace ft
 			// node
 			node_tree	*newNullNode(void)
 			{
-				node_tree	*tmp = _node_allocator(1);
+				node_tree	*tmp = _node_allocator.allocate(1);
 				tmp->color = BLACK;
 				tmp->leaf = 0;
 				tmp->parent = NULL;
@@ -378,10 +378,10 @@ namespace ft
 				return (tmp);
 			}
 
-			node_tree	*newTreeNode(const value_type &value, node_tree *parent, int leaf)
+			node_tree	*newTreeNode(const value_type &data, node_tree *parent, int leaf)
 			{
-				node_tree	*tmp = _node_allocator(1);
-				_allocator_type.construct(&(tmp->value), value);
+				node_tree	*tmp = _node_allocator.allocate(1);
+				_allocator_type.construct(&(tmp->data), data);
 				tmp->color = RED;
 				tmp->leaf = leaf;
 				tmp->parent = parent;
@@ -393,7 +393,7 @@ namespace ft
 
 			void	deleteTreeNode(node_tree *node)
 			{
-				_allocator_type.destroy(&(node->value));
+				_allocator_type.destroy(&(node->data));
 				_node_allocator.deallocate(node, 1);
 				--_size;
 			}
@@ -404,13 +404,13 @@ namespace ft
 				--_size;
 			}
 
-			node_tree	*search(node_tree *search, const value_type &value) const
+			node_tree	*search(node_tree *search, const value_type &data) const
 			{
 				while (search != _node_ptr)
 				{
-					if (_comp(value, search->value))
+					if (_comp(data, search->value))
 						search = search->left;
-					else if (_comp(search->value, value))
+					else if (_comp(search->data, data))
 						search = search->right;
 					else
 						return (search);

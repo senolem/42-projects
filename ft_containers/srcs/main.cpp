@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 13:12:23 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/13 11:29:41 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/13 16:24:26 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,6 +262,16 @@ void	test_std_vector(void)
 	print_std_vector(vector1);
 }
 
+void	test_ft_map(void)
+{
+	ft::map<int, int> m;
+}
+
+void	test_std_map(void)
+{
+	std::map<std::string, int> m;
+}
+
 int	main(int argc, char **argv)
 {
 	if (argc != 3 || std::to_string(atoi(argv[2])).length() > 1 || !(argv[2][0] >= '0' && argv[2][0] <= '9') || (atoi(argv[2]) != 0 && atoi(argv[2]) != 1))
@@ -280,6 +290,9 @@ int	main(int argc, char **argv)
 		std::cout << "______________________________________________________________________________" << std::endl;
 		std::cout << "Testing : ft::stack" << std::endl << std::endl;
 		test_ft_stack();
+		std::cout << "______________________________________________________________________________" << std::endl;
+		std::cout << "Testing : ft::map" << std::endl << std::endl;
+		test_ft_map();
 	}
 	else
 	{
@@ -288,6 +301,9 @@ int	main(int argc, char **argv)
 		std::cout << "______________________________________________________________________________" << std::endl;
 		std::cout << "Testing : std::stack" << std::endl << std::endl;
 		test_std_stack();
+		std::cout << "______________________________________________________________________________" << std::endl;
+		std::cout << "Testing : std::map" << std::endl << std::endl;
+		test_std_map();
 	}
 	return (0);
 }

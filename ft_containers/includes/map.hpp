@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/13 09:56:43 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/13 16:25:26 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,29 @@
 
 namespace ft
 {
-	template <class Key, class T, class Compare = ft::less<Key>, class Allocator = std::allocator<ft::pair<const Key, T> > >
+	template <class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<ft::pair<const Key, T> > >
 	class map
 	{
 		public:
-			typedef Key										key_type;
-			typedef T										mapped_type;
-			typedef std::pair<const Key, T>					value_type;
-			typedef size_t									size_type;
-			typedef ptrdiff_t								difference_type;
-			typedef Compare									key_compare;
-			typedef Allocator								allocator_type;
-			typedef value_type								&reference;
-			typedef const value_type						&const_reference;
-			typedef typename Allocator::pointer				pointer;
-			typedef typename Allocator::const_pointer		const_pointer;
+			class																value_compare;
+			typedef Key															key_type;
+			typedef T															mapped_type;
+			typedef ft::pair<const Key, T>										value_type;
+			typedef size_t														size_type;
+			typedef ptrdiff_t													difference_type;
+			typedef Compare														key_compare;
+			typedef Allocator													allocator_type;
+			typedef value_type													&reference;
+			typedef const value_type											&const_reference;
+			typedef typename Allocator::pointer									pointer;
+			typedef typename Allocator::const_pointer							const_pointer;
+			typedef node<value_type>											node_tree;
+			typedef RBTree<value_type, value_compare, allocator_type>			rb_tree;
 			
-			typedef RBIterator<T>							iterator;
-			typedef RBIterator<const T>					const_iterator;
-			typedef VectorReverseIterator<iterator>			reverse_iterator;
-			typedef VectorReverseIterator<const_iterator>	const_reverse_iterator;
+			typedef typename rb_tree::iterator									iterator;
+			typedef typename rb_tree::const_iterator							const_iterator;
+			typedef VectorReverseIterator<iterator>								reverse_iterator;
+			typedef VectorReverseIterator<const_iterator>						const_reverse_iterator;
 			
 			class value_compare : public std::binary_function<value_type, value_type, bool>
 			{
@@ -64,10 +67,20 @@ namespace ft
 						
 					}
 			};
+
+		private:
+			rb_tree			_tree;
+			key_compare		_key_compare;
+			allocator_type	_allocator_type;
+
+		public:
+			explicit map(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type()) : _tree(comp, alloc)
+			{
+
+			}
 			
-			explicit map(const key_compare &comp, const Allocator &alloc= Allocator());
 			template <class InputIt>
-			map(InputIt first, InputIt last, const Compare &comp = Compare(), const Allocator &alloc = Allocator());
+			map(InputIt first, InputIt last, const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type());
 			map(const map &other);
 			~map(void);
 			map	&operator=(const map &other);
