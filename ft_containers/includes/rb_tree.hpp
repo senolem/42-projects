@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:59:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/16 12:17:17 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/16 14:51:04 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ namespace ft
 	{
 		public:
 			typedef T														value_type;
-			typedef Compare													key_compare;
+			typedef Compare													value_compare;
 			typedef Allocator												allocator_type;
 			typedef size_t													size_type;
 			typedef ptrdiff_t												difference_type;
@@ -47,9 +47,10 @@ namespace ft
 			size_type		_size;
 
 		public:
-			explicit RBTree(const key_compare &comp, const allocator_type &alloc) : _comp(comp), _node_ptr(newNullNode()), _allocator_type(alloc), _size(0)
+			explicit RBTree(const value_compare &comp, const allocator_type &alloc) : _comp(comp), _node_ptr(newNullNode()), _allocator_type(alloc), _size(0)
 			{
-
+				_root = _node_ptr;
+				_node_ptr->color = BLACK;
 			}
 
 			RBTree(const RBTree &other) : _comp(other.comp), _node_ptr(newNullNode()), _root(_node_ptr), _allocator_type(other._allocator_type)
@@ -160,8 +161,8 @@ namespace ft
 			
 			ft::pair<iterator, bool>	insert(const value_type &data)
 			{
-				node_tree	*node;
-				node_tree	*parent;
+				node_tree	*node = _root;
+				node_tree	*parent = _node_ptr;
 
 				if (_root == _node_ptr)
 				{
@@ -186,7 +187,7 @@ namespace ft
 					parent->right = node;
 				node->left->parent = node;
 				node->right->parent = node;
-				rebalanceTree(node, 0);
+				rebalanceTree(node);
 				return (ft::make_pair(iterator(node), true));
 			}
 
@@ -245,7 +246,7 @@ namespace ft
 					to_search->color = node->color;
 				}
 				if (color == BLACK)
-					rebalanceTree(tmp, 1);
+					recolorTree(tmp);
 				deleteTreeNode(node);
 			}
 

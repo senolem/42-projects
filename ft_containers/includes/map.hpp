@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/16 12:15:53 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/16 15:01:00 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ namespace ft
 			typedef VectorReverseIterator<iterator>								reverse_iterator;
 			typedef VectorReverseIterator<const_iterator>						const_reverse_iterator;
 			
-			class value_compare : public std::binary_function<value_type, value_type, bool>
+			class value_compare
 			{
 				friend class map;
 
@@ -62,7 +62,7 @@ namespace ft
 				protected:
 					Compare	comp;
 					
-					value_compare(Compare c) : comp(c)
+					value_compare(key_compare c) : comp(c)
 					{
 						
 					}
@@ -243,19 +243,52 @@ namespace ft
 				return (_tree.find(get_value(key)));
 			}
 
-			pair<iterator, iterator>				equal_range(const Key &key);
-			pair<const_iterator, const_iterator>	equal_range(const Key &key) const;
-			iterator								lower_bound(const Key &key);
-			const_iterator							lower_bound(const Key &key) const;
-			iterator								upper_bound(const Key &key);
-			const_iterator							upper_bound(const Key &key) const;
+			pair<iterator, iterator>				equal_range(const Key &key)
+			{
+				return (ft::make_pair(lower_bound(key), upper_bound(key)));
+			}
+
+			pair<const_iterator, const_iterator>	equal_range(const Key &key) const
+			{
+				return (ft::make_pair(lower_bound(key), upper_bound(key)));
+			}
+
+			iterator								lower_bound(const Key &key)
+			{
+				return (_tree.lower_bound(get_value(key)));
+			}
+
+			const_iterator							lower_bound(const Key &key) const
+			{
+				return (_tree.lower_bound(get_value(key)));
+			}
+
+			iterator								upper_bound(const Key &key)
+			{
+				return (_tree.upper_bound(get_value(key)));
+			}
+
+			const_iterator							upper_bound(const Key &key) const
+			{
+				return (_tree.upper_bound(get_value(key)));
+			}
 
 			// observers
-			key_compare								key_comp(void) const;
-			value_compare							value_comp(void) const;
+			key_compare								key_comp(void) const
+			{
+				return (this->key_comp);
+			}
+
+			value_compare							value_comp(void) const
+			{
+				return (value_comp(_key_compare));
+			}
 
 			// allocator
-			allocator_type							get_allocator(void) const;
+			allocator_type							get_allocator(void) const
+			{
+				return (_tree.get_allocator());
+			}
 
 			// utils
 			value_type	get_value(const key_compare &key) const
