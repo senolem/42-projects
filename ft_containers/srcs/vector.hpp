@@ -6,12 +6,13 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:49:08 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/13 11:20:32 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/16 15:48:16 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
+# include <stdexcept>
 # include "vector_class.hpp"
 # include "utils.hpp"
 # include "Exception.hpp"
@@ -227,7 +228,7 @@ namespace ft
 	typename vector<T, Alloc>::reference	vector<T, Alloc>::at(size_type n)
 	{
 		if (n >= size())
-			throw (Exception("out_of_range"));
+			throw (std::out_of_range("out_of_range"));
 		else
 			return (_data[n]);
 	}
@@ -236,7 +237,7 @@ namespace ft
 	typename vector<T, Alloc>::const_reference	vector<T, Alloc>::at(size_type n) const
 	{
 		if (n >= size())
-			throw (Exception("out_of_range"));
+			throw (std::out_of_range("out_of_range"));
 		else
 			return (_data[n]);
 	}

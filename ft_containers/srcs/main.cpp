@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 13:12:23 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/16 14:22:20 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/16 15:51:18 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,49 @@ void	test_std_stack(void)
 	std::cout << "Popped top element. Stack is expected to be empty." << std::endl;
 	print_is_empty(stack1.empty(), true);
 	std::cout << "Size = " << stack1.size() << " (expected 0)" << std::endl;
+}
+
+template <typename T>
+void	printSize(ft::vector<T> const &vct, bool print_content = true)
+{
+	const size_t size = vct.size();
+	const size_t capacity = vct.capacity();
+	const std::string isCapacityOk = (capacity >= size) ? "OK" : "KO";
+	// Cannot limit capacity's max value because it's implementation dependent
+
+	std::cout << "size: " << size << std::endl;
+	std::cout << "capacity: " << isCapacityOk << std::endl;
+	std::cout << "max_size: " << vct.max_size() << std::endl;
+	if (print_content)
+	{
+		typename ft::vector<T>::const_iterator it = vct.begin();
+		typename ft::vector<T>::const_iterator ite = vct.end();
+		std::cout << std::endl << "Content is:" << std::endl;
+		for (; it != ite; ++it)
+			std::cout << "- " << *it << std::endl;
+	}
+	std::cout << "###############################################" << std::endl;
+}
+
+#include <list>
+void	test_ft_vector2(void)
+{
+	std::list<int> lst;
+	std::list<int>::iterator lst_it;
+	for (int i = 1; i < 5; ++i)
+		lst.push_back(i * 3);
+
+	ft::vector<int> vct(lst.begin(), lst.end());
+	printSize(vct);
+
+	lst_it = lst.begin();
+	for (int i = 1; lst_it != lst.end(); ++i)
+		*lst_it++ = i * 5;
+	vct.assign(lst.begin(), lst.end());
+	printSize(vct);
+
+	vct.insert(vct.end(), lst.rbegin(), lst.rend());
+	printSize(vct);
 }
 
 void	test_ft_vector(void)
@@ -288,7 +331,8 @@ int	main(int argc, char **argv)
 	if (atoi(argv[2]) == false)
 	{
 		std::cout << "Testing : ft::vector" << std::endl << std::endl;
-		test_ft_vector();
+		//test_ft_vector();
+		test_ft_vector2();
 		std::cout << "______________________________________________________________________________" << std::endl;
 		std::cout << "Testing : ft::stack" << std::endl << std::endl;
 		test_ft_stack();
