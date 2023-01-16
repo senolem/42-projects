@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/16 10:42:38 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/16 12:15:53 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ namespace ft
 			// element access
 			T										&at(const Key &key)
 			{
-				node_tree	*tmp = _tree.search(_tree._root, key);
+				node_tree	*tmp = _tree.search(_tree.get_root(), key);
 				if (tmp)
 					return (tmp->data().second);
 			}
@@ -184,7 +184,7 @@ namespace ft
 			// modifiers
 			void									clear(void)
 			{
-				_tree.clear(_tree._root);
+				_tree.clear(_tree.get_root());
 			}
 
 			pair<iterator, bool>					insert(const value_type &value)
@@ -198,17 +198,51 @@ namespace ft
 			}
 
 			template <class InputIt>
-			void									insert(InputIt first, InputIt last);
-			void									erase(iterator pos);
-			void									erase(iterator first, iterator last);
-			size_type								erase(const Key &key);
-			void									swap(map &other);
+			void									insert(InputIt first, InputIt last)
+			{
+				return (_tree.insert(first, last));
+			}
+
+			void									erase(iterator pos)
+			{
+				return (_tree.erase(pos));
+			}
+
+			void									erase(iterator first, iterator last)
+			{
+				return (_tree.erase(first, last));
+			}
+
+			size_type								erase(const Key &key)
+			{
+				return (_tree.erase(key));
+			}
+
+			void									swap(map &other)
+			{
+				_tree.swap(other);
+			}
 
 
 			// lookup
-			size_type								count(const Key &key) const;
-			iterator								find(const Key &key);
-			const_iterator							find(const Key &key) const;
+			size_type								count(const Key &key) const
+			{
+				if (_tree.search(_tree.get_root(), get_value(key)))
+					return (1);
+				else
+					return (0);
+			}
+
+			iterator								find(const Key &key)
+			{
+				return (_tree.find(get_value(key)));
+			}
+
+			const_iterator							find(const Key &key) const
+			{
+				return (_tree.find(get_value(key)));
+			}
+
 			pair<iterator, iterator>				equal_range(const Key &key);
 			pair<const_iterator, const_iterator>	equal_range(const Key &key) const;
 			iterator								lower_bound(const Key &key);
@@ -222,6 +256,12 @@ namespace ft
 
 			// allocator
 			allocator_type							get_allocator(void) const;
+
+			// utils
+			value_type	get_value(const key_compare &key) const
+			{
+				return (ft::make_pair(key, mapped_type()));
+			}
 	};
 
 	template <class Key, class T, class Compare, class Alloc>

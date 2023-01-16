@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 13:12:23 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/13 16:24:26 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/16 12:16:47 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,6 +265,8 @@ void	test_std_vector(void)
 void	test_ft_map(void)
 {
 	ft::map<int, int> m;
+
+	m.insert(1, 2);
 }
 
 void	test_std_map(void)

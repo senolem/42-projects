@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:59:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/13 16:20:12 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/16 12:17:17 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -611,7 +611,14 @@ namespace ft
         	        }
         	    }
         	    node->color = BLACK;
-        	};
+        	}
+
+			// utils
+
+			node_tree	*get_root(void) const
+			{
+				return (_root);
+			}
 	};
 }
 
