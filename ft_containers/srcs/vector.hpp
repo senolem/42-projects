@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:49:08 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/16 15:48:16 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/16 17:13:59 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include <stdexcept>
 # include "vector_class.hpp"
 # include "utils.hpp"
-# include "Exception.hpp"
 
 namespace ft
 {
@@ -39,9 +38,9 @@ namespace ft
 	{
 		_capacity = ft::InputIt_get_len(first, last);
 		_data = _alloc.allocate(_capacity);
-		for (size_type i = 0; first != last; i++)
+		for (size_type i = 0; i < _capacity; i++)
 		{
-			_alloc.construct(&_data[i], *first);
+			_alloc.construct(&_data[i], *first++);
 			++_size;
 		}
 	}
@@ -195,7 +194,7 @@ namespace ft
 	void	vector<T, Alloc>::reserve(size_type n)
 	{
 		if (n > max_size())
-			throw Exception("length_error");
+			throw std::length_error("length_error");
 		if (n != 0 && n > _capacity)
 		{
 			T	*tmp = _alloc.allocate(n);

@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 13:12:23 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/16 15:51:18 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/16 17:17:58 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,22 +135,38 @@ void	printSize(ft::vector<T> const &vct, bool print_content = true)
 #include <list>
 void	test_ft_vector2(void)
 {
-	std::list<int> lst;
-	std::list<int>::iterator lst_it;
-	for (int i = 1; i < 5; ++i)
-		lst.push_back(i * 3);
+	ft::vector<int> vct(5);
+	ft::vector<int>::iterator it = vct.begin(), ite = vct.end();
 
-	ft::vector<int> vct(lst.begin(), lst.end());
-	printSize(vct);
+	std::cout << "len: " << (ite - it) << std::endl;
+	for (; it != ite; ++it)
+		*it = (ite - it);
 
-	lst_it = lst.begin();
-	for (int i = 1; lst_it != lst.end(); ++i)
-		*lst_it++ = i * 5;
-	vct.assign(lst.begin(), lst.end());
-	printSize(vct);
+	it = vct.begin();
+	ft::vector<int> vct_range(it, --(--ite));
+	for (int i = 0; it != ite; ++it)
+		*it = ++i * 5;
 
-	vct.insert(vct.end(), lst.rbegin(), lst.rend());
+	it = vct.begin();
+	ft::vector<int> vct_copy(vct);
+	for (int i = 0; it != ite; ++it)
+		*it = ++i * 7;
+	vct_copy.push_back(42);
+	vct_copy.push_back(21);
+
+	std::cout << "\t-- PART ONE --" << std::endl;
 	printSize(vct);
+	printSize(vct_range);
+	printSize(vct_copy);
+
+	vct = vct_copy;
+	vct_copy = vct_range;
+	vct_range.clear();
+
+	std::cout << "\t-- PART TWO --" << std::endl;
+	printSize(vct);
+	printSize(vct_range);
+	printSize(vct_copy);
 }
 
 void	test_ft_vector(void)

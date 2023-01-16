@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:35:50 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/16 15:34:16 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/16 17:00:17 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,40 +206,40 @@ namespace ft
 
 			VectorIterator	&operator++(void)
 			{
-				_pointer++;
-				return *this;
+				++_pointer;
+				return (*this);
 			}
 
 			VectorIterator	operator++(int)
 			{
 				VectorIterator tmp = *this;
 				++(*this);
-				return tmp;
+				return (tmp);
 			}
 
 			VectorIterator	&operator--(void)
 			{
-				_pointer--;
-				return *this;
+				--_pointer;
+				return (*this);
 			}
 
 			VectorIterator	operator--(int)
 			{
 				VectorIterator tmp = *this;
 				--(*this);
-				return tmp;
+				return (tmp);
 			}
 
 			VectorIterator	&operator+=(std::size_t n)
 			{
 				_pointer += n;
-				return *this;
+				return (*this);
 			}
 
 			VectorIterator	&operator-=(std::size_t n)
 			{
 				_pointer -= n;
-				return *this;
+				return (*this);
 			}
 
 			VectorIterator	operator+(std::size_t n) const

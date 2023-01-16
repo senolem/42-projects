@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:49 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/13 11:26:08 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/16 16:30:17 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ namespace ft
 			allocator_type			get_allocator() const;
 
 			private:
-				T*				_data;
+				T				*_data;
         		allocator_type	_alloc;
 				size_type		_size;
 				size_type		_capacity;
