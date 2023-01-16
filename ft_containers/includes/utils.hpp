@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:46:06 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/13 16:04:11 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/16 10:22:24 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,9 +145,9 @@ namespace ft
 	};
 
 	template <class T1, class T2>
-	pair<T1, T2>	make_pair(T1 t, T2 u)
+	pair<T1, T2>	make_pair(T1 first, T2 second)
 	{
-		return (pair<T1, T2>(t, u));
+		return (pair<T1, T2>(first, second));
 	}
 
 	template <class T1, class T2>

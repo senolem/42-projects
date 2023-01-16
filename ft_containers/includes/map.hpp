@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/13 16:25:26 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/16 10:42:38 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,41 +74,129 @@ namespace ft
 			allocator_type	_allocator_type;
 
 		public:
-			explicit map(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type()) : _tree(comp, alloc)
+			explicit map(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type()) : _tree(comp, alloc), _key_compare(comp), _allocator_type(alloc)
+			{
+
+			}
+
+			map(const map &other) : _tree(other._tree), _key_compare(other._key_compare), _allocator_type(_allocator_type)
+			{
+
+			}
+
+			~map(void)
 			{
 
 			}
 			
+			map	&operator=(const map &other)
+			{
+				if (this != &other)
+				{
+					_tree = other._tree;
+					_key_compare = other._key_compare;
+					_allocator_type = other._allocator_type;
+				}
+				return (*this);
+			}
+
 			template <class InputIt>
-			map(InputIt first, InputIt last, const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type());
-			map(const map &other);
-			~map(void);
-			map	&operator=(const map &other);
+			map(InputIt first, InputIt last, const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type()) : _tree(comp, alloc), _key_compare(comp)
+			{
+				_tree.insert(first, last);
+			}
 
 			// iterators
-			iterator								begin(void);
-			const_iterator							begin(void) const;
-			iterator								end(void);
-			const_iterator							end(void) const;
-			reverse_iterator						rbegin(void);
-			const_reverse_iterator					rbegin(void) const;
-			reverse_iterator						rend(void);
-			const_reverse_iterator					rend(void) const;
+			iterator								begin(void)
+			{
+				return (_tree.begin());
+			}
+
+			const_iterator							begin(void) const
+			{
+				return (_tree.begin());
+			}
+
+			iterator								end(void)
+			{
+				return (_tree.end());
+			}
+
+			const_iterator							end(void) const
+			{
+				return (_tree.end());
+			}
+
+			reverse_iterator						rbegin(void)
+			{
+				return (_tree.rbegin());
+			}
+
+			const_reverse_iterator					rbegin(void) const
+			{
+				return (_tree.rbegin());
+			}
+
+			reverse_iterator						rend(void)
+			{
+				return (_tree.rend());
+			}
+
+			const_reverse_iterator					rend(void) const
+			{
+				return (_tree.rend());
+			}
 
 			// capacity
-			bool									empty(void) const;
-			size_type								size(void) const;
-			size_type								max_size(void) const;
+			bool									empty(void) const
+			{
+				return (_tree.empty());
+			}
+
+			size_type								size(void) const
+			{
+				return (_tree.size());
+			}
+
+			size_type								max_size(void) const
+			{
+				return (_tree.max_size());
+			}
 
 			// element access
-			T										&at(const Key &key);
-			const T									&at(const Key &key) const;
-			T										&operator[](const Key &key);
+			T										&at(const Key &key)
+			{
+				node_tree	*tmp = _tree.search(_tree._root, key);
+				if (tmp)
+					return (tmp->data().second);
+			}
+
+			const T									&at(const Key &key) const
+			{
+				return (const_cast<mapped_type>(at(key)));
+			}
+
+			T										&operator[](const Key &key)
+			{
+				return (*(insert(ft::make_pair(key, mapped_type())).first)).second;
+			}
 
 			// modifiers
-			void									clear(void);
-			pair<iterator, bool>					insert(const value_type &value);
-			iterator								insert(iterator pos, const value_type &value);
+			void									clear(void)
+			{
+				_tree.clear(_tree._root);
+			}
+
+			pair<iterator, bool>					insert(const value_type &value)
+			{
+				return (_tree.insert(value));
+			}
+
+			iterator								insert(iterator pos, const value_type &value)
+			{
+				return (_tree.insert(pos, value));
+			}
+
 			template <class InputIt>
 			void									insert(InputIt first, InputIt last);
 			void									erase(iterator pos);
