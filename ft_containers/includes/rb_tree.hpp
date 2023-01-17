@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:59:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/16 14:51:04 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/17 15:27:30 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ namespace ft
 			typedef typename allocator_type::const_pointer					const_pointer;
 			typedef RBIterator<value_type>									iterator;
 			typedef RBIterator<const value_type>							const_iterator;
-			typedef VectorReverseIterator<iterator>							reverse_iterator;
-			typedef VectorReverseIterator<const_iterator>					const_reverse_iterator;
+			typedef reverse_iter<iterator>								reverse_iterator;
+			typedef reverse_iter<const_iterator>						const_reverse_iterator;
 			typedef node<value_type>										node_tree;
 			typedef typename Allocator::template rebind<node_tree>::other	node_allocator;
 		

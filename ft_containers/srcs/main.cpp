@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 13:12:23 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/16 17:17:58 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/17 14:29:31 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,41 +132,42 @@ void	printSize(ft::vector<T> const &vct, bool print_content = true)
 	std::cout << "###############################################" << std::endl;
 }
 
+void	checkErase(ft::vector<std::string> const &vct,
+					ft::vector<std::string>::const_iterator const &it)
+{
+	static int i = 0;
+	std::cout << "[" << i++ << "] " << "erase: " << it - vct.begin() << std::endl;
+	printSize(vct);
+}
+
 #include <list>
 void	test_ft_vector2(void)
 {
-	ft::vector<int> vct(5);
-	ft::vector<int>::iterator it = vct.begin(), ite = vct.end();
+	ft::vector<std::string> vct(10);
 
-	std::cout << "len: " << (ite - it) << std::endl;
-	for (; it != ite; ++it)
-		*it = (ite - it);
-
-	it = vct.begin();
-	ft::vector<int> vct_range(it, --(--ite));
-	for (int i = 0; it != ite; ++it)
-		*it = ++i * 5;
-
-	it = vct.begin();
-	ft::vector<int> vct_copy(vct);
-	for (int i = 0; it != ite; ++it)
-		*it = ++i * 7;
-	vct_copy.push_back(42);
-	vct_copy.push_back(21);
-
-	std::cout << "\t-- PART ONE --" << std::endl;
+	for (unsigned long int i = 0; i < vct.size(); ++i)
+		vct[i] = std::string((vct.size() - i), i + 65);
 	printSize(vct);
-	printSize(vct_range);
-	printSize(vct_copy);
 
-	vct = vct_copy;
-	vct_copy = vct_range;
-	vct_range.clear();
+	checkErase(vct, vct.erase(vct.begin() + 2));
 
-	std::cout << "\t-- PART TWO --" << std::endl;
+	checkErase(vct, vct.erase(vct.begin()));
+	checkErase(vct, vct.erase(vct.end() - 1));
+
+	checkErase(vct, vct.erase(vct.begin(), vct.begin() + 3));
+	checkErase(vct, vct.erase(vct.end() - 3, vct.end() - 1));
+
+	vct.push_back("Hello");
+	vct.push_back("Hi there");
 	printSize(vct);
-	printSize(vct_range);
-	printSize(vct_copy);
+	checkErase(vct, vct.erase(vct.end() - 3, vct.end()));
+
+	vct.push_back("ONE");
+	vct.push_back("TWO");
+	vct.push_back("THREE");
+	vct.push_back("FOUR");
+	printSize(vct);
+	checkErase(vct, vct.erase(vct.begin(), vct.end()));
 }
 
 void	test_ft_vector(void)

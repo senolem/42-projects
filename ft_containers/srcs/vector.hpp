@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:49:08 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/16 17:13:59 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/17 12:10:07 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -368,21 +368,36 @@ namespace ft
 	template <class T, class Alloc>
 	typename vector<T, Alloc>::iterator	vector<T, Alloc>::erase(iterator position)
 	{
-		_alloc.destroy(&*position);
-		std::copy(position + 1, end(), position);
-		_size--;
-		return (position);
+				size_type			val = position - begin();
+
+				_size -= 1;
+				_alloc.destroy(&_data[val]);
+				for (size_type i = val; i < _size; i++)
+				{
+					_alloc.construct(&_data[i], _data[i + 1]);
+					_alloc.destroy(&_data[i + 1]);
+				}
+				return iterator(&_data[val]);
 	}
 
 	template <class T, class Alloc>
 	typename vector<T, Alloc>::iterator	vector<T, Alloc>::erase(iterator first, iterator last)
 	{
+		int	toreturn = 0;
+
+		if (InputIt_get_len(first, last) == 0)
+			return (last);
+		if (last == end())
+			toreturn = 1;
 		difference_type	diff = last - first;
 		for (iterator iter = first; iter < last; iter++)
 			_alloc.destroy(&*iter);
 		std::copy(last, end(), first);
 		_size -= diff;
-		return (first);
+		if (toreturn)
+			return (end());
+		else
+			return (first);
 	}
 
 	template <class T, class Alloc>

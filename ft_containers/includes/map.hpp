@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/16 15:01:00 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/17 15:27:44 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ namespace ft
 			
 			typedef typename rb_tree::iterator									iterator;
 			typedef typename rb_tree::const_iterator							const_iterator;
-			typedef VectorReverseIterator<iterator>								reverse_iterator;
-			typedef VectorReverseIterator<const_iterator>						const_reverse_iterator;
+			typedef reverse_iter<iterator>								reverse_iterator;
+			typedef reverse_iter<const_iterator>						const_reverse_iterator;
 			
 			class value_compare
 			{
