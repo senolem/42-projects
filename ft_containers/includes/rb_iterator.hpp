@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 09:55:57 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/12 18:51:58 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/17 21:14:06 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ namespace ft
 
 			RBIterator	&operator=(RBIterator const &other)
 			{
-				if (*this != &other)
+				if (this != &other)
 					node = other.base();
 				return (*this);
 			}

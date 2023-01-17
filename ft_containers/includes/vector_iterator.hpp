@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:35:50 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/17 17:02:47 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/17 20:47:01 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,8 +228,7 @@ namespace ft
 			template <class Iter>
 			reverse_iter	&operator=(const reverse_iter<Iter> &other)
 			{
-				if (this != &other)
-					_data = other.base();
+				_data = other.base();
 				return  *this;
 			}
 
@@ -293,8 +292,7 @@ namespace ft
 
 			reference	operator*() const
 			{
-				iterator_type	tmp = _data;
-				return (*(--tmp));
+				return ((--iterator(_data)).operator*());
 			}
 
 			pointer	operator->() const
@@ -304,7 +302,7 @@ namespace ft
 
 			reference	operator[] (difference_type n) const
 			{
-				return (base()[-n - 1]);
+				return (*this->operator+(n));
 			}
 	};
 

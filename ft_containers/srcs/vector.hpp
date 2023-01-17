@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:49:08 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/17 17:24:38 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/17 20:49:17 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,25 +114,25 @@ namespace ft
 	template <class T, class Alloc>
 	typename vector<T, Alloc>::reverse_iterator	vector<T, Alloc>::rbegin(void)
 	{
-		return (reverse_iterator(&_data[_size - 1]));
+		return (reverse_iterator(&_data[_size]));
 	}
 
 	template <class T, class Alloc>
 	typename vector<T, Alloc>::const_reverse_iterator	vector<T, Alloc>::rbegin(void) const
 	{
-		return (const_reverse_iterator(&_data[_size - 1]));
+		return (const_reverse_iterator(&_data[_size]));
 	}
 
 	template <class T, class Alloc>
 	typename vector<T, Alloc>::reverse_iterator	vector<T, Alloc>::rend(void)
 	{
-		return (reverse_iterator(end()));
+		return (reverse_iterator(_data));
 	}
 
 	template <class T, class Alloc>
 	typename vector<T, Alloc>::const_reverse_iterator	vector<T, Alloc>::rend(void) const
 	{
-		return (const_reverse_iterator(end()));
+		return (const_reverse_iterator(_data));
 	}
 
 	// capacity

@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/17 15:27:44 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/17 21:13:50 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,125 +107,125 @@ namespace ft
 			}
 
 			// iterators
-			iterator								begin(void)
+			iterator	begin(void)
 			{
 				return (_tree.begin());
 			}
 
-			const_iterator							begin(void) const
+			const_iterator	begin(void) const
 			{
 				return (_tree.begin());
 			}
 
-			iterator								end(void)
+			iterator	end(void)
 			{
 				return (_tree.end());
 			}
 
-			const_iterator							end(void) const
+			const_iterator	end(void) const
 			{
 				return (_tree.end());
 			}
 
-			reverse_iterator						rbegin(void)
+			reverse_iterator	rbegin(void)
 			{
 				return (_tree.rbegin());
 			}
 
-			const_reverse_iterator					rbegin(void) const
+			const_reverse_iterator	rbegin(void) const
 			{
 				return (_tree.rbegin());
 			}
 
-			reverse_iterator						rend(void)
+			reverse_iterator	rend(void)
 			{
 				return (_tree.rend());
 			}
 
-			const_reverse_iterator					rend(void) const
+			const_reverse_iterator	rend(void) const
 			{
 				return (_tree.rend());
 			}
 
 			// capacity
-			bool									empty(void) const
+			bool	empty(void) const
 			{
 				return (_tree.empty());
 			}
 
-			size_type								size(void) const
+			size_type	size(void) const
 			{
 				return (_tree.size());
 			}
 
-			size_type								max_size(void) const
+			size_type	max_size(void) const
 			{
 				return (_tree.max_size());
 			}
 
 			// element access
-			T										&at(const Key &key)
+			T	&at(const Key &key)
 			{
 				node_tree	*tmp = _tree.search(_tree.get_root(), key);
 				if (tmp)
 					return (tmp->data().second);
 			}
 
-			const T									&at(const Key &key) const
+			const T	&at(const Key &key) const
 			{
 				return (const_cast<mapped_type>(at(key)));
 			}
 
-			T										&operator[](const Key &key)
+			T	&operator[](const Key &key)
 			{
 				return (*(insert(ft::make_pair(key, mapped_type())).first)).second;
 			}
 
 			// modifiers
-			void									clear(void)
+			void	clear(void)
 			{
 				_tree.clear(_tree.get_root());
 			}
 
-			pair<iterator, bool>					insert(const value_type &value)
+			pair<iterator, bool>	insert(const value_type &value)
 			{
 				return (_tree.insert(value));
 			}
 
-			iterator								insert(iterator pos, const value_type &value)
+			iterator	insert(iterator pos, const value_type &value)
 			{
 				return (_tree.insert(pos, value));
 			}
 
 			template <class InputIt>
-			void									insert(InputIt first, InputIt last)
+			void	insert(InputIt first, InputIt last)
 			{
 				return (_tree.insert(first, last));
 			}
 
-			void									erase(iterator pos)
+			void	erase(iterator pos)
 			{
 				return (_tree.erase(pos));
 			}
 
-			void									erase(iterator first, iterator last)
+			void	erase(iterator first, iterator last)
 			{
 				return (_tree.erase(first, last));
 			}
 
-			size_type								erase(const Key &key)
+			size_type	erase(const Key &key)
 			{
 				return (_tree.erase(key));
 			}
 
-			void									swap(map &other)
+			void	swap(map &other)
 			{
 				_tree.swap(other);
 			}
 
 
 			// lookup
-			size_type								count(const Key &key) const
+			size_type	count(const Key &key) const
 			{
 				if (_tree.search(_tree.get_root(), get_value(key)))
 					return (1);
@@ -233,17 +233,17 @@ namespace ft
 					return (0);
 			}
 
-			iterator								find(const Key &key)
+			iterator	find(const Key &key)
 			{
 				return (_tree.find(get_value(key)));
 			}
 
-			const_iterator							find(const Key &key) const
+			const_iterator	find(const Key &key) const
 			{
 				return (_tree.find(get_value(key)));
 			}
 
-			pair<iterator, iterator>				equal_range(const Key &key)
+			pair<iterator, iterator>	equal_range(const Key &key)
 			{
 				return (ft::make_pair(lower_bound(key), upper_bound(key)));
 			}
@@ -253,47 +253,77 @@ namespace ft
 				return (ft::make_pair(lower_bound(key), upper_bound(key)));
 			}
 
-			iterator								lower_bound(const Key &key)
+			iterator	lower_bound(const Key &key)
 			{
-				return (_tree.lower_bound(get_value(key)));
+				iterator	tmp = begin();
+				iterator	tmp2 = end();
+
+				while (tmp != tmp2)
+				{
+					if (!this->_key_compare(tmp->first, key))
+						break ;
+					++tmp;
+				}
+				return (tmp);
 			}
 
-			const_iterator							lower_bound(const Key &key) const
+			const_iterator	lower_bound(const Key &key) const
 			{
-				return (_tree.lower_bound(get_value(key)));
+				const_iterator	tmp = begin();
+				const_iterator	tmp2 = end();
+
+				while (tmp != tmp2)
+				{
+					if (!this->_key_compare(tmp->first, key))
+						break ;
+					++tmp;
+				}
+				return (tmp);
 			}
 
-			iterator								upper_bound(const Key &key)
+			iterator	upper_bound(const Key &key)
 			{
-				return (_tree.upper_bound(get_value(key)));
+				iterator	tmp = begin();
+				iterator	tmp2 = end();
+
+				while (tmp != tmp2)
+				{
+					if (!this->_key_compare(key, tmp->first))
+						break ;
+					++tmp;
+				}
+				return (tmp);
 			}
 
-			const_iterator							upper_bound(const Key &key) const
+			const_iterator	upper_bound(const Key &key) const
 			{
-				return (_tree.upper_bound(get_value(key)));
+				const_iterator	tmp = begin();
+				const_iterator	tmp2 = end();
+
+				while (tmp != tmp2)
+				{
+					if (!this->_key_compare(key, tmp->first))
+						break ;
+					++tmp;
+				}
+				return (tmp);
 			}
 
 			// observers
-			key_compare								key_comp(void) const
+			key_compare	key_comp(void) const
 			{
 				return (this->key_comp);
 			}
 
-			value_compare							value_comp(void) const
+			value_compare	value_comp(void) const
 			{
 				return (value_comp(_key_compare));
 			}
 
 			// allocator
-			allocator_type							get_allocator(void) const
+			allocator_type	get_allocator(void) const
 			{
 				return (_tree.get_allocator());
-			}
-
-			// utils
-			value_type	get_value(const key_compare &key) const
-			{
-				return (ft::make_pair(key, mapped_type()));
 			}
 	};
 

@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:59:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/17 15:27:30 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/17 20:52:27 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,11 @@ namespace ft
 				node_tree	*node;
 
 				if (_root == _node_ptr)
-					return (const_iterator(_node_ptr));
+					return (iterator(_node_ptr));
 				node = _root;
 				while (node && node->left != _node_ptr)
 					node = node->left;
-				return (const_iterator(node));			
+				return (iterator(node));			
 			}
 
 			iterator	end(void)
@@ -108,7 +108,7 @@ namespace ft
 
 			const_iterator	end(void) const
 			{
-				return (const_iterator(getMax(_root)));
+				return (iterator(getMax(_root)));
 			}
 
 			reverse_iterator	rbegin(void)
