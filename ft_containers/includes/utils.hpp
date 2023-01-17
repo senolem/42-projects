@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:46:06 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/16 10:22:24 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/17 17:33:58 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ namespace ft
 	}
 
 	template <class InputIt1, class InputIt2>
-	bool equal (InputIt1 lhs_begin, InputIt1 lhs_end, InputIt2 rhs_begin)
+	bool equal(InputIt1 lhs_begin, InputIt1 lhs_end, InputIt2 rhs_begin)
 	{
 		while (lhs_begin != lhs_end)
 		{

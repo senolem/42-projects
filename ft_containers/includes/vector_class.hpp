@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:49 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/17 15:28:11 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/17 17:38:55 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,19 +100,42 @@ namespace ft
 
 	// non member function overloads
 	template <class T, class Alloc>
-	void	swap(vector<T,Alloc>& x, vector<T,Alloc> &y);
+	bool	operator==(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+	{
+		if (lhs.size() != rhs.size())
+			return (false);
+		return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+	}
+
 	template <class T, class Alloc>
-	bool	operator==(const vector<T,Alloc> &lhs, const vector<T,Alloc> &rhs);
+	bool	operator!=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+	{
+		return (!(lhs == rhs));
+	}
+
 	template <class T, class Alloc>
-	bool	operator!=(const vector<T,Alloc> &lhs, const vector<T,Alloc> &rhs);
+	bool	operator<(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+	{
+		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+	}
+
 	template <class T, class Alloc>
-	bool	operator<(const vector<T,Alloc> &lhs, const vector<T,Alloc> &rhs);
+	bool	operator<=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+	{
+		return (!(rhs < lhs));
+	}
+
 	template <class T, class Alloc>
-	bool	operator<=(const vector<T,Alloc> &lhs, const vector<T,Alloc> &rhs);
+	bool	operator>(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+	{
+		return (rhs < lhs);
+	}
+
 	template <class T, class Alloc>
-	bool	operator>(const vector<T,Alloc> &lhs, const vector<T,Alloc> &rhs);
-	template <class T, class Alloc>
-	bool	operator>=(const vector<T,Alloc> &lhs, const vector<T,Alloc> &rhs);
+	bool	operator>=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+	{
+		return (!(lhs < rhs));
+	}
 }
 
 #endif

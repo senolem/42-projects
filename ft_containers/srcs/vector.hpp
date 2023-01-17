@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:49:08 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/17 12:10:07 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/17 17:24:38 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ namespace ft
 			if (n > _capacity)
 			{
 				if (_capacity == 0)
-					reserve(1);
+					reserve(n);
 				else if (n > _capacity * 2)
 					reserve(n);
 				else
@@ -427,7 +427,7 @@ namespace ft
 	}
 
 	template <class T, class Alloc>
-	void	vector<T, Alloc>::clear()
+	void	vector<T, Alloc>::clear(void)
 	{
 		iterator	iter = begin();
 		for (size_type i = 0; i < _capacity; i++)
