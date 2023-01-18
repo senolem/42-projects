@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/17 21:13:50 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/18 11:59:20 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,23 @@ namespace ft
 	class map
 	{
 		public:
-			class																value_compare;
-			typedef Key															key_type;
-			typedef T															mapped_type;
-			typedef ft::pair<const Key, T>										value_type;
-			typedef size_t														size_type;
-			typedef ptrdiff_t													difference_type;
-			typedef Compare														key_compare;
-			typedef Allocator													allocator_type;
-			typedef value_type													&reference;
-			typedef const value_type											&const_reference;
-			typedef typename Allocator::pointer									pointer;
-			typedef typename Allocator::const_pointer							const_pointer;
-			typedef node<value_type>											node_tree;
-			typedef RBTree<value_type, value_compare, allocator_type>			rb_tree;
+			class														value_compare;
+			typedef Key													key_type;
+			typedef T													mapped_type;
+			typedef ft::pair<const Key, T>								value_type;
+			typedef size_t												size_type;
+			typedef ptrdiff_t											difference_type;
+			typedef Compare												key_compare;
+			typedef Allocator											allocator_type;
+			typedef value_type											&reference;
+			typedef const value_type									&const_reference;
+			typedef typename Allocator::pointer							pointer;
+			typedef typename Allocator::const_pointer					const_pointer;
+			typedef node<value_type>									node_tree;
+			typedef RBTree<value_type, value_compare, allocator_type>	rb_tree;
 			
-			typedef typename rb_tree::iterator									iterator;
-			typedef typename rb_tree::const_iterator							const_iterator;
+			typedef typename rb_tree::iterator							iterator;
+			typedef typename rb_tree::const_iterator					const_iterator;
 			typedef reverse_iter<iterator>								reverse_iterator;
 			typedef reverse_iter<const_iterator>						const_reverse_iterator;
 			
@@ -50,10 +50,6 @@ namespace ft
 				friend class map;
 
 				public:
-					typedef bool		result_type;
-					typedef value_type	first_argument_type;
-					typedef value_type	second_argument_type;
-					
 					bool	operator()(const value_type &lhs, const value_type &rhs) const
 					{
 						return comp(lhs.first, rhs.first);

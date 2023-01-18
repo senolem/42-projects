@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 09:55:57 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/17 21:14:06 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/18 11:59:56 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ namespace ft
 			typedef const I*						const_pointer;
 			
 			typedef RBIterator<I>					iterator;
-			typedef RBIterator<const I>			const_iterator;
+			typedef RBIterator<const I>				const_iterator;
 
 		private:
 			tree_node	*node;
