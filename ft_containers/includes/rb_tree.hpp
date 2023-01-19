@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:59:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/18 12:05:40 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/19 17:16:25 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ namespace ft
 				_node_ptr->color = BLACK;
 			}
 
-			RBTree(const RBTree &other) : _comp(other.comp), _node_ptr(newNullNode()), _root(_node_ptr), _allocator_type(other._allocator_type)
+			RBTree(const RBTree &other) : _comp(other._comp), _node_ptr(newNullNode()), _root(_node_ptr), _allocator_type(other._allocator_type), _size(0)
 			{
-
+				*this = other;
 			}
 
 			RBTree &operator=(const RBTree &other)
@@ -66,6 +66,7 @@ namespace ft
 					insert(other.begin(), other.end());
 					_comp = other._comp;
 					_allocator_type = other._allocator_type;
+					_size = other._size;
 				}
 				return (*this);
 			}
@@ -212,7 +213,7 @@ namespace ft
 
 			void	erase(node_tree *node)
 			{
-				node_tree	*to_search = node;
+				node_tree	*search = node;
 				node_tree	*tmp;
 				int			color = node->color;
 
@@ -228,22 +229,21 @@ namespace ft
 				}
 				else
 				{
-					to_search = getMin(node->right);
-					color = to_search->color;
-					if (to_search->right)
-						tmp = to_search->right;
-					if (to_search->parent == node)
-						tmp->parent = to_search;
+					search = getMin(node->right);
+					color = search->color;
+					tmp = search->right;
+					if (search->parent == node)
+						tmp->parent = search;
 					else
 					{
-						insertNode(to_search, to_search->right);
-						to_search->right = node->right;
-						to_search->right->parent = to_search;
+						insertNode(search, search->right);
+						search->right = node->right;
+						search->right->parent = search;
 					}
-					insertNode(node, to_search);
-					to_search->left = tmp->left;
-					to_search->left->parent = to_search;
-					to_search->color = node->color;
+					insertNode(node, search);
+					search->left = node->left;
+					search->left->parent = search;
+					search->color = node->color;
 				}
 				if (color == BLACK)
 					recolorTree(tmp);
@@ -409,7 +409,7 @@ namespace ft
 			{
 				while (search != _node_ptr)
 				{
-					if (_comp(data, search->value))
+					if (_comp(data, search->data))
 						search = search->left;
 					else if (_comp(search->data, data))
 						search = search->right;
@@ -473,6 +473,17 @@ namespace ft
 					node->color = BLACK;
 				else
 					node->color = RED;
+			}
+
+			void	insertNode(node_tree *new_node, node_tree *node)
+			{
+				if (new_node->parent == _node_ptr)
+					_root = node;
+				else if (new_node->parent == new_node->parent->left)
+					new_node->parent->left = node;
+				else
+					new_node->parent->right = node;
+				node->parent = new_node->parent;
 			}
 
 			node_tree	*replaceNode(node_tree *node)
@@ -555,7 +566,7 @@ namespace ft
         	            {
         	                swapNodeColor(sibling);
         	                node->parent->color = RED; 
-        	                leftRotate(node->parent);
+        	                rotateTreeLeft(node->parent);
         	                sibling = node->parent->right;
         	            }
         	            if (sibling->left->color == BLACK && sibling->right->color == BLACK)
@@ -569,13 +580,13 @@ namespace ft
         	                {
         	                    sibling->left->color = BLACK;
         	                    sibling->color = RED;
-        	                    rightRotate(sibling);
+        	                    rotateTreeRight(sibling);
         	                    sibling = node->parent->right;
         	                }
         	                sibling->color = node->parent->color;
         	                node->parent->color = BLACK;
         	                sibling->right->color = BLACK;
-        	                leftRotate(node->parent);
+        	                rotateTreeLeft(node->parent);
         	                node = _root;
         	            }
         	        }
@@ -614,8 +625,8 @@ namespace ft
         	    node->color = BLACK;
         	}
 
+		public:
 			// utils
-
 			node_tree	*get_root(void) const
 			{
 				return (_root);

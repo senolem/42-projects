@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/18 11:59:20 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/19 17:02:50 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ namespace ft
 
 			}
 
-			map(const map &other) : _tree(other._tree), _key_compare(other._key_compare), _allocator_type(_allocator_type)
+			map(const map &other) : _tree(other._tree), _key_compare(other._key_compare), _allocator_type(other._allocator_type)
 			{
 
 			}
@@ -201,12 +201,12 @@ namespace ft
 
 			void	erase(iterator pos)
 			{
-				return (_tree.erase(pos));
+				_tree.erase(pos.base());
 			}
 
 			void	erase(iterator first, iterator last)
 			{
-				return (_tree.erase(first, last));
+				_tree.erase(first, last);
 			}
 
 			size_type	erase(const Key &key)
@@ -284,7 +284,7 @@ namespace ft
 
 				while (tmp != tmp2)
 				{
-					if (!this->_key_compare(key, tmp->first))
+					if (this->_key_compare(key, tmp->first))
 						break ;
 					++tmp;
 				}
@@ -298,7 +298,7 @@ namespace ft
 
 				while (tmp != tmp2)
 				{
-					if (!this->_key_compare(key, tmp->first))
+					if (this->_key_compare(key, tmp->first))
 						break ;
 					++tmp;
 				}
@@ -308,12 +308,12 @@ namespace ft
 			// observers
 			key_compare	key_comp(void) const
 			{
-				return (this->key_comp);
+				return (_key_compare);
 			}
 
 			value_compare	value_comp(void) const
 			{
-				return (value_comp(_key_compare));
+				return (value_compare(_key_compare));
 			}
 
 			// allocator

@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:35:50 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/17 20:47:01 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:22:16 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,7 +302,7 @@ namespace ft
 
 			reference	operator[] (difference_type n) const
 			{
-				return (*this->operator+(n));
+				return (*operator+(n));
 			}
 	};
 
