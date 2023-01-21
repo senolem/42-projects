@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:46:06 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/17 17:33:58 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/21 21:37:09 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,14 @@ namespace ft
 	struct enable_const<true, const_false, const_true>
 	{
 		typedef const_true	type;
+	};
+
+	template <class T>
+	void	swap_elements(T &lhs, T &rhs)
+	{
+		T	tmp = lhs;
+		lhs = rhs;
+		rhs = tmp;
 	};
 
 	template <class T1, class T2>

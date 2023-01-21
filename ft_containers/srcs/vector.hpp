@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:49:08 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/17 20:49:17 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/21 20:37:57 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -403,27 +403,11 @@ namespace ft
 	template <class T, class Alloc>
 	void	vector<T, Alloc>::swap(vector &x)
 	{
-		T*				tmp_data;
-		allocator_type	tmp_alloc;
-		size_type		tmp_size;
-		size_type		tmp_capacity;
-		size_type		tmp_max_size;
-
-		tmp_data = x._data;
-		tmp_alloc = x._alloc;
-		tmp_size = x._size;
-		tmp_capacity = x._capacity;
-		tmp_max_size = x._max_size;
-		x._data = _data;
-		x._alloc = _alloc;
-		x._size = _size;
-		x._capacity = _capacity;
-		x._max_size = _max_size;
-		_data = tmp_data;
-		_alloc = tmp_alloc;
-		_size = tmp_size;
-		_capacity = tmp_capacity;
-		_max_size = tmp_max_size;
+		ft::swap_elements(_data, x._data);
+		ft::swap_elements(_alloc, x._alloc);
+		ft::swap_elements(_size, x._size);
+		ft::swap_elements(_capacity, x._capacity);
+		ft::swap_elements(_max_size, x._max_size);
 	}
 
 	template <class T, class Alloc>

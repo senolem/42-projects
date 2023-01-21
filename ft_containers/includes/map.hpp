@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/19 17:02:50 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/21 21:39:51 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,19 +211,18 @@ namespace ft
 
 			size_type	erase(const Key &key)
 			{
-				return (_tree.erase(key));
+				return (_tree.erase(get_value_type(key)));
 			}
 
 			void	swap(map &other)
 			{
-				_tree.swap(other);
+				_tree.swap(other._tree);
 			}
-
 
 			// lookup
 			size_type	count(const Key &key) const
 			{
-				if (_tree.search(_tree.get_root(), get_value(key)))
+				if (_tree.search(_tree.get_root(), get_value_type(key)))
 					return (1);
 				else
 					return (0);
@@ -231,12 +230,12 @@ namespace ft
 
 			iterator	find(const Key &key)
 			{
-				return (_tree.find(get_value(key)));
+				return (_tree.find(get_value_type(key)));
 			}
 
 			const_iterator	find(const Key &key) const
 			{
-				return (_tree.find(get_value(key)));
+				return (_tree.find(get_value_type(key)));
 			}
 
 			pair<iterator, iterator>	equal_range(const Key &key)
@@ -321,36 +320,39 @@ namespace ft
 			{
 				return (_tree.get_allocator());
 			}
+
+			// key
+			value_type	get_value_type(const Key &key) const
+			{
+				return (ft::make_pair(key, mapped_type()));
+			}
 	};
 
+	// non member function overloads
 	template <class Key, class T, class Compare, class Alloc>
 	bool	operator==(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
 	{
 		if (lhs.size() != rhs.size())
 			return (false);
-		else
-			return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+		return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
 	}
 
 	template <class Key, class T, class Compare, class Alloc>
 	bool	operator!=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
 	{
-		if (lhs == rhs)
-			return (false);
-		else
-			return (true);
+		return (!(lhs == rhs));
 	}
 
 	template <class Key, class T, class Compare, class Alloc>
 	bool	operator<(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
 	{
-		ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
 	}
 
 	template <class Key, class T, class Compare, class Alloc>
 	bool	operator<=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
 	{
-		return !(rhs < lhs);
+		return (!(rhs < lhs));
 	}
 
 	template <class Key, class T, class Compare, class Alloc>
@@ -362,7 +364,7 @@ namespace ft
 	template <class Key, class T, class Compare, class Alloc>
 	bool	operator>=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
 	{
-		return !(lhs < rhs);
+		return (!(lhs < rhs));
 	}
 
 	template <class Key, class T, class Compare, class Alloc>

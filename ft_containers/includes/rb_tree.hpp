@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:59:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/19 17:16:25 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/21 20:39:32 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ namespace ft
 			typedef typename Allocator::template rebind<node_tree>::other	node_allocator;
 		
 		private:
-			Compare			_comp;
+			value_compare	_comp;
 			node_tree		*_node_ptr;
 			node_tree		*_root;
 			node_allocator	_node_allocator;
@@ -263,12 +263,12 @@ namespace ft
 
 			void	swap(RBTree &x)
 			{
-				_comp = x._comp;
-				_node_ptr = x._node_ptr;
-				_root = x._root;
-				_node_allocator = x._node_allocator;
-				_allocator_type = x._allocator_type;
-				_size = x._size;
+				ft::swap_elements(_comp, x._comp);
+				ft::swap_elements(_node_ptr, x._node_ptr);
+				ft::swap_elements(_root, x._root);
+				ft::swap_elements(_node_allocator, x._node_allocator);
+				ft::swap_elements(_allocator_type, x._allocator_type);
+				ft::swap_elements(_size, x._size);
 			}
 
 			// lookup
@@ -280,12 +280,12 @@ namespace ft
 				return (iterator(getMax(_root)));
 			}
 
-			const_iterator	find(const value_type &data) const
+			iterator	find(const value_type &data) const
 			{
 				node_tree	*result = search(_root, data);
 				if (result)
-					return (const_iterator(result));
-				return (const_iterator(getMax(_root)));
+					return (iterator(result));
+				return (iterator(getMax(_root)));
 			}
 
 			node_tree	*lower_bound(const value_type &data)
@@ -405,6 +405,7 @@ namespace ft
 				--_size;
 			}
 
+		public:
 			node_tree	*search(node_tree *search, const value_type &data) const
 			{
 				while (search != _node_ptr)
@@ -419,6 +420,7 @@ namespace ft
 				return (NULL);
 			}
 
+		private:
 			node_tree	*getMin(node_tree *node) const
 			{
 				while (node->left != _node_ptr)
@@ -479,7 +481,7 @@ namespace ft
 			{
 				if (new_node->parent == _node_ptr)
 					_root = node;
-				else if (new_node->parent == new_node->parent->left)
+				else if (new_node == new_node->parent->left)
 					new_node->parent->left = node;
 				else
 					new_node->parent->right = node;
