@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/23 22:16:17 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/23 22:56:25 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,7 +255,7 @@ namespace ft
 
 				while (tmp != tmp2)
 				{
-					if (!this->_key_compare(tmp->first, key))
+					if (!_key_compare(tmp->first, key))
 						break ;
 					++tmp;
 				}
@@ -269,7 +269,7 @@ namespace ft
 
 				while (tmp != tmp2)
 				{
-					if (!this->_key_compare(tmp->first, key))
+					if (!_key_compare(tmp->first, key))
 						break ;
 					++tmp;
 				}
@@ -283,7 +283,7 @@ namespace ft
 
 				while (tmp != tmp2)
 				{
-					if (this->_key_compare(key, tmp->first))
+					if (_key_compare(key, tmp->first))
 						break ;
 					++tmp;
 				}
@@ -297,7 +297,7 @@ namespace ft
 
 				while (tmp != tmp2)
 				{
-					if (this->_key_compare(key, tmp->first))
+					if (_key_compare(key, tmp->first))
 						break ;
 					++tmp;
 				}

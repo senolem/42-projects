@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 13:12:23 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/23 20:11:16 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/23 23:19:16 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include "stack.hpp"
 #include <vector>
 #include "vector.hpp"
+#include <set>
+#include "set.hpp"
 #define MAX_ITER 10
 #define RESERVE_SIZE 32
 #define RESIZE_SIZE 16
@@ -295,6 +297,11 @@ int	main(int argc, char **argv)
 		std::cout << "______________________________________________________________________________" << std::endl;
 		std::cout << "Testing : ft::map" << std::endl << std::endl;
 		test_ft_map();
+		std::cout << "______________________________________________________________________________" << std::endl;
+		std::cout << "Testing : ft::set" << std::endl << std::endl;
+		//ft::set<int> const st;
+		//ft::set<int>::iterator it = st.begin();
+		//(void)it;
 	}
 	else
 	{
@@ -306,6 +313,11 @@ int	main(int argc, char **argv)
 		std::cout << "______________________________________________________________________________" << std::endl;
 		std::cout << "Testing : std::map" << std::endl << std::endl;
 		test_std_map();
+		std::cout << "______________________________________________________________________________" << std::endl;
+		std::cout << "Testing : std::set" << std::endl << std::endl;
+		std::set<int> const st;
+		std::set<int>::iterator it = st.begin();
+		(void)it;
 	}
 	return (0);
 }
