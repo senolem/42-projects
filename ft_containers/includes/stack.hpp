@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:59 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/23 20:25:42 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/23 22:22:41 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,47 +70,36 @@ namespace ft
 				return (c.pop_back());
 			}
 
-			container_type	get_container_type(void) const
+			friend bool operator==(const stack &lhs, const stack &rhs)
 			{
-				return (c);
+				return (lhs.c == rhs.c);
+			}
+			
+			friend bool operator!=(const stack &lhs, const stack &rhs)
+			{
+				return (lhs.c != rhs.c);
+			}
+		
+			friend bool operator<(const stack &lhs, const stack &rhs)
+			{
+				return (lhs.c < rhs.c);
+			}
+		
+			friend bool operator<=(const stack &lhs, const stack &rhs)
+			{
+				return (lhs.c <= rhs.c);
+			}
+			
+			friend bool operator>(const stack &lhs, const stack &rhs)
+			{
+				return (lhs.c > rhs.c);
+			}
+		
+			friend bool operator>=(const stack &lhs, const stack &rhs)
+			{
+				return (lhs.c >= rhs.c);
 			}
 	};
-
-	template <class T, class Container>
-	bool operator==(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
-	{
-		return (lhs.get_container_type() == rhs.get_container_type());
-	}
-	
-	template <class T, class Container>
-	bool operator!=(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
-	{
-		return (lhs.get_container_type() != rhs.get_container_type());
-	}
-
-	template <class T, class Container>
-	bool operator<(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
-	{
-		return (lhs.get_container_type() < rhs.get_container_type());
-	}
-
-	template <class T, class Container>
-	bool operator<=(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
-	{
-		return (lhs.get_container_type() <= rhs.get_container_type());
-	}
-	
-	template <class T, class Container>
-	bool operator>(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
-	{
-		return (lhs.get_container_type() > rhs.get_container_type());
-	}
-
-	template <class T, class Container>
-	bool operator>=(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
-	{
-		return (lhs.get_container_type() >= rhs.get_container_type());
-	}
 }
 
 #endif

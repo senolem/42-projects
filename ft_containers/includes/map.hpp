@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/23 20:25:16 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/23 22:16:17 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,6 +321,7 @@ namespace ft
 				return (_tree.get_allocator());
 			}
 
+		private:
 			// key
 			value_type	get_value_type(const Key &key) const
 			{
