@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:59:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/21 20:39:32 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/23 18:23:41 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ namespace ft
 
 			const_reverse_iterator	rbegin(void) const
 			{
-				return (const_iterator(end()));
+				return (reverse_iterator(end()));
 			}
 
 			reverse_iterator	rend(void)
@@ -129,7 +129,7 @@ namespace ft
 
 			const_reverse_iterator	rend(void) const
 			{
-				return (const_iterator(begin()));
+				return (reverse_iterator(begin()));
 			}
 
 			// capacity

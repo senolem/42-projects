@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 09:55:57 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/21 21:28:58 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/23 18:23:19 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,13 @@ namespace ft
 				return (*this);
 			}
 
+			RBIterator	operator++(int)
+			{
+				RBIterator	tmp(*this);
+				operator++();
+				return (tmp);
+			}
+
 			RBIterator	&operator--(void)
 			{
 				if (!node->leaf)
@@ -187,13 +194,6 @@ namespace ft
 					}
 				}
 				return (*this);
-			}
-
-			RBIterator	operator++(int)
-			{
-				RBIterator	tmp(*this);
-				operator++();
-				return (tmp);
 			}
 
 			RBIterator	operator--(int)
