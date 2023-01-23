@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:59 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/23 22:22:41 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/24 00:15:04 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,19 @@ namespace ft
 			{
 
 			}
+
+			// element access
+			value_type			&top(void)
+			{
+				return (c.back());
+			}
+
+			const value_type	&top(void) const
+			{
+				return (c.back());
+			}
+
+			// capacity
 			
 			bool				empty(void) const
 			{
@@ -50,15 +63,7 @@ namespace ft
 				return (c.size());
 			}
 
-			value_type			&top(void)
-			{
-				return (c.back());
-			}
-
-			const value_type	&top(void) const
-			{
-				return (c.back());
-			}
+			// modifiers
 
 			void				push(const value_type &val)
 			{
@@ -69,6 +74,8 @@ namespace ft
 			{
 				return (c.pop_back());
 			}
+
+			// non member function overloads
 
 			friend bool operator==(const stack &lhs, const stack &rhs)
 			{
