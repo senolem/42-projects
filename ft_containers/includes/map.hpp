@@ -6,12 +6,12 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/21 21:39:51 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/23 20:25:16 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_CLASS_HPP
-# define MAP_CLASS_HPP
+#ifndef MAP_HPP
+# define MAP_HPP
 # include <functional>
 # include <iostream>
 # include "rb_tree.hpp"

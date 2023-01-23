@@ -6,12 +6,12 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:49 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/23 19:27:18 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/23 20:25:53 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_CLASS_HPP
-# define VECTOR_CLASS_HPP
+#ifndef VECTOR_HPP
+# define VECTOR_HPP
 # include <memory>
 # include "vector.hpp"
 # include "vector_iterator.hpp"

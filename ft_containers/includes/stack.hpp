@@ -6,12 +6,12 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:59 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/23 19:32:36 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/23 20:25:42 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STACK_CLASS_HPP
-# define STACK_CLASS_HPP
+#ifndef STACK_HPP
+# define STACK_HPP
 # include "vector.hpp"
 
 namespace ft
