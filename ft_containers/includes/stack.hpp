@@ -6,13 +6,13 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 11:04:59 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/23 19:00:13 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/23 19:32:36 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STACK_CLASS_HPP
 # define STACK_CLASS_HPP
-# include "vector_class.hpp"
+# include "vector.hpp"
 
 namespace ft
 {
@@ -69,42 +69,47 @@ namespace ft
 			{
 				return (c.pop_back());
 			}
+
+			container_type	get_container_type(void) const
+			{
+				return (c);
+			}
 	};
 
 	template <class T, class Container>
 	bool operator==(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
 	{
-		return (lhs == rhs);
+		return (lhs.get_container_type() == rhs.get_container_type());
 	}
 	
 	template <class T, class Container>
 	bool operator!=(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
 	{
-		return (lhs != rhs);
+		return (lhs.get_container_type() != rhs.get_container_type());
 	}
 
 	template <class T, class Container>
 	bool operator<(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
 	{
-		return (lhs < rhs);
+		return (lhs.get_container_type() < rhs.get_container_type());
 	}
 
 	template <class T, class Container>
 	bool operator<=(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
 	{
-		return (lhs <= rhs);
+		return (lhs.get_container_type() <= rhs.get_container_type());
 	}
 	
 	template <class T, class Container>
 	bool operator>(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
 	{
-		return (lhs > rhs);
+		return (lhs.get_container_type() > rhs.get_container_type());
 	}
 
 	template <class T, class Container>
 	bool operator>=(const stack<T, Container> &lhs, const stack<T, Container> &rhs)
 	{
-		return (lhs >= rhs);
+		return (lhs.get_container_type() >= rhs.get_container_type());
 	}
 }
 
