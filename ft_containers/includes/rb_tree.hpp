@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:59:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/23 18:23:41 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/24 14:55:00 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,12 @@ namespace ft
 				return (insert(data).first);
 			}
 
+			iterator	insert(const_iterator pos, const value_type &data)
+			{
+				(void)pos;
+				return (insert(data).first);
+			}
+
 			template <class InputIterator>
 			void	insert(InputIterator first, InputIterator last)
 			{
@@ -206,6 +212,12 @@ namespace ft
 			}
 
 			void	erase(iterator first, iterator last)
+			{
+				while (first != last)
+					erase(*first++);
+			}
+
+			void	erase(const_iterator first, const_iterator last)
 			{
 				while (first != last)
 					erase(*first++);

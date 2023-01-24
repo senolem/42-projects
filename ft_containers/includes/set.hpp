@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/23 23:57:25 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/24 14:54:21 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ namespace ft
 
 			void	erase(iterator pos)
 			{
-				_tree.erase(pos.base());
+				_tree.erase(*pos);
 			}
 
 			void	erase(iterator first, iterator last)

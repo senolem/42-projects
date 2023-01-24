@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 13:12:23 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/23 23:19:16 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/24 14:19:21 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,9 +299,9 @@ int	main(int argc, char **argv)
 		test_ft_map();
 		std::cout << "______________________________________________________________________________" << std::endl;
 		std::cout << "Testing : ft::set" << std::endl << std::endl;
-		//ft::set<int> const st;
-		//ft::set<int>::iterator it = st.begin();
-		//(void)it;
+		ft::set<int> st;
+		(void)st;
+		st.erase(st.begin());
 	}
 	else
 	{
