@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:46:06 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/23 18:51:27 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/24 16:43:49 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 namespace ft
 {
+	// enable_if
 	template <bool _bool, class _type = void>
 	struct enable_if
 	{
@@ -28,6 +29,8 @@ namespace ft
 		typedef _type type;
 	};
 
+	// get_len between two iterators
+
 	template <class InputIt>
 	size_t	InputIt_get_len(InputIt first, InputIt last)
 	{
@@ -37,6 +40,8 @@ namespace ft
 			++i;
 		return (i);
 	}
+
+	// lexicographical_compare
 
 	template <class InputIt1, class InputIt2>
 	bool	lexicographical_compare(InputIt1 lhs_begin, InputIt1 lhs_end, InputIt2 rhs_begin, InputIt2 rhs_end)
@@ -53,6 +58,7 @@ namespace ft
 		return (rhs_begin != rhs_end);
 	}
 
+	// equal
 	template <class InputIt1, class InputIt2>
 	bool equal(InputIt1 lhs_begin, InputIt1 lhs_end, InputIt2 rhs_begin)
 	{
@@ -66,6 +72,7 @@ namespace ft
 		return (true);
 	}
 
+	// iterator_traits
 	template <class Iter>
 	struct iterator_traits
 	{
@@ -96,21 +103,7 @@ namespace ft
 		typedef std::random_access_iterator_tag	iterator_category;
 	};
 
-	template <bool use_const, typename const_false, typename const_true>
-	struct enable_const {};
-
-	template <typename const_false, typename const_true>
-	struct enable_const<false, const_false, const_true>
-	{
-		typedef const_false	type;
-	};
-
-	template <typename const_false, typename const_true>
-	struct enable_const<true, const_false, const_true>
-	{
-		typedef const_true	type;
-	};
-
+	// swap
 	template <class T>
 	void	swap_elements(T &lhs, T &rhs)
 	{
@@ -119,6 +112,7 @@ namespace ft
 		rhs = tmp;
 	};
 
+	// pair
 	template <class T1, class T2>
 	struct pair
 	{
@@ -193,6 +187,97 @@ namespace ft
 	{
 		return !(lhs < rhs);
 	}
+
+	// is_integral
+	template<class T>
+	struct	is_integral
+	{
+		static const bool value = false;
+	};
+
+	template <>
+	struct	is_integral<char>
+	{
+		static const bool value = true;
+	};
+
+	template <>
+	struct	is_integral<char16_t>
+	{
+		static const bool value = true;
+	};
+
+	template <>
+	struct	is_integral<char32_t>
+	{
+		static const bool value = true;
+	};
+
+	template <>
+	struct	is_integral<wchar_t>
+	{
+		static const bool value = true;
+	};
+
+	template <>
+	struct	is_integral<short int>
+	{
+		static const bool value = true;
+	};
+
+	template <>
+	struct	is_integral<int>
+	{
+		static const bool value = true;
+	};
+
+	template <>
+	struct	is_integral<long int>
+	{
+		static const bool value = true;
+	};
+
+	template <>
+	struct	is_integral<long long int>
+	{
+		static const bool value = true;
+	};
+
+	template <>
+	struct	is_integral<uint8_t>
+	{
+		static const bool value = true;
+	};
+
+	template <>
+	struct	is_integral<uint16_t>
+	{
+		static const bool value = true;
+	};
+
+	template <>
+	struct	is_integral<uint32_t>
+	{
+		static const bool value = true;
+	};
+
+	template <>
+	struct	is_integral<unsigned long int>
+	{
+		static const bool value = true;
+	};
+
+	template <>
+	struct	is_integral<uint64_t>
+	{
+		static const bool value = true;
+	};
+
+	template <>
+	struct	is_integral<bool>
+	{
+		static const bool value = true;
+	};
 }
 
 #endif

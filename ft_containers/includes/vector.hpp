@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:49 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/23 20:25:53 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/24 16:47:56 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ namespace ft
 			}
 
 			template <class InputIt>
-			vector(typename ft::enable_if<!std::numeric_limits<InputIt>::is_integer, InputIt>::type first, InputIt last, const allocator_type &alloc = allocator_type())  : _alloc(alloc), _size(0), _capacity(0)
+			vector(typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type first, InputIt last, const allocator_type &alloc = allocator_type())  : _alloc(alloc), _size(0), _capacity(0)
 			{
 				_capacity = ft::InputIt_get_len(first, last);
 				_data = _alloc.allocate(_capacity);
@@ -262,7 +262,7 @@ namespace ft
 			
 			// modifiers
 			template <class InputIt> 
-			void					assign(typename ft::enable_if<!std::numeric_limits<InputIt>::is_integer, InputIt>::type first, InputIt last)
+			void					assign(typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type first, InputIt last)
 			{
 				size_type	len = InputIt_get_len(first, last);
 
@@ -334,7 +334,7 @@ namespace ft
 			}
 
 			template <class InputIt>
-			void					insert(iterator position, InputIt first, typename ft::enable_if<!std::numeric_limits<InputIt>::is_integer, InputIt>::type last)
+			void					insert(iterator position, InputIt first, typename ft::enable_if<!ft::is_integral<InputIt>::value, InputIt>::type last)
 			{
 				difference_type	pos = position - begin();
 				difference_type	pos2 = end() - begin();
