@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 21:48:57 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/25 23:16:31 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/26 00:37:27 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	test_ft_vector_element_access(void)
 {
 	ft::vector<std::string>	vect;
+	
 	vect.push_back("Bonjour");
 	vect.push_back("ceci");
 	vect.push_back("est");
@@ -38,6 +39,7 @@ void	test_ft_vector_element_access(void)
 void	test_std_vector_element_access(void)
 {
 	std::vector<std::string>	vect;
+
 	vect.push_back("Bonjour");
 	vect.push_back("ceci");
 	vect.push_back("est");

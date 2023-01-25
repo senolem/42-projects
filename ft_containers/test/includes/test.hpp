@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:16:41 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/25 23:27:12 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/26 00:10:17 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "vector.hpp"
 # include <vector>
 # include <fstream>
+# include <list>
 
 typedef struct s_data
 {
@@ -31,11 +32,15 @@ typedef struct s_data
 void	test_ft_vector_constructor(void);
 void	test_ft_vector_element_access(void);
 void	test_ft_vector_iterators(void);
+void	test_ft_vector_capacity(void);
+void	test_ft_vector_modifiers(void);
 
 // std
 void	test_std_vector_constructor(void);
 void	test_std_vector_element_access(void);
 void	test_std_vector_iterators(void);
+void	test_std_vector_capacity(void);
+void	test_std_vector_modifiers(void);
 
 // utils
 void	print_diff(const std::string &filename1, const std::string &filename2);

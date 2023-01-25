@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 13:12:23 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/25 23:45:20 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/26 00:21:49 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,42 @@ void	test_vector(t_data *data)
 	print_time(data);
 	std::cout << " | Diff : ";
 	print_diff("logs/ft.iterators.log", "logs/std.iterators.log");
+
+	// capacity
+	std::cout << "capacity	: ft";
+	open_file(data, "logs/ft.capacity.log");
+	set_time(data, 0);
+	test_ft_vector_capacity();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.capacity.log");
+	set_time(data, 0);
+	test_std_vector_capacity();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.capacity.log", "logs/std.capacity.log");
+
+	// modifiers
+	std::cout << "modifiers	: ft";
+	open_file(data, "logs/ft.modifiers.log");
+	set_time(data, 0);
+	test_ft_vector_modifiers();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.modifiers.log");
+	set_time(data, 0);
+	test_std_vector_modifiers();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.modifiers.log", "logs/std.modifiers.log");
 }
 
 int	main(void)

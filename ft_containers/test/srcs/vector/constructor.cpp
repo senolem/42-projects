@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:12:23 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/25 22:42:46 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/26 00:37:21 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	test_ft_vector_constructor(void)
 {
 	ft::vector<int>	vect;
 	ft::vector<int>	vect2(10);
+
 	print_ft_vector(vect);
 	print_ft_vector(vect2);
 	vect.push_back(1);
@@ -43,6 +44,7 @@ void	test_std_vector_constructor(void)
 {
 	std::vector<int>	vect;
 	std::vector<int>	vect2(10);
+	
 	print_std_vector(vect);
 	print_std_vector(vect2);
 	vect.push_back(1);
