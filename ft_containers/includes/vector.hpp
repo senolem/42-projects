@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:49 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/24 16:47:56 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/25 23:13:30 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,6 +258,16 @@ namespace ft
 			const_reference			back(void) const
 			{
 				return (_data[size() - 1]);
+			}
+
+			value_type *data(void)
+			{
+				return (size() ? _data : NULL);
+			}
+
+			const value_type	*data(void) const
+			{
+				return (size() ? _data : NULL);
 			}
 			
 			// modifiers

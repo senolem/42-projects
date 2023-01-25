@@ -6,26 +6,30 @@
 #    By: albaur <albaur@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/16 11:47:12 by faventur          #+#    #+#              #
-#    Updated: 2023/01/25 22:53:13 by albaur           ###   ########.fr        #
+#    Updated: 2023/01/25 23:28:00 by albaur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #		( ͡° ͜ʖ ͡°)			COMPILATION			( ͡° ͜ʖ ͡°)
 
-NAME = ft_containers
+NAME = test.a
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -g3 -fsanitize=address
-LINKS = test.a
-LIBLINKS = -I./includes -I./test/includes
+LINKS =
+LIBLINKS = -I./includes -I../includes
 SRC_PATH = srcs/
 OBJ_PATH = bin/
 C_EXTENSION = .cpp
 
 #		눈_눈			SOURCES			눈_눈
 
-MAIN_PATH	=	
-MAIN_FILES 	= 	main
-SRCS_FILES	+=	$(addprefix $(MAIN_PATH), $(MAIN_FILES))
+UTILS_PATH		=	utils/
+UTILS_FILES 	= 	compare_files file time
+SRCS_FILES		+=	$(addprefix $(UTILS_PATH), $(UTILS_FILES))
+
+VECTOR_PATH		=	vector/
+VECTOR_FILES 	= 	constructor element_access iterators
+SRCS_FILES		+=	$(addprefix $(VECTOR_PATH), $(VECTOR_FILES))
 
 SRCS_FILES_EXT 		+= 	$(addsuffix $(C_EXTENSION), $(SRCS_FILES))
 SRCS 				+= 	$(addprefix $(SRC_PATH), $(SRCS_FILES_EXT))
@@ -48,24 +52,23 @@ CURSIVE = \033[3m
 all: $(NAME)
 
 $(NAME):  $(OBJS)
-	@$(MAKE) -sC ./test
-	@mv ./test/test.a .
-	@$(CC) $(LINKS) $(CFLAGS) -o $(NAME) $(OBJS)
+	@echo "$(HIRED)Compiling ...$(NONE)"
+	@ar -rcs $@ $^
+	@echo "$(CURSIVE)$(HIGREEN)Done.$(NONE)"
 
 .c.o:
-	@$(CC) $(FLAGS) -c ${LIBLINKS} $< -o ${<:.cpp=.o}
+	@$(CC) $(FLAGS) -c ${LIBLINKS} $< -o ${<:.cpp=.o} 
+
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.cpp
 	@mkdir -p $(dir $@)
 	${CC} ${CFLAGS} $(LIBLINKS) -c $< -o $@
 
 clean:
-	@$(RM) -r test.a $(OBJ_PATH)
-	@$(MAKE) clean -C ./test
+	@$(RM) -r $(OBJ_PATH)
 
 fclean: clean
 	@$(RM) $(NAME)
-	@$(MAKE) fclean -C ./test
 
 re: fclean all
 
