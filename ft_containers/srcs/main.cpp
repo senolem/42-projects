@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 13:12:23 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/26 00:53:41 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/26 12:00:28 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,47 @@
 void	test_map(t_data *data)
 {
 	std::cout << "                    ______________________" << std::endl << std::endl;
-	std::cout << "                    |       MAP          |" << std::endl;
+	std::cout << "                    |        MAP         |" << std::endl;
 	std::cout << "                    ______________________" << std::endl << std::endl;
 
 	// constructor
 	(void)data;
+
+	// element access
+
+	// iterators
+
+	// capacity
+
+	// modifiers
+	
+	// lookup
+
+	// observers
+
+	// comparison
 }
 
 void	test_set(t_data *data)
 {
 	std::cout << "                    ______________________" << std::endl << std::endl;
-	std::cout << "                    |       SET          |" << std::endl;
+	std::cout << "                    |        SET         |" << std::endl;
 	std::cout << "                    ______________________" << std::endl << std::endl;
 
 	// constructor
 	(void)data;
+
+	// iterators
+
+	// capacity
+
+	// modifiers
+
+	// lookup
+
+	// observers
+
+	// comparison
 }
 
 void	test_stack(t_data *data)
@@ -54,7 +80,62 @@ void	test_stack(t_data *data)
 	std::cout << "                    ______________________" << std::endl << std::endl;
 
 	// constructor
-	(void)data;
+	std::cout << "constructor	: ft";
+	open_file(data, "logs/ft.stack.constructor.log");
+	set_time(data, 0);
+	test_ft_stack_constructor();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.stack.constructor.log");
+	set_time(data, 0);
+	test_std_stack_constructor();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.stack.constructor.log", "logs/std.stack.constructor.log");
+
+	// element access
+	std::cout << "element_access	: ft";
+	open_file(data, "logs/ft.stack.element_access.log");
+	set_time(data, 0);
+	test_ft_stack_element_access();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.stack.element_access.log");
+	set_time(data, 0);
+	test_std_stack_element_access();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.stack.element_access.log", "logs/std.stack.element_access.log");
+
+	// capacity
+	std::cout << "capacity	: ft";
+	open_file(data, "logs/ft.stack.capacity.log");
+	set_time(data, 0);
+	test_ft_stack_capacity();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.stack.capacity.log");
+	set_time(data, 0);
+	test_std_stack_capacity();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.stack.capacity.log", "logs/std.stack.capacity.log");
+
+	// modifiers
+
+	// comparison
 }
 
 void	test_vector(t_data *data)
@@ -152,6 +233,24 @@ void	test_vector(t_data *data)
 	print_time(data);
 	std::cout << " | Diff : ";
 	print_diff("logs/ft.vector.modifiers.log", "logs/std.vector.modifiers.log");
+
+	// comparison
+	std::cout << "comparison	: ft";
+	open_file(data, "logs/ft.vector.comparison.log");
+	set_time(data, 0);
+	test_ft_vector_comparison();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.vector.comparison.log");
+	set_time(data, 0);
+	test_std_vector_comparison();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.vector.comparison.log", "logs/std.vector.comparison.log");
 }
 
 int	main(void)
