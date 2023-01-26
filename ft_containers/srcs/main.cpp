@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 13:12:23 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/26 12:00:28 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/26 16:24:51 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,148 @@ void	test_map(t_data *data)
 	std::cout << "                    ______________________" << std::endl << std::endl;
 
 	// constructor
-	(void)data;
+	std::cout << "constructor	: ft";
+	open_file(data, "logs/ft.map.constructor.log");
+	set_time(data, 0);
+	test_ft_map_constructor();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.map.constructor.log");
+	set_time(data, 0);
+	test_std_map_constructor();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.map.constructor.log", "logs/std.map.constructor.log");
 
 	// element access
+	std::cout << "element_access	: ft";
+	open_file(data, "logs/ft.map.element_access.log");
+	set_time(data, 0);
+	test_ft_map_element_access();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.map.element_access.log");
+	set_time(data, 0);
+	test_std_map_element_access();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.map.element_access.log", "logs/std.map.element_access.log");
 
 	// iterators
+	std::cout << "iterators	: ft";
+	open_file(data, "logs/ft.map.iterators.log");
+	set_time(data, 0);
+	test_ft_map_iterators();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.map.iterators.log");
+	set_time(data, 0);
+	test_std_map_iterators();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.map.iterators.log", "logs/std.map.iterators.log");
 
 	// capacity
+	std::cout << "capacity	: ft";
+	open_file(data, "logs/ft.map.capacity.log");
+	set_time(data, 0);
+	test_ft_map_capacity();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.map.capacity.log");
+	set_time(data, 0);
+	test_std_map_capacity();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.map.capacity.log", "logs/std.map.capacity.log");
 
 	// modifiers
-	
+	std::cout << "modifiers	: ft";
+	open_file(data, "logs/ft.map.modifiers.log");
+	set_time(data, 0);
+	test_ft_map_modifiers();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.map.modifiers.log");
+	set_time(data, 0);
+	test_std_map_modifiers();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.map.modifiers.log", "logs/std.map.modifiers.log");
+
 	// lookup
+	std::cout << "lookup		: ft";
+	open_file(data, "logs/ft.map.lookup.log");
+	set_time(data, 0);
+	test_ft_map_lookup();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.map.lookup.log");
+	set_time(data, 0);
+	test_std_map_lookup();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.map.lookup.log", "logs/std.map.lookup.log");
 
 	// observers
+	std::cout << "observers	: ft";
+	open_file(data, "logs/ft.map.observers.log");
+	set_time(data, 0);
+	test_ft_map_observers();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.map.observers.log");
+	set_time(data, 0);
+	test_std_map_observers();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.map.observers.log", "logs/std.map.observers.log");
 
 	// comparison
+	std::cout << "comparison	: ft";
+	open_file(data, "logs/ft.map.comparison.log");
+	set_time(data, 0);
+	test_ft_map_comparison();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.map.comparison.log");
+	set_time(data, 0);
+	test_std_map_comparison();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.map.comparison.log", "logs/std.map.comparison.log");
 }
 
 void	test_set(t_data *data)
@@ -58,19 +185,130 @@ void	test_set(t_data *data)
 	std::cout << "                    ______________________" << std::endl << std::endl;
 
 	// constructor
-	(void)data;
+	std::cout << "constructor	: ft";
+	open_file(data, "logs/ft.set.constructor.log");
+	set_time(data, 0);
+	test_ft_set_constructor();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.set.constructor.log");
+	set_time(data, 0);
+	test_std_set_constructor();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.set.constructor.log", "logs/std.set.constructor.log");
 
 	// iterators
+	std::cout << "iterators	: ft";
+	open_file(data, "logs/ft.set.iterators.log");
+	set_time(data, 0);
+	test_ft_set_iterators();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.set.iterators.log");
+	set_time(data, 0);
+	test_std_set_iterators();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.set.iterators.log", "logs/std.set.iterators.log");
 
 	// capacity
+	std::cout << "capacity	: ft";
+	open_file(data, "logs/ft.set.capacity.log");
+	set_time(data, 0);
+	test_ft_set_capacity();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.set.capacity.log");
+	set_time(data, 0);
+	test_std_set_capacity();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.set.capacity.log", "logs/std.set.capacity.log");
 
 	// modifiers
+	std::cout << "modifiers	: ft";
+	open_file(data, "logs/ft.set.modifiers.log");
+	set_time(data, 0);
+	test_ft_set_modifiers();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.set.modifiers.log");
+	set_time(data, 0);
+	test_std_set_modifiers();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.set.modifiers.log", "logs/std.set.modifiers.log");
 
 	// lookup
+	std::cout << "lookup		: ft";
+	open_file(data, "logs/ft.set.lookup.log");
+	set_time(data, 0);
+	test_ft_set_lookup();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.set.lookup.log");
+	set_time(data, 0);
+	test_std_set_lookup();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.set.lookup.log", "logs/std.set.lookup.log");
 
 	// observers
+	std::cout << "observers	: ft";
+	open_file(data, "logs/ft.set.observers.log");
+	set_time(data, 0);
+	test_ft_set_observers();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.set.observers.log");
+	set_time(data, 0);
+	test_std_set_observers();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.set.observers.log", "logs/std.set.observers.log");
 
 	// comparison
+	std::cout << "comparison	: ft";
+	open_file(data, "logs/ft.set.comparison.log");
+	set_time(data, 0);
+	test_ft_set_comparison();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.set.comparison.log");
+	set_time(data, 0);
+	test_std_set_comparison();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.set.comparison.log", "logs/std.set.comparison.log");
 }
 
 void	test_stack(t_data *data)
@@ -134,8 +372,40 @@ void	test_stack(t_data *data)
 	print_diff("logs/ft.stack.capacity.log", "logs/std.stack.capacity.log");
 
 	// modifiers
+	std::cout << "modifiers	: ft";
+	open_file(data, "logs/ft.stack.modifiers.log");
+	set_time(data, 0);
+	test_ft_stack_modifiers();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.stack.modifiers.log");
+	set_time(data, 0);
+	test_std_stack_modifiers();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.stack.modifiers.log", "logs/std.stack.modifiers.log");
 
 	// comparison
+	std::cout << "comparison	: ft";
+	open_file(data, "logs/ft.stack.comparison.log");
+	set_time(data, 0);
+	test_ft_stack_comparison();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | std :";
+	open_file(data, "logs/std.stack.comparison.log");
+	set_time(data, 0);
+	test_std_stack_comparison();
+	set_time(data, 1);
+	close_file(data);
+	print_time(data);
+	std::cout << " | Diff : ";
+	print_diff("logs/ft.stack.comparison.log", "logs/std.stack.comparison.log");
 }
 
 void	test_vector(t_data *data)

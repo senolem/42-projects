@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 09:57:46 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/26 10:02:33 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/26 13:43:09 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,18 @@ void	test_ft_vector_comparison(void)
 		std::cout << "greater or equal than" << std::endl;
 	if (vect.at(0) == vect2.at(0))
 		std::cout << "equal" << std::endl;
-	if (vect[1] == vect2[1])
+	if (vect == vect2)
 		std::cout << "equal" << std::endl;
+	if (vect != vect2)
+		std::cout << "not equal" << std::endl;
+	if (vect < vect2)
+		std::cout << "lower than" << std::endl;
+	if (vect <= vect2)
+		std::cout << "lower or equal than" << std::endl;
+	if (vect > vect2)
+		std::cout << "greater than" << std::endl;
+	if (vect >= vect2)
+		std::cout << "greater or equal than" << std::endl;
 }
 
 void	test_std_vector_comparison(void)
@@ -90,6 +100,16 @@ void	test_std_vector_comparison(void)
 		std::cout << "greater or equal than" << std::endl;
 	if (vect.at(0) == vect2.at(0))
 		std::cout << "equal" << std::endl;
-	if (vect[1] == vect2[1])
+	if (vect == vect2)
 		std::cout << "equal" << std::endl;
+	if (vect != vect2)
+		std::cout << "not equal" << std::endl;
+	if (vect < vect2)
+		std::cout << "lower than" << std::endl;
+	if (vect <= vect2)
+		std::cout << "lower or equal than" << std::endl;
+	if (vect > vect2)
+		std::cout << "greater than" << std::endl;
+	if (vect >= vect2)
+		std::cout << "greater or equal than" << std::endl;
 }

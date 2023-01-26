@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:16:41 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/26 12:00:41 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/26 13:59:09 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,23 @@ void	test_ft_vector_comparison(void);
 void	test_ft_stack_constructor(void);
 void	test_ft_stack_element_access(void);
 void	test_ft_stack_capacity(void);
+void	test_ft_stack_modifiers(void);
+void	test_ft_stack_comparison(void);
+void	test_ft_set_constructor(void);
+void	test_ft_set_iterators(void);
+void	test_ft_set_capacity(void);
+void	test_ft_set_modifiers(void);
+void	test_ft_set_lookup(void);
+void	test_ft_set_observers(void);
+void	test_ft_set_comparison(void);
+void	test_ft_map_constructor(void);
+void	test_ft_map_element_access(void);
+void	test_ft_map_iterators(void);
+void	test_ft_map_capacity(void);
+void	test_ft_map_modifiers(void);
+void	test_ft_map_lookup(void);
+void	test_ft_map_observers(void);
+void	test_ft_map_comparison(void);
 
 // std
 void	test_std_vector_constructor(void);
@@ -55,6 +72,23 @@ void	test_std_vector_comparison(void);
 void	test_std_stack_constructor(void);
 void	test_std_stack_element_access(void);
 void	test_std_stack_capacity(void);
+void	test_std_stack_modifiers(void);
+void	test_std_stack_comparison(void);
+void	test_std_set_constructor(void);
+void	test_std_set_iterators(void);
+void	test_std_set_capacity(void);
+void	test_std_set_modifiers(void);
+void	test_std_set_lookup(void);
+void	test_std_set_observers(void);
+void	test_std_set_comparison(void);
+void	test_std_map_constructor(void);
+void	test_std_map_element_access(void);
+void	test_std_map_iterators(void);
+void	test_std_map_capacity(void);
+void	test_std_map_modifiers(void);
+void	test_std_map_lookup(void);
+void	test_std_map_observers(void);
+void	test_std_map_comparison(void);
 
 // utils
 void	print_diff(const std::string &filename1, const std::string &filename2);

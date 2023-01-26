@@ -6,7 +6,7 @@
 #    By: albaur <albaur@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/16 11:47:12 by faventur          #+#    #+#              #
-#    Updated: 2023/01/26 11:59:50 by albaur           ###   ########.fr        #
+#    Updated: 2023/01/26 14:10:32 by albaur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,16 @@ VECTOR_FILES 	= 	constructor element_access iterators capacity modifiers compari
 SRCS_FILES		+=	$(addprefix $(VECTOR_PATH), $(VECTOR_FILES))
 
 STACK_PATH		=	stack/
-STACK_FILES 	= 	constructor element_access capacity
+STACK_FILES 	= 	constructor element_access capacity modifiers comparison
 SRCS_FILES		+=	$(addprefix $(STACK_PATH), $(STACK_FILES))
+
+SET_PATH		=	set/
+SET_FILES 		= 	constructor iterators capacity modifiers comparison lookup observers comparison
+SRCS_FILES		+=	$(addprefix $(SET_PATH), $(SET_FILES))
+
+MAP_PATH		=	map/
+MAP_FILES 		= 	constructor element_access iterators capacity modifiers comparison lookup observers comparison
+SRCS_FILES		+=	$(addprefix $(MAP_PATH), $(MAP_FILES))
 
 SRCS_FILES_EXT 		+= 	$(addsuffix $(C_EXTENSION), $(SRCS_FILES))
 SRCS 				+= 	$(addprefix $(SRC_PATH), $(SRCS_FILES_EXT))
