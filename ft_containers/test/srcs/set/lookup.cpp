@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 13:50:22 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/26 17:59:43 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/27 12:07:31 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,24 +66,6 @@ void	test_ft_set_lookup(void)
 	iter4 = st.upper_bound('b');
 	std::cout << *(iter2) << std::endl;
 	std::cout << *(iter4) << std::endl;
-	iter2 = st.begin();
-	iter3 = st.end();
-	iter4 = st.begin();
-	iter5 = st.end();
-	for (; iter2 != iter3; iter2++)
-	{
-		for (; iter4 != iter5; iter4++)
-		{
-			if (st.value_comp()(*iter2, *iter4))
-				std::cout << "value equal" << std::endl;
-			else
-				std::cout << "value not equal" << std::endl;
-			if (st.key_comp()(*iter2, *iter4))
-				std::cout << "key equal" << std::endl;
-			else
-				std::cout << "key not equal" << std::endl;
-		}
-	}
 }
 
 void	test_std_set_lookup(void)
@@ -140,22 +122,4 @@ void	test_std_set_lookup(void)
 	iter4 = st.upper_bound('b');
 	std::cout << *(iter2) << std::endl;
 	std::cout << *(iter4) << std::endl;
-	iter2 = st.begin();
-	iter3 = st.end();
-	iter4 = st.begin();
-	iter5 = st.end();
-	for (; iter2 != iter3; iter2++)
-	{
-		for (; iter4 != iter5; iter4++)
-		{
-			if (st.value_comp()(*iter2, *iter4))
-				std::cout << "value equal" << std::endl;
-			else
-				std::cout << "value not equal" << std::endl;
-			if (st.key_comp()(*iter2, *iter4))
-				std::cout << "key equal" << std::endl;
-			else
-				std::cout << "key not equal" << std::endl;
-		}
-	}
 }
