@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 13:50:22 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/27 12:07:31 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/27 23:39:40 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	test_ft_set_lookup(void)
 		if (i % 2 == 0)
 			std::cout << *(st.insert('a')).first << std::endl;
 		else
-			std::cout << (st.insert('b')).second << std::endl;
+			std::cout << *(st.insert('b')).first << std::endl;
 	}
 	std::cout << st.count('a') << std::endl;
 	std::cout << *(st.find('a')) << std::endl;
@@ -76,7 +76,7 @@ void	test_std_set_lookup(void)
 		if (i % 2 == 0)
 			std::cout << *(st.insert('a')).first << std::endl;
 		else
-			std::cout << (st.insert('b')).second << std::endl;
+			std::cout << *(st.insert('b')).first << std::endl;
 	}
 	std::cout << st.count('a') << std::endl;
 	std::cout << *(st.find('a')) << std::endl;
