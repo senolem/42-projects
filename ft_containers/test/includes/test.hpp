@@ -6,13 +6,18 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 17:16:41 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/26 13:59:09 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/28 02:14:30 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TEST_HPP
 # define TEST_HPP
 
+# include <fstream>
+# include <list>
+# include <chrono>
+# include <sys/time.h>
+# include <ctime>
 # include "vector.hpp"
 # include <vector>
 # include "stack.hpp"
@@ -21,8 +26,6 @@
 # include <map>
 # include "set.hpp"
 # include <set>
-# include <fstream>
-# include <list>
 
 typedef struct s_data
 {

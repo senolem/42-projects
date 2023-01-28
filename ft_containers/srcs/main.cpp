@@ -6,14 +6,12 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 13:12:23 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/28 01:54:51 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/28 02:14:07 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include <chrono>
-#include <sys/time.h>
-#include <ctime>
+#include <sys/stat.h>
 #include <string>
 #include <deque>
 #include <list>
@@ -26,7 +24,6 @@
 #include <set>
 #include "set.hpp"
 #include "test.hpp"
-#include <sys/stat.h>
 
 void	test_map(t_data *data)
 {

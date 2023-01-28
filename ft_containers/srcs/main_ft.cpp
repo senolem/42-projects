@@ -6,14 +6,12 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 00:31:12 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/28 01:35:22 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/28 02:14:56 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include <chrono>
-#include <sys/time.h>
-#include <ctime>
+#include <sys/stat.h>
 #include <string>
 #include <deque>
 #include <list>
@@ -317,8 +315,11 @@ void	test_vector(t_data *data)
 
 int	main(void)
 {
-	t_data	*data = new t_data;
+	t_data		*data = new t_data;
+	struct stat	st = {.st_mode = 0777};
 
+	if (stat("logs", &st) == -1)
+    	mkdir("logs", 0777);
 	test_vector(data);
 	test_stack(data);
 	test_set(data);
