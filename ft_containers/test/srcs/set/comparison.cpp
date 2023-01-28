@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 13:49:12 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/27 18:51:47 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/28 12:42:14 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	test_ft_set_comparison(void)
 		else if (i % 5 == 0)
 			st.insert("Mais on apprend des trucs... à défaut de savoir faire un fizzbuzz");
 		else
-			st.insert("...sulp non lam sap tse'c settorac ed eérup aL...ereh esrever ot txet epyT");
+			st.insert("...sulp non lam sap tse'c settorac ed eérup aL");
 	}
 	ft::set<std::string>	st2;
 	if (st == st2)
@@ -118,7 +118,7 @@ void	test_std_set_comparison(void)
 		else if (i % 5 == 0)
 			st.insert("Mais on apprend des trucs... à défaut de savoir faire un fizzbuzz");
 		else
-			st.insert("...sulp non lam sap tse'c settorac ed eérup aL...ereh esrever ot txet epyT");
+			st.insert("...sulp non lam sap tse'c settorac ed eérup aL");
 	}
 	std::set<std::string>	st2;
 	if (st == st2)
