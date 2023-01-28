@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 13:12:23 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/26 16:24:51 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/28 01:54:51 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 #include <set>
 #include "set.hpp"
 #include "test.hpp"
+#include <sys/stat.h>
 
 void	test_map(t_data *data)
 {
@@ -525,8 +526,11 @@ void	test_vector(t_data *data)
 
 int	main(void)
 {
-	t_data	*data = new t_data;
+	t_data		*data = new t_data;
+	struct stat	st = {.st_mode = 0777};
 
+	if (stat("logs", &st) == -1)
+    	mkdir("logs", 0777);
 	test_vector(data);
 	test_stack(data);
 	test_set(data);

@@ -6,7 +6,7 @@
 #    By: albaur <albaur@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/16 11:47:12 by faventur          #+#    #+#              #
-#    Updated: 2023/01/26 14:10:32 by albaur           ###   ########.fr        #
+#    Updated: 2023/01/28 01:38:54 by albaur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,9 +64,7 @@ CURSIVE = \033[3m
 all: $(NAME)
 
 $(NAME):  $(OBJS)
-	@echo "$(HIRED)Compiling ...$(NONE)"
 	@ar -rcs $@ $^
-	@echo "$(CURSIVE)$(HIGREEN)Done.$(NONE)"
 
 .c.o:
 	@$(CC) $(FLAGS) -c ${LIBLINKS} $< -o ${<:.cpp=.o} 
