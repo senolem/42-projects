@@ -6,12 +6,13 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/30 10:04:14 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/30 10:11:41 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_HPP
 # define MAP_HPP
+# include <functional>
 # include "rb_tree.hpp"
 # include "rb_iterator.hpp"
 # include "vector_iterator.hpp"

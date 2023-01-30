@@ -6,12 +6,13 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:59:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/24 14:55:00 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/30 10:11:14 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RB_TREE_HPP
 # define RB_TREE_HPP
+# include <functional>
 # include "utils.hpp"
 # include "rb_iterator.hpp"
 # include "vector_iterator.hpp"

@@ -6,12 +6,13 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:49 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/30 10:01:56 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/30 10:10:26 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
+# include <memory>
 # include "vector_iterator.hpp"
 
 namespace ft

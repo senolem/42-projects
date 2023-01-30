@@ -6,12 +6,13 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:43:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/30 10:04:17 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/30 10:11:06 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SET_HPP
 # define SET_HPP
+# include <functional>
 # include "rb_tree.hpp"
 # include "rb_iterator.hpp"
 # include "vector_iterator.hpp"

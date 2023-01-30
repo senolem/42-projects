@@ -6,12 +6,13 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 09:46:06 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/30 10:02:43 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/30 10:10:32 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_HPP
 # define UTILS_HPP
+# include <memory>
 
 namespace ft
 {
