@@ -6,13 +6,12 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 09:55:57 by albaur            #+#    #+#             */
-/*   Updated: 2023/01/24 14:26:01 by albaur           ###   ########.fr       */
+/*   Updated: 2023/01/30 10:04:09 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RB_ITERATOR_HPP
 # define RB_ITERATOR_HPP
-# include <memory>
 
 namespace ft
 {
