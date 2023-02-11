@@ -35,7 +35,7 @@ Other common errors are that people don't check their containers logs (wtf?), th
 
 Perhaps this isn't asked by the subject, I removed --allow-root (that literally EVERYBODY seems to use at 42!) from all wp-cli core commands, as this can be extremely dangerous on a production environment (see https://make.wordpress.org/cli/handbook/guides/common-issues/#error-yikes-it-looks-like-youre-running-this-as-root) and managed to run those commands with the www-data user. Yes we are using a development environment, yes we run the containers inside a VM but this isn't a reason to why we shouldn't be aware of fundamental security principles.
 
-mysqld is configured to run automatically as mysql user such as nginx uses the www-data for its worker processes, so they should be safe to start even as root user.
+mysqld is configured to run automatically as mysql user such as nginx uses the www-data for its worker processes, so as php-fpm so they should be safe to start even as root user.
 
 both www and mariadb data folders are mounted in your home directory.
 
