@@ -37,7 +37,7 @@ Perhaps this isn't asked by the subject, I removed --allow-root (that literally 
 
 mysqld is configured to run automatically as mysql user such as nginx uses the www-data for its worker processes, so they should be safe to start even as root user.
 
-both www and maria db data folders are mounted in your home directory.
+both www and mariadb data folders are mounted in your home directory.
 
 Please don't just copy my files to do this project. There is many specific things to learn with this project, and docker containers are very powerful and easy to use (except if you're asked to build an image from scratch...).
 
