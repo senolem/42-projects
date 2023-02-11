@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+         #
+#    By: albaur <albaur@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/16 11:47:12 by faventur          #+#    #+#              #
-#    Updated: 2022/07/26 15:32:22 by faventur         ###   ########.fr        #
+#    Updated: 2023/02/09 14:41:52 by albaur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,10 +32,11 @@ CURSIVE = \033[3m
 
 #		( ಠ ʖ̯ ಠ)		RULES			( ಠ ʖ̯ ಠ)
 
-all: build
+all: refresh
+
 
 build:
-	@docker-compose $(FLAGS) up -d --build
+	@docker-compose $(FLAGS) build
 
 start:
 	@docker-compose ${FLAGS} start
@@ -43,12 +44,15 @@ start:
 stop:
 	@docker-compose ${FLAGS} stop
 
-clean:
-	@rm -rf data/*
+refresh:
+	@docker-compose $(FLAGS) up -d --build
 
-fclean: clean
-	#todo
+clean: stop
+	sudo rm -rf ~/data/www/* && sudo rm -rf ~/data/mariadb/*
+
+fclean: stop clean
+	docker system prune -f
 
 re: stop fclean all
 
-.phony: all build start stop clean fclean re
+.phony: all build start stop refresh clean fclean re
