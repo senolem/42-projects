@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/15 18:55:59 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/15 21:12:47 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ class ConfigParser
 		int	sanityCheck(std::string path)
 		{
 			struct stat			sb;
-			std::ifstream		conf(path.c_str());
 			std::stringstream	confstream;
 			std::string			confstr;
 
@@ -91,6 +90,7 @@ class ConfigParser
 				std::cout << "ConfigParser error: Cannot access given path. Check whether if file exists and that correct permissions are set." << std::endl;
 				return (1);
 			}
+			std::ifstream	conf(path.c_str());
 			if (conf)
 			{
 				confstream << conf.rdbuf();
