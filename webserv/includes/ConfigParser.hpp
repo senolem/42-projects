@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/15 21:12:47 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/16 00:35:46 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ class ConfigParser
 	private:
 		std::string					_path;
 		std::vector<std::string>	_configs;
+		std::string					_config_string;
 	
 	public:
 		ConfigParser(void)
@@ -51,7 +52,7 @@ class ConfigParser
 			_path = path;
 			try
 			{
-				if (sanityCheck(path))
+				if (sanityCheck() || prepareParsing())
 					throw Exception("Config parsing failed.");
 			}
 			catch (std::exception &e)
@@ -61,18 +62,18 @@ class ConfigParser
 		}
 
 	private:
-		int	sanityCheck(std::string path)
+		int	sanityCheck(void)
 		{
 			struct stat			sb;
-			std::stringstream	confstream;
-			std::string			confstr;
+			std::stringstream	config_stream;
+			std::string			config_string;
 
-			if (path.empty() || path.length() == 0)
+			if (_path.empty() || _path.length() == 0)
 			{
 				std::cout << "ConfigParser error: Empty path given." << std::endl;
 				return (1);
 			}
-			if (!stat(path.c_str(), &sb))
+			if (!stat(_path.c_str(), &sb))
 			{
 				if (!(sb.st_mode & S_IFREG))
 				{
@@ -85,22 +86,41 @@ class ConfigParser
 				std::cout << "ConfigParser error: Cannot access given path." << std::endl;
 				return (1);
 			}
-			if (access(path.c_str(), R_OK) != 0)
+			if (access(_path.c_str(), R_OK) != 0)
 			{
 				std::cout << "ConfigParser error: Cannot access given path. Check whether if file exists and that correct permissions are set." << std::endl;
 				return (1);
 			}
-			std::ifstream	conf(path.c_str());
+			std::ifstream	conf(_path.c_str());
 			if (conf)
 			{
-				confstream << conf.rdbuf();
-				confstr = confstream.str();
-				if (confstr.empty())
+				config_stream << conf.rdbuf();
+				config_string = config_stream.str();
+				if (config_string.empty())
 				{
 					std::cout << "ConfigParser error: Config file is empty." << std::endl;
 					return (1);
 				}
+				_config_string = config_string;
 			}
+			return (0);
+		}
+
+		int	prepareParsing(void)
+		{
+			size_t					i;
+			size_t					j;
+			std::string::iterator	iter;
+
+			//delete duplicate whitespace
+			i = _config_string.find("#");
+			while (i != std::string::npos)
+			{
+				j = _config_string.find("\n", i);
+				_config_string.erase(i, j - i + 1);
+				i = _config_string.find("#");
+			}
+			std::cout << _config_string << std::endl;
 			return (0);
 		}
 };
