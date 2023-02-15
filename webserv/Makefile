@@ -25,9 +25,9 @@ MAIN_PATH	=
 MAIN_FILES 	= 	main
 SRCS_FILES	+=	$(addprefix $(MAIN_PATH), $(MAIN_FILES))
 
-SRCS_FILES_EXT 		+= 	$(addsuffix $(C_EXTENSION), $(SRCS_FILES))
-SRCS 				+= 	$(addprefix $(SRC_PATH), $(SRCS_FILES_EXT))
-OBJS 				= 	$(addprefix $(OBJ_PATH), $(SRCS_FILES_EXT:cpp=o))
+SRCS_FILES_EXT	+= 	$(addsuffix $(C_EXTENSION), $(SRCS_FILES))
+SRCS 			+= 	$(addprefix $(SRC_PATH), $(SRCS_FILES_EXT))
+OBJS 			= 	$(addprefix $(OBJ_PATH), $(SRCS_FILES_EXT:cpp=o))
 
 #		(҂◡_◡)			UTILS			(҂◡_◡)
 
