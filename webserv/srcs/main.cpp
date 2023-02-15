@@ -14,13 +14,18 @@
 
 int	main(int argc, char **argv)
 {
-	if (argc == 2)
+	if (argc == 1 || argc == 2)
 	{
-		(void)argv;
+		ConfigParser	config;
+
+		if (argc == 1)
+			config.init("conf/default.conf");
+		else
+			config.init(argv[1]);
 	}
 	else
 	{
-		std::cerr << "Invalid arguments. Usage: ./webserv [config path]" << std::endl;
+		std::cerr << "Invalid arguments. Usage: ./webserv [configuration file]" << std::endl;
 		return (1);
 	}
 	return (0);

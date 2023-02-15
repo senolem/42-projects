@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   webserv.hpp                                        :+:      :+:    :+:   */
+/*   Exception.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albaur <albaur@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/15 15:21:31 by albaur           ###   ########.fr       */
+/*   Created: 2023/02/15 17:44:55 by albaur            #+#    #+#             */
+/*   Updated: 2023/02/15 17:44:55 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WEBSERV_HPP
-# define WEBSERV_HPP
+#ifndef EXCEPTION_HPP
+# define EXCEPTION_HPP
 # include <iostream>
-# include <string>
-# include <vector>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <unistd.h>
-# include <fstream>
-# include <sstream>
-# include "Exception.hpp"
-# include "ConfigParser.hpp"
+
+class Exception : public std::exception
+{
+	private:
+	std::string	msg;
+
+	public:
+	explicit Exception(const std::string &msg);
+	virtual ~Exception() throw();
+	virtual const char* what() const throw();
+};
 
 #endif
