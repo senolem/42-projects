@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@42.fr>                      +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:16:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/15 15:16:31 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/15 18:54:06 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int	main(int argc, char **argv)
 		ConfigParser	config;
 
 		if (argc == 1)
+		{
+			std::cout << "No config file provided. Using default: conf/default.conf" << std::endl;
 			config.init("conf/default.conf");
+		}
 		else
 			config.init(argv[1]);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ConfigParser.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@42.fr>                      +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/15 17:22:13 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/15 18:55:59 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,15 @@ class ConfigParser
 		void	init(std::string path)
 		{
 			_path = path;
-			if (sanityCheck(path))
-				throw Exception("Config parsing failed. Check your config file syntax and try again.");
+			try
+			{
+				if (sanityCheck(path))
+					throw Exception("Config parsing failed.");
+			}
+			catch (std::exception &e)
+			{
+				std::cerr << e.what() << std::endl;
+			}
 		}
 
 	private:
@@ -63,25 +70,25 @@ class ConfigParser
 
 			if (path.empty() || path.length() == 0)
 			{
-				printf("ConfigParser error: Empty path given.\n");
+				std::cout << "ConfigParser error: Empty path given." << std::endl;
 				return (1);
 			}
 			if (!stat(path.c_str(), &sb))
 			{
 				if (!(sb.st_mode & S_IFREG))
 				{
-					printf("ConfigParser error: Given path is not a file.\n");
+					std::cout << "ConfigParser error: Given path is not a file." << std::endl;
 					return (1);
 				}
 			}
 			else
 			{
-				printf("ConfigParser error: Cannot access given path.\n");
+				std::cout << "ConfigParser error: Cannot access given path." << std::endl;
 				return (1);
 			}
 			if (access(path.c_str(), R_OK) != 0)
 			{
-				printf("ConfigParser error: Cannot access given path. Check whether if file exists and that correct permissions are set.\n");
+				std::cout << "ConfigParser error: Cannot access given path. Check whether if file exists and that correct permissions are set." << std::endl;
 				return (1);
 			}
 			if (conf)
@@ -90,7 +97,7 @@ class ConfigParser
 				confstr = confstream.str();
 				if (confstr.empty())
 				{
-					printf("ConfigParser error: Config file is empty.\n");
+					std::cout << "ConfigParser error: Config file is empty." << std::endl;
 					return (1);
 				}
 			}

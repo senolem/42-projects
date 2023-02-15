@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Exception.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@42.fr>                      +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:44:55 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/15 17:44:55 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/15 18:57:44 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 class Exception : public std::exception
 {
 	private:
-	std::string	msg;
+		std::string	msg;
 
 	public:
-	explicit Exception(const std::string &msg);
-	virtual ~Exception() throw();
-	virtual const char* what() const throw();
+		explicit Exception(const std::string &msg);
+		virtual ~Exception(void) throw();
+		virtual const char* what(void) const throw();
 };
 
 #endif
