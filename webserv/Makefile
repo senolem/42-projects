@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: melones <melones@student.42.fr>            +#+  +:+       +#+         #
+#    By: albaur <albaur@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/15 15:17:23 by albaur            #+#    #+#              #
-#    Updated: 2023/02/15 18:49:14 by melones          ###   ########.fr        #
+#    Updated: 2023/02/16 17:50:11 by albaur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = webserv
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -g3 -fsanitize=address
 LINKS =
 LIBLINKS = -I./includes
 SRC_PATH = srcs/
