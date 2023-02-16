@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/16 18:18:49 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/16 18:21:19 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,6 @@ class ConfigParser
 					k = _pos[i + 1];
 				else
 					k = _config_string.size();
-				printf("j %zu k %zu\n", j, k);
 				_configs.push_back(_config_string.substr(j, k - j));
 			}
 			// each server is now splitted. need to parse into map now
