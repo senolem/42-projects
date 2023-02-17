@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:02:34 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/17 12:24:42 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/17 12:24:58 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,4 @@ int	main(void)
 	delete rrf;
 	delete ppf;
 	delete nope;
-
 }
