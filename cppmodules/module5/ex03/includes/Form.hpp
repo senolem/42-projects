@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 17:51:54 by albaur            #+#    #+#             */
-/*   Updated: 2022/09/14 18:05:51 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/17 12:22:33 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ class Form
 	public:
 	Form(void);
 	Form(Form const &src);
-	~Form(void);
+	virtual ~Form(void);
 	Form &operator=(Form const &src);
 	Form(std::string name, unsigned int requiredSignGrade, unsigned int requiredExecGrade);
 

@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:02:34 by albaur            #+#    #+#             */
-/*   Updated: 2022/09/14 19:05:37 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/17 12:24:42 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,9 @@ int	main(void)
 	std::cout << *scf << std::endl;
 	std::cout << *rrf << std::endl;
 	std::cout << *ppf << std::endl;
+	delete scf;
+	delete rrf;
+	delete ppf;
+	delete nope;
+
 }

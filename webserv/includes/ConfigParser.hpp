@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/16 18:21:19 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/17 12:15:32 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ class ConfigParser
 				{
 					std::cout << "CONFIG OK" << std::endl;
 					parseConfig();
+					printConfig();
 				}
 			}
 			catch (std::exception &e)
@@ -171,9 +172,9 @@ class ConfigParser
 
 		int	syntaxCheck(void)
 		{
-			size_t					i = 0;
-			size_t					j = 0;
-			size_t					k = 0;
+			size_t	i = 0;
+			size_t	j = 0;
+			size_t	k = 0;
 
 			if (!_nb_servers)
 			{
@@ -227,10 +228,11 @@ class ConfigParser
 			return (0);
 		}
 
-		void	parseConfig(void)
+		int	parseConfig(void)
 		{
 			size_t	j = 0;
 			size_t	k = 0;
+			size_t	l = 0;
 
 			for (size_t i = 0; i < _nb_servers; i++)
 			{
@@ -242,6 +244,76 @@ class ConfigParser
 				_configs.push_back(_config_string.substr(j, k - j));
 			}
 			// each server is now splitted. need to parse into map now
+			j = 0;
+			for (size_t i = 0; i < _nb_servers; i++)
+			{
+				j = _configs[i].find("server{");
+				if (j == std::string::npos)
+				{
+					std::cout << "ConfigParser error: Cannot find server field." << std::endl;
+					return (1);
+				}
+				_configs[i].erase(j, 7);
+				if (_configs[i][_configs[i].size() - 1] == '}')
+					_configs[i].erase(_configs[i].size() - 1, 1);
+				else
+				{
+					std::cout << "ConfigParser error: Unclosed brackets for server field." << std::endl;
+					return (1);
+				}
+			}
+			for (size_t i = 0; i < _nb_servers; i++)
+			{
+				j = _configs[i][k].find("location", 0);
+				while (j != std::string::npos)
+				{
+					j += 8;
+					l = 0;
+					k = j;
+					while (_configs[i][k])
+					{
+						if (isalnum(_configs[i][k]) || _configs[i][k] == '/' || _configs[i][k] == '\\' \
+							|| _configs[i][k] == '~' || _configs[i][k] == '*')
+							++l;
+						if (_configs[i][k] == '{')
+						{
+							if (k > j && l > 0)
+								break ;
+							else
+							{
+								std::cout << "ConfigParser error: Invalid path for location field." << std::endl;
+								return (1);
+							}
+						}
+						if (!_configs[i][k + 1])
+						{
+							if (_configs[i][k] == ';')
+								break;
+							else
+							{
+								std::cout << "ConfigParser error: Invalid location field syntax." << std::endl;
+								return (1);
+							}
+						}
+						++k;
+					}
+					j = _configs[i].find("location", j);
+				}
+			}
+			return (0);
+		}
+
+		void	printConfig(void)
+		{
+			std::vector<std::string>::iterator	iter = _configs.begin();
+			std::vector<std::string>::iterator	iter2 = _configs.end();
+
+			while (iter != iter2)
+			{
+				std::cout << *iter << std::endl;
+				std::cout << "__________________________________________________" << std::endl;
+				++iter;
+			}
 		}
 
 		void	initFieldList(void)
