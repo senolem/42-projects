@@ -6,13 +6,27 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/17 12:15:32 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/17 15:06:17 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONFIGPARSER_HPP
 # define CONFIGPARSER_HPP
 # include "webserv.hpp"
+# include "Server.hpp"
+
+typedef struct s_methods
+{
+	bool	get;
+	bool	post;
+}	t_methods;
+
+typedef struct s_cgi
+{
+	std::string	filetype;
+	std::string	path;
+	t_methods	methods_allowed;
+}	t_cgi;
 
 typedef struct s_field_traits
 {
@@ -20,6 +34,17 @@ typedef struct s_field_traits
 	size_t	maximum_arguments;
 	bool	optional;
 }	t_field_traits;
+
+typedef struct s_location
+{
+	std::string		path;
+	std::string		root;
+	bool			autoindex;
+	t_methods		methods_allowed;
+	t_cgi			cgi_pass;
+	bool			upload;
+	std::string		upload_path;
+}	t_location;
 
 class ConfigParser
 {
@@ -30,7 +55,6 @@ class ConfigParser
 		std::map<std::string, t_field_traits>	_field_list;
 		size_t									_nb_servers;
 		std::vector<size_t>						_pos;
-
 	
 	public:
 		ConfigParser(void)
@@ -264,7 +288,8 @@ class ConfigParser
 			}
 			for (size_t i = 0; i < _nb_servers; i++)
 			{
-				j = _configs[i][k].find("location", 0);
+				_pos.clear();
+				j = _configs[i].find("location", 0);
 				while (j != std::string::npos)
 				{
 					j += 8;
@@ -278,7 +303,10 @@ class ConfigParser
 						if (_configs[i][k] == '{')
 						{
 							if (k > j && l > 0)
+							{
+								_pos.push_back(j - 8);
 								break ;
+							}
 							else
 							{
 								std::cout << "ConfigParser error: Invalid path for location field." << std::endl;
@@ -298,6 +326,10 @@ class ConfigParser
 						++k;
 					}
 					j = _configs[i].find("location", j);
+				}
+				for (size_t m = 0; m < _pos.size(); m++)
+				{
+
 				}
 			}
 			return (0);
