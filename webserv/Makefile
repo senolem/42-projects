@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: albaur <albaur@student.42.fr>              +#+  +:+       +#+         #
+#    By: melones <melones@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/15 15:17:23 by albaur            #+#    #+#              #
-#    Updated: 2023/02/16 17:50:11 by albaur           ###   ########.fr        #
+#    Updated: 2023/02/18 00:29:33 by melones          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ C_EXTENSION = .cpp
 #		눈_눈			SOURCES			눈_눈
 
 MAIN_PATH	=	
-MAIN_FILES 	= 	main Exception
+MAIN_FILES 	= 	main Exception utils
 SRCS_FILES	+=	$(addprefix $(MAIN_PATH), $(MAIN_FILES))
 
 SRCS_FILES_EXT	+= 	$(addsuffix $(C_EXTENSION), $(SRCS_FILES))
