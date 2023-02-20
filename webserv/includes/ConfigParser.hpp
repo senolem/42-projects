@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/20 18:04:24 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/20 22:29:00 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,7 @@ namespace ft
 				std::map<int, t_route>					vhosts;
 				t_route									server;
 				size_t									n = 0;
+				std::vector<std::string>				locations;
 	
 				for (size_t i = 0; i < _nb_servers; i++)
 				{
@@ -248,7 +249,6 @@ namespace ft
 						k = _config_string.size();
 					_configs.push_back(_config_string.substr(j, k - j));
 				}
-				// each server is now splitted. need to parse into map now
 				j = 0;
 				for (size_t i = 0; i < _nb_servers; i++)
 				{
@@ -308,16 +308,27 @@ namespace ft
 						}
 						j = _configs[i].find("location", j);
 					}
-					parseRoute(_configs[i], &server);
-					vhosts.insert(std::pair<int, t_route>(0, server));
-					server.type = LOCATION;
 					for (size_t m = 0; m < _pos.size(); m++)
 					{
 						n = _configs[i].find("}", _pos[m]);
-						server.root = _configs[i].substr(_pos[m] + 8, n - _pos[m] - 7);
-						vhosts.insert(std::pair<int, t_route>(m + 1, server));
-						server.root.clear();
+						if (n != std::string::npos)
+							locations.push_back(_configs[i].substr(_pos[m], (n + 1) - _pos[m]));
 					}
+					for (size_t m = 0; m < locations.size(); m++)
+					{
+						size_t	o = 0;
+						o = _configs[i].find(locations[m], 0);
+						if (o != std::string::npos)
+						{
+							_configs[i].erase(o, locations[m].size());
+						}
+						else
+							printf("not found\n");
+					}
+					locations.clear();
+					parseRoute(_configs[i], &server);
+					vhosts.insert(std::pair<int, t_route>(0, server));
+					// parse location route here
 					servers->push_back(vhosts);
 				}
 				_servers = servers;
@@ -345,7 +356,7 @@ namespace ft
 				_field_list.insert(std::pair<std::string, t_field_traits>("client_max_body_size", (t_field_traits){1, 1, true, false}));
 				_field_list.insert(std::pair<std::string, t_field_traits>("error_page", (t_field_traits){2, 2, true, false}));
 				_field_list.insert(std::pair<std::string, t_field_traits>("root", (t_field_traits){1, 1, true, true}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("index", (t_field_traits){1, 1, true, true}));
+				_field_list.insert(std::pair<std::string, t_field_traits>("index", (t_field_traits){1, 0, true, true}));
 				_field_list.insert(std::pair<std::string, t_field_traits>("methods_allowed", (t_field_traits){1, 2, true, true}));
 				_field_list.insert(std::pair<std::string, t_field_traits>("autoindex", (t_field_traits){1, 1, true, true}));
 				_field_list.insert(std::pair<std::string, t_field_traits>("cgi_pass", (t_field_traits){1, 4, true, true}));
@@ -360,26 +371,26 @@ namespace ft
 				char											*tmp;
 				std::map<std::string, t_field_traits>::iterator	iter;
 				t_field_traits									traits;
+				char											*saveptr;
 
 				tmp = new char[field.length() + 1];
 				std::strcpy(tmp, field.data());
-				token = strtok(tmp, " ");
+				token = strtok_r(tmp, " ", &saveptr);
 				while (token)
 				{
 					vct.push_back(token);
-					free(token);
-					token = strtok(tmp, " ");
+					token = strtok_r(NULL, " ", &saveptr);
 				}
 				if (!vct.empty())
 				{
 					iter = _field_list.find(*vct.begin());
 					if (iter == _field_list.end())
 					{
-						std::cout << "ConfigParser error: Unkown token '" << *vct.begin() << "'" << std::endl;
+						std::cout << "ConfigParser error: Unknown token '" << *vct.begin() << "'" << std::endl;
 						return (1);
 					}
 					traits = iter->second;
-					if (vct.size() - 1 > traits.maximum_arguments || vct.size() - 1 < traits.minimum_arguments)
+					if ((vct.size() - 1 > traits.maximum_arguments && traits.maximum_arguments != 0)|| vct.size() - 1 < traits.minimum_arguments)
 					{
 						std::cout << "ConfigParser error: Invalid number of arguments for token '" << *vct.begin() << "'" << std::endl;
 						return (1);
@@ -402,7 +413,7 @@ namespace ft
 				std::vector<char *>::iterator	iter = config.begin() + 1;
 				std::vector<char *>::iterator	iter2 = config.end();
 				
-				std::string	field(*vct.begin());
+				std::string	field(*config.begin());
 				if (field == "listen")
 				{
 					while (iter != iter2)
@@ -428,7 +439,7 @@ namespace ft
 				else if (field == "client_max_body_size")
 					route->client_max_body_size = atoi(*iter);
 				else if (field == "error_page")
-					route->error_page.insert(std::pair<int, std::string>(atoi(*iter), *iter + 1));
+					route->error_page.insert(std::pair<int, std::string>(atoi(*iter), *(iter + 1)));
 				else if (field == "root")
 					route->root = *iter;
 				else if (field == "index")
@@ -476,7 +487,7 @@ namespace ft
 							methods.post = true;
 						++iter3;
 					}
-					route->cgi_pass.insert(std::pair<std::string, t_cgi>(*iter, (t_cgi){*iter, *iter + 1, methods}));
+					route->cgi_pass.insert(std::pair<std::string, t_cgi>(*iter, (t_cgi){*iter, *(iter + 1), methods}));
 				}
 				else if (field == "upload")
 				{
@@ -494,15 +505,15 @@ namespace ft
 			{
 				char	*token;
 				char	*tmp;
+				char	*saveptr;
 				
 				tmp = new char[config.length() + 1];
 				std::strcpy(tmp, config.data());
-				token = strtok(tmp, ";");
+				token = strtok_r(tmp, ";", &saveptr);
 				while (token)
 				{
 					parseField(token, route);
-					free(token);
-					token = strtok(tmp, ";");
+					token = strtok_r(NULL, ";", &saveptr);
 				}
 				delete[] tmp;
 			}
