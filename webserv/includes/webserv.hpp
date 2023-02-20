@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/18 02:12:54 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/20 17:54:25 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define WEBSERV_HPP
 # include <iostream>
 # include <string>
+# include <cstring>
 # include <vector>
 # include <sys/types.h>
 # include <sys/stat.h>

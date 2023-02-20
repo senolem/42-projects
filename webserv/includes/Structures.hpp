@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/02/18 00:22:31 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/20 17:15:04 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ namespace ft {
 		size_t	minimum_arguments;
 		size_t	maximum_arguments;
 		bool	optional;
+		bool	available_location;
 	}	t_field_traits;
 	
 	enum routes_type

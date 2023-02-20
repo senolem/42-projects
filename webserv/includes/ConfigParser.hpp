@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/18 02:56:13 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/20 18:04:24 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,6 +308,7 @@ namespace ft
 						}
 						j = _configs[i].find("location", j);
 					}
+					parseRoute(_configs[i], &server);
 					vhosts.insert(std::pair<int, t_route>(0, server));
 					server.type = LOCATION;
 					for (size_t m = 0; m < _pos.size(); m++)
@@ -338,18 +339,172 @@ namespace ft
 	
 			void	initFieldList(void)
 			{
-				_field_list.insert(std::pair<std::string, t_field_traits>("listen", (t_field_traits){1, 1, false}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("server_name", (t_field_traits){1, 1, true}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("access_log", (t_field_traits){1, 1, true}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("client_max_body_size", (t_field_traits){1, 1, true}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("error_page", (t_field_traits){2, 2, true}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("root", (t_field_traits){1, 1, true}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("index", (t_field_traits){1, 1, true}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("methods_allowed", (t_field_traits){1, 2, true}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("autoindex", (t_field_traits){1, 1, true}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("cgi_pass", (t_field_traits){1, 4, true}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("upload", (t_field_traits){1, 1, true}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("upload_path", (t_field_traits){1, 1, true}));
+				_field_list.insert(std::pair<std::string, t_field_traits>("listen", (t_field_traits){1, 1, false, false}));
+				_field_list.insert(std::pair<std::string, t_field_traits>("server_name", (t_field_traits){1, 1, true, false}));
+				_field_list.insert(std::pair<std::string, t_field_traits>("access_log", (t_field_traits){1, 1, true, false}));
+				_field_list.insert(std::pair<std::string, t_field_traits>("client_max_body_size", (t_field_traits){1, 1, true, false}));
+				_field_list.insert(std::pair<std::string, t_field_traits>("error_page", (t_field_traits){2, 2, true, false}));
+				_field_list.insert(std::pair<std::string, t_field_traits>("root", (t_field_traits){1, 1, true, true}));
+				_field_list.insert(std::pair<std::string, t_field_traits>("index", (t_field_traits){1, 1, true, true}));
+				_field_list.insert(std::pair<std::string, t_field_traits>("methods_allowed", (t_field_traits){1, 2, true, true}));
+				_field_list.insert(std::pair<std::string, t_field_traits>("autoindex", (t_field_traits){1, 1, true, true}));
+				_field_list.insert(std::pair<std::string, t_field_traits>("cgi_pass", (t_field_traits){1, 4, true, true}));
+				_field_list.insert(std::pair<std::string, t_field_traits>("upload", (t_field_traits){1, 1, true, true}));
+				_field_list.insert(std::pair<std::string, t_field_traits>("upload_path", (t_field_traits){1, 1, true, true}));
+			}
+
+			int	parseField(std::string field, t_route *route)
+			{
+				std::vector<char *>								vct;
+				char											*token;
+				char											*tmp;
+				std::map<std::string, t_field_traits>::iterator	iter;
+				t_field_traits									traits;
+
+				tmp = new char[field.length() + 1];
+				std::strcpy(tmp, field.data());
+				token = strtok(tmp, " ");
+				while (token)
+				{
+					vct.push_back(token);
+					free(token);
+					token = strtok(tmp, " ");
+				}
+				if (!vct.empty())
+				{
+					iter = _field_list.find(*vct.begin());
+					if (iter == _field_list.end())
+					{
+						std::cout << "ConfigParser error: Unkown token '" << *vct.begin() << "'" << std::endl;
+						return (1);
+					}
+					traits = iter->second;
+					if (vct.size() - 1 > traits.maximum_arguments || vct.size() - 1 < traits.minimum_arguments)
+					{
+						std::cout << "ConfigParser error: Invalid number of arguments for token '" << *vct.begin() << "'" << std::endl;
+						return (1);
+					}
+					insertField(vct, route);
+					vct.clear();
+				}
+				else
+				{
+					std::cout << "ConfigParser error: empty token." << std::endl;
+					return (1);
+				}
+				delete[] tmp;
+				return (0);
+			}
+
+			void	insertField(std::vector<char *> config, t_route *route)
+			{
+				std::vector<std::string>		vct;
+				std::vector<char *>::iterator	iter = config.begin() + 1;
+				std::vector<char *>::iterator	iter2 = config.end();
+				
+				std::string	field(*vct.begin());
+				if (field == "listen")
+				{
+					while (iter != iter2)
+					{
+						vct.push_back(*iter);
+						++iter;
+					}
+					route->listen = vct;
+					vct.clear();
+				}
+				else if (field == "server_name")
+				{
+					while (iter != iter2)
+					{
+						vct.push_back(*iter);
+						++iter;
+					}
+					route->server_name = vct;
+					vct.clear();
+				}
+				else if (field == "access_log")
+					route->access_log = *iter;
+				else if (field == "client_max_body_size")
+					route->client_max_body_size = atoi(*iter);
+				else if (field == "error_page")
+					route->error_page.insert(std::pair<int, std::string>(atoi(*iter), *iter + 1));
+				else if (field == "root")
+					route->root = *iter;
+				else if (field == "index")
+				{
+					while (iter != iter2)
+					{
+						vct.push_back(*iter);
+						++iter;
+					}
+					route->index = vct;
+					vct.clear();
+				}
+				else if (field == "methods_allowed")
+				{
+					while (iter != iter2)
+					{
+						std::string	tmp(*iter);
+						if (tmp == "GET")
+							route->methods_allowed.get = true;
+						else if (tmp == "POST")
+							route->methods_allowed.post = true;
+						++iter;
+					}
+					route->server_name = vct;
+				}
+				else if (field == "autoindex")
+				{
+					std::string	tmp(*iter);
+					if (tmp == "on")
+						route->autoindex = true;
+					else if (tmp == "off")
+						route->autoindex = false;
+				}
+				else if (field == "cgi_pass")
+				{
+					t_methods						methods;
+					std::vector<char *>::iterator	iter3 = config.begin() + 2;
+					
+					while (iter3 != iter2)
+					{
+						std::string	tmp(*iter3);
+						if (tmp == "GET")
+							methods.get = true;
+						else if (tmp == "POST")
+							methods.post = true;
+						++iter3;
+					}
+					route->cgi_pass.insert(std::pair<std::string, t_cgi>(*iter, (t_cgi){*iter, *iter + 1, methods}));
+				}
+				else if (field == "upload")
+				{
+					std::string	tmp(*iter);
+					if (tmp == "on")
+						route->upload = true;
+					else if (tmp == "off")
+						route->upload = false;
+				}
+				else if (field == "upload_path")
+					route->upload = *iter;
+			}
+
+			void	parseRoute(std::string config, t_route *route)
+			{
+				char	*token;
+				char	*tmp;
+				
+				tmp = new char[config.length() + 1];
+				std::strcpy(tmp, config.data());
+				token = strtok(tmp, ";");
+				while (token)
+				{
+					parseField(token, route);
+					free(token);
+					token = strtok(tmp, ";");
+				}
+				delete[] tmp;
 			}
 	};
 }
