@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:59:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/21 17:07:12 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/21 17:56:16 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,19 @@ namespace ft
 					std::cout << buffer << std::endl;
 					std::cout << "toGet = " << toGet << std::endl;
 					std::string toSend = getFile(toGet);
-					write(fd, toSend.c_str(), strlen(toSend.c_str()));
+					size_t	k = 0;
+					k = toGet.find('.', 0);
+					std::string	fileType = toGet.substr(k, toGet.length() - k);
+					std::string	header;
+					if (fileType == ".png")
+						header = "HTTP/1.1 200 OK\nContent-Type: image/png;charset=utf-8\nContent-Length: " + std::to_string(toSend.length());
+					else if (fileType == ".html")
+						header = "HTTP/1.1 200 OK\nContent-Type: text/html;charset=utf-8\nContent-Length: " + std::to_string(toSend.length());
+					else
+						header = "HTTP/1.1 200 OK\nContent-Type: text/plain;charset=utf-8\nContent-Length: " + std::to_string(toSend.length());
+					std::string	toSend2 = header + " \n\n" + toSend;
+					std::cout << "sending : " << toSend2 << std::endl;
+					write(fd, toSend2.c_str(), strlen(toSend2.c_str()));
 					close(fd);
 				}
 				close(_socket);
