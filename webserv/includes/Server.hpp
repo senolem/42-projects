@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:59:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/21 12:08:29 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/21 12:11:52 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ namespace ft
 						printCgiMap(route.cgi_pass);
 						std::cout << "upload : " << (route.upload ? "true":"false") << std::endl;
 						std::cout << "upload_path : " << route.upload_path << std::endl;
-						std::cout << "--------------------------------------------------" << std::endl;
+						std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
 						++mapIter;
 					}
 					++vectIter;

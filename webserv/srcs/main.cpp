@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:16:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/21 12:03:09 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/21 12:12:23 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,14 @@ int	main(int argc, char **argv)
 			vhosts = config.init("conf/default.conf");
 			if (vhosts)
 				server.importConfig(vhosts);
-			server.printConfig();
+			//server.printConfig();
 		}
 		else
 		{
 			vhosts = config.init(argv[1]);
 			if (vhosts)
 				server.importConfig(vhosts);
+			//server.printConfig();
 		}
 	}
 	else
