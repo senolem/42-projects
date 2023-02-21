@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:59:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/21 12:11:52 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/21 17:07:12 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ namespace ft
 		private:
 			std::vector<std::map<int, t_route> >	*_vhosts;
 			size_t									_nb_vhost;
+			int										_socket;
+			sockaddr_in								_sockaddr;
+			int										_addrlen;
 
 		public:
 			typedef std::map<int, t_route>::iterator				mapIterator;
@@ -94,6 +97,69 @@ namespace ft
 					}
 					++vectIter;
 				}
+			}
+
+			void	startServer(void)
+			{
+				int			fd = 0;
+				ssize_t		rd = 0;
+				
+				_addrlen = sizeof(_sockaddr);
+				_socket = socket(AF_INET, SOCK_STREAM, 0);
+				if (_socket == 0)
+				{
+					std::cout << "Server error : Failed to create socket (" << errno << ")" << std::endl;
+					exit(1);
+				}
+				_sockaddr.sin_family = AF_INET;
+				_sockaddr.sin_addr.s_addr = INADDR_ANY;
+				_sockaddr.sin_port = htons(80);
+				memset(_sockaddr.sin_zero, 0, sizeof(_sockaddr.sin_addr));
+				if (bind(_socket, (sockaddr *)&_sockaddr, sizeof(_sockaddr)) < 0)
+				{
+					std::cout << "Server error : Failed to bind socket (" << errno << ")" << std::endl;
+					exit(1);
+				}
+				if (listen(_socket, 10) < 0)
+				{
+					std::cout << "Server error : Failed to listen socket (" << errno << ")" << std::endl;
+					exit(1);
+				}
+				while (1)
+				{
+					fd = accept(_socket, (sockaddr *)&_sockaddr, (socklen_t *)&_addrlen);
+					if (fd < 0)
+					{
+						std::cout << "Server error : Failed to accept connection (" << errno << ")" << std::endl;
+						exit(1);
+					}
+
+					char buffer[30000];
+					rd = read(fd, buffer, 30000);
+					std::string	bufferString(buffer);
+					size_t	i = 0;
+					size_t	j = 0;
+					i = bufferString.find(' ', 5);
+					j = bufferString.find('\n', 0);
+					std::string	toGet = bufferString.substr(5, j - i);
+					std::cout << buffer << std::endl;
+					std::cout << "toGet = " << toGet << std::endl;
+					std::string toSend = getFile(toGet);
+					write(fd, toSend.c_str(), strlen(toSend.c_str()));
+					close(fd);
+				}
+				close(_socket);
+			}
+
+			std::string	getFile(std::string path)
+			{
+				std::ifstream		fileStream("www/" + path);
+				std::stringstream	stringStream;
+				std::string			toReturn;
+
+				stringStream << fileStream.rdbuf();
+				toReturn = stringStream.str();
+				return (toReturn);
 			}
 	};
 }
