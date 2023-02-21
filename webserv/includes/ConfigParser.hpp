@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/21 11:58:19 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/21 12:08:29 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ namespace ft
 			std::vector<std::string>					_configs;
 			std::string									_config_string;
 			std::map<std::string, t_field_traits>		_field_list;
-			size_t										_nb_servers;
+			size_t										_nb_vhost;
 			std::vector<size_t>							_pos;
-			std::vector<std::map<int, ft::t_route> >	*_servers;
+			std::vector<std::map<int, ft::t_route> >	*_vhosts;
 		
 		public:
 			ConfigParser(void)
@@ -60,17 +60,15 @@ namespace ft
 			{
 				_path = path;
 				initFieldList();
-				_nb_servers = 0;
+				_nb_vhost = 0;
 				try
 				{
 					if (sanityCheck() || prepareParsing() || syntaxCheck())
 						throw Exception("Config parsing failed.");
 					else
 					{
-						std::cout << "CONFIG OK" << std::endl;
 						parseConfig();
-						//printConfig();
-						return (_servers);
+						return (_vhosts);
 					}
 				}
 				catch (std::exception &e)
@@ -165,7 +163,7 @@ namespace ft
 					_pos.push_back(i);
 					i += 6;
 					i = _config_string.find("server{", i);
-					++_nb_servers;
+					++_nb_vhost;
 				}
 				return (0);
 			}
@@ -176,7 +174,7 @@ namespace ft
 				size_t	j = 0;
 				size_t	k = 0;
 	
-				if (!_nb_servers)
+				if (!_nb_vhost)
 				{
 					std::cout << "ConfigParser error: 'server' field not found. You must declare a server by using the right field name." << std::endl;
 					return (1);
@@ -185,7 +183,7 @@ namespace ft
 				while (i != std::string::npos)
 				{
 					i += 6;
-					if (k < _nb_servers - 1)
+					if (k < _nb_vhost - 1)
 					{
 						if (_config_string[_pos[k + 1] - 1] != '}')
 						{
@@ -193,7 +191,7 @@ namespace ft
 							return (1);
 						}
 					}
-					else if (k == _nb_servers - 1)
+					else if (k == _nb_vhost - 1)
 					{
 						if (_config_string[_config_string.size() - 1] != '}')
 						{
@@ -205,7 +203,7 @@ namespace ft
 					++k;
 				}
 				
-				if (k != _nb_servers)
+				if (k != _nb_vhost)
 				{
 					std::cout << "ConfigParser error: Syntax error." << std::endl;
 					return (1);
@@ -235,21 +233,21 @@ namespace ft
 				size_t	l = 0;
 				size_t	n = 0;
 
-				std::vector<std::map<int, t_route> >	*servers = new std::vector<std::map<int, t_route> >;
-				std::map<int, t_route>					vhosts;
+				std::vector<std::map<int, t_route> >	*vhosts = new std::vector<std::map<int, t_route> >;
+				std::map<int, t_route>					vhost;
 				std::vector<std::string>				locations;
 	
-				for (size_t i = 0; i < _nb_servers; i++)
+				for (size_t i = 0; i < _nb_vhost; i++)
 				{
 					j = k;
-					if (i < _nb_servers - 1)
+					if (i < _nb_vhost - 1)
 						k = _pos[i + 1];
 					else
 						k = _config_string.size();
 					_configs.push_back(_config_string.substr(j, k - j));
 				}
 				j = 0;
-				for (size_t i = 0; i < _nb_servers; i++)
+				for (size_t i = 0; i < _nb_vhost; i++)
 				{
 					j = _configs[i].find("server{");
 					if (j == std::string::npos)
@@ -266,7 +264,7 @@ namespace ft
 						return (1);
 					}
 				}
-				for (size_t i = 0; i < _nb_servers; i++)
+				for (size_t i = 0; i < _nb_vhost; i++)
 				{
 					_pos.clear();
 					j = _configs[i].find("location", 0);
@@ -323,7 +321,7 @@ namespace ft
 					t_route	*route = parseRoute(_configs[i]);
 					if (!route)
 						return (1);
-					vhosts.insert(std::pair<int, t_route>(i, *route));
+					vhost.insert(std::pair<int, t_route>(i, *route));
 					for (size_t m = 0; m < locations.size(); m++)
 					{
 						size_t		o = 0;
@@ -343,13 +341,13 @@ namespace ft
 							return (1);
 						subroute->match = match;
 						subroute->type = LOCATION;
-						vhosts.insert(std::pair<int, t_route>(m + 1, *subroute));
+						vhost.insert(std::pair<int, t_route>(m + 1, *subroute));
 					}
-					servers->push_back(vhosts);
-					vhosts.clear();
+					vhosts->push_back(vhost);
+					vhost.clear();
 					locations.clear();
 				}
-				_servers = servers;
+				_vhosts = vhosts;
 				return (0);
 			}
 	
@@ -395,7 +393,7 @@ namespace ft
 						return (1);
 					}
 					traits = iter->second;
-					if ((vct.size() - 1 > traits.maximum_arguments && traits.maximum_arguments != 0)|| vct.size() - 1 < traits.minimum_arguments)
+					if ((vct.size() - 1 > traits.maximum_arguments && traits.maximum_arguments != 0) || vct.size() - 1 < traits.minimum_arguments)
 					{
 						std::cout << "ConfigParser error: Invalid number of arguments for token '" << *vct.begin() << "'" << std::endl;
 						return (1);

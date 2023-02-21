@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:16:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/21 11:45:34 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/21 12:03:09 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,21 @@ int	main(int argc, char **argv)
 	{
 		ft::ConfigParser							config;
 		ft::Server									server;
+		std::vector<std::map<int, ft::t_route> >	*vhosts;
 
 		if (argc == 1)
 		{
 			std::cout << "No config file provided. Using default: conf/default.conf" << std::endl;
-			server.importConfig(config.init("conf/default.conf"));
+			vhosts = config.init("conf/default.conf");
+			if (vhosts)
+				server.importConfig(vhosts);
 			server.printConfig();
 		}
 		else
 		{
-			server.importConfig(config.init(argv[1]));
+			vhosts = config.init(argv[1]);
+			if (vhosts)
+				server.importConfig(vhosts);
 		}
 	}
 	else

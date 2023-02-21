@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:59:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/21 11:48:42 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/21 12:08:29 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ namespace ft
 	class Server
 	{
 		private:
-			std::vector<std::map<int, t_route> >	*_servers;
-			size_t									_nb_servers;
+			std::vector<std::map<int, t_route> >	*_vhosts;
+			size_t									_nb_vhost;
 
 		public:
 			typedef std::map<int, t_route>::iterator				mapIterator;
@@ -46,22 +46,22 @@ namespace ft
 			{
 				if (this != &src)
 				{
-					this->_servers = src._servers;
-					this->_nb_servers = _servers->size();
+					this->_vhosts = src._vhosts;
+					this->_nb_vhost = _vhosts->size();
 				}
 				return (*this);
 			}
 
 			void	importConfig(std::vector<std::map<int, t_route> > *src)
 			{
-				_servers = src;
-				_nb_servers = _servers->size();
+				_vhosts = src;
+				_nb_vhost = _vhosts->size();
 			}
 
 			void	printConfig(void)
 			{
-				vectorIterator	vectIter = _servers->begin();
-				vectorIterator	vectIter2 = _servers->end();
+				vectorIterator	vectIter = _vhosts->begin();
+				vectorIterator	vectIter2 = _vhosts->end();
 				mapIterator		mapIter;
 				mapIterator		mapIter2;
 				
