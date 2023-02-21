@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:59:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/18 02:59:52 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/21 11:48:42 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ namespace ft
 	
 			~Server(void)
 			{
-				delete _servers;
+				
 			}
 	
 			Server	&operator=(const Server &src)
@@ -47,6 +47,7 @@ namespace ft
 				if (this != &src)
 				{
 					this->_servers = src._servers;
+					this->_nb_servers = _servers->size();
 				}
 				return (*this);
 			}
@@ -54,6 +55,7 @@ namespace ft
 			void	importConfig(std::vector<std::map<int, t_route> > *src)
 			{
 				_servers = src;
+				_nb_servers = _servers->size();
 			}
 
 			void	printConfig(void)
@@ -63,9 +65,9 @@ namespace ft
 				mapIterator		mapIter;
 				mapIterator		mapIter2;
 				
-				_nb_servers = _servers->size();
 				while (vectIter != vectIter2)
 				{
+					std::cout << "__________________________________________________" << std::endl;
 					mapIter = vectIter->begin();
 					mapIter2 = vectIter->end();
 					std::cout << "Route [" << mapIter->first << "]" << std::endl;
@@ -87,9 +89,9 @@ namespace ft
 						printCgiMap(route.cgi_pass);
 						std::cout << "upload : " << (route.upload ? "true":"false") << std::endl;
 						std::cout << "upload_path : " << route.upload_path << std::endl;
+						std::cout << "--------------------------------------------------" << std::endl;
 						++mapIter;
 					}
-					std::cout << std::endl;
 					++vectIter;
 				}
 			}

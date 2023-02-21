@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Structures.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/02/20 17:15:04 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/21 11:25:03 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ namespace ft {
 		std::map<std::string, t_cgi>    cgi_pass;
 		bool							upload;
 		std::string						upload_path;
+		std::string						match;
 
 		s_route(void) : type(false), access_log(""), client_max_body_size(0), root(""), methods_allowed(), autoindex(false), upload(false), upload_path("")
 		{

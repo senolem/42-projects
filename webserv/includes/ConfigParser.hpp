@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ConfigParser.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/20 22:29:00 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/21 11:53:03 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,11 +233,10 @@ namespace ft
 				size_t	j = 0;
 				size_t	k = 0;
 				size_t	l = 0;
+				size_t	n = 0;
 
 				std::vector<std::map<int, t_route> >	*servers = new std::vector<std::map<int, t_route> >;
 				std::map<int, t_route>					vhosts;
-				t_route									server;
-				size_t									n = 0;
 				std::vector<std::string>				locations;
 	
 				for (size_t i = 0; i < _nb_servers; i++)
@@ -319,33 +318,39 @@ namespace ft
 						size_t	o = 0;
 						o = _configs[i].find(locations[m], 0);
 						if (o != std::string::npos)
-						{
 							_configs[i].erase(o, locations[m].size());
-						}
-						else
-							printf("not found\n");
 					}
-					locations.clear();
-					parseRoute(_configs[i], &server);
-					vhosts.insert(std::pair<int, t_route>(0, server));
-					// parse location route here
+					t_route	*route = parseRoute(_configs[i]);
+					if (!route)
+						return (1);
+					vhosts.insert(std::pair<int, t_route>(i, *route));
+					for (size_t m = 0; m < locations.size(); m++)
+					{
+						size_t		o = 0;
+						std::string	match;
+						locations[m].erase(0, 9);
+						o = locations[m].find('{', 0);
+						if (o != std::string::npos)
+						{
+							match = locations[m].substr(0, o);
+							locations[m].erase(0, o + 1);
+						}
+						o = locations[m].find('}', 0);
+						if (o != std::string::npos)
+							locations[m].erase(o);
+						t_route	*subroute = parseRoute(locations[m]);
+						if (!subroute)
+							return (1);
+						subroute->match = match;
+						subroute->type = LOCATION;
+						vhosts.insert(std::pair<int, t_route>(m + 1, *subroute));
+					}
 					servers->push_back(vhosts);
+					vhosts.clear();
+					locations.clear();
 				}
 				_servers = servers;
 				return (0);
-			}
-	
-			void	printConfig(void)
-			{
-				std::vector<std::string>::iterator	iter = _configs.begin();
-				std::vector<std::string>::iterator	iter2 = _configs.end();
-	
-				while (iter != iter2)
-				{
-					std::cout << *iter << std::endl;
-					std::cout << "__________________________________________________" << std::endl;
-					++iter;
-				}
 			}
 	
 			void	initFieldList(void)
@@ -397,11 +402,6 @@ namespace ft
 					}
 					insertField(vct, route);
 					vct.clear();
-				}
-				else
-				{
-					std::cout << "ConfigParser error: empty token." << std::endl;
-					return (1);
 				}
 				delete[] tmp;
 				return (0);
@@ -463,7 +463,6 @@ namespace ft
 							route->methods_allowed.post = true;
 						++iter;
 					}
-					route->server_name = vct;
 				}
 				else if (field == "autoindex")
 				{
@@ -498,24 +497,27 @@ namespace ft
 						route->upload = false;
 				}
 				else if (field == "upload_path")
-					route->upload = *iter;
+					route->upload_path = *iter;
 			}
 
-			void	parseRoute(std::string config, t_route *route)
+			t_route	*parseRoute(std::string config)
 			{
 				char	*token;
 				char	*tmp;
 				char	*saveptr;
+				t_route	*route = new t_route;
 				
 				tmp = new char[config.length() + 1];
 				std::strcpy(tmp, config.data());
 				token = strtok_r(tmp, ";", &saveptr);
 				while (token)
 				{
-					parseField(token, route);
+					if (parseField(token, route))
+						return (NULL);
 					token = strtok_r(NULL, ";", &saveptr);
 				}
 				delete[] tmp;
+				return (route);
 			}
 	};
 }
