@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/02/21 11:25:03 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/21 13:06:25 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ namespace ft {
 	{
 		bool	get;
 		bool	post;
+		bool	del;
 	}	t_methods;
 	
 	typedef struct s_cgi

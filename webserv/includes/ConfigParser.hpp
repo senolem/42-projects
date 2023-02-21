@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/21 12:08:29 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/21 13:09:43 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -360,9 +360,9 @@ namespace ft
 				_field_list.insert(std::pair<std::string, t_field_traits>("error_page", (t_field_traits){2, 2, true, false}));
 				_field_list.insert(std::pair<std::string, t_field_traits>("root", (t_field_traits){1, 1, true, true}));
 				_field_list.insert(std::pair<std::string, t_field_traits>("index", (t_field_traits){1, 0, true, true}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("methods_allowed", (t_field_traits){1, 2, true, true}));
+				_field_list.insert(std::pair<std::string, t_field_traits>("methods_allowed", (t_field_traits){1, 3, true, true}));
 				_field_list.insert(std::pair<std::string, t_field_traits>("autoindex", (t_field_traits){1, 1, true, true}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("cgi_pass", (t_field_traits){1, 4, true, true}));
+				_field_list.insert(std::pair<std::string, t_field_traits>("cgi_pass", (t_field_traits){1, 5, true, true}));
 				_field_list.insert(std::pair<std::string, t_field_traits>("upload", (t_field_traits){1, 1, true, true}));
 				_field_list.insert(std::pair<std::string, t_field_traits>("upload_path", (t_field_traits){1, 1, true, true}));
 			}
@@ -459,6 +459,8 @@ namespace ft
 							route->methods_allowed.get = true;
 						else if (tmp == "POST")
 							route->methods_allowed.post = true;
+						else if (tmp == "DELETE")
+							route->methods_allowed.del = true;
 						++iter;
 					}
 				}
@@ -477,6 +479,7 @@ namespace ft
 					
 					methods.get = false;
 					methods.post = false;
+					methods.del = false;
 					while (iter3 != iter2)
 					{
 						std::string	tmp(*iter3);
@@ -484,6 +487,8 @@ namespace ft
 							methods.get = true;
 						else if (tmp == "POST")
 							methods.post = true;
+						else if (tmp == "DELETE")
+							methods.del = true;
 						++iter3;
 					}
 					route->cgi_pass.insert(std::pair<std::string, t_cgi>(*iter, (t_cgi){*iter, *(iter + 1), methods}));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/02/18 02:15:28 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/21 13:09:59 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ std::string	concatMethods(const ft::t_methods methods)
 	str += "] ";
 	str += "POST [";
 	if (methods.post)
+		str += "true";
+	else
+		str += "false";
+	str += "] ";
+	str += "DELETE [";
+	if (methods.del)
 		str += "true";
 	else
 		str += "false";
