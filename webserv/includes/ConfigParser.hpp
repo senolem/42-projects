@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/21 11:53:03 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/21 11:58:19 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -477,6 +477,8 @@ namespace ft
 					t_methods						methods;
 					std::vector<char *>::iterator	iter3 = config.begin() + 2;
 					
+					methods.get = false;
+					methods.post = false;
 					while (iter3 != iter2)
 					{
 						std::string	tmp(*iter3);
