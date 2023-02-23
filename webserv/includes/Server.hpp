@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:59:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/23 15:28:53 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/23 16:01:31 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ namespace ft
 						exit(1);
 					}
 					response = getResponse(parseRequest(buffer));
-					write(fd, response.c_str(), strlen(response.c_str()));
+					write(fd, response.c_str(), response.length());
 					close(fd);
 				}
 				close(_socket);
