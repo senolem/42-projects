@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:59:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/23 15:26:47 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/23 15:27:57 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,6 @@ namespace ft
 
 			std::string	getFile(std::string path)
 			{
-				std::string			filePath("www/" + path);
 				std::ifstream		fileStream(("www/" + path).c_str());
 				std::stringstream	stringStream;
 				std::string			toReturn;
