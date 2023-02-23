@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:59:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/23 16:48:20 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/23 17:33:55 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ namespace ft
 	class Server
 	{
 		private:
-			std::vector<std::map<int, t_route> >	*_vhosts;
-			size_t									_nb_vhost;
-			int										_socket;
-			sockaddr_in								_sockaddr;
-			int										_addrlen;
-			std::map<std::string, std::string>		_typesMap;
+			std::vector<std::map<std::vector<std::string>, t_route> >	*_vhosts;
+			size_t														_nb_vhost;
+			int															_socket;
+			sockaddr_in													_sockaddr;
+			int															_addrlen;
+			std::map<std::string, std::string>							_typesMap;
 
 		public:
-			typedef std::map<int, t_route>::iterator				mapIterator;
-			typedef std::vector<std::map<int, t_route> >::iterator	vectorIterator;
+			typedef std::map<std::vector<std::string>, t_route>::iterator				mapIterator;
+			typedef std::vector<std::map<std::vector<std::string>, t_route> >::iterator	vectorIterator;
 
 			Server(void)
 			{
@@ -56,7 +56,7 @@ namespace ft
 				return (*this);
 			}
 
-			void	importConfig(std::vector<std::map<int, t_route> > *src)
+			void	importConfig(std::vector<std::map<std::vector<std::string>, t_route> > *src)
 			{
 				_vhosts = src;
 				_nb_vhost = _vhosts->size();
@@ -74,7 +74,7 @@ namespace ft
 					std::cout << "__________________________________________________" << std::endl;
 					mapIter = vectIter->begin();
 					mapIter2 = vectIter->end();
-					std::cout << "Route [" << mapIter->first << "]" << std::endl;
+					std::cout << "Route [" << concatStringVector(mapIter->first) << "]" << std::endl;
 					while (mapIter != mapIter2)
 					{
 						ft::t_route	&route = mapIter->second;
@@ -159,7 +159,7 @@ namespace ft
 				i = bufferString.find('\n', 0);
 				vect = ft_split(bufferString.substr(0, i - 1), ' ');
 				header.method = vect.at(0);
-				header.path = "www/" + vect.at(1);
+				header.path = "www/" + getRoot() + vect.at(1);
 				header.version = vect.at(2);
 				return (header);
 			}
@@ -184,8 +184,15 @@ namespace ft
 					header.content = fileStream.str();
 					header.content_length = header.content.size();
 				}
-				responseStream << header.version << " " << header.status_code << std::endl << "Content-Type: " << header.content_type << std::endl << "Content-Length: " << header.content_length << std::endl << std::endl << header.content;
+				responseStream << header.version << " " << header.status_code << std::endl << "Content-Type: " << header.content_type\
+				<< std::endl << "Content-Length: " << header.content_length << std::endl << std::endl << header.content;
 				return (responseStream.str());
+			}
+
+			std::string	getRoot(void)
+			{
+				std::string	root;
+				return (root);
 			}
 
 			void	setFiletype(t_response_header *header, std::string path)
