@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/23 17:26:14 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/23 23:46:48 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ namespace ft
 	class ConfigParser
 	{
 		private:
-			std::string														_path;
-			std::vector<std::string>										_configs;
-			std::string														_config_string;
-			std::map<std::string, t_field_traits>							_field_list;
-			size_t															_nb_vhost;
-			std::vector<size_t>												_pos;
-			std::vector<std::map<std::vector<std::string>, ft::t_route> >	*_vhosts;
+			std::string												_path;
+			std::vector<std::string>								_configs;
+			std::string												_config_string;
+			std::map<std::string, t_field_traits>					_field_list;
+			size_t													_nb_vhost;
+			std::vector<size_t>										_pos;
+			std::vector<std::multimap<std::string, ft::t_route> >	*_vhosts;
 		
 		public:
 			ConfigParser(void)
@@ -56,7 +56,7 @@ namespace ft
 				return (*this);
 			}
 	
-			std::vector<std::map<std::vector<std::string>, ft::t_route> >	*init(std::string path)
+			std::vector<std::multimap<std::string, ft::t_route> >	*init(std::string path)
 			{
 				_path = path;
 				initFieldList();
@@ -233,9 +233,9 @@ namespace ft
 				size_t	l = 0;
 				size_t	n = 0;
 
-				std::vector<std::map<std::vector<std::string>, t_route> >	*vhosts = new std::vector<std::map<std::vector<std::string>, t_route> >;
-				std::map<std::vector<std::string>, t_route>					vhost;
-				std::vector<std::string>									locations;
+				std::vector<std::multimap<std::string, t_route> >	*vhosts = new std::vector<std::multimap<std::string, t_route> >;
+				std::multimap<std::string, t_route>					vhost;
+				std::vector<std::string>							locations;
 	
 				for (size_t i = 0; i < _nb_vhost; i++)
 				{
@@ -321,7 +321,7 @@ namespace ft
 					t_route	*route = parseRoute(_configs[i]);
 					if (!route)
 						return (1);
-					vhost.insert(std::pair<std::vector<std::string>, t_route>(route->server_name, *route));
+					vhost.insert(std::pair<std::string, t_route>(route->server_name, *route));
 					for (size_t m = 0; m < locations.size(); m++)
 					{
 						size_t		o = 0;
@@ -341,7 +341,7 @@ namespace ft
 							return (1);
 						subroute->match = match;
 						subroute->type = LOCATION;
-						vhost.insert(std::pair<std::vector<std::string>, t_route>(subroute->server_name, *subroute));
+						vhost.insert(std::pair<std::string, t_route>(route->server_name, *subroute));
 						delete subroute;
 					}
 					vhosts->push_back(vhost);
@@ -424,15 +424,7 @@ namespace ft
 					vct.clear();
 				}
 				else if (field == "server_name")
-				{
-					while (iter != iter2)
-					{
-						vct.push_back(*iter);
-						++iter;
-					}
-					route->server_name = vct;
-					vct.clear();
-				}
+					route->server_name = *iter;
 				else if (field == "access_log")
 					route->access_log = *iter;
 				else if (field == "client_max_body_size")

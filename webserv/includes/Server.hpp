@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:59:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/23 17:33:55 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/24 00:13:13 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ namespace ft
 	class Server
 	{
 		private:
-			std::vector<std::map<std::vector<std::string>, t_route> >	*_vhosts;
-			size_t														_nb_vhost;
-			int															_socket;
-			sockaddr_in													_sockaddr;
-			int															_addrlen;
-			std::map<std::string, std::string>							_typesMap;
+			std::vector<std::multimap<std::string, t_route> >	*_vhosts;
+			size_t											_nb_vhost;
+			int												_socket;
+			sockaddr_in										_sockaddr;
+			int												_addrlen;
+			std::map<std::string, std::string>				_typesMap;
 
 		public:
-			typedef std::map<std::vector<std::string>, t_route>::iterator				mapIterator;
-			typedef std::vector<std::map<std::vector<std::string>, t_route> >::iterator	vectorIterator;
+			typedef std::map<std::string, t_route>::iterator					mapIterator;
+			typedef std::vector<std::multimap<std::string, t_route> >::iterator	vectorIterator;
 
 			Server(void)
 			{
@@ -56,7 +56,7 @@ namespace ft
 				return (*this);
 			}
 
-			void	importConfig(std::vector<std::map<std::vector<std::string>, t_route> > *src)
+			void	importConfig(std::vector<std::multimap<std::string, t_route> > *src)
 			{
 				_vhosts = src;
 				_nb_vhost = _vhosts->size();
@@ -74,13 +74,13 @@ namespace ft
 					std::cout << "__________________________________________________" << std::endl;
 					mapIter = vectIter->begin();
 					mapIter2 = vectIter->end();
-					std::cout << "Route [" << concatStringVector(mapIter->first) << "]" << std::endl;
+					std::cout << "Route [" << mapIter->first << "]" << std::endl;
 					while (mapIter != mapIter2)
 					{
 						ft::t_route	&route = mapIter->second;
 						std::cout << "type : " << (route.type ? "LOCATION":"SERVER") << std::endl;
 						std::cout << "listen : " << concatStringVector(route.listen) << std::endl;
-						std::cout << "server_name : " << concatStringVector(route.server_name) << std::endl;
+						std::cout << "server_name : " << route.server_name << std::endl;
 						std::cout << "access_log : " << route.access_log << std::endl;
 						std::cout << "client_max_body_size : " << route.client_max_body_size << std::endl;
 						std::cout << "error_page :" << std::endl;
@@ -93,6 +93,7 @@ namespace ft
 						printCgiMap(route.cgi_pass);
 						std::cout << "upload : " << (route.upload ? "true":"false") << std::endl;
 						std::cout << "upload_path : " << route.upload_path << std::endl;
+						std::cout << "match : " << route.match << std::endl;
 						std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
 						++mapIter;
 					}
@@ -151,15 +152,24 @@ namespace ft
 
 			t_request_header	parseRequest(char *buffer)
 			{
-				size_t						i = 0;
 				t_request_header			header;
 				std::string					bufferString(buffer);
+				std::vector<std::string>	bufferVect;
 				std::vector<std::string>	vect;
+				std::vector<std::string>	vect2;
+				vectorIterator				vectIter;
 
-				i = bufferString.find('\n', 0);
-				vect = ft_split(bufferString.substr(0, i - 1), ' ');
+				bufferVect = ft_split(bufferString, '\n');
+				vect = ft_split(bufferVect.at(0), ' ');
+				vect2 = ft_split(bufferVect.at(1), ' ');
+				header.host = vect2.at(1);
 				header.method = vect.at(0);
-				header.path = "www/" + getRoot() + vect.at(1);
+				vectIter = getHost(header.host);
+				if (vectIter != _vhosts->end())
+					header.path = getRoot(vectIter, vect.at(1)) + vect.at(1);
+				else
+					header.path = getRoot(_vhosts->begin(), vect.at(1)) + vect.at(1); 
+				std::cout << "path = " << header.path << std::endl;
 				header.version = vect.at(2);
 				return (header);
 			}
@@ -189,10 +199,40 @@ namespace ft
 				return (responseStream.str());
 			}
 
-			std::string	getRoot(void)
+			vectorIterator	getHost(std::string host)
 			{
-				std::string	root;
-				return (root);
+				std::vector<std::string>	vect;
+				vectorIterator				vectIter = _vhosts->begin();
+				vectorIterator				vectIter2 = _vhosts->end();
+				
+				while (vectIter != vectIter2)
+				{
+					if (vectIter->find(host) != vectIter->end())
+						return (vectIter);
+					++vectIter;
+				}
+				return (vectIter);
+			}
+
+			std::string	getRoot(vectorIterator vectIter, std::string path)
+			{
+				std::vector<std::string>	vect;
+				mapIterator					mapIter = vectIter->begin();
+				mapIterator					mapIter2 = vectIter->end();
+
+				vect = ft_split(path, '/');
+				if (vect.size() == 1)
+					return (mapIter->second.root);
+				else
+				{
+					while (mapIter != mapIter2)
+					{
+						if (mapIter->second.type == LOCATION && mapIter->second.match == "/" + vect.at(0))
+							return (mapIter->second.root);
+						++mapIter;
+					}
+				}
+				return (vectIter->begin()->second.root);
 			}
 
 			void	setFiletype(t_response_header *header, std::string path)
@@ -204,11 +244,11 @@ namespace ft
 				vect = ft_split(path, '.');
 				if (!vect.empty())
 					filetype = vect.at(vect.size() - 1);
-				iter = _typesMap.find("filetype");
+				iter = _typesMap.find(filetype);
 				if (iter != _typesMap.end())
 					header->content_type = iter->second;
 				else
-					header->content = "text/plain";
+					header->content_type = "text/plain";
 			}
 
 			void	initTypes(void)

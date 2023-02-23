@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/02/23 15:16:44 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/23 20:20:34 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ namespace ft {
 	{	
 		bool							type;
 		std::vector<std::string>		listen;
-		std::vector<std::string>		server_name;
+		std::string						server_name;
 		std::string						access_log;
 		size_t							client_max_body_size;
 		std::map<int, std::string>		error_page;
@@ -87,7 +87,7 @@ namespace ft {
 		size_t		content_length;
 		std::string	content;
 
-		s_response_header(void) : version("HTTP/1.1"), status_code(""), content_type(""), content_length(0)
+		s_response_header(void) : version("HTTP/1.1"), status_code(""), content_type(""), content_length(0), content("")
 		{
 			
 		}

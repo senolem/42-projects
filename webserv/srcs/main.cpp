@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:16:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/23 17:26:31 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/23 23:45:53 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 	{
 		ft::ConfigParser												config;
 		ft::Server														server;
-		std::vector<std::map<std::vector<std::string>, ft::t_route> >	*vhosts;
+		std::vector<std::multimap<std::string, ft::t_route> >	*vhosts;
 
 		if (argc == 1)
 		{
@@ -28,9 +28,10 @@ int	main(int argc, char **argv)
 			if (vhosts)
 			{
 				server.importConfig(vhosts);
+				server.printConfig();
 				server.startServer();
 			}
-			//server.printConfig();
+			server.printConfig();
 		}
 		else
 		{
@@ -38,9 +39,9 @@ int	main(int argc, char **argv)
 			if (vhosts)
 			{
 				server.importConfig(vhosts);
+				server.printConfig();
 				server.startServer();
 			}
-			//server.printConfig();
 		}
 	}
 	else
