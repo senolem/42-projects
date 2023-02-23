@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/23 10:53:32 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/23 16:46:47 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -354,18 +354,18 @@ namespace ft
 	
 			void	initFieldList(void)
 			{
-				_field_list.insert(std::pair<std::string, t_field_traits>("listen", (t_field_traits){1, 1, false, false}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("server_name", (t_field_traits){1, 1, true, false}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("access_log", (t_field_traits){1, 1, true, false}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("client_max_body_size", (t_field_traits){1, 1, true, false}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("error_page", (t_field_traits){2, 2, true, false}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("root", (t_field_traits){1, 1, true, true}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("index", (t_field_traits){1, 0, true, true}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("methods_allowed", (t_field_traits){1, 3, true, true}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("autoindex", (t_field_traits){1, 1, true, true}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("cgi_pass", (t_field_traits){1, 5, true, true}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("upload", (t_field_traits){1, 1, true, true}));
-				_field_list.insert(std::pair<std::string, t_field_traits>("upload_path", (t_field_traits){1, 1, true, true}));
+				_field_list["listen"] = (t_field_traits){1, 1, false, false};
+				_field_list["server_name"] = (t_field_traits){1, 1, true, false};
+				_field_list["access_log"] = (t_field_traits){1, 1, true, false};
+				_field_list["client_max_body_size"] = (t_field_traits){1, 1, true, false};
+				_field_list["error_page"] = (t_field_traits){2, 2, true, false};
+				_field_list["root"] = (t_field_traits){1, 1, true, true};
+				_field_list["index"] = (t_field_traits){1, 0, true, true};
+				_field_list["methods_allowed"] = (t_field_traits){1, 3, true, true};
+				_field_list["autoindex"] = (t_field_traits){1, 1, true, true};
+				_field_list["cgi_pass"] = (t_field_traits){1, 5, true, true};
+				_field_list["upload"] = (t_field_traits){1, 1, true, true};
+				_field_list["upload_path"] = (t_field_traits){1, 1, true, true};
 			}
 
 			int	parseField(std::string field, t_route *route)
