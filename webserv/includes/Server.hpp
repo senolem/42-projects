@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:59:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/21 17:56:16 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/23 15:26:47 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,9 @@ namespace ft
 
 			void	startServer(void)
 			{
-				int			fd = 0;
-				ssize_t		rd = 0;
+				int					fd = 0;
+				ssize_t				rd = 0;
+				std::string			response;
 				
 				_addrlen = sizeof(_sockaddr);
 				_socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -133,31 +134,15 @@ namespace ft
 						std::cout << "Server error : Failed to accept connection (" << errno << ")" << std::endl;
 						exit(1);
 					}
-
 					char buffer[30000];
 					rd = read(fd, buffer, 30000);
-					std::string	bufferString(buffer);
-					size_t	i = 0;
-					size_t	j = 0;
-					i = bufferString.find(' ', 5);
-					j = bufferString.find('\n', 0);
-					std::string	toGet = bufferString.substr(5, j - i);
-					std::cout << buffer << std::endl;
-					std::cout << "toGet = " << toGet << std::endl;
-					std::string toSend = getFile(toGet);
-					size_t	k = 0;
-					k = toGet.find('.', 0);
-					std::string	fileType = toGet.substr(k, toGet.length() - k);
-					std::string	header;
-					if (fileType == ".png")
-						header = "HTTP/1.1 200 OK\nContent-Type: image/png;charset=utf-8\nContent-Length: " + std::to_string(toSend.length());
-					else if (fileType == ".html")
-						header = "HTTP/1.1 200 OK\nContent-Type: text/html;charset=utf-8\nContent-Length: " + std::to_string(toSend.length());
-					else
-						header = "HTTP/1.1 200 OK\nContent-Type: text/plain;charset=utf-8\nContent-Length: " + std::to_string(toSend.length());
-					std::string	toSend2 = header + " \n\n" + toSend;
-					std::cout << "sending : " << toSend2 << std::endl;
-					write(fd, toSend2.c_str(), strlen(toSend2.c_str()));
+					if (rd < 0)
+					{
+						std::cout << "Server error : Failed to read buffer (" << errno << ")" << std::endl;
+						exit(1);
+					}
+					response = getResponse(parseRequest(buffer));
+					write(fd, response.c_str(), strlen(response.c_str()));
 					close(fd);
 				}
 				close(_socket);
@@ -165,13 +150,66 @@ namespace ft
 
 			std::string	getFile(std::string path)
 			{
-				std::ifstream		fileStream("www/" + path);
+				std::string			filePath("www/" + path);
+				std::ifstream		fileStream(("www/" + path).c_str());
 				std::stringstream	stringStream;
 				std::string			toReturn;
 
 				stringStream << fileStream.rdbuf();
 				toReturn = stringStream.str();
 				return (toReturn);
+			}
+
+			t_request_header	parseRequest(char *buffer)
+			{
+				size_t						i = 0;
+				t_request_header			header;
+				std::string					bufferString(buffer);
+				std::vector<std::string>	vect;
+
+				i = bufferString.find('\n', 0);
+				vect = ft_split(bufferString.substr(0, i - 1), ' ');
+				header.method = vect.at(0);
+				header.path = "www/" + vect.at(1);
+				header.version = vect.at(2);
+				return (header);
+			}
+
+			std::string	getResponse(t_request_header request)
+			{
+				std::stringstream	fileStream;
+				std::stringstream	responseStream;
+				t_response_header	header;
+				std::string			filetype;
+				
+				filetype = ft_split(request.path, '.')[1];
+				if (filetype == "html" || filetype.empty())
+					header.content_type = "text/html";
+				else if (filetype == "css")
+					header.content_type = "text/css";
+				else if (filetype == "png")
+					header.content_type = "image/png";
+				else if (filetype == "jpg")
+					header.content_type = "image/jpeg";
+				else if (filetype == "gif")
+					header.content_type = "image/gif";
+				else
+					header.content_type = "text/plain";
+				if (access(request.path.c_str(), R_OK) != 0)
+				{
+					header.status_code = "404 Not Found";
+					header.content_length = 0;
+				}
+				else
+				{
+					std::ifstream	file(request.path.c_str(), std::ios::binary);
+					fileStream << file.rdbuf();
+					header.status_code = "200 OK";
+					header.content = fileStream.str();
+					header.content_length = header.content.size();
+				}
+				responseStream << header.version << " " << header.status_code << std::endl << "Content-Type: " << header.content_type << std::endl << "Content-Length: " << header.content_length << std::endl << std::endl << header.content;
+				return (responseStream.str());
 			}
 	};
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ConfigParser.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/21 13:09:43 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/23 10:53:32 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,6 +342,7 @@ namespace ft
 						subroute->match = match;
 						subroute->type = LOCATION;
 						vhost.insert(std::pair<int, t_route>(m + 1, *subroute));
+						delete subroute;
 					}
 					vhosts->push_back(vhost);
 					vhost.clear();

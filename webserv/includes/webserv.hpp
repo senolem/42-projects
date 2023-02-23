@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   webserv.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/21 14:52:57 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/23 12:19:34 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@
 # include "Structures.hpp"
 
 // utils
-std::string	concatStringVector(const std::vector<std::string> &vct);
-void		printIntStringMap(const std::map<int, std::string> map);
-std::string	concatMethods(const ft::t_methods methods);
-void		printCgiMap(const std::map<std::string, ft::t_cgi> map);
+std::string					concatStringVector(const std::vector<std::string> &vct);
+void						printIntStringMap(const std::map<int, std::string> map);
+std::string					concatMethods(const ft::t_methods methods);
+void						printCgiMap(const std::map<std::string, ft::t_cgi> map);
+std::vector<std::string>	ft_split(const std::string s, char c);
 
 #endif

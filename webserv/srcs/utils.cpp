@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/02/21 13:09:59 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/23 14:23:35 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,28 @@ void	printCgiMap(const std::map<std::string, ft::t_cgi> map)
 		std::cout << "	- [" << iter->second.filetype << "] methods_allowed : " << concatMethods(iter->second.methods_allowed) << std::endl;
 		++iter;
 	}
+}
+
+std::vector<std::string>	ft_split(const std::string s, char c)
+{
+	size_t						i = 0;
+	std::vector<std::string>	split;
+	std::string					str(s);
+
+	while (str[i])
+	{
+		if ((str[i] == c && i != 0) || !str[i + 1])
+		{
+			if (str[i + 1])
+				split.push_back(str.substr(0, i));
+			else
+				split.push_back(str.substr(0, i + 1));
+			str.erase(0, i);
+			i = 0;
+		}
+		if (str[i] == c && i == 0)
+			str.erase(0, 1);
+		++i;
+	}
+	return (split);
 }

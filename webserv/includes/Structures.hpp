@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Structures.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/02/21 13:06:25 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/23 15:16:44 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,33 @@ namespace ft {
 			
 		}
 	}	t_route;
+
+	typedef struct s_request_header
+	{
+		std::string	method;
+		std::string	path;
+		std::string	version;
+		std::string	host;
+
+		s_request_header(void) : method(""), path (""), version("HTTP/1.1"), host("")
+		{
+			
+		}
+	}	t_request_header;
+
+	typedef struct s_response_header
+	{
+		std::string	version;
+		std::string	status_code;
+		std::string	content_type;
+		size_t		content_length;
+		std::string	content;
+
+		s_response_header(void) : version("HTTP/1.1"), status_code(""), content_type(""), content_length(0)
+		{
+			
+		}
+	}	t_response_header;
 }
 
 #endif
