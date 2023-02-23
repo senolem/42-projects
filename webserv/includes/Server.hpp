@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:59:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/23 15:27:57 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/23 15:28:53 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,17 +146,6 @@ namespace ft
 					close(fd);
 				}
 				close(_socket);
-			}
-
-			std::string	getFile(std::string path)
-			{
-				std::ifstream		fileStream(("www/" + path).c_str());
-				std::stringstream	stringStream;
-				std::string			toReturn;
-
-				stringStream << fileStream.rdbuf();
-				toReturn = stringStream.str();
-				return (toReturn);
 			}
 
 			t_request_header	parseRequest(char *buffer)
