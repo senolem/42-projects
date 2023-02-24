@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ConfigParser.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/24 17:00:52 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/24 21:14:41 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ namespace ft
 	class ConfigParser
 	{
 		private:
-			std::string												_path;
-			std::vector<std::string>								_configs;
-			std::string												_config_string;
-			std::map<std::string, t_field_traits>					_field_list;
-			size_t													_nb_vhost;
-			std::vector<size_t>										_pos;
-			std::vector<std::multimap<std::string, ft::t_route> >	*_vhosts;
+			std::string											_path;
+			std::vector<std::string>							_configs;
+			std::string											_config_string;
+			std::map<std::string, t_field_traits>				_field_list;
+			size_t												_nb_vhost;
+			std::vector<size_t>									_pos;
+			std::vector<std::multimap<std::string, t_route> >	*_vhosts;
 		
 		public:
 			ConfigParser(void)
@@ -56,7 +56,7 @@ namespace ft
 				return (*this);
 			}
 	
-			std::vector<std::multimap<std::string, ft::t_route> >	*init(std::string path)
+			std::vector<std::multimap<std::string, t_route> >	*init(std::string path)
 			{
 				_path = path;
 				initFieldList();

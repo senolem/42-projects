@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:16:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/24 15:16:25 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/24 23:31:26 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	main(int argc, char **argv)
 {
 	if (argc == 1 || argc == 2)
 	{
-		ft::ConfigParser												config;
-		ft::webserv														webserv;
-		std::vector<std::multimap<std::string, ft::t_route> >			*vhosts;
+		ft::ConfigParser									config;
+		webserv												webserv;
+		std::vector<std::multimap<std::string, t_route> >	*vhosts;
 
 		if (argc == 1)
 		{

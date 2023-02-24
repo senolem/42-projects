@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/02/23 14:23:35 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/24 21:16:36 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	printIntStringMap(const std::map<int, std::string> map)
 	}
 }
 
-std::string	concatMethods(const ft::t_methods methods)
+std::string	concatMethods(const t_methods methods)
 {
 	std::string	str;
 
@@ -65,10 +65,10 @@ std::string	concatMethods(const ft::t_methods methods)
 	return (str);
 }
 
-void	printCgiMap(const std::map<std::string, ft::t_cgi> map)
+void	printCgiMap(const std::map<std::string, t_cgi> map)
 {
-	std::map<std::string, ft::t_cgi>::const_iterator	iter = map.begin();
-	std::map<std::string, ft::t_cgi>::const_iterator	iter2 = map.end();
+	std::map<std::string, t_cgi>::const_iterator	iter = map.begin();
+	std::map<std::string, t_cgi>::const_iterator	iter2 = map.end();
 	
 	while (iter != iter2)
 	{
