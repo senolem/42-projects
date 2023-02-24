@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:59:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/24 00:13:13 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/24 10:25:32 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,12 +205,14 @@ namespace ft
 				vectorIterator				vectIter = _vhosts->begin();
 				vectorIterator				vectIter2 = _vhosts->end();
 				
+				std::cout << "looking for " << host << std::endl;
 				while (vectIter != vectIter2)
 				{
 					if (vectIter->find(host) != vectIter->end())
 						return (vectIter);
 					++vectIter;
 				}
+				std::cout << "not found 
 				return (vectIter);
 			}
 

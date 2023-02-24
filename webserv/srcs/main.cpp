@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:16:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/23 23:45:53 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/24 10:05:33 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 			if (vhosts)
 			{
 				server.importConfig(vhosts);
-				server.printConfig();
+				//server.printConfig();
 				server.startServer();
 			}
 			server.printConfig();
@@ -39,7 +39,7 @@ int	main(int argc, char **argv)
 			if (vhosts)
 			{
 				server.importConfig(vhosts);
-				server.printConfig();
+				//server.printConfig();
 				server.startServer();
 			}
 		}
