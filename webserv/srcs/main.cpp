@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:16:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/24 10:05:33 by albaur           ###   ########.fr       */
+/*   Updated: 2023/02/24 15:16:25 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	main(int argc, char **argv)
 	if (argc == 1 || argc == 2)
 	{
 		ft::ConfigParser												config;
-		ft::Server														server;
-		std::vector<std::multimap<std::string, ft::t_route> >	*vhosts;
+		ft::webserv														webserv;
+		std::vector<std::multimap<std::string, ft::t_route> >			*vhosts;
 
 		if (argc == 1)
 		{
@@ -27,20 +27,17 @@ int	main(int argc, char **argv)
 			vhosts = config.init("conf/default.conf");
 			if (vhosts)
 			{
-				server.importConfig(vhosts);
-				//server.printConfig();
-				server.startServer();
+				webserv.importConfig(vhosts);
+				webserv.startServer();
 			}
-			server.printConfig();
 		}
 		else
 		{
 			vhosts = config.init(argv[1]);
 			if (vhosts)
 			{
-				server.importConfig(vhosts);
-				//server.printConfig();
-				server.startServer();
+				webserv.importConfig(vhosts);
+				webserv.startServer();
 			}
 		}
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Structures.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/02/23 20:20:34 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/24 17:00:46 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ namespace ft {
 	typedef struct s_route
 	{	
 		bool							type;
-		std::vector<std::string>		listen;
+		std::string						listen;
 		std::string						server_name;
 		std::string						access_log;
 		size_t							client_max_body_size;

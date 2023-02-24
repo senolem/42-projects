@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ConfigParser.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/23 23:46:48 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/24 17:00:52 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -414,15 +414,7 @@ namespace ft
 				
 				std::string	field(*config.begin());
 				if (field == "listen")
-				{
-					while (iter != iter2)
-					{
-						vct.push_back(*iter);
-						++iter;
-					}
-					route->listen = vct;
-					vct.clear();
-				}
+					route->listen = *iter;
 				else if (field == "server_name")
 					route->server_name = *iter;
 				else if (field == "access_log")
