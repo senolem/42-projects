@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/25 19:58:57 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/25 20:50:44 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ class webserv
 		void				startServer(void);
 		t_socket			createSocket(int port);
 		vectorIterator		getHost(std::string host);
-		std::string			getRoot(vectorIterator vectIter, std::string path);
+		std::string			getPath(vectorIterator vectIter, std::string path);
 		t_request_header	parseRequest(char *buffer);
 		void				printConfig(void);
 };

@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/02/25 20:19:49 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/25 20:50:44 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,11 +123,14 @@ webserv::vectorIterator	webserv::getHost(std::string host)
 	return (vectIter);
 }
 
-std::string	webserv::getRoot(vectorIterator vectIter, std::string path)
+std::string	webserv::getPath(vectorIterator vectIter, std::string path)
 {
 	std::vector<std::string>	vect;
 	mapIterator					mapIter = vectIter->begin();
 	mapIterator					mapIter2 = vectIter->end();
+	std::string					result;
+	size_t						i = 0;
+
 	vect = ft_split(path, '/');
 	if (vect.size() == 1)
 		return (mapIter->second.root);
@@ -136,7 +139,13 @@ std::string	webserv::getRoot(vectorIterator vectIter, std::string path)
 		while (mapIter != mapIter2)
 		{
 			if (mapIter->second.type == LOCATION && mapIter->second.match == "/" + vect.at(0))
-				return (mapIter->second.root);
+			{
+				result = mapIter->second.root + path;
+				i = result.find("/" + vect.at(0), 0);
+				if (i != std::string::npos)
+					result.erase(i, vect.at(0).length() + 1);
+				return (result);
+			}
 			++mapIter;
 		}
 	}
@@ -159,9 +168,9 @@ t_request_header	webserv::parseRequest(char *buffer)
 	header.method = vect.at(0);
 	vectIter = getHost(header.host);
 	if (vectIter != _vhosts->end())
-		header.path = getRoot(vectIter, vect.at(1)) + vect.at(1);
+		header.path = getPath(vectIter, vect.at(1));
 	else
-		header.path = getRoot(_vhosts->begin(), vect.at(1)) + vect.at(1); 
+		header.path = getPath(_vhosts->begin(), vect.at(1));
 	std::cout << "path = " << header.path << std::endl;
 	header.version = vect.at(2);
 	return (header);
