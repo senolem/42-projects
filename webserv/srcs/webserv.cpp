@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/02/24 23:40:56 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/25 20:19:49 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,27 @@ void	webserv::startServer(void)
 			iter = _sockets.find(port);
 		}
 		_subservers.push_back(Server(*this, _vhosts->at(i), iter->second));
+
+		pollfd	pfd;
+		pfd.fd = iter->second.fd;
+		pfd.events = POLLIN;
+		_pollfds.push_back(pfd);
 	}
-	for (size_t i = 0; i < _nb_vhost; i++)
-		_subservers[i].acceptConnections();
+	while (1)
+	{
+		if (poll(&_pollfds[0], _pollfds.size(), 5000) == -1)
+		{
+			std::cout << "Server error : Failed to poll (" << errno << ")" << std::endl;
+			exit(1);
+		}
+		for (size_t i = 0; i < _pollfds.size(); i++)
+		{
+			if (_pollfds[i].revents & POLLIN)
+				_subservers[i].acceptConnection();
+		}
+	}
+	for (size_t i = 0; _sockets.size(); i++)
+		close(_sockets[i].fd);
 }
 
 t_socket	webserv::createSocket(int port)

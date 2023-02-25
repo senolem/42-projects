@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:59:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/24 23:34:26 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/25 20:19:49 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ class Server
 		~Server(void);
 		Server  &operator=(const Server &src);
 
-		void		acceptConnections(void);
+		void		acceptConnection(void);
 		std::string	getResponse(t_request_header request);
 		void		setFiletype(t_response_header *header, std::string path);
 		void		initTypes(void);

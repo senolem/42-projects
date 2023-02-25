@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/24 22:42:24 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/25 19:58:57 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/stat.h>
 # include <sys/socket.h>
 # include <netinet/in.h>
+# include <poll.h>
 # include <unistd.h>
 # include <string.h>
 # include <fstream>
@@ -39,6 +40,7 @@ class webserv
 		std::vector<std::multimap<std::string, t_route> >	*_vhosts;
 		size_t												_nb_vhost;
 		std::map<int, t_socket>								_sockets;
+		std::vector<pollfd>									_pollfds;
 	
 	public:
 		typedef std::map<std::string, t_route>::iterator					mapIterator;

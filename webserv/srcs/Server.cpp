@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:16 by melones           #+#    #+#             */
-/*   Updated: 2023/02/24 23:54:09 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/25 20:19:49 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,33 +39,29 @@ Server	&Server::operator=(const Server &src)
 	return (*this);
 }
 
-void	Server::acceptConnections(void)
+void	Server::acceptConnection(void)
 {
     int					addrlen = sizeof(_socket.sockaddr_);
 	std::string			response;
 	int					fd = 0;
 	int					rd = 0;
 
-	while (fd >= 0 && rd >= 0)
+	fd = accept(_socket.fd, (sockaddr *)&_socket.sockaddr_, (socklen_t*)&addrlen);
+	if (fd < 0)
 	{
-		fd = accept(_socket.fd, (sockaddr *)&_socket.sockaddr_, (socklen_t*)&addrlen);
-		if (fd < 0)
-		{
-			std::cout << "Server error : Failed to accept connection (" << errno << ")" << std::endl;
-			exit(1);
-		}
-		char buffer[30000];
-		rd = read(fd, buffer, 30000);
-		if (rd < 0)
-		{
-			std::cout << "Server error : Failed to read buffer (" << errno << ")" << std::endl;
-			exit(1);
-		}
-		response = getResponse(_webserv.parseRequest(buffer));
-		write(fd, response.c_str(), response.length());
-		close(fd);
+		std::cout << "Server error : Failed to accept connection (" << errno << ")" << std::endl;
+		exit(1);
 	}
-	close(_socket.fd);
+	char buffer[30000];
+	rd = read(fd, buffer, 30000);
+	if (rd < 0)
+	{
+		std::cout << "Server error : Failed to read buffer (" << errno << ")" << std::endl;
+		exit(1);
+	}
+	response = getResponse(_webserv.parseRequest(buffer));
+	write(fd, response.c_str(), response.length());
+	close(fd);
 }
 
 std::string	Server::getResponse(t_request_header request)
