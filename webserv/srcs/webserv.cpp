@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/02/25 20:50:44 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/26 16:08:03 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ t_socket	webserv::createSocket(int port)
 		std::cout << "Server error : Failed to listen socket (" << errno << ")" << std::endl;
 		exit(1);
 	}
+	std::cout << "[Server] " << "Socket successfully created for port " << port << std::endl;
 	return (_socket);
 }
 
@@ -126,42 +127,57 @@ webserv::vectorIterator	webserv::getHost(std::string host)
 std::string	webserv::getPath(vectorIterator vectIter, std::string path)
 {
 	std::vector<std::string>	vect;
+	std::string					search;
 	mapIterator					mapIter = vectIter->begin();
 	mapIterator					mapIter2 = vectIter->end();
 	std::string					result;
 	size_t						i = 0;
 
 	vect = ft_split(path, '/');
-	if (vect.size() == 1)
-		return (mapIter->second.root);
+	if (vect.at(0)[vect.at(0).length() - 1] == '/')
+		search = vect.at(0).substr(0, vect.at(0).length() - 1);
 	else
+		search = vect.at(0);
+	while (mapIter != mapIter2)
 	{
-		while (mapIter != mapIter2)
+		if (mapIter->second.type == LOCATION && mapIter->second.match == "/" + search)
 		{
-			if (mapIter->second.type == LOCATION && mapIter->second.match == "/" + vect.at(0))
+			result = mapIter->second.root + path;
+			i = result.find("/" + search, 0);
+			if (i != std::string::npos)
+				result.erase(i, search.length() + 1);
+			if (path.find_last_of('.') == std::string::npos)
 			{
-				result = mapIter->second.root + path;
-				i = result.find("/" + vect.at(0), 0);
-				if (i != std::string::npos)
-					result.erase(i, vect.at(0).length() + 1);
-				return (result);
+				for (size_t j = 0; j < mapIter->second.index.size(); j++)
+				{
+					if (access((result + mapIter->second.index[j]).c_str(), R_OK) == 0)
+						return (result + mapIter->second.index[j]);
+				}
 			}
-			++mapIter;
+			return (result);
+		}
+		++mapIter;
+	}
+	if (path.find_last_of('.') == std::string::npos)
+	{
+		for (size_t j = 0; j < vectIter->begin()->second.index.size(); j++)
+		{
+			if (access((vectIter->begin()->second.root + "/" + vectIter->begin()->second.index[j]).c_str(), R_OK) == 0)
+				return (vectIter->begin()->second.root + "/" + vectIter->begin()->second.index[j]);
 		}
 	}
-	return (vectIter->begin()->second.root);
+	return (vectIter->begin()->second.root + path);
 }
 
-t_request_header	webserv::parseRequest(char *buffer)
+t_request_header	webserv::parseRequest(std::string buffer)
 {
 	t_request_header			header;
-	std::string					bufferString(buffer);
 	std::vector<std::string>	bufferVect;
 	std::vector<std::string>	vect;
 	std::vector<std::string>	vect2;
 	vectorIterator				vectIter;
 
-	bufferVect = ft_split(bufferString, '\n');
+	bufferVect = ft_split(buffer, '\n');
 	vect = ft_split(bufferVect.at(0), ' ');
 	vect2 = ft_split(bufferVect.at(1), ' ');
 	header.host = vect2.at(1);
@@ -171,7 +187,6 @@ t_request_header	webserv::parseRequest(char *buffer)
 		header.path = getPath(vectIter, vect.at(1));
 	else
 		header.path = getPath(_vhosts->begin(), vect.at(1));
-	std::cout << "path = " << header.path << std::endl;
 	header.version = vect.at(2);
 	return (header);
 }
