@@ -115,6 +115,8 @@ webserv::vectorIterator	webserv::getHost(std::string host)
 	vectorIterator				vectIter = _vhosts->begin();
 	vectorIterator				vectIter2 = _vhosts->end();
 	
+	// we should use getaddrinfo here to get the ip address of the host we're requesting and compare it to each ip address of the hostname in our vector
+	// this should prevent different hostnames with the same ip address (e.g localhost & 0.0.0.0 & localhost etc) from not recognizing asked route
 	while (vectIter != vectIter2)
 	{
 		if (vectIter->find(host) != vectIter->end())
