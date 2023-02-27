@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:16 by melones           #+#    #+#             */
-/*   Updated: 2023/02/26 17:04:35 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/27 15:20:00 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,40 +56,40 @@ void	Server::acceptConnection(void)
 		exit(1);
 	}
 	std::cout << "[Server] " << "Connection successfully established to client" << std::endl;
-	while (1)
+	int	flags = fcntl(fd, F_GETFL, 0);
+	if (flags < 0)
+	{
+		std::cout << "Server error : Failed to get socket flags (" << errno << ")" << std::endl;
+		exit(1);
+	}
+	if (fcntl(fd, F_SETFL, flags | O_NONBLOCK) < 0)
+	{
+		std::cout << "Server error : Failed to set socket to non-blocking mode (" << errno << ")" << std::endl;
+		exit(1);
+	}
+	bool	readingDone = false;
+	while (!readingDone)
 	{
 		rd = recv(fd, buffer, bufferSize, 0);
-		if (rd > 0)
+		if (rd < 0)
+		{
+			if (errno == EAGAIN || errno == EWOULDBLOCK)
+				continue ;
+			else
+			{
+				std::cout << "Server error : Failed to read buffer (" << errno << ")" << std::endl;
+				exit(1);
+			}
+		}
+		else if (rd == 0)
+			readingDone = true;
+		else
 		{
 			request.append(buffer, rd);
 			if (rd < bufferSize)
-				break;
+				readingDone = true;
 		}
-		else if (rd == 0)
-        	break;
-		else
-		{
-			if (errno == EAGAIN || errno == EWOULDBLOCK)
-			{
-				fd_set			readSet;
-				struct timeval	timeout = {1, 0};
-				FD_ZERO(&readSet);
-				FD_SET(fd, &readSet);
-				if (select(fd + 1, &readSet, NULL, NULL, &timeout) == -1)
-				{
-					std::cout << "Server error : Failed to select socket (" << errno << ")" << std::endl;
-					exit(1);
-				}
-				else
-					continue;
-			}
-			else
-			{
-            	std::cout << "Server error : Failed to read buffer (" << errno << ")" << std::endl;
-            	exit(1);
-			}
-		}
-    }
+	}
 	std::cout << "[Server] " << "Request received : " << std::endl << request;
 	response = getResponse(_webserv.parseRequest(request));
 	std::cout << "[Server] " << "Response sent" << std::endl;

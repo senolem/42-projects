@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/26 16:08:17 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/27 15:12:18 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <poll.h>
 # include <unistd.h>
 # include <string.h>
+# include <fcntl.h>
 # include <fstream>
 # include <sstream>
 # include <algorithm>
