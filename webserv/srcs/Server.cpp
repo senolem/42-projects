@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:16 by melones           #+#    #+#             */
-/*   Updated: 2023/02/27 15:20:00 by melones          ###   ########.fr       */
+/*   Updated: 2023/02/27 15:23:57 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	Server::acceptConnection(void)
 	int					bufferSize = sizeof(buffer);
 	int					fd = 0;
 	int					rd = 0;
+	int					flags = 0;
+	bool				readingDone = false;
 
 	fd = accept(_socket.fd, (sockaddr *)&_socket.sockaddr_, (socklen_t*)&addrlen);
 	if (fd < 0)
@@ -56,7 +58,7 @@ void	Server::acceptConnection(void)
 		exit(1);
 	}
 	std::cout << "[Server] " << "Connection successfully established to client" << std::endl;
-	int	flags = fcntl(fd, F_GETFL, 0);
+	flags = fcntl(fd, F_GETFL);
 	if (flags < 0)
 	{
 		std::cout << "Server error : Failed to get socket flags (" << errno << ")" << std::endl;
@@ -67,7 +69,6 @@ void	Server::acceptConnection(void)
 		std::cout << "Server error : Failed to set socket to non-blocking mode (" << errno << ")" << std::endl;
 		exit(1);
 	}
-	bool	readingDone = false;
 	while (!readingDone)
 	{
 		rd = recv(fd, buffer, bufferSize, 0);
