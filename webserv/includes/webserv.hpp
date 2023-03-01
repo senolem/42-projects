@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/27 15:12:18 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/01 00:59:47 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <unistd.h>
 # include <string.h>
 # include <fcntl.h>
+# include <netdb.h>
+# include <arpa/inet.h>
 # include <fstream>
 # include <sstream>
 # include <algorithm>
@@ -58,6 +60,7 @@ class webserv
 		vectorIterator		getHost(std::string host);
 		std::string			getPath(vectorIterator vectIter, std::string path);
 		t_request_header	parseRequest(std::string buffer);
+		std::string			resolveHost(std::string host);
 		void				printConfig(void);
 };
 

@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/02/24 21:16:36 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/01 00:08:57 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	printCgiMap(const std::map<std::string, t_cgi> map)
 	}
 }
 
-std::vector<std::string>	ft_split(const std::string s, char c)
+std::vector<std::string>	ft_split(const std::string s, const char c)
 {
 	size_t						i = 0;
 	std::vector<std::string>	split;
@@ -100,4 +100,27 @@ std::vector<std::string>	ft_split(const std::string s, char c)
 		++i;
 	}
 	return (split);
+}
+
+std::vector<std::string> ft_split_string(const std::string &s, const std::string &c)
+{
+	std::string					str(s);			
+    std::vector<std::string>	vect;
+    size_t						pos = 0;
+
+	if (c == str)
+        return (vect);
+    while ((pos = str.find(c, 0)) != std::string::npos)
+	{
+		if (pos == 0)
+			str.erase(0, c.length());
+		else
+		{
+        	vect.push_back(str.substr(0, pos));
+			str.erase(0, c.length() + pos);
+		}
+    }
+	if (vect.empty())
+		vect.push_back(str);
+	return (vect);
 }

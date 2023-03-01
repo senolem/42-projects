@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/02/26 16:08:03 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/01 01:57:26 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,19 +111,45 @@ t_socket	webserv::createSocket(int port)
 
 webserv::vectorIterator	webserv::getHost(std::string host)
 {
-	std::vector<std::string>	vect;
-	vectorIterator				vectIter = _vhosts->begin();
-	vectorIterator				vectIter2 = _vhosts->end();
+	vectorIterator	vectIter = _vhosts->begin();
+	vectorIterator	vectIter2 = _vhosts->end();
+	std::string		resolved = resolveHost(host);
 	
-	// we should use getaddrinfo here to get the ip address of the host we're requesting and compare it to each ip address of the hostname in our vector
-	// this should prevent different hostnames with the same ip address (e.g localhost & 0.0.0.0 & localhost etc) from not recognizing asked route
 	while (vectIter != vectIter2)
 	{
-		if (vectIter->find(host) != vectIter->end())
+		if (resolveHost(vectIter->begin()->second.server_name))
 			return (vectIter);
 		++vectIter;
 	}
 	return (vectIter);
+}
+
+std::string	webserv::resolveHost(std::string host)
+{
+	int							result = 0;
+	struct addrinfo				hints, *res;
+	struct sockaddr_in			*addrin;
+	std::string					port;
+	std::vector<std::string>	vect = ft_split(host, ':');
+	std::ostringstream			stringStream;
+
+	if (vect.size() == 2)
+		port = vect.at(1);
+	else
+		port = "80";
+	memset(&hints, 0, sizeof(addrinfo));
+	hints.ai_family = AF_INET;
+	hints.ai_socktype = SOCK_STREAM;
+	result = getaddrinfo(vect.at(0).c_str(), port.c_str(), &hints, &res);
+	if (result != 0)
+	{
+		std::cout << "Server error : Failed to resolve hostname " << host << " " << "(" << errno << ")" << std::endl;
+		exit(1);
+	}
+	addrin = (struct sockaddr_in *)res->ai_addr;
+	unsigned char *binaryIP = (unsigned char *)&addrin->sin_addr.s_addr;
+	stringStream << (int)binaryIP[0] << "." << (int)binaryIP[1] << "." << (int)binaryIP[2] << "." << (int)binaryIP[3];
+	return (stringStream.str());
 }
 
 std::string	webserv::getPath(vectorIterator vectIter, std::string path)
@@ -179,7 +205,7 @@ t_request_header	webserv::parseRequest(std::string buffer)
 	std::vector<std::string>	vect2;
 	vectorIterator				vectIter;
 
-	bufferVect = ft_split(buffer, '\n');
+	bufferVect = ft_split_string(buffer, "\r\n");
 	vect = ft_split(bufferVect.at(0), ' ');
 	vect2 = ft_split(bufferVect.at(1), ' ');
 	header.host = vect2.at(1);
