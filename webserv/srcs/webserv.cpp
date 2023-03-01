@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/01 13:56:32 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/01 16:21:15 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,11 +165,14 @@ std::string	webserv::getPath(vectorIterator vectIter, std::string path)
 	std::string					result;
 	size_t						i = 0;
 
-	vect = ft_split(path, '/');
-	if (vect.at(0)[vect.at(0).length() - 1] == '/')
+	vect = ft_split_string(path, "/");
+	if (path.find_last_of('/') == path.length())
 		search = vect.at(0).substr(0, vect.at(0).length() - 1);
 	else
+	{
 		search = vect.at(0);
+		path.append("/");
+	}
 	while (mapIter != mapIter2)
 	{
 		if (mapIter->second.type == LOCATION && mapIter->second.match == "/" + search)

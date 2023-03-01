@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:16 by melones           #+#    #+#             */
-/*   Updated: 2023/03/01 15:20:12 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/01 16:24:23 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ void	Server::acceptConnection(void)
 				readingDone = true;
 		}
 	}
-	std::cout << "[Server] " << "Request received : " << std::endl << request;
+	std::cout << "[Server] " << "Request received : ";
+	//std::cout << std::endl << request;
 	response = getResponse(_webserv.parseRequest(request));
 	std::cout << "[Server] " << "Response sent" << std::endl;
 	write(fd, response.c_str(), response.length());

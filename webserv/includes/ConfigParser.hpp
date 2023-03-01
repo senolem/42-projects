@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/24 21:14:41 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/01 16:31:24 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -506,8 +506,32 @@ namespace ft
 						return (NULL);
 					token = strtok_r(NULL, ";", &saveptr);
 				}
+				fillDefault(route);
 				delete[] tmp;
 				return (route);
+			}
+
+			void	fillDefault(t_route *route)
+			{
+				if (route->listen.empty())
+					route->listen = "80";
+				if (route->server_name.empty())
+					route->server_name = "default_server";
+				if (route->access_log.empty())
+					route->access_log = "logs/access.log";
+				if (route->client_max_body_size == 0)
+					route->client_max_body_size = 1;
+				if (route->error_page.empty())
+				{
+					route->error_page.insert(std::pair<int, std::string>(404, "default_error/404.html"));
+				}
+				if (route->index.empty())
+				{
+					std::vector<std::string>	vct;
+					vct.push_back("index.html");
+					route->index = vct;
+					vct.clear();
+				}
 			}
 	};
 }
