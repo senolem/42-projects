@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:16 by melones           #+#    #+#             */
-/*   Updated: 2023/02/27 15:23:57 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/01 15:20:12 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,21 @@ std::string	Server::getResponse(t_request_header request)
 	{
 		header.status_code = "404 Not Found";
 		header.content_length = 0;
+		if (header.content_type == "text/html")
+		{
+			std::map<int, std::string>::iterator	iter;
+			iter = _vhosts.begin()->second.error_page.find(404);
+			if (iter != _vhosts.begin()->second.error_page.end())
+			{
+				if (access(iter->second.c_str(), R_OK) == 0)
+				{
+					std::ifstream	file(iter->second.c_str(), std::ios::binary);
+					fileStream << file.rdbuf();
+					header.content = fileStream.str();
+					header.content_length = header.content.size();
+				}
+			}
+		}
 	}
 	else
 	{

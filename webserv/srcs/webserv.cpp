@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/01 01:57:26 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/01 13:56:32 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,16 @@ webserv::vectorIterator	webserv::getHost(std::string host)
 	vectorIterator	vectIter = _vhosts->begin();
 	vectorIterator	vectIter2 = _vhosts->end();
 	std::string		resolved = resolveHost(host);
+	mapIterator		iter;
 	
 	while (vectIter != vectIter2)
 	{
-		if (resolveHost(vectIter->begin()->second.server_name))
+		if (vectIter->find(host) != vectIter->end()
+			|| resolveHost(vectIter->begin()->second.server_name + ":" + vectIter->begin()->second.listen) == resolved)
 			return (vectIter);
 		++vectIter;
 	}
+	std::cout << "Server error : Host not found, using first server block" << std::endl;
 	return (vectIter);
 }
 
@@ -132,6 +135,7 @@ std::string	webserv::resolveHost(std::string host)
 	std::string					port;
 	std::vector<std::string>	vect = ft_split(host, ':');
 	std::ostringstream			stringStream;
+	unsigned char				*binaryIP;
 
 	if (vect.size() == 2)
 		port = vect.at(1);
@@ -147,7 +151,7 @@ std::string	webserv::resolveHost(std::string host)
 		exit(1);
 	}
 	addrin = (struct sockaddr_in *)res->ai_addr;
-	unsigned char *binaryIP = (unsigned char *)&addrin->sin_addr.s_addr;
+	binaryIP = (unsigned char *)&addrin->sin_addr.s_addr;
 	stringStream << (int)binaryIP[0] << "." << (int)binaryIP[1] << "." << (int)binaryIP[2] << "." << (int)binaryIP[3];
 	return (stringStream.str());
 }
