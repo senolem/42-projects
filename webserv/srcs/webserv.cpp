@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   webserv.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/02 16:28:50 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/02 20:12:35 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_socket	webserv::createSocket(int port)
 	_socket.fd = socket(AF_INET, SOCK_STREAM, 0);
 	if (_socket.fd < 0)
 	{
-		std::cout << _webserv_tag << _error_tag << " : Failed to create socket (" << errno << ")" << std::endl;
+		std::cout << _webserv_tag << _error_tag << " Failed to create socket (" << errno << ")" << std::endl;
 		exit(1);
 	}
 	_socket.sockaddr_.sin_family = AF_INET;
@@ -97,15 +97,15 @@ t_socket	webserv::createSocket(int port)
 	memset(_socket.sockaddr_.sin_zero, 0, sizeof(_socket.sockaddr_.sin_addr));
 	if (bind(_socket.fd, (sockaddr *)&_socket.sockaddr_, sizeof(_socket.sockaddr_)) < 0)
 	{
-		std::cout << _webserv_tag << _error_tag << " : Failed to bind socket (" << errno << ")" << std::endl;
+		std::cout << _webserv_tag << _error_tag << " Failed to bind socket (" << errno << ")" << std::endl;
 		exit(1);
 	}
 	if (listen(_socket.fd, 10) < 0)
 	{
-		std::cout << _webserv_tag << _error_tag << " : Failed to listen socket (" << errno << ")" << std::endl;
+		std::cout << _webserv_tag << _error_tag << " Failed to listen socket (" << errno << ")" << std::endl;
 		exit(1);
 	}
-	std::cout << _webserv_tag << " : Socket successfully created for port " << port << std::endl;
+	std::cout << _webserv_tag << " Socket successfully created for port " << port << std::endl;
 	return (_socket);
 }
 
@@ -123,7 +123,7 @@ webserv::vectorIterator	webserv::getHost(std::string host)
 			return (vectIter);
 		++vectIter;
 	}
-	std::cout << _webserv_tag << _error_tag << " : Host not found, using first server block" << std::endl;
+	std::cout << _webserv_tag << _error_tag << " Host not found, using first server block" << std::endl;
 	return (vectIter);
 }
 
@@ -133,7 +133,7 @@ std::string	webserv::resolveHost(std::string host)
 	struct addrinfo				hints, *res;
 	struct sockaddr_in			*addrin;
 	std::string					port;
-	std::vector<std::string>	vect = ft_split_string(host, ":");
+	std::vector<std::string>	vect = split_string(host, ":");
 	std::ostringstream			stringStream;
 	unsigned char				*binaryIP;
 
@@ -147,7 +147,7 @@ std::string	webserv::resolveHost(std::string host)
 	result = getaddrinfo(vect.at(0).c_str(), port.c_str(), &hints, &res);
 	if (result != 0)
 	{
-		std::cout << _webserv_tag << _error_tag << " : Failed to resolve hostname " << host << " " << "(" << errno << ")" << std::endl;
+		std::cout << _webserv_tag << _error_tag << " Failed to resolve hostname " << host << " " << "(" << errno << ")" << std::endl;
 		exit(1);
 	}
 	addrin = (struct sockaddr_in *)res->ai_addr;
@@ -165,14 +165,14 @@ std::string	webserv::getPath(vectorIterator vectIter, std::string path)
 	std::string					result;
 	size_t						i = 0;
 
-	vect = ft_split_string(path, "/");
+	if (path != "/")
+		vect = split_string(path, "/");
+	else
+		vect.push_back("/");
 	if (path.find_last_of('/') == path.length())
 		search = vect.at(0).substr(0, vect.at(0).length() - 1);
 	else
-	{
 		search = vect.at(0);
-		path.append("/");
-	}
 	while (mapIter != mapIter2)
 	{
 		if (mapIter->second.type == LOCATION && mapIter->second.match == "/" + search)
@@ -185,8 +185,8 @@ std::string	webserv::getPath(vectorIterator vectIter, std::string path)
 			{
 				for (size_t j = 0; j < mapIter->second.index.size(); j++)
 				{
-					if (access((result + mapIter->second.index[j]).c_str(), R_OK) == 0)
-						return (result + mapIter->second.index[j]);
+					if (access((result + "/" + mapIter->second.index[j]).c_str(), R_OK) == 0)
+						return (result + "/" + mapIter->second.index[j]);
 				}
 			}
 			return (result);
@@ -214,21 +214,21 @@ t_request_header	webserv::parseRequest(std::string buffer)
 	std::string					method;
 	std::string					host;
 
-	bufferVect = ft_split_string(buffer, "\r\n");
+	bufferVect = split_string(buffer, "\r\n");
 	host = getHeader(bufferVect, "Host:");
 	if (host.empty())
 	{
 		header.status = 400;
 		return (header);
 	}
-	vect = ft_split_string(host, " ");
+	vect = split_string(host, " ");
 	if (vect.size() != 2)
 	{
 		header.status = 400;
 		return (header);
 	}
 	header.host = vect.at(1);
-	vect2 = ft_split_string(bufferVect.at(0), " ");
+	vect2 = split_string(bufferVect.at(0), " ");
 	if (vect2.size() != 3)
 	{
 		header.status = 400;
@@ -246,6 +246,7 @@ t_request_header	webserv::parseRequest(std::string buffer)
 		header.path = getPath(vectIter, vect2.at(1));
 	else
 		header.path = getPath(_vhosts->begin(), vect2.at(1));
+	std::cout << "path = " << header.path << std::endl;
 	if (access(header.path.c_str(), R_OK) != 0)
 		header.status = 404;
 	return (header);

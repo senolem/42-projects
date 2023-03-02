@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/03/02 16:13:08 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/02 20:01:14 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,31 +78,7 @@ void	printCgiMap(const std::map<std::string, t_cgi> map)
 	}
 }
 
-std::vector<std::string>	ft_split_string(const std::string s, const char c)
-{
-	size_t						i = 0;
-	std::vector<std::string>	split;
-	std::string					str(s);
-
-	while (str[i])
-	{
-		if ((str[i] == c && i != 0) || !str[i + 1])
-		{
-			if (str[i + 1])
-				split.push_back(str.substr(0, i));
-			else
-				split.push_back(str.substr(0, i + 1));
-			str.erase(0, i);
-			i = 0;
-		}
-		if (str[i] == c && i == 0)
-			str.erase(0, 1);
-		++i;
-	}
-	return (split);
-}
-
-std::vector<std::string> ft_split_string(const std::string &s, const std::string &c)
+std::vector<std::string> split_string(const std::string &s, const std::string &c)
 {
 	std::string					str(s);			
     std::vector<std::string>	vect;

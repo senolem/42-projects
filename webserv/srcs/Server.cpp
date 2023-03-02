@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:16 by melones           #+#    #+#             */
-/*   Updated: 2023/03/02 16:17:26 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/02 20:43:50 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,19 @@ void	Server::acceptConnection(void)
 	fd = accept(_socket.fd, (sockaddr *)&_socket.sockaddr_, (socklen_t*)&addrlen);
 	if (fd < 0)
 	{
-		std::cout << _serv_tag << _error_tag << " : Failed to accept connection (" << errno << ")" << std::endl;
+		std::cout << _serv_tag << _error_tag << " Failed to accept connection (" << errno << ")" << std::endl;
 		exit(1);
 	}
-	std::cout << _serv_tag << " : Connection successfully established to client" << std::endl;
+	std::cout << _serv_tag << " Connection successfully established to client" << std::endl;
 	flags = fcntl(fd, F_GETFL);
 	if (flags < 0)
 	{
-		std::cout << _serv_tag << _error_tag << " : Failed to get socket flags (" << errno << ")" << std::endl;
+		std::cout << _serv_tag << _error_tag << " Failed to get socket flags (" << errno << ")" << std::endl;
 		exit(1);
 	}
 	if (fcntl(fd, F_SETFL, flags | O_NONBLOCK) < 0)
 	{
-		std::cout << _serv_tag << _error_tag << " : Failed to set socket to non-blocking mode (" << errno << ")" << std::endl;
+		std::cout << _serv_tag << _error_tag << " Failed to set socket to non-blocking mode (" << errno << ")" << std::endl;
 		exit(1);
 	}
 	while (!readingDone)
@@ -80,7 +80,7 @@ void	Server::acceptConnection(void)
 				continue ;
 			else
 			{
-				std::cout << _serv_tag << _error_tag << " : Failed to read buffer (" << errno << ")" << std::endl;
+				std::cout << _serv_tag << _error_tag << " Failed to read buffer (" << errno << ")" << std::endl;
 				exit(1);
 			}
 		}
@@ -93,10 +93,10 @@ void	Server::acceptConnection(void)
 				readingDone = true;
 		}
 	}
-	std::cout << _serv_tag << " : Request received : " << std::endl;
+	std::cout << _serv_tag << " Request received : " << std::endl;
 	std::cout << request;
 	response = getResponse(_webserv.parseRequest(request));
-	std::cout << _serv_tag << " : Response sent" << std::endl;
+	std::cout << _serv_tag << " Response sent" << std::endl;
 	write(fd, response.c_str(), response.length());
 	close(fd);
 }
@@ -107,9 +107,9 @@ std::string	Server::getResponse(t_request_header request)
 	std::stringstream	responseStream;
 	t_response_header	header;
 	
-	setFiletype(&header, request.path);
 	if (request.status != 0)
 	{
+		header.content_type = "text/html";
 		std::map<int, std::string>::iterator	errorIter;
 		errorIter = _errorsMap.find(request.status);
 		if (errorIter != _errorsMap.end())
@@ -117,24 +117,22 @@ std::string	Server::getResponse(t_request_header request)
 		else
 			header.status_code = "500 Internal Server Error";
 		header.content_length = 0;
-		if (header.content_type == "text/html")
+		std::map<int, std::string>::iterator	iter;
+		iter = _vhosts.begin()->second.error_page.find(request.status);
+		if (iter != _vhosts.begin()->second.error_page.end())
 		{
-			std::map<int, std::string>::iterator	iter;
-			iter = _vhosts.begin()->second.error_page.find(request.status);
-			if (iter != _vhosts.begin()->second.error_page.end())
+			if (access(iter->second.c_str(), R_OK) == 0)
 			{
-				if (access(iter->second.c_str(), R_OK) == 0)
-				{
-					std::ifstream	file(iter->second.c_str(), std::ios::binary);
-					fileStream << file.rdbuf();
-					header.content = fileStream.str();
-					header.content_length = header.content.size();
-				}
+				std::ifstream	file(iter->second.c_str(), std::ios::binary);
+				fileStream << file.rdbuf();
+				header.content = fileStream.str();
+				header.content_length = header.content.size();
 			}
 		}
 	}
 	else
 	{
+		setFiletype(&header, request.path);
 		std::ifstream	file(request.path.c_str(), std::ios::binary);
 		fileStream << file.rdbuf();
 		header.status_code = "200 OK";
@@ -152,7 +150,7 @@ void	Server::setFiletype(t_response_header *header, std::string path)
 	std::string										filetype;
 	std::map<std::string, std::string>::iterator	iter;
 	
-	vect = ft_split_string(path, ".");
+	vect = split_string(path, ".");
 	if (!vect.empty())
 		filetype = vect.at(vect.size() - 1);
 	iter = _typesMap.find(filetype);
