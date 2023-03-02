@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/02 20:12:35 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/02 20:46:10 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,7 +246,6 @@ t_request_header	webserv::parseRequest(std::string buffer)
 		header.path = getPath(vectIter, vect2.at(1));
 	else
 		header.path = getPath(_vhosts->begin(), vect2.at(1));
-	std::cout << "path = " << header.path << std::endl;
 	if (access(header.path.c_str(), R_OK) != 0)
 		header.status = 404;
 	return (header);
