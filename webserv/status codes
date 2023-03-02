@@ -26,4 +26,4 @@
     502 Bad Gateway (invalid response from upstream server)
     503 Service Unavailable (server not ready)
     504 Gateway Timeout (upstream server down/not responding/timeout)
-    505 HTTP Version Not Supported (self explainatory isn't it)
+    505 HTTP Version Not Supported (self explanatory isn't it)
