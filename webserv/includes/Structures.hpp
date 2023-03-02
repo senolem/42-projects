@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Structures.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/02/24 22:32:52 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/02 15:27:29 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ typedef struct s_request_header
 	std::string	path;
 	std::string	version;
 	std::string	host;
-	s_request_header(void) : method(""), path (""), version("HTTP/1.1"), host("")
+	int			status;
+	s_request_header(void) : method(""), path (""), version("HTTP/1.1"), host(""), status(0)
 	{
 		
 	}

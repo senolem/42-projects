@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:16 by melones           #+#    #+#             */
-/*   Updated: 2023/03/01 16:24:23 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/02 16:17:26 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Server.hpp"
 
-Server::Server(webserv &webserv, std::multimap<std::string, t_route> &vhosts, t_socket socket_) : _webserv(webserv), _vhosts(vhosts), _socket(socket_)
+Server::Server(webserv &webserv, std::multimap<std::string, t_route> &vhosts, t_socket socket_) : _webserv(webserv), _vhosts(vhosts), _socket(socket_), _serv_tag("\033[33m[Server]\033[0m"), _error_tag("\033[31m[ERROR]\033[0m")
 {
 	initTypes();
+	initErrors();
 }
 
-Server::Server(const Server &src) : _webserv(src._webserv), _vhosts(src._vhosts), _socket(src._socket)
+Server::Server(const Server &src) : _webserv(src._webserv), _vhosts(src._vhosts), _typesMap(src._typesMap), _errorsMap(src._errorsMap), _socket(src._socket),  _serv_tag("\033[33m[Server]\033[0m"), _error_tag("\033[31m[ERROR]\033[0m")
 {
 	*this = src;
 }
@@ -35,6 +36,7 @@ Server	&Server::operator=(const Server &src)
 		this->_nb_vhost = src._nb_vhost;
 		this->_socket = src._socket;
 		this->_typesMap = src._typesMap;
+		this->_errorsMap = src._errorsMap;
 	}
 	return (*this);
 }
@@ -54,19 +56,19 @@ void	Server::acceptConnection(void)
 	fd = accept(_socket.fd, (sockaddr *)&_socket.sockaddr_, (socklen_t*)&addrlen);
 	if (fd < 0)
 	{
-		std::cout << "Server error : Failed to accept connection (" << errno << ")" << std::endl;
+		std::cout << _serv_tag << _error_tag << " : Failed to accept connection (" << errno << ")" << std::endl;
 		exit(1);
 	}
-	std::cout << "[Server] " << "Connection successfully established to client" << std::endl;
+	std::cout << _serv_tag << " : Connection successfully established to client" << std::endl;
 	flags = fcntl(fd, F_GETFL);
 	if (flags < 0)
 	{
-		std::cout << "Server error : Failed to get socket flags (" << errno << ")" << std::endl;
+		std::cout << _serv_tag << _error_tag << " : Failed to get socket flags (" << errno << ")" << std::endl;
 		exit(1);
 	}
 	if (fcntl(fd, F_SETFL, flags | O_NONBLOCK) < 0)
 	{
-		std::cout << "Server error : Failed to set socket to non-blocking mode (" << errno << ")" << std::endl;
+		std::cout << _serv_tag << _error_tag << " : Failed to set socket to non-blocking mode (" << errno << ")" << std::endl;
 		exit(1);
 	}
 	while (!readingDone)
@@ -78,7 +80,7 @@ void	Server::acceptConnection(void)
 				continue ;
 			else
 			{
-				std::cout << "Server error : Failed to read buffer (" << errno << ")" << std::endl;
+				std::cout << _serv_tag << _error_tag << " : Failed to read buffer (" << errno << ")" << std::endl;
 				exit(1);
 			}
 		}
@@ -91,10 +93,10 @@ void	Server::acceptConnection(void)
 				readingDone = true;
 		}
 	}
-	std::cout << "[Server] " << "Request received : ";
-	//std::cout << std::endl << request;
+	std::cout << _serv_tag << " : Request received : " << std::endl;
+	std::cout << request;
 	response = getResponse(_webserv.parseRequest(request));
-	std::cout << "[Server] " << "Response sent" << std::endl;
+	std::cout << _serv_tag << " : Response sent" << std::endl;
 	write(fd, response.c_str(), response.length());
 	close(fd);
 }
@@ -106,14 +108,19 @@ std::string	Server::getResponse(t_request_header request)
 	t_response_header	header;
 	
 	setFiletype(&header, request.path);
-	if (access(request.path.c_str(), R_OK) != 0)
+	if (request.status != 0)
 	{
-		header.status_code = "404 Not Found";
+		std::map<int, std::string>::iterator	errorIter;
+		errorIter = _errorsMap.find(request.status);
+		if (errorIter != _errorsMap.end())
+			header.status_code = errorIter->second;
+		else
+			header.status_code = "500 Internal Server Error";
 		header.content_length = 0;
 		if (header.content_type == "text/html")
 		{
 			std::map<int, std::string>::iterator	iter;
-			iter = _vhosts.begin()->second.error_page.find(404);
+			iter = _vhosts.begin()->second.error_page.find(request.status);
 			if (iter != _vhosts.begin()->second.error_page.end())
 			{
 				if (access(iter->second.c_str(), R_OK) == 0)
@@ -145,7 +152,7 @@ void	Server::setFiletype(t_response_header *header, std::string path)
 	std::string										filetype;
 	std::map<std::string, std::string>::iterator	iter;
 	
-	vect = ft_split(path, '.');
+	vect = ft_split_string(path, ".");
 	if (!vect.empty())
 		filetype = vect.at(vect.size() - 1);
 	iter = _typesMap.find(filetype);
@@ -153,6 +160,38 @@ void	Server::setFiletype(t_response_header *header, std::string path)
 		header->content_type = iter->second;
 	else
 		header->content_type = "text/plain";
+}
+
+void	Server::initErrors(void)
+{
+	_errorsMap[400] = "400 Bad Request";
+	_errorsMap[401] = "401 Unauthorized";
+	_errorsMap[403] = "403 Forbidden";
+	_errorsMap[404] = "404 Not Found";
+	_errorsMap[405] = "405 Method Not Allowed";
+	_errorsMap[406] = "406 Not Acceptable";
+	_errorsMap[408] = "408 Request Timeout";
+	_errorsMap[409] = "409 Timeout";
+	_errorsMap[410] = "410 Gone";
+	_errorsMap[411] = "401 Length Required";
+	_errorsMap[412] = "412 Precondition Failed";
+	_errorsMap[413] = "413 Content Too Large";
+	_errorsMap[414] = "414 URI Too Long";
+	_errorsMap[415] = "415 Unsupported Media Type";
+	_errorsMap[416] = "416 Range Not Satisfiable";
+	_errorsMap[417] = "417 Expectation Failed";
+	_errorsMap[421] = "421 Misdirected Request";
+	_errorsMap[428] = "428 Precondition Required";
+	_errorsMap[429] = "429 Too Many Requests";
+	_errorsMap[431] = "431 Request Header Fields Too Large";
+	_errorsMap[500] = "500 Internal Server Error";
+	_errorsMap[501] = "501 Not Implented";
+	_errorsMap[502] = "502 Bad Gateway";
+	_errorsMap[503] = "503 Service Unavailable";
+	_errorsMap[504] = "504 Gateway Timeout";
+	_errorsMap[505] = "505 HTTP Version Not Supported";
+	_errorsMap[511] = "511 Network Authentication Required";
+
 }
 
 void	Server::initTypes(void)

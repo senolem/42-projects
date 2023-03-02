@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   webserv.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/01 16:21:15 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/02 16:28:50 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "webserv.hpp"
 
-webserv::webserv(void)
+webserv::webserv(void) : _webserv_tag("\033[94m[webserv]\033[0m"), _error_tag("\033[31m[ERROR]\033[0m")
 {
-		
+
 }
 
-webserv::webserv(const webserv &src)
+webserv::webserv(const webserv &src) : _webserv_tag("\033[94m[webserv]\033[0m"), _error_tag("\033[31m[ERROR]\033[0m")
 {
 	*this = src;
 }
 
 webserv::~webserv(void)
 {
-	
+
 }
 
 webserv	&webserv::operator=(const webserv &src)
@@ -88,7 +88,7 @@ t_socket	webserv::createSocket(int port)
 	_socket.fd = socket(AF_INET, SOCK_STREAM, 0);
 	if (_socket.fd < 0)
 	{
-		std::cout << "Server error : Failed to create socket (" << errno << ")" << std::endl;
+		std::cout << _webserv_tag << _error_tag << " : Failed to create socket (" << errno << ")" << std::endl;
 		exit(1);
 	}
 	_socket.sockaddr_.sin_family = AF_INET;
@@ -97,15 +97,15 @@ t_socket	webserv::createSocket(int port)
 	memset(_socket.sockaddr_.sin_zero, 0, sizeof(_socket.sockaddr_.sin_addr));
 	if (bind(_socket.fd, (sockaddr *)&_socket.sockaddr_, sizeof(_socket.sockaddr_)) < 0)
 	{
-		std::cout << "Server error : Failed to bind socket (" << errno << ")" << std::endl;
+		std::cout << _webserv_tag << _error_tag << " : Failed to bind socket (" << errno << ")" << std::endl;
 		exit(1);
 	}
 	if (listen(_socket.fd, 10) < 0)
 	{
-		std::cout << "Server error : Failed to listen socket (" << errno << ")" << std::endl;
+		std::cout << _webserv_tag << _error_tag << " : Failed to listen socket (" << errno << ")" << std::endl;
 		exit(1);
 	}
-	std::cout << "[Server] " << "Socket successfully created for port " << port << std::endl;
+	std::cout << _webserv_tag << " : Socket successfully created for port " << port << std::endl;
 	return (_socket);
 }
 
@@ -123,7 +123,7 @@ webserv::vectorIterator	webserv::getHost(std::string host)
 			return (vectIter);
 		++vectIter;
 	}
-	std::cout << "Server error : Host not found, using first server block" << std::endl;
+	std::cout << _webserv_tag << _error_tag << " : Host not found, using first server block" << std::endl;
 	return (vectIter);
 }
 
@@ -133,7 +133,7 @@ std::string	webserv::resolveHost(std::string host)
 	struct addrinfo				hints, *res;
 	struct sockaddr_in			*addrin;
 	std::string					port;
-	std::vector<std::string>	vect = ft_split(host, ':');
+	std::vector<std::string>	vect = ft_split_string(host, ":");
 	std::ostringstream			stringStream;
 	unsigned char				*binaryIP;
 
@@ -147,7 +147,7 @@ std::string	webserv::resolveHost(std::string host)
 	result = getaddrinfo(vect.at(0).c_str(), port.c_str(), &hints, &res);
 	if (result != 0)
 	{
-		std::cout << "Server error : Failed to resolve hostname " << host << " " << "(" << errno << ")" << std::endl;
+		std::cout << _webserv_tag << _error_tag << " : Failed to resolve hostname " << host << " " << "(" << errno << ")" << std::endl;
 		exit(1);
 	}
 	addrin = (struct sockaddr_in *)res->ai_addr;
@@ -211,18 +211,43 @@ t_request_header	webserv::parseRequest(std::string buffer)
 	std::vector<std::string>	vect;
 	std::vector<std::string>	vect2;
 	vectorIterator				vectIter;
+	std::string					method;
+	std::string					host;
 
 	bufferVect = ft_split_string(buffer, "\r\n");
-	vect = ft_split(bufferVect.at(0), ' ');
-	vect2 = ft_split(bufferVect.at(1), ' ');
-	header.host = vect2.at(1);
-	header.method = vect.at(0);
+	host = getHeader(bufferVect, "Host:");
+	if (host.empty())
+	{
+		header.status = 400;
+		return (header);
+	}
+	vect = ft_split_string(host, " ");
+	if (vect.size() != 2)
+	{
+		header.status = 400;
+		return (header);
+	}
+	header.host = vect.at(1);
+	vect2 = ft_split_string(bufferVect.at(0), " ");
+	if (vect2.size() != 3)
+	{
+		header.status = 400;
+		return (header);
+	}
+	header.method = vect2.at(0);
+	if (header.method != "GET" && header.method != "POST" && header.method != "DELETE")
+	{
+		header.status = 501;
+		return (header);
+	}
+	header.version = vect2.at(2);
 	vectIter = getHost(header.host);
 	if (vectIter != _vhosts->end())
-		header.path = getPath(vectIter, vect.at(1));
+		header.path = getPath(vectIter, vect2.at(1));
 	else
-		header.path = getPath(_vhosts->begin(), vect.at(1));
-	header.version = vect.at(2);
+		header.path = getPath(_vhosts->begin(), vect2.at(1));
+	if (access(header.path.c_str(), R_OK) != 0)
+		header.status = 404;
 	return (header);
 }
 

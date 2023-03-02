@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/03/01 00:08:57 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/02 16:13:08 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	printCgiMap(const std::map<std::string, t_cgi> map)
 	}
 }
 
-std::vector<std::string>	ft_split(const std::string s, const char c)
+std::vector<std::string>	ft_split_string(const std::string s, const char c)
 {
 	size_t						i = 0;
 	std::vector<std::string>	split;
@@ -120,7 +120,31 @@ std::vector<std::string> ft_split_string(const std::string &s, const std::string
 			str.erase(0, c.length() + pos);
 		}
     }
+	if (str.length() > 0)
+		vect.push_back(str);
 	if (vect.empty())
 		vect.push_back(str);
 	return (vect);
+}
+
+std::string	getHeader(std::vector<std::string> header, std::string field)
+{
+	size_t								i = 0;
+	std::vector<std::string>::iterator	iter = header.begin();
+	std::vector<std::string>::iterator	iter2 = header.end();
+	std::string							ret;
+
+	while (iter != iter2)
+	{
+		i = iter->find(field);
+		if (i != std::string::npos)
+		{
+			if (i == 0)
+				return (*iter);
+			else
+				return (ret);
+		}
+		++iter;
+	}
+	return (ret);
 }

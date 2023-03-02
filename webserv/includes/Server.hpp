@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:59:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/25 20:19:49 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/02 15:41:48 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ class Server
 		std::multimap<std::string, t_route>				&_vhosts;
 		size_t											_nb_vhost;
 		std::map<std::string, std::string>				_typesMap;
+		std::map<int, std::string>						_errorsMap;
 		t_socket										_socket;
+		const std::string								_serv_tag;
+		const std::string								_error_tag;
 
 	public:
 		typedef std::multimap<std::string, t_route>::iterator	mapIterator;
@@ -37,6 +40,7 @@ class Server
 		std::string	getResponse(t_request_header request);
 		void		setFiletype(t_response_header *header, std::string path);
 		void		initTypes(void);
+		void		initErrors(void);
 };
 
 #endif

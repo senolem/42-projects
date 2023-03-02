@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   webserv.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/01 00:59:47 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/02 14:05:30 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 # include "Server.hpp"
 # include "utils.hpp"
 
-
 class Server;
 class webserv
 {
@@ -44,6 +43,8 @@ class webserv
 		size_t												_nb_vhost;
 		std::map<int, t_socket>								_sockets;
 		std::vector<pollfd>									_pollfds;
+		const std::string									_webserv_tag;
+		const std::string									_error_tag;
 	
 	public:
 		typedef std::map<std::string, t_route>::iterator					mapIterator;
