@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:30:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/03 14:06:17 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/03 20:59:46 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ t_request_header	Header::parseRequest(std::string buffer)
 	vectorIterator										vectIter;
 	std::string											method;
 	std::string											host;
+	std::string											cookie;
 	std::vector<std::multimap<std::string, t_route> >	&vhosts = _webserv.getVirtualHosts();
+	size_t												i = 0;
 
 	bufferVect = split_string(buffer, "\r\n");
 	host = getHeader(bufferVect, "Host:");
@@ -65,27 +67,71 @@ t_request_header	Header::parseRequest(std::string buffer)
 		return (header);
 	}
 	header.host = vect.at(1);
-	vect2 = split_string(bufferVect.at(0), " ");
-	if (vect2.size() != 3)
+	vect = split_string(bufferVect.at(0), " ");
+	if (vect.size() != 3)
 	{
 		header.status = 400;
 		return (header);
 	}
-	header.method = vect2.at(0);
+	header.method = vect.at(0);
 	if (header.method != "GET" && header.method != "POST" && header.method != "DELETE")
 	{
 		header.status = 501;
 		return (header);
 	}
-	header.version = vect2.at(2);
+	header.version = vect.at(2);
 	vectIter = _webserv.getHost(header.host);
 	if (vectIter != vhosts.end())
-		header.path = getPath(vectIter, vect2.at(1));
+		header.path = getPath(vectIter, vect.at(1));
 	else
-		header.path = getPath(vhosts.begin(), vect2.at(1));
+		header.path = getPath(vhosts.begin(), vect.at(1));
 	if (access(header.path.c_str(), R_OK) != 0)
 		header.status = 404;
+	cookie = getHeader(bufferVect, "Cookie:");
+	if (!cookie.empty() && buffer.length() > 8)
+	{
+		vect = split_string(cookie.substr(8), "; ");
+		for (std::vector<std::string>::iterator iter = vect.begin(); iter != vect.end(); iter++)
+		{
+			vect2 = split_string(*iter, "=");
+			if (vect2.size() != 2)
+				continue ;
+			header.cookie.insert(std::pair<std::string, std::string>(vect2.at(0), vect2.at(1)));
+		}
+	}
+	i = buffer.find("\r\n\r\n");
+	if (i != std::string::npos && buffer.length() > i + 4)
+		header.body = buffer.substr(i + 4);
+	header.accept = parseAcceptHeader(getHeader(bufferVect, "Accept:"));
 	return (header);
+}
+
+std::map<std::string, float>	Header::parseAcceptHeader(const std::string &header)
+{
+	std::map<std::string, float>		accept_headers;
+	std::vector<std::string>			split;
+	std::vector<std::string>			split2;
+	std::vector<std::string>::iterator	iter;
+	std::vector<std::string>::iterator	iter2;
+	size_t								i;
+
+	i = header.find(":");
+	if (i != std::string::npos && i + 2 <= header.length())
+		split = split_string(header.substr(i + 2), ",");
+	else
+		split = split_string(header, ",");
+	iter = split.begin();
+	iter2 = split.end();
+	while (iter != iter2)
+	{
+		split2 = split_string(*iter, ";q=");
+		if (split2.size() == 2)
+			accept_headers.insert(std::pair<std::string, float>(split2.at(0), std::atof(split2.at(1).c_str())));
+		else if (split2.size() == 1 && iter->find(";") == std::string::npos)
+			accept_headers.insert(std::pair<std::string, float>(split2.at(0), 1.0f));
+		++iter;
+	}
+	return (accept_headers);
 }
 
 std::string	Header::getResponse(t_request_header request)
@@ -96,35 +142,57 @@ std::string	Header::getResponse(t_request_header request)
 	
 	if (request.status != 0)
 	{
-		header.content_type = "text/html";
-		std::map<int, std::string>::iterator	errorIter;
-		errorIter = _errorsMap.find(request.status);
-		if (errorIter != _errorsMap.end())
-			header.status_code = errorIter->second;
-		else
-			header.status_code = "500 Internal Server Error";
-		header.content_length = 0;
-		std::map<int, std::string>::iterator	iter;
-		iter = _vhosts.begin()->second.error_page.find(request.status);
-		if (iter != _vhosts.begin()->second.error_page.end())
+		if (request.method == "GET")
 		{
-			if (access(iter->second.c_str(), R_OK) == 0)
+			header.content_type = "text/html";
+			std::map<int, std::string>::iterator	errorIter;
+			errorIter = _errorsMap.find(request.status);
+			if (errorIter != _errorsMap.end())
+				header.status_code = errorIter->second;
+			else
+				header.status_code = "500 Internal Server Error";
+			header.content_length = 0;
+			std::map<int, std::string>::iterator	iter;
+			iter = _vhosts.begin()->second.error_page.find(request.status);
+			if (iter != _vhosts.begin()->second.error_page.end())
 			{
-				std::ifstream	file(iter->second.c_str(), std::ios::binary);
-				fileStream << file.rdbuf();
-				header.content = fileStream.str();
-				header.content_length = header.content.size();
+				if (access(iter->second.c_str(), R_OK) == 0)
+				{
+					std::ifstream	file(iter->second.c_str(), std::ios::binary);
+					fileStream << file.rdbuf();
+					header.content = fileStream.str();
+					header.content_length = header.content.size();
+				}
 			}
+		}
+		else if (request.method == "POST")
+		{
+
+		}
+		else if (request.method == "DELETE")
+		{
+
 		}
 	}
 	else
 	{
-		setFiletype(&header, request.path);
-		std::ifstream	file(request.path.c_str(), std::ios::binary);
-		fileStream << file.rdbuf();
-		header.status_code = "200 OK";
-		header.content = fileStream.str();
-		header.content_length = header.content.size();
+		if (request.method == "GET")
+		{
+			setFiletype(&header, request.path);
+			std::ifstream	file(request.path.c_str(), std::ios::binary);
+			fileStream << file.rdbuf();
+			header.status_code = "200 OK";
+			header.content = fileStream.str();
+			header.content_length = header.content.size();
+		}
+		else if (request.method == "POST")
+		{
+
+		}
+		else if (request.method == "DELETE")
+		{
+			
+		}
 	}
 	responseStream << header.version << " " << header.status_code << std::endl << "Content-Type: " << header.content_type\
 	<< std::endl << "Content-Length: " << header.content_length << std::endl << std::endl << header.content;

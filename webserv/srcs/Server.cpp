@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:16 by melones           #+#    #+#             */
-/*   Updated: 2023/03/03 13:31:33 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/03 20:55:17 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ Server::Server(const Server &src) : _webserv(src._webserv), _vhosts(src._vhosts)
 
 Server::~Server(void)
 {
-	delete _header;
+
 }
 
 Server	&Server::operator=(const Server &src)
@@ -92,7 +92,7 @@ void	Server::acceptConnection(void)
 		}
 	}
 	std::cout << _serv_tag << " Request received : " << std::endl;
-	std::cout << request;
+	std::cout << request << std::endl;
 	response = _header->getResponse(_header->parseRequest(request));
 	std::cout << _serv_tag << " Response sent" << std::endl;
 	write(fd, response.c_str(), response.length());

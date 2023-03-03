@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Structures.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/03/02 15:27:29 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/03 20:31:21 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,14 @@ typedef struct s_route
 
 typedef struct s_request_header
 {
-	std::string	method;
-	std::string	path;
-	std::string	version;
-	std::string	host;
-	int			status;
+	std::string								method;
+	std::string								path;
+	std::string								version;
+	std::string								host;
+	std::map<std::string, float>			accept;
+	std::map<std::string, std::string>		cookie;
+	std::string								body;
+	int										status;
 	s_request_header(void) : method(""), path (""), version("HTTP/1.1"), host(""), status(0)
 	{
 		
