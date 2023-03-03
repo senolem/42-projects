@@ -6,15 +6,16 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/02 20:46:10 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/03 13:29:40 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "webserv.hpp"
 
-webserv::webserv(void) : _webserv_tag("\033[94m[webserv]\033[0m"), _error_tag("\033[31m[ERROR]\033[0m")
+webserv::webserv(std::vector<std::multimap<std::string, t_route> > *src) : _webserv_tag("\033[94m[webserv]\033[0m"), _error_tag("\033[31m[ERROR]\033[0m")
 {
-
+	_vhosts = src;
+	_nb_vhost = _vhosts->size();
 }
 
 webserv::webserv(const webserv &src) : _webserv_tag("\033[94m[webserv]\033[0m"), _error_tag("\033[31m[ERROR]\033[0m")
@@ -35,12 +36,6 @@ webserv	&webserv::operator=(const webserv &src)
 		this->_nb_vhost = _vhosts->size();
 	}
 	return (*this);
-}
-
-void	webserv::importConfig(std::vector<std::multimap<std::string, t_route> > *src)
-{
-	_vhosts = src;
-	_nb_vhost = _vhosts->size();
 }
 
 void	webserv::startServer(void)
@@ -156,99 +151,9 @@ std::string	webserv::resolveHost(std::string host)
 	return (stringStream.str());
 }
 
-std::string	webserv::getPath(vectorIterator vectIter, std::string path)
+std::vector<std::multimap<std::string, t_route> >	&webserv::getVirtualHosts(void)
 {
-	std::vector<std::string>	vect;
-	std::string					search;
-	mapIterator					mapIter = vectIter->begin();
-	mapIterator					mapIter2 = vectIter->end();
-	std::string					result;
-	size_t						i = 0;
-
-	if (path != "/")
-		vect = split_string(path, "/");
-	else
-		vect.push_back("/");
-	if (path.find_last_of('/') == path.length())
-		search = vect.at(0).substr(0, vect.at(0).length() - 1);
-	else
-		search = vect.at(0);
-	while (mapIter != mapIter2)
-	{
-		if (mapIter->second.type == LOCATION && mapIter->second.match == "/" + search)
-		{
-			result = mapIter->second.root + path;
-			i = result.find("/" + search, 0);
-			if (i != std::string::npos)
-				result.erase(i, search.length() + 1);
-			if (path.find_last_of('.') == std::string::npos)
-			{
-				for (size_t j = 0; j < mapIter->second.index.size(); j++)
-				{
-					if (access((result + "/" + mapIter->second.index[j]).c_str(), R_OK) == 0)
-						return (result + "/" + mapIter->second.index[j]);
-				}
-			}
-			return (result);
-		}
-		++mapIter;
-	}
-	if (path.find_last_of('.') == std::string::npos)
-	{
-		for (size_t j = 0; j < vectIter->begin()->second.index.size(); j++)
-		{
-			if (access((vectIter->begin()->second.root + "/" + vectIter->begin()->second.index[j]).c_str(), R_OK) == 0)
-				return (vectIter->begin()->second.root + "/" + vectIter->begin()->second.index[j]);
-		}
-	}
-	return (vectIter->begin()->second.root + path);
-}
-
-t_request_header	webserv::parseRequest(std::string buffer)
-{
-	t_request_header			header;
-	std::vector<std::string>	bufferVect;
-	std::vector<std::string>	vect;
-	std::vector<std::string>	vect2;
-	vectorIterator				vectIter;
-	std::string					method;
-	std::string					host;
-
-	bufferVect = split_string(buffer, "\r\n");
-	host = getHeader(bufferVect, "Host:");
-	if (host.empty())
-	{
-		header.status = 400;
-		return (header);
-	}
-	vect = split_string(host, " ");
-	if (vect.size() != 2)
-	{
-		header.status = 400;
-		return (header);
-	}
-	header.host = vect.at(1);
-	vect2 = split_string(bufferVect.at(0), " ");
-	if (vect2.size() != 3)
-	{
-		header.status = 400;
-		return (header);
-	}
-	header.method = vect2.at(0);
-	if (header.method != "GET" && header.method != "POST" && header.method != "DELETE")
-	{
-		header.status = 501;
-		return (header);
-	}
-	header.version = vect2.at(2);
-	vectIter = getHost(header.host);
-	if (vectIter != _vhosts->end())
-		header.path = getPath(vectIter, vect2.at(1));
-	else
-		header.path = getPath(_vhosts->begin(), vect2.at(1));
-	if (access(header.path.c_str(), R_OK) != 0)
-		header.status = 404;
-	return (header);
+	return (*_vhosts);
 }
 
 void	webserv::printConfig(void)

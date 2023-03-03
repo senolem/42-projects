@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:59:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/02 15:41:48 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/03 13:30:53 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,28 @@
 # define SERVER_HPP
 # include "webserv.hpp"
 # include "Structures.hpp"
+# include "Header.hpp"
 
 class webserv;
+class Header;
 class Server
 {
 	private:
-		webserv											&_webserv;
-		std::multimap<std::string, t_route>				&_vhosts;
-		size_t											_nb_vhost;
-		std::map<std::string, std::string>				_typesMap;
-		std::map<int, std::string>						_errorsMap;
-		t_socket										_socket;
-		const std::string								_serv_tag;
-		const std::string								_error_tag;
+		webserv								&_webserv;
+		std::multimap<std::string, t_route>	&_vhosts;
+		size_t								_nb_vhost;
+		t_socket							_socket;
+		const std::string					_serv_tag;
+		const std::string					_error_tag;
+		Header								*_header;
 
 	public:
-		typedef std::multimap<std::string, t_route>::iterator	mapIterator;
-
 		Server(webserv &webserv, std::multimap<std::string, t_route> &vhosts, t_socket socket_);
 		Server(const Server &src);
 		~Server(void);
 		Server  &operator=(const Server &src);
 
 		void		acceptConnection(void);
-		std::string	getResponse(t_request_header request);
-		void		setFiletype(t_response_header *header, std::string path);
-		void		initTypes(void);
-		void		initErrors(void);
 };
 
 #endif

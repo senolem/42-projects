@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   webserv.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/02 14:05:30 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/03 12:31:05 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,17 @@ class webserv
 		typedef std::map<std::string, t_route>::iterator					mapIterator;
 		typedef std::vector<std::multimap<std::string, t_route> >::iterator	vectorIterator;
 
-		webserv(void);
+		webserv(std::vector<std::multimap<std::string, t_route> > *src);
 		webserv(const webserv &src);
 		~webserv(void);
 		webserv	&operator=(const webserv &src);
 
-		void				importConfig(std::vector<std::multimap<std::string, t_route> > *src);
-		void				startServer(void);
-		t_socket			createSocket(int port);
-		vectorIterator		getHost(std::string host);
-		std::string			getPath(vectorIterator vectIter, std::string path);
-		t_request_header	parseRequest(std::string buffer);
-		std::string			resolveHost(std::string host);
-		void				printConfig(void);
+		void													startServer(void);
+		t_socket												createSocket(int port);
+		vectorIterator											getHost(std::string host);
+		std::string												resolveHost(std::string host);
+		void													printConfig(void);
+		std::vector<std::multimap<std::string, t_route> >		&getVirtualHosts(void);
 };
 
 #endif

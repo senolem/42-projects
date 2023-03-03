@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:16:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/02/24 23:31:26 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/03 12:04:39 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	main(int argc, char **argv)
 	if (argc == 1 || argc == 2)
 	{
 		ft::ConfigParser									config;
-		webserv												webserv;
 		std::vector<std::multimap<std::string, t_route> >	*vhosts;
 
 		if (argc == 1)
@@ -27,7 +26,7 @@ int	main(int argc, char **argv)
 			vhosts = config.init("conf/default.conf");
 			if (vhosts)
 			{
-				webserv.importConfig(vhosts);
+				webserv	webserv(vhosts);
 				webserv.startServer();
 			}
 		}
@@ -36,7 +35,7 @@ int	main(int argc, char **argv)
 			vhosts = config.init(argv[1]);
 			if (vhosts)
 			{
-				webserv.importConfig(vhosts);
+				webserv	webserv(vhosts);
 				webserv.startServer();
 			}
 		}
