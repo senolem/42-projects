@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:26:20 by melones           #+#    #+#             */
-/*   Updated: 2023/03/03 13:23:06 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/03 14:06:32 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ class Header
 		std::string			getResponse(t_request_header request);
 		std::string			getPath(vectorIterator vectIter, std::string path);
 		void				setFiletype(t_response_header *header, std::string path);
+		std::string			getHeader(std::vector<std::string> header, std::string field);
 		void				initErrors(void);
 		void				initTypes(void);
 };

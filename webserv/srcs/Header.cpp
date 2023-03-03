@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:30:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/03 13:29:45 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/03 14:06:17 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ Header	&Header::operator=(const Header &src)
 
 t_request_header	Header::parseRequest(std::string buffer)
 {
-	t_request_header			header;
-	std::vector<std::string>	bufferVect;
-	std::vector<std::string>	vect;
-	std::vector<std::string>	vect2;
-	vectorIterator				vectIter;
-	std::string					method;
-	std::string					host;
+	t_request_header									header;
+	std::vector<std::string>							bufferVect;
+	std::vector<std::string>							vect;
+	std::vector<std::string>							vect2;
+	vectorIterator										vectIter;
+	std::string											method;
+	std::string											host;
 	std::vector<std::multimap<std::string, t_route> >	&vhosts = _webserv.getVirtualHosts();
 
 	bufferVect = split_string(buffer, "\r\n");
@@ -193,6 +193,28 @@ void	Header::setFiletype(t_response_header *header, std::string path)
 		header->content_type = iter->second;
 	else
 		header->content_type = "text/plain";
+}
+
+std::string	Header::getHeader(std::vector<std::string> header, std::string field)
+{
+	size_t								i = 0;
+	std::vector<std::string>::iterator	iter = header.begin();
+	std::vector<std::string>::iterator	iter2 = header.end();
+	std::string							ret;
+
+	while (iter != iter2)
+	{
+		i = iter->find(field);
+		if (i != std::string::npos)
+		{
+			if (i == 0)
+				return (*iter);
+			else
+				return (ret);
+		}
+		++iter;
+	}
+	return (ret);
 }
 
 void	Header::initErrors(void)

@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/03/02 20:01:14 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/03 14:05:55 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,26 +101,4 @@ std::vector<std::string> split_string(const std::string &s, const std::string &c
 	if (vect.empty())
 		vect.push_back(str);
 	return (vect);
-}
-
-std::string	getHeader(std::vector<std::string> header, std::string field)
-{
-	size_t								i = 0;
-	std::vector<std::string>::iterator	iter = header.begin();
-	std::vector<std::string>::iterator	iter2 = header.end();
-	std::string							ret;
-
-	while (iter != iter2)
-	{
-		i = iter->find(field);
-		if (i != std::string::npos)
-		{
-			if (i == 0)
-				return (*iter);
-			else
-				return (ret);
-		}
-		++iter;
-	}
-	return (ret);
 }
