@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:30:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/03 20:59:46 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/04 00:32:13 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,28 +45,11 @@ t_request_header	Header::parseRequest(std::string buffer)
 	t_request_header									header;
 	std::vector<std::string>							bufferVect;
 	std::vector<std::string>							vect;
-	std::vector<std::string>							vect2;
 	vectorIterator										vectIter;
-	std::string											method;
-	std::string											host;
-	std::string											cookie;
 	std::vector<std::multimap<std::string, t_route> >	&vhosts = _webserv.getVirtualHosts();
 	size_t												i = 0;
 
 	bufferVect = split_string(buffer, "\r\n");
-	host = getHeader(bufferVect, "Host:");
-	if (host.empty())
-	{
-		header.status = 400;
-		return (header);
-	}
-	vect = split_string(host, " ");
-	if (vect.size() != 2)
-	{
-		header.status = 400;
-		return (header);
-	}
-	header.host = vect.at(1);
 	vect = split_string(bufferVect.at(0), " ");
 	if (vect.size() != 3)
 	{
@@ -80,35 +63,63 @@ t_request_header	Header::parseRequest(std::string buffer)
 		return (header);
 	}
 	header.version = vect.at(2);
+	header.host = parseHostHeader(getHeader(bufferVect, "Host:"));
+	if (header.host.empty())
+	{
+		header.status = 400;
+		return (header);
+	}
 	vectIter = _webserv.getHost(header.host);
 	if (vectIter != vhosts.end())
 		header.path = getPath(vectIter, vect.at(1));
 	else
 		header.path = getPath(vhosts.begin(), vect.at(1));
+	i = buffer.find("\r\n\r\n");
+	if (i != std::string::npos && buffer.length() > i + 4)
+		header.body = buffer.substr(i + 4);
+	header.cookie = parseCookieHeader(getHeader(bufferVect, "Cookie:"));
+	header.accept = parseAcceptHeader(getHeader(bufferVect, "Accept:"));
 	if (access(header.path.c_str(), R_OK) != 0)
 		header.status = 404;
-	cookie = getHeader(bufferVect, "Cookie:");
-	if (!cookie.empty() && buffer.length() > 8)
+	return (header);
+}
+
+std::string	Header::parseHostHeader(const std::string &header)
+{
+	std::vector<std::string>	vect;
+	std::string					host;
+
+	if (header.empty())
+		return (header);
+	vect = split_string(header, " ");
+	if (vect.size() != 2)
+		return (header);
+	return (vect.at(1));
+}
+
+std::map<std::string, std::string>	Header::parseCookieHeader(const std::string &header)
+{
+	std::map<std::string, std::string>	cookie_header;
+	std::vector<std::string>			vect;
+	std::vector<std::string>			vect2;
+
+	if (header.length() > 8)
 	{
-		vect = split_string(cookie.substr(8), "; ");
+		vect = split_string(header.substr(8), "; ");
 		for (std::vector<std::string>::iterator iter = vect.begin(); iter != vect.end(); iter++)
 		{
 			vect2 = split_string(*iter, "=");
 			if (vect2.size() != 2)
 				continue ;
-			header.cookie.insert(std::pair<std::string, std::string>(vect2.at(0), vect2.at(1)));
+			cookie_header.insert(std::pair<std::string, std::string>(vect2.at(0), vect2.at(1)));
 		}
 	}
-	i = buffer.find("\r\n\r\n");
-	if (i != std::string::npos && buffer.length() > i + 4)
-		header.body = buffer.substr(i + 4);
-	header.accept = parseAcceptHeader(getHeader(bufferVect, "Accept:"));
-	return (header);
+	return (cookie_header);
 }
 
-std::map<std::string, float>	Header::parseAcceptHeader(const std::string &header)
+std::multimap<float, std::string>	Header::parseAcceptHeader(const std::string &header)
 {
-	std::map<std::string, float>		accept_headers;
+	std::multimap<float, std::string>	accept_header;
 	std::vector<std::string>			split;
 	std::vector<std::string>			split2;
 	std::vector<std::string>::iterator	iter;
@@ -126,12 +137,12 @@ std::map<std::string, float>	Header::parseAcceptHeader(const std::string &header
 	{
 		split2 = split_string(*iter, ";q=");
 		if (split2.size() == 2)
-			accept_headers.insert(std::pair<std::string, float>(split2.at(0), std::atof(split2.at(1).c_str())));
+			accept_header.insert(std::pair<float, std::string>(std::atof(split2.at(1).c_str()), split2.at(0)));
 		else if (split2.size() == 1 && iter->find(";") == std::string::npos)
-			accept_headers.insert(std::pair<std::string, float>(split2.at(0), 1.0f));
+			accept_header.insert(std::pair<float, std::string>(1.0f, split2.at(0)));
 		++iter;
 	}
-	return (accept_headers);
+	return (accept_header);
 }
 
 std::string	Header::getResponse(t_request_header request)
@@ -140,6 +151,8 @@ std::string	Header::getResponse(t_request_header request)
 	std::stringstream	responseStream;
 	t_response_header	header;
 	
+	if (!setFiletype(request, &header, request.path))
+		request.status = 406;
 	if (request.status != 0)
 	{
 		if (request.method == "GET")
@@ -178,7 +191,6 @@ std::string	Header::getResponse(t_request_header request)
 	{
 		if (request.method == "GET")
 		{
-			setFiletype(&header, request.path);
 			std::ifstream	file(request.path.c_str(), std::ios::binary);
 			fileStream << file.rdbuf();
 			header.status_code = "200 OK";
@@ -247,8 +259,12 @@ std::string	Header::getPath(vectorIterator vectIter, std::string path)
 	return (vectIter->begin()->second.root + path);
 }
 
-void	Header::setFiletype(t_response_header *header, std::string path)
+int	Header::setFiletype(t_request_header request, t_response_header *header, std::string path)
 {
+	// Technically, this function should rather determine which content type
+	// should be returned if we'd like to manage serving multiple versions of a given
+	// URI, then we should be able to decide based on the weight "q=" parameter which
+	// content-type we should return. Instead, we simply check for matching type or not.
 	std::vector<std::string>						vect;
 	std::string										filetype;
 	std::map<std::string, std::string>::iterator	iter;
@@ -261,6 +277,38 @@ void	Header::setFiletype(t_response_header *header, std::string path)
 		header->content_type = iter->second;
 	else
 		header->content_type = "text/plain";
+	if (isAccepted(request, header->content_type))
+		return (1);
+	return (0);
+}
+
+int	Header::isAccepted(t_request_header header, const std::string &type)
+{
+	std::map<float, std::string>::const_reverse_iterator	mapIter = header.accept.rbegin();
+	std::map<float, std::string>::const_reverse_iterator	mapIter2 = header.accept.rend();
+	std::vector<std::string>								typeSplit = split_string(type, "/");
+	std::vector<std::string>								iterSplit;
+
+	std::cout << "accept size " << header.accept.size() << std::endl;
+	std::cout << "typesplit " << concatStringVector(typeSplit) << std::endl;
+	if (typeSplit.size() != 2)
+		return (0);
+	while (mapIter != mapIter2)
+	{
+		iterSplit = split_string(mapIter->second, "/");
+		std::cout << "itersplit " << concatStringVector(iterSplit) << std::endl;
+		if (iterSplit.size() != 2)
+		{
+			++mapIter;
+			continue ;
+		}
+		if (mapIter->second == type
+			|| (iterSplit.at(0) == typeSplit.at(0) && iterSplit.at(1) == "*")
+			|| (iterSplit.at(0) == "*" && iterSplit.at(1) == "*"))
+			return (1);
+		++mapIter;
+	}
+	return (0);
 }
 
 std::string	Header::getHeader(std::vector<std::string> header, std::string field)

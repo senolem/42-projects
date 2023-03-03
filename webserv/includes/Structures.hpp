@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/03/03 20:31:21 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/04 00:32:43 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_request_header
 	std::string								path;
 	std::string								version;
 	std::string								host;
-	std::map<std::string, float>			accept;
+	std::multimap<float, std::string>		accept;
 	std::map<std::string, std::string>		cookie;
 	std::string								body;
 	int										status;
@@ -87,6 +87,7 @@ typedef struct s_response_header
 	std::string	content_type;
 	size_t		content_length;
 	std::string	content;
+	std::string	body;
 	s_response_header(void) : version("HTTP/1.1"), status_code(""), content_type(""), content_length(0), content("")
 	{
 		

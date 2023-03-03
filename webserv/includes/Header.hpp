@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:26:20 by melones           #+#    #+#             */
-/*   Updated: 2023/03/03 20:58:05 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/04 00:32:25 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,17 @@ class Header
 		~Header(void);
 		Header	&operator=(const Header &src);
 		
-		t_request_header				parseRequest(std::string buffer);
-		std::map<std::string, float>	parseAcceptHeader(const std::string &header);
-		std::string						getResponse(t_request_header request);
-		std::string						getPath(vectorIterator vectIter, std::string path);
-		void							setFiletype(t_response_header *header, std::string path);
-		std::string						getHeader(std::vector<std::string> header, std::string field);
-		void							initErrors(void);
-		void							initTypes(void);
+		t_request_header					parseRequest(std::string buffer);
+		std::multimap<float, std::string>	parseAcceptHeader(const std::string &header);
+		std::map<std::string, std::string>	parseCookieHeader(const std::string &header);
+		std::string							parseHostHeader(const std::string &header);
+		std::string							getResponse(t_request_header request);
+		std::string							getPath(vectorIterator vectIter, std::string path);
+		int									setFiletype(t_request_header request, t_response_header *header, std::string path);
+		int									isAccepted(t_request_header header, const std::string &type);
+		std::string							getHeader(std::vector<std::string> header, std::string field);
+		void								initErrors(void);
+		void								initTypes(void);
 };
 
 #endif
