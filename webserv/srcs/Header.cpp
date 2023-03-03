@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:30:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/04 00:32:13 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/04 00:35:57 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,14 +289,11 @@ int	Header::isAccepted(t_request_header header, const std::string &type)
 	std::vector<std::string>								typeSplit = split_string(type, "/");
 	std::vector<std::string>								iterSplit;
 
-	std::cout << "accept size " << header.accept.size() << std::endl;
-	std::cout << "typesplit " << concatStringVector(typeSplit) << std::endl;
 	if (typeSplit.size() != 2)
 		return (0);
 	while (mapIter != mapIter2)
 	{
 		iterSplit = split_string(mapIter->second, "/");
-		std::cout << "itersplit " << concatStringVector(iterSplit) << std::endl;
 		if (iterSplit.size() != 2)
 		{
 			++mapIter;
