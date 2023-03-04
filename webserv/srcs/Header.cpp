@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:30:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/04 01:15:35 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/04 01:17:54 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ std::string	Header::getResponse(t_request_header request)
 
 	if (request.status != 0)
 	{
-		if (request.method == "GET" || request.status == 501)
+		if (request.method == "GET" || (request.status >= 400 && request.status <= 511))
 		{
 			header.content_type = "text/html";
 			std::map<int, std::string>::iterator	errorIter;
