@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ConfigParser.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/02 13:54:57 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/04 00:44:47 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -521,36 +521,33 @@ namespace ft
 					route->access_log = "logs/access.log";
 				if (route->client_max_body_size == 0)
 					route->client_max_body_size = 1;
-				if (route->error_page.empty())
-				{
-					route->error_page.insert(std::pair<int, std::string>(400, "default_error/400.html"));
-					route->error_page.insert(std::pair<int, std::string>(401, "default_error/401.html"));
-					route->error_page.insert(std::pair<int, std::string>(403, "default_error/403.html"));
-					route->error_page.insert(std::pair<int, std::string>(404, "default_error/404.html"));
-					route->error_page.insert(std::pair<int, std::string>(405, "default_error/405.html"));
-					route->error_page.insert(std::pair<int, std::string>(406, "default_error/406.html"));
-					route->error_page.insert(std::pair<int, std::string>(408, "default_error/408.html"));
-					route->error_page.insert(std::pair<int, std::string>(409, "default_error/409.html"));
-					route->error_page.insert(std::pair<int, std::string>(410, "default_error/410.html"));
-					route->error_page.insert(std::pair<int, std::string>(411, "default_error/411.html"));
-					route->error_page.insert(std::pair<int, std::string>(412, "default_error/412.html"));
-					route->error_page.insert(std::pair<int, std::string>(413, "default_error/413.html"));
-					route->error_page.insert(std::pair<int, std::string>(414, "default_error/414.html"));
-					route->error_page.insert(std::pair<int, std::string>(415, "default_error/415.html"));
-					route->error_page.insert(std::pair<int, std::string>(416, "default_error/416.html"));
-					route->error_page.insert(std::pair<int, std::string>(417, "default_error/417.html"));
-					route->error_page.insert(std::pair<int, std::string>(421, "default_error/421.html"));
-					route->error_page.insert(std::pair<int, std::string>(428, "default_error/428.html"));
-					route->error_page.insert(std::pair<int, std::string>(429, "default_error/429.html"));
-					route->error_page.insert(std::pair<int, std::string>(431, "default_error/431.html"));
-					route->error_page.insert(std::pair<int, std::string>(500, "default_error/500.html"));
-					route->error_page.insert(std::pair<int, std::string>(501, "default_error/501.html"));
-					route->error_page.insert(std::pair<int, std::string>(502, "default_error/502.html"));
-					route->error_page.insert(std::pair<int, std::string>(503, "default_error/503.html"));
-					route->error_page.insert(std::pair<int, std::string>(504, "default_error/504.html"));
-					route->error_page.insert(std::pair<int, std::string>(505, "default_error/505.html"));
-					route->error_page.insert(std::pair<int, std::string>(511, "default_error/511.html"));
-				}
+				route->error_page.insert(std::pair<int, std::string>(400, "default_error/400.html"));
+				route->error_page.insert(std::pair<int, std::string>(401, "default_error/401.html"));
+				route->error_page.insert(std::pair<int, std::string>(403, "default_error/403.html"));
+				route->error_page.insert(std::pair<int, std::string>(404, "default_error/404.html"));
+				route->error_page.insert(std::pair<int, std::string>(405, "default_error/405.html"));
+				route->error_page.insert(std::pair<int, std::string>(406, "default_error/406.html"));
+				route->error_page.insert(std::pair<int, std::string>(408, "default_error/408.html"));
+				route->error_page.insert(std::pair<int, std::string>(409, "default_error/409.html"));
+				route->error_page.insert(std::pair<int, std::string>(410, "default_error/410.html"));
+				route->error_page.insert(std::pair<int, std::string>(411, "default_error/411.html"));
+				route->error_page.insert(std::pair<int, std::string>(412, "default_error/412.html"));
+				route->error_page.insert(std::pair<int, std::string>(413, "default_error/413.html"));
+				route->error_page.insert(std::pair<int, std::string>(414, "default_error/414.html"));
+				route->error_page.insert(std::pair<int, std::string>(415, "default_error/415.html"));
+				route->error_page.insert(std::pair<int, std::string>(416, "default_error/416.html"));
+				route->error_page.insert(std::pair<int, std::string>(417, "default_error/417.html"));
+				route->error_page.insert(std::pair<int, std::string>(421, "default_error/421.html"));
+				route->error_page.insert(std::pair<int, std::string>(428, "default_error/428.html"));
+				route->error_page.insert(std::pair<int, std::string>(429, "default_error/429.html"));
+				route->error_page.insert(std::pair<int, std::string>(431, "default_error/431.html"));
+				route->error_page.insert(std::pair<int, std::string>(500, "default_error/500.html"));
+				route->error_page.insert(std::pair<int, std::string>(501, "default_error/501.html"));
+				route->error_page.insert(std::pair<int, std::string>(502, "default_error/502.html"));
+				route->error_page.insert(std::pair<int, std::string>(503, "default_error/503.html"));
+				route->error_page.insert(std::pair<int, std::string>(504, "default_error/504.html"));
+				route->error_page.insert(std::pair<int, std::string>(505, "default_error/505.html"));
+				route->error_page.insert(std::pair<int, std::string>(511, "default_error/511.html"));
 				if (route->index.empty())
 				{
 					std::vector<std::string>	vct;

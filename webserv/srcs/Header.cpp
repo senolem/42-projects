@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:30:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/04 00:35:57 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/04 01:00:09 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,8 +151,7 @@ std::string	Header::getResponse(t_request_header request)
 	std::stringstream	responseStream;
 	t_response_header	header;
 	
-	if (!setFiletype(request, &header, request.path))
-		request.status = 406;
+	setContentType(request, &header, request.path);
 	if (request.status != 0)
 	{
 		if (request.method == "GET")
@@ -259,7 +258,7 @@ std::string	Header::getPath(vectorIterator vectIter, std::string path)
 	return (vectIter->begin()->second.root + path);
 }
 
-int	Header::setFiletype(t_request_header request, t_response_header *header, std::string path)
+void	Header::setContentType(t_request_header &request, t_response_header *header, std::string path)
 {
 	// Technically, this function should rather determine which content type
 	// should be returned if we'd like to manage serving multiple versions of a given
@@ -277,9 +276,8 @@ int	Header::setFiletype(t_request_header request, t_response_header *header, std
 		header->content_type = iter->second;
 	else
 		header->content_type = "text/plain";
-	if (isAccepted(request, header->content_type))
-		return (1);
-	return (0);
+	if (!isAccepted(request, header->content_type))
+		request.status = 406;
 }
 
 int	Header::isAccepted(t_request_header header, const std::string &type)
