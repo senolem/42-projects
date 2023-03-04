@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/03 13:29:40 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/04 03:53:21 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ webserv	&webserv::operator=(const webserv &src)
 
 void	webserv::startServer(void)
 {
+	int	status = 0;
+
 	for (size_t i = 0; i < _nb_vhost; i++)
 	{
 		std::map<int, t_socket>::iterator	iter;
@@ -60,15 +62,19 @@ void	webserv::startServer(void)
 	}
 	while (1)
 	{
-		if (poll(&_pollfds[0], _pollfds.size(), 5000) == -1)
+		status = poll(&_pollfds[0], _pollfds.size(), 5000);
+		if (status == -1)
 		{
-			std::cout << "Server error : Failed to poll (" << errno << ")" << std::endl;
+			std::cout << _webserv_tag << _error_tag << " Failed to poll (" << errno << ")" << std::endl;
 			exit(1);
 		}
-		for (size_t i = 0; i < _pollfds.size(); i++)
+		if (status > 0)
 		{
-			if (_pollfds[i].revents & POLLIN)
-				_subservers[i].acceptConnection();
+			for (size_t i = 0; i < _pollfds.size(); i++)
+			{
+				if (_pollfds[i].revents & POLLIN)
+					_subservers[i].acceptConnection();
+			}
 		}
 	}
 	for (size_t i = 0; _sockets.size(); i++)

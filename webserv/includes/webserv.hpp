@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/03 12:31:05 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/04 02:51:41 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <fcntl.h>
 # include <netdb.h>
 # include <arpa/inet.h>
+# include <sys/wait.h>
 # include <fstream>
 # include <sstream>
 # include <algorithm>

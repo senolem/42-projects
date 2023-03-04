@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:16:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/03 12:04:39 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/04 02:25:58 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,33 @@ int	main(int argc, char **argv)
 	{
 		ft::ConfigParser									config;
 		std::vector<std::multimap<std::string, t_route> >	*vhosts;
-
-		if (argc == 1)
-		{
-			std::cout << "No config file provided. Using default: conf/default.conf" << std::endl;
-			vhosts = config.init("conf/default.conf");
-			if (vhosts)
+		try
+		{	
+			if (argc == 1)
 			{
-				webserv	webserv(vhosts);
-				webserv.startServer();
+				std::cout << "No config file provided. Using default: conf/default.conf" << std::endl;
+				vhosts = config.init("conf/default.conf");
+				if (vhosts)
+				{
+					webserv	webserv(vhosts);
+					webserv.startServer();
+				}
+			}
+			else
+			{
+				vhosts = config.init(argv[1]);
+				if (vhosts)
+				{
+					webserv	webserv(vhosts);
+					webserv.startServer();
+				}
 			}
 		}
-		else
+		catch(const Exception& e)
 		{
-			vhosts = config.init(argv[1]);
-			if (vhosts)
-			{
-				webserv	webserv(vhosts);
-				webserv.startServer();
-			}
+			std::cerr << e.what() << '\n';
 		}
+		
 	}
 	else
 	{

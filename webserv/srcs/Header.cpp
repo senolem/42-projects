@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:30:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/04 01:17:54 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/04 03:22:38 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,21 @@ t_request_header	Header::parseRequest(std::string buffer)
 		header.path = getPath(vhosts.begin(), vect.at(1));
 	i = buffer.find("\r\n\r\n");
 	if (i != std::string::npos && buffer.length() > i + 4)
+	{
 		header.body = buffer.substr(i + 4);
+		if (header.method == "POST")
+		{
+			// If we'd like to use more Content Type such as json or form-data we'd need a external lib for parsing
+			i = getHeader(bufferVect, "Content-Type:").find("application/x-www-form-urlencoded");
+			if (i != std::string::npos)
+				header.parsed_body = parseBodyForm(header.body);
+			else
+			{
+				header.status = 415;
+				return (header);
+			}
+		}
+	}
 	header.cookie = parseCookieHeader(getHeader(bufferVect, "Cookie:"));
 	header.accept = parseAcceptHeader(getHeader(bufferVect, "Accept:"));
 	if (access(header.path.c_str(), R_OK) != 0)
@@ -145,6 +159,24 @@ std::multimap<float, std::string>	Header::parseAcceptHeader(const std::string &h
 	return (accept_header);
 }
 
+std::vector<std::string>	Header::parseBodyForm(const std::string &body)
+{
+	std::vector<std::string>			pairs;
+	std::vector<std::string>			split = split_string(body, "&");
+	std::vector<std::string>			split2;
+	std::vector<std::string>::iterator	iter = split.begin();
+	std::vector<std::string>::iterator	iter2 = split.end();
+
+    while (iter != iter2)
+	{
+		split2 = split_string(*iter, "=");
+		if (split2.size() == 2)
+			pairs.push_back(*iter);
+		++iter;
+	}
+	return (pairs);
+}
+
 std::string	Header::getResponse(t_request_header request)
 {
 	std::stringstream	fileStream;
@@ -198,15 +230,15 @@ std::string	Header::getResponse(t_request_header request)
 		}
 		else if (request.method == "POST")
 		{
-
+			
 		}
 		else if (request.method == "DELETE")
 		{
 			
 		}
 	}
-	responseStream << header.version << " " << header.status_code << std::endl << "Content-Type: " << header.content_type\
-	<< std::endl << "Content-Length: " << header.content_length << std::endl << std::endl << header.content;
+	responseStream << header.version << " " << header.status_code << "\r\n" << "Content-Type: " << header.content_type\
+	<< "\r\n" << "Content-Length: " << header.content_length << "\r\n" << "\r\n" << header.content;
 	return (responseStream.str());
 }
 
@@ -267,6 +299,7 @@ void	Header::setContentType(t_request_header &request, t_response_header *header
 	std::vector<std::string>						vect;
 	std::string										filetype;
 	std::map<std::string, std::string>::iterator	iter;
+	std::map<std::string, t_cgi>::iterator			cgiIter;
 
 	vect = split_string(path, ".");
 	if (!vect.empty())
@@ -278,6 +311,12 @@ void	Header::setContentType(t_request_header &request, t_response_header *header
 		header->content_type = "text/plain";
 	if (!isAccepted(request, header->content_type))
 		request.status = 406;
+	else
+	{
+		cgiIter = _vhosts.begin()->second.cgi_pass.find("." + filetype);
+		if (cgiIter != _vhosts.begin()->second.cgi_pass.end())
+			executeCgi(cgiIter->second.path, request.parsed_body);
+	}
 }
 
 int	Header::isAccepted(t_request_header header, const std::string &type)
@@ -326,6 +365,75 @@ std::string	Header::getHeader(std::vector<std::string> header, std::string field
 		++iter;
 	}
 	return (ret);
+}
+
+int	Header::executeCgi(std::string path, std::vector<std::string> env_)
+{
+	int		fd[2];
+	pid_t	status = 0;
+	pid_t	pid = 0;
+	char	buffer[1024];
+    ssize_t	rd = 0;
+	char	**env = NULL;
+
+	if (pipe(fd) == -1)
+	{
+		std::cout << "[SERVER][ERROR]" << " Failed to create pipe (" << errno << ")" << std::endl;
+		return (1);
+	}
+	pid = fork();
+	if (pid == -1)
+	{
+		std::cout << "[SERVER][ERROR]" << " Failed to fork (" << errno << ")" << std::endl;
+		return (1);
+	}
+	if (pid == 0)
+	{
+		close(fd[0]);
+		dup2(fd[1], STDOUT_FILENO);
+		env = new char *[env_.size() + 1];
+		for (size_t i = 0; i < env_.size(); i++)
+		{
+			env[i] = new char[env_.at(i).size() + 1];
+			std::strcpy(env[i], env_[i].c_str());
+		}
+		env[env_.size()] = 0;
+		char	*argv[2] = {strdup(path.c_str()), 0};
+		if (execve(path.c_str(), argv, env) == -1)
+		{
+			std::cout << "[SERVER][ERROR]" << " Failed to execute CGI (" << errno << ")" << std::endl;
+			return (1);
+		}
+	}
+	else
+	{
+		close(fd[1]);
+		status = waitpid(pid, &status, 0);
+		if (status == -1)
+		{
+			std::cout << "[SERVER][ERROR]" << " Failed to wait for child process (" << errno << ")" << std::endl;
+			return (1);
+		}
+		else if (WIFEXITED(status))
+			return (0);
+		else if (WIFSIGNALED(status))
+			return (WTERMSIG(status));
+		while ((rd = read(fd[0], buffer, sizeof(buffer))) > 0)
+		{
+			std::cout.write(buffer, rd);
+		}
+		close(fd[0]);
+		if (env)
+		{
+			for (size_t i = 0; i < env_.size(); i++)
+			{
+				if (env[i])
+					delete[] env[i];
+			}
+			delete[] env;
+		}
+	}
+	return (0);
 }
 
 void	Header::initErrors(void)
