@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:30:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/04 01:00:09 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/04 01:15:35 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,11 +150,10 @@ std::string	Header::getResponse(t_request_header request)
 	std::stringstream	fileStream;
 	std::stringstream	responseStream;
 	t_response_header	header;
-	
-	setContentType(request, &header, request.path);
+
 	if (request.status != 0)
 	{
-		if (request.method == "GET")
+		if (request.method == "GET" || request.status == 501)
 		{
 			header.content_type = "text/html";
 			std::map<int, std::string>::iterator	errorIter;
@@ -188,6 +187,7 @@ std::string	Header::getResponse(t_request_header request)
 	}
 	else
 	{
+		setContentType(request, &header, request.path);
 		if (request.method == "GET")
 		{
 			std::ifstream	file(request.path.c_str(), std::ios::binary);
