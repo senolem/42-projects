@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/04 02:51:41 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/05 23:28:36 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <netinet/in.h>
 # include <poll.h>
 # include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
 # include <string.h>
 # include <fcntl.h>
 # include <netdb.h>
@@ -43,9 +45,13 @@ class webserv
 		std::vector<std::multimap<std::string, t_route> >	*_vhosts;
 		size_t												_nb_vhost;
 		std::map<int, t_socket>								_sockets;
-		std::vector<pollfd>									_pollfds;
 		const std::string									_webserv_tag;
 		const std::string									_error_tag;
+		fd_set												_read_fds;
+		fd_set												_write_fds;
+		fd_set												_read_fds_bak;
+		fd_set												_write_fds_bak;
+		std::map<int, int>									_activeConnections;
 	
 	public:
 		typedef std::map<std::string, t_route>::iterator					mapIterator;

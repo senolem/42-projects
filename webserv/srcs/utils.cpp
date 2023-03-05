@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/03/03 14:05:55 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/05 23:20:41 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,52 @@ std::vector<std::string> split_string(const std::string &s, const std::string &c
 	if (vect.empty())
 		vect.push_back(str);
 	return (vect);
+}
+
+int	ft_intlen(long n)
+{
+	int	len;
+
+	len = 0;
+	if (n == 0)
+		return (1);
+	if (n < 0)
+	{
+		n = n * -1;
+		len++;
+	}
+	while (n > 0)
+	{
+		n = n / 10;
+		len++;
+	}
+	return (len);
+}
+
+char	*ft_itoa(int n)
+{
+	int		i;
+	char	*toreturn;
+	long	nb;
+
+	nb = n;
+	i = ft_intlen(nb);
+	toreturn = (char *)malloc(i * sizeof(char) + 1);
+	if (!toreturn)
+		return (0);
+	toreturn[i--] = '\0';
+	if (nb == 0)
+		toreturn[0] = 48;
+	if (nb < 0)
+	{
+		toreturn[0] = '-';
+		nb = nb * -1;
+	}
+	while (nb)
+	{
+		toreturn[i] = 48 + (nb % 10);
+		nb = nb / 10;
+		i--;
+	}
+	return (toreturn);
 }

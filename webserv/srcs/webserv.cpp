@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/04 03:53:21 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/05 23:58:41 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ webserv::webserv(std::vector<std::multimap<std::string, t_route> > *src) : _webs
 {
 	_vhosts = src;
 	_nb_vhost = _vhosts->size();
+	FD_ZERO(&_read_fds);
+	FD_ZERO(&_write_fds);
+	FD_ZERO(&_read_fds_bak);
+	FD_ZERO(&_write_fds_bak);
 }
 
 webserv::webserv(const webserv &src) : _webserv_tag("\033[94m[webserv]\033[0m"), _error_tag("\033[31m[ERROR]\033[0m")
@@ -40,7 +44,14 @@ webserv	&webserv::operator=(const webserv &src)
 
 void	webserv::startServer(void)
 {
-	int	status = 0;
+	int								status = 0;  
+	//struct timeval					timeout = {5, 0};
+	int								max_fd = -1;
+	std::vector<Server>::iterator	iter;
+	std::vector<Server>::iterator	iter2;
+	std::vector<Client*>::iterator	iter3;
+	std::vector<Client*>::iterator	iter4;
+	int								client_fd;
 
 	for (size_t i = 0; i < _nb_vhost; i++)
 	{
@@ -52,28 +63,53 @@ void	webserv::startServer(void)
 		{
 			_sockets.insert(std::pair<int, t_socket>(port, createSocket(port)));
 			iter = _sockets.find(port);
+			FD_SET(iter->second.fd, &_read_fds);
 		}
+		if (iter->second.fd > max_fd)
+			max_fd = iter->second.fd;
 		_subservers.push_back(Server(*this, _vhosts->at(i), iter->second));
-
-		pollfd	pfd;
-		pfd.fd = iter->second.fd;
-		pfd.events = POLLIN;
-		_pollfds.push_back(pfd);
 	}
 	while (1)
 	{
-		status = poll(&_pollfds[0], _pollfds.size(), 5000);
+		std::cout << "Waiting for connection..." << std::endl;
+		_read_fds = _read_fds_bak;
+		_write_fds = _write_fds_bak;
+		status = select(max_fd + 1, &_read_fds, &_write_fds, NULL, 0);
 		if (status == -1)
 		{
-			std::cout << _webserv_tag << _error_tag << " Failed to poll (" << errno << ")" << std::endl;
+			std::cout << _webserv_tag << _error_tag << " Failed to select (" << errno << ")" << std::endl;
 			exit(1);
 		}
 		if (status > 0)
 		{
-			for (size_t i = 0; i < _pollfds.size(); i++)
+			iter = _subservers.begin();
+			iter2 = _subservers.end();
+			while (iter != iter2)
 			{
-				if (_pollfds[i].revents & POLLIN)
-					_subservers[i].acceptConnection();
+				if (FD_ISSET(iter->getSocket().fd, &_read_fds))
+				{
+					client_fd = iter->newConnection();
+					_activeConnections[client_fd] = 1;
+					FD_SET(client_fd, &_read_fds_bak);
+				}
+				iter3 = iter->getClients()->begin();
+				iter4 = iter->getClients()->end();
+				while (iter3 != iter4)
+				{
+					Client	*client = *iter3;
+					if (FD_ISSET(client->getSocket().fd, &_read_fds))
+					{
+						if (client->getRequest())
+							FD_SET(client->getSocket().fd, &_write_fds_bak);
+					}
+					if (FD_ISSET(client->getSocket().fd, &_write_fds))
+					{
+						client->sendResponse(iter->getResponse(client->getParsedRequest()));
+						FD_CLR(client->getSocket().fd, &_write_fds_bak);
+					}
+					++iter3;
+				}
+				++iter;
 			}
 		}
 	}
