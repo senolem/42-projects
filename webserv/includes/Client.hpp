@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:48:37 by melones           #+#    #+#             */
-/*   Updated: 2023/03/05 23:51:28 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/06 16:30:03 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ class Client
 		int							getRequest(void);
 		t_request_header			getParsedRequest(void);
 		t_socket					getSocket(void);
+		std::string					getResolved(void);
+		bool						isOpen(void);
 		void						sendResponse(std::string response);
+		void						checkTimeout(void);
 		void						resetTimeout(void);
 
 	private:
@@ -42,6 +45,7 @@ class Client
 		std::string			_resolved;
 		time_t				_request_time;
 		Header				*_header;
+		bool				_open;
 };
 
 #endif

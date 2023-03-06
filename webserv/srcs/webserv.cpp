@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/06 12:23:03 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/06 16:51:23 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ webserv	&webserv::operator=(const webserv &src)
 void	webserv::startServer(void)
 {
 	int								status = 0;  
-	//struct timeval					timeout = {5, 0};
-	int								max_fd = -1;
+	struct timeval					timeout = {5, 0};
 	std::vector<Server>::iterator	iter;
 	std::vector<Server>::iterator	iter2;
 	std::vector<Client*>::iterator	iter3;
@@ -63,25 +62,23 @@ void	webserv::startServer(void)
 		{
 			_sockets.insert(std::pair<int, t_socket>(port, createSocket(port)));
 			iter = _sockets.find(port);
-			FD_SET(iter->second.fd, &_read_fds);
+			FD_SET(iter->second.fd, &_read_fds_bak);
+			_activeConnections[iter->second.fd] = 1;
 		}
-		if (iter->second.fd > max_fd)
-			max_fd = iter->second.fd;
 		_subservers.push_back(Server(*this, _vhosts->at(i), iter->second));
 	}
 	while (1)
 	{
-		std::cout << CYAN << WEBSERV << NONE << " Waiting for connection...\n";
+		if (_activeConnections.size() == _sockets.size())
+			std::cout << CYAN << WEBSERV << NONE << " Waiting for connection...\n";
 		_read_fds = _read_fds_bak;
 		_write_fds = _write_fds_bak;
-		status = select(max_fd + 1, &_read_fds, &_write_fds, NULL, 0);
+		status = select(getMaxFd() + 1, &_read_fds, &_write_fds, NULL, &timeout);
 		if (status == -1)
 		{
 			std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to select (" << errno << ")\n";
 			exit(1);
 		}
-		if (status > 0)
-		{
 			iter = _subservers.begin();
 			iter2 = _subservers.end();
 			while (iter != iter2)
@@ -97,27 +94,42 @@ void	webserv::startServer(void)
 				while (iter3 != iter4)
 				{
 					Client	*client = *iter3;
-					if (FD_ISSET(client->getSocket().fd, &_read_fds))
+					if (client->isOpen() && FD_ISSET(client->getSocket().fd, &_read_fds))
 					{
 						if (client->getRequest())
 							FD_SET(client->getSocket().fd, &_write_fds_bak);
 					}
-					if (FD_ISSET(client->getSocket().fd, &_write_fds))
+					if (client->isOpen() && FD_ISSET(client->getSocket().fd, &_write_fds))
 					{
 						client->sendResponse(iter->getResponse(client->getParsedRequest()));
 						FD_CLR(client->getSocket().fd, &_write_fds_bak);
 					}
+					client->checkTimeout();
+					if (!client->isOpen())
+					{
+						std::cout << CYAN << WEBSERV << NONE << " Client " << client->getResolved() << " timed out, closing connection...\n";
+						FD_CLR(client->getSocket().fd, &_read_fds_bak);
+						FD_CLR(client->getSocket().fd, &_write_fds_bak);
+						_activeConnections.erase(client->getSocket().fd);
+						delete *iter3;
+						if (iter->getClients()->empty())
+							break;
+						else
+						{
+							iter3 = iter->getClients()->begin();
+							continue ;
+						}
+					}
 					++iter3;
 				}
 				++iter;
-			}
 		}
 	}
 	for (size_t i = 0; _sockets.size(); i++)
 		close(_sockets[i].fd);
 }
 
-t_socket	webserv::createSocket(int port)
+t_socket	webserv:: createSocket(int port)
 {
 	std::string			response;
 	t_socket			_socket;
@@ -196,6 +208,11 @@ std::string	webserv::resolveHost(std::string host)
 std::vector<std::multimap<std::string, t_route> >	&webserv::getVirtualHosts(void)
 {
 	return (*_vhosts);
+}
+
+int	webserv::getMaxFd(void)
+{
+	return (_activeConnections.rbegin()->first);
 }
 
 void	webserv::printConfig(void)

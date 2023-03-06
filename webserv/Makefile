@@ -6,13 +6,13 @@
 #    By: melones <melones@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/15 15:17:23 by albaur            #+#    #+#              #
-#    Updated: 2023/03/06 12:25:00 by melones          ###   ########.fr        #
+#    Updated: 2023/03/06 17:00:51 by melones          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = webserv
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98 #-g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -g3 -fsanitize=address
 LINKS =
 LIBLINKS = -I./includes
 SRC_PATH = srcs/

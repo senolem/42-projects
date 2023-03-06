@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:16:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/06 13:39:59 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/06 14:17:50 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 		{	
 			if (argc == 1)
 			{
-				std::cout << "No config file provided. Using default: conf/default.conf\n";
+				std::cout << "No configuration file provided. Using default: conf/default.conf\n";
 				vhosts = config.init("conf/default.conf");
 				if (vhosts)
 				{

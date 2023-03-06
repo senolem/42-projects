@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/06 12:10:32 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/06 16:22:59 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <netdb.h>
 # include <arpa/inet.h>
 # include <sys/wait.h>
+# include <sys/time.h>
 # include <fstream>
 # include <sstream>
 # include <algorithm>
@@ -67,6 +68,7 @@ class webserv
 		std::string												resolveHost(std::string host);
 		void													printConfig(void);
 		std::vector<std::multimap<std::string, t_route> >		&getVirtualHosts(void);
+		int														getMaxFd(void);
 };
 
 #endif

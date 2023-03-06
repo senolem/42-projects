@@ -6,13 +6,13 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/06 12:22:03 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/06 17:03:24 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Client.hpp"
 
-Client::Client(Server *server, Header *header) : _server(server), _socket(), _request(), _host(), _port(), _resolved(), _request_time(0), _header(header)
+Client::Client(Server *server, Header *header) : _server(server), _socket(), _request(), _host(), _port(), _resolved(), _request_time(0), _header(header), _open(false)
 {
 	int	flags = 0;
 	int	addrlen = sizeof(_socket.sockaddr_);
@@ -35,13 +35,21 @@ Client::Client(Server *server, Header *header) : _server(server), _socket(), _re
 		std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to set socket to non-blocking mode (" << errno << ")\n";
 		exit(1);
 	}
+	int opt = 1;
+	if (setsockopt(_socket.fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0)
+	{
+		std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to set socket options (" << errno << ")\n";
+		exit(1);
+	}
 	_host = inet_ntoa(_socket.sockaddr_.sin_addr);
 	_port = htons(_socket.sockaddr_.sin_port);
 	_resolved = _host + ":" + ft_itoa(_port);
+	_open = true;
+	resetTimeout();
 	std::cout << GREEN << SERV << NONE << " Connection successfully established to " << _resolved << "\n";
 }
 
-Client::Client(const Client &src) : _server(src._server), _socket(src._socket), _request(src._request), _host(src._host), _port(src._port), _resolved(src._resolved), _request_time(src._request_time), _header(src._header)
+Client::Client(const Client &src) : _server(src._server), _socket(src._socket), _request(src._request), _host(src._host), _port(src._port), _resolved(src._resolved), _request_time(src._request_time), _header(src._header), _open(src._open)
 {
 	*this = src;
 }
@@ -93,9 +101,14 @@ int	Client::getRequest(void)
 				readingDone = true;
 		}
 	}
+	std::cout << GREEN << SERV << NONE << " Request received :\n";
+	std::cout << request << "\n";
 	_request = _header->parseRequest(request);
 	if (rd == 0 || !readingDone)
+	{
+		_open = false;
 		return (0);
+	}
 	return (1);
 }
 
@@ -104,10 +117,20 @@ t_request_header	Client::getParsedRequest(void)
 	return (_request);
 }
 
+std::string	Client::getResolved(void)
+{
+	return (_resolved);
+}
+
 void	Client::sendResponse(std::string response)
 {
 	write(_socket.fd, response.c_str(), response.length());
 	std::cout << GREEN << SERV << NONE << " Response sent\n";
+}
+
+bool	Client::isOpen(void)
+{
+	return (_open);
 }
 
 t_socket	Client::getSocket(void)
@@ -115,7 +138,17 @@ t_socket	Client::getSocket(void)
 	return (_socket);
 }
 
+void	Client::checkTimeout(void)
+{
+	struct timeval	tv;
+	gettimeofday(&tv, NULL);
+	if (tv.tv_usec - _request_time > 30000000)
+		_open = false;
+}
+
 void	Client::resetTimeout(void)
 {
-	_request_time = 0;
+	struct timeval	tv;
+	gettimeofday(&tv, NULL);
+	_request_time = tv.tv_usec;
 }
