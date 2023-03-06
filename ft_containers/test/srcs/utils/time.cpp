@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 21:14:19 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/06 16:20:27 by melones          ###   ########.fr       */
+/*   Updated: 2023/01/25 23:53:03 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	set_time(t_data *data, bool mode)
 
 void	print_time(t_data *data)
 {
-	struct timeval	tv;
-	gettimeofday(&tv, NULL);
+	data->ms = data->after - data->now;
+	std::cout.setf(std::ios::fixed);
+	std::cout << " (" << std::setprecision(5) << data->ms.count() << "ms)";
 }
