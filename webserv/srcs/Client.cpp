@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/06 00:01:54 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/06 12:22:03 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,24 @@ Client::Client(Server *server, Header *header) : _server(server), _socket(), _re
 	_socket.fd = accept(_server->getSocket().fd, (sockaddr *)&_socket.sockaddr_, (socklen_t*)&addrlen);
 	if (_socket.fd < 0)
 	{
-		std::cout << "[SERVER][ERROR]" << " Failed to accept connection (" << errno << ")" << std::endl;
+		std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to accept connection (" << errno << ")\n";
 		exit(1);
 	}
-	std::cout << "[SERVER]" << " Connection successfully established to client" << std::endl;
 	flags = fcntl(_socket.fd, F_GETFL);
 	if (flags < 0)
 	{
-		std::cout << "[SERVER][ERROR]" << " Failed to get socket flags (" << errno << ")" << std::endl;
+		std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to get socket flags (" << errno << ")\n";
 		exit(1);
 	}
 	if (fcntl(_socket.fd, F_SETFL, flags | O_NONBLOCK) < 0)
 	{
-		std::cout << "[SERVER][ERROR]" << " Failed to set socket to non-blocking mode (" << errno << ")" << std::endl;
+		std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to set socket to non-blocking mode (" << errno << ")\n";
 		exit(1);
 	}
 	_host = inet_ntoa(_socket.sockaddr_.sin_addr);
 	_port = htons(_socket.sockaddr_.sin_port);
 	_resolved = _host + ":" + ft_itoa(_port);
+	std::cout << GREEN << SERV << NONE << " Connection successfully established to " << _resolved << "\n";
 }
 
 Client::Client(const Client &src) : _server(src._server), _socket(src._socket), _request(src._request), _host(src._host), _port(src._port), _resolved(src._resolved), _request_time(src._request_time), _header(src._header)
@@ -81,7 +81,7 @@ int	Client::getRequest(void)
 		rd = recv(_socket.fd, buffer, bufferSize, 0);
 		if (rd < 0)
 		{
-			std::cout << "[SERVER][ERROR]" << " Failed to read buffer (" << errno << ")" << std::endl;
+			std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to read buffer (" << errno << ")\n";
 			exit(1);
 		}
 		else if (rd == 0)
@@ -107,7 +107,7 @@ t_request_header	Client::getParsedRequest(void)
 void	Client::sendResponse(std::string response)
 {
 	write(_socket.fd, response.c_str(), response.length());
-	std::cout << "[SERVER]" << " Response sent" << std::endl;
+	std::cout << GREEN << SERV << NONE << " Response sent\n";
 }
 
 t_socket	Client::getSocket(void)

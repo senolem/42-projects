@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:59:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/05 23:50:11 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/06 11:57:04 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ class Server
 		std::multimap<std::string, t_route>	&_vhosts;
 		size_t								_nb_vhost;
 		t_socket							_socket;
-		const std::string					_serv_tag;
-		const std::string					_error_tag;
 		Header								*_header;
 		std::vector<Client*>				_clients;
 

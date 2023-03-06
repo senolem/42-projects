@@ -6,13 +6,13 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/05 23:58:41 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/06 12:23:03 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "webserv.hpp"
 
-webserv::webserv(std::vector<std::multimap<std::string, t_route> > *src) : _webserv_tag("\033[94m[webserv]\033[0m"), _error_tag("\033[31m[ERROR]\033[0m")
+webserv::webserv(std::vector<std::multimap<std::string, t_route> > *src)
 {
 	_vhosts = src;
 	_nb_vhost = _vhosts->size();
@@ -22,7 +22,7 @@ webserv::webserv(std::vector<std::multimap<std::string, t_route> > *src) : _webs
 	FD_ZERO(&_write_fds_bak);
 }
 
-webserv::webserv(const webserv &src) : _webserv_tag("\033[94m[webserv]\033[0m"), _error_tag("\033[31m[ERROR]\033[0m")
+webserv::webserv(const webserv &src)
 {
 	*this = src;
 }
@@ -71,13 +71,13 @@ void	webserv::startServer(void)
 	}
 	while (1)
 	{
-		std::cout << "Waiting for connection..." << std::endl;
+		std::cout << CYAN << WEBSERV << NONE << " Waiting for connection...\n";
 		_read_fds = _read_fds_bak;
 		_write_fds = _write_fds_bak;
 		status = select(max_fd + 1, &_read_fds, &_write_fds, NULL, 0);
 		if (status == -1)
 		{
-			std::cout << _webserv_tag << _error_tag << " Failed to select (" << errno << ")" << std::endl;
+			std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to select (" << errno << ")\n";
 			exit(1);
 		}
 		if (status > 0)
@@ -125,7 +125,7 @@ t_socket	webserv::createSocket(int port)
 	_socket.fd = socket(AF_INET, SOCK_STREAM, 0);
 	if (_socket.fd < 0)
 	{
-		std::cout << _webserv_tag << _error_tag << " Failed to create socket (" << errno << ")" << std::endl;
+		std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to create socket (" << errno << ")\n";
 		exit(1);
 	}
 	_socket.sockaddr_.sin_family = AF_INET;
@@ -134,15 +134,15 @@ t_socket	webserv::createSocket(int port)
 	memset(_socket.sockaddr_.sin_zero, 0, sizeof(_socket.sockaddr_.sin_addr));
 	if (bind(_socket.fd, (sockaddr *)&_socket.sockaddr_, sizeof(_socket.sockaddr_)) < 0)
 	{
-		std::cout << _webserv_tag << _error_tag << " Failed to bind socket (" << errno << ")" << std::endl;
+		std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to bind socket (" << errno << ")\n";
 		exit(1);
 	}
 	if (listen(_socket.fd, 10) < 0)
 	{
-		std::cout << _webserv_tag << _error_tag << " Failed to listen socket (" << errno << ")" << std::endl;
+		std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to listen socket (" << errno << ")\n";
 		exit(1);
 	}
-	std::cout << _webserv_tag << " Socket successfully created for port " << port << std::endl;
+	std::cout << CYAN << WEBSERV << NONE << " Socket successfully created for port " << port << "\n";
 	return (_socket);
 }
 
@@ -160,7 +160,7 @@ webserv::vectorIterator	webserv::getHost(std::string host)
 			return (vectIter);
 		++vectIter;
 	}
-	std::cout << _webserv_tag << _error_tag << " Host not found, using first server block" << std::endl;
+	std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Host not found, using first server block\n";
 	return (vectIter);
 }
 
@@ -184,7 +184,7 @@ std::string	webserv::resolveHost(std::string host)
 	result = getaddrinfo(vect.at(0).c_str(), port.c_str(), &hints, &res);
 	if (result != 0)
 	{
-		std::cout << _webserv_tag << _error_tag << " Failed to resolve hostname " << host << " " << "(" << errno << ")" << std::endl;
+		std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to resolve hostname " << host << " " << "(" << errno << ")\n";
 		exit(1);
 	}
 	addrin = (struct sockaddr_in *)res->ai_addr;
@@ -207,30 +207,30 @@ void	webserv::printConfig(void)
 	
 	while (vectIter != vectIter2)
 	{
-		std::cout << "__________________________________________________" << std::endl;
+		std::cout << "__________________________________________________\n";
 		mapIter = vectIter->begin();
 		mapIter2 = vectIter->end();
-		std::cout << "Route [" << mapIter->first << "]" << std::endl;
+		std::cout << "Route [" << mapIter->first << "]\n";
 		while (mapIter != mapIter2)
 		{
 			t_route	&route = mapIter->second;
-			std::cout << "type : " << (route.type ? "LOCATION":"SERVER") << std::endl;
-			std::cout << "listen : " << route.listen << std::endl;
-			std::cout << "server_name : " << route.server_name << std::endl;
-			std::cout << "access_log : " << route.access_log << std::endl;
-			std::cout << "client_max_body_size : " << route.client_max_body_size << std::endl;
-			std::cout << "error_page :" << std::endl;
+			std::cout << "type : " << (route.type ? "LOCATION":"SERVER") << "\n";
+			std::cout << "listen : " << route.listen << "\n";
+			std::cout << "server_name : " << route.server_name << "\n";
+			std::cout << "access_log : " << route.access_log << "\n";
+			std::cout << "client_max_body_size : " << route.client_max_body_size << "\n";
+			std::cout << "error_page :\n";
 			printIntStringMap(route.error_page);
-			std::cout << "root : " << route.root << std::endl;
-			std::cout << "index : " << concatStringVector(route.index) << std::endl;
-			std::cout << "methods_allowed : " << concatMethods(route.methods_allowed) << std::endl;
-			std::cout << "autoindex : " << (route.autoindex ? "true":"false") << std::endl;
-			std::cout << "cgi_pass : " << std::endl;
+			std::cout << "root : " << route.root << "\n";
+			std::cout << "index : " << concatStringVector(route.index) << "\n";
+			std::cout << "methods_allowed : " << concatMethods(route.methods_allowed) << "\n";
+			std::cout << "autoindex : " << (route.autoindex ? "true":"false") << "\n";
+			std::cout << "cgi_pass : \n";
 			printCgiMap(route.cgi_pass);
-			std::cout << "upload : " << (route.upload ? "true":"false") << std::endl;
-			std::cout << "upload_path : " << route.upload_path << std::endl;
-			std::cout << "match : " << route.match << std::endl;
-			std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+			std::cout << "upload : " << (route.upload ? "true":"false") << "\n";
+			std::cout << "upload_path : " << route.upload_path << "\n";
+			std::cout << "match : " << route.match << "\n";
+			std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++\n";
 			++mapIter;
 		}
 		++vectIter;

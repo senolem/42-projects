@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:30:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/04 03:22:38 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/06 12:23:44 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -378,13 +378,13 @@ int	Header::executeCgi(std::string path, std::vector<std::string> env_)
 
 	if (pipe(fd) == -1)
 	{
-		std::cout << "[SERVER][ERROR]" << " Failed to create pipe (" << errno << ")" << std::endl;
+		std::cout << "[SERVER][ERROR]" << " Failed to create pipe (" << errno << ")\n";
 		return (1);
 	}
 	pid = fork();
 	if (pid == -1)
 	{
-		std::cout << "[SERVER][ERROR]" << " Failed to fork (" << errno << ")" << std::endl;
+		std::cout << "[SERVER][ERROR]" << " Failed to fork (" << errno << ")\n";
 		return (1);
 	}
 	if (pid == 0)
@@ -401,7 +401,7 @@ int	Header::executeCgi(std::string path, std::vector<std::string> env_)
 		char	*argv[2] = {strdup(path.c_str()), 0};
 		if (execve(path.c_str(), argv, env) == -1)
 		{
-			std::cout << "[SERVER][ERROR]" << " Failed to execute CGI (" << errno << ")" << std::endl;
+			std::cout << "[SERVER][ERROR]" << " Failed to execute CGI (" << errno << ")\n";
 			return (1);
 		}
 	}
@@ -411,7 +411,7 @@ int	Header::executeCgi(std::string path, std::vector<std::string> env_)
 		status = waitpid(pid, &status, 0);
 		if (status == -1)
 		{
-			std::cout << "[SERVER][ERROR]" << " Failed to wait for child process (" << errno << ")" << std::endl;
+			std::cout << "[SERVER][ERROR]" << " Failed to wait for child process (" << errno << ")\n";
 			return (1);
 		}
 		else if (WIFEXITED(status))
