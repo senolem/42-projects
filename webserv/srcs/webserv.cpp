@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/07 14:13:48 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/07 16:51:08 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	webserv::startServer(void)
 		close(_sockets[i].fd);
 }
 
-t_socket	webserv:: createSocket(int port)
+t_socket	webserv::createSocket(int port)
 {
 	std::string			response;
 	t_socket			_socket;
