@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   webserv.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/06 16:51:23 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/07 14:13:48 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ webserv	&webserv::operator=(const webserv &src)
 void	webserv::startServer(void)
 {
 	int								status = 0;  
-	struct timeval					timeout = {5, 0};
 	std::vector<Server>::iterator	iter;
 	std::vector<Server>::iterator	iter2;
 	std::vector<Client*>::iterator	iter3;
@@ -67,18 +66,19 @@ void	webserv::startServer(void)
 		}
 		_subservers.push_back(Server(*this, _vhosts->at(i), iter->second));
 	}
+	std::cout << CYAN << WEBSERV << NONE << " Waiting for connection...\n";
 	while (1)
 	{
-		if (_activeConnections.size() == _sockets.size())
-			std::cout << CYAN << WEBSERV << NONE << " Waiting for connection...\n";
 		_read_fds = _read_fds_bak;
 		_write_fds = _write_fds_bak;
-		status = select(getMaxFd() + 1, &_read_fds, &_write_fds, NULL, &timeout);
+		status = select(getMaxFd() + 1, &_read_fds, &_write_fds, NULL, NULL);
 		if (status == -1)
 		{
 			std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to select (" << errno << ")\n";
 			exit(1);
 		}
+		else
+		{
 			iter = _subservers.begin();
 			iter2 = _subservers.end();
 			while (iter != iter2)
@@ -107,22 +107,25 @@ void	webserv::startServer(void)
 					client->checkTimeout();
 					if (!client->isOpen())
 					{
-						std::cout << CYAN << WEBSERV << NONE << " Client " << client->getResolved() << " timed out, closing connection...\n";
+						std::cout << CYAN << WEBSERV << NONE << " Closing connection to client " << client->getResolved() << "\n";
 						FD_CLR(client->getSocket().fd, &_read_fds_bak);
 						FD_CLR(client->getSocket().fd, &_write_fds_bak);
 						_activeConnections.erase(client->getSocket().fd);
-						delete *iter3;
+						delete client;
+						iter->getClients()->erase(iter3);
 						if (iter->getClients()->empty())
-							break;
+							break ;
 						else
 						{
 							iter3 = iter->getClients()->begin();
+							iter4 = iter->getClients()->end();
 							continue ;
 						}
 					}
 					++iter3;
 				}
 				++iter;
+			}
 		}
 	}
 	for (size_t i = 0; _sockets.size(); i++)
