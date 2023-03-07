@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/06 17:03:24 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/07 15:45:46 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,9 @@ int	Client::getRequest(void)
 	while (!readingDone)
 	{
 		rd = recv(_socket.fd, buffer, bufferSize, 0);
-		if (rd < 0)
-		{
-			std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to read buffer (" << errno << ")\n";
-			exit(1);
-		}
-		else if (rd == 0)
+		if (rd == 0)
 			readingDone = true;
-		else
+		else if (rd > 0)
 		{
 			request.append(buffer, rd);
 			if (rd < bufferSize)

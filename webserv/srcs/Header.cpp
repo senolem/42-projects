@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Header.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:30:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/06 12:23:44 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/07 16:02:02 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_request_header	Header::parseRequest(std::string buffer)
 		header.path = getPath(vectIter, vect.at(1));
 	else
 		header.path = getPath(vhosts.begin(), vect.at(1));
+	std::cout << "path = " << header.path << "\n";
 	i = buffer.find("\r\n\r\n");
 	if (i != std::string::npos && buffer.length() > i + 4)
 	{
@@ -259,6 +260,7 @@ std::string	Header::getPath(vectorIterator vectIter, std::string path)
 		search = vect.at(0).substr(0, vect.at(0).length() - 1);
 	else
 		search = vect.at(0);
+	std::cout << "search = " << search << std::endl;
 	while (mapIter != mapIter2)
 	{
 		if (mapIter->second.type == LOCATION && mapIter->second.match == "/" + search)
@@ -283,8 +285,8 @@ std::string	Header::getPath(vectorIterator vectIter, std::string path)
 	{
 		for (size_t j = 0; j < vectIter->begin()->second.index.size(); j++)
 		{
-			if (access((vectIter->begin()->second.root + "/" + vectIter->begin()->second.index[j]).c_str(), R_OK) == 0)
-				return (vectIter->begin()->second.root + "/" + vectIter->begin()->second.index[j]);
+			if (access((vectIter->begin()->second.root + path + "/" + vectIter->begin()->second.index[j]).c_str(), R_OK) == 0)
+				return (vectIter->begin()->second.root + path + "/" + vectIter->begin()->second.index[j]);
 		}
 	}
 	return (vectIter->begin()->second.root + path);
