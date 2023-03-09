@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/03/05 23:20:41 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/09 14:41:24 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "webserv.hpp"
 
-std::string	concatStringVector(const std::vector<std::string> &vct)
+std::string	concatStringVector(const std::vector<std::string> &vct, const char c)
 {
 	std::vector<std::string>::const_iterator	iter = vct.begin();
 	std::vector<std::string>::const_iterator	iter2 = vct.end();
@@ -22,7 +22,7 @@ std::string	concatStringVector(const std::vector<std::string> &vct)
 	{
 		str = str + *iter;
 		if (iter + 1 != iter2)
-			str = str + " ";
+			str = str + c;
 		++iter;
 	}
 	return (str);
@@ -149,4 +149,20 @@ char	*ft_itoa(int n)
 		i--;
 	}
 	return (toreturn);
+}
+
+std::string trim(const std::string& str, const std::string& totrim)
+{
+	std::string	result = str;
+	size_t		pos;
+
+	pos = result.find_first_not_of(totrim);
+	if (pos != std::string::npos)
+		result.erase(0, pos);
+	pos = result.find_last_not_of(totrim);
+	if (pos != std::string::npos)
+		result.erase(pos + 1);
+	while ((pos = result.find_first_of(totrim)) != std::string::npos)
+		result.erase(pos, 1);
+	return (result);
 }

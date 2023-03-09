@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Header.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:26:20 by melones           #+#    #+#             */
-/*   Updated: 2023/03/04 03:11:15 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/09 13:53:38 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,19 @@
 class webserv;
 class Header
 {
+	public:
+		typedef std::map<std::string, t_route>::iterator					mapIterator;
+		typedef std::vector<std::multimap<std::string, t_route> >::iterator	vectorIterator;
+
 	private:
 		webserv									&_webserv;
 		std::multimap<std::string, t_route>		&_vhosts;
 		std::map<std::string, std::string>		_typesMap;
 		std::map<int, std::string>				_errorsMap;
+		std::string								_currentRoot;
+		mapIterator								_currentLocationBlock;
 		
 	public:
-		typedef std::map<std::string, t_route>::iterator					mapIterator;
-		typedef std::vector<std::multimap<std::string, t_route> >::iterator	vectorIterator;
-
 		Header(webserv &webserv_, std::multimap<std::string, t_route> &vhosts);
 		Header(const Header &src);
 		~Header(void);

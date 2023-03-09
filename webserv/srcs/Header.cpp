@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:30:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/07 16:02:02 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/09 17:45:18 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,6 +263,15 @@ std::string	Header::getPath(vectorIterator vectIter, std::string path)
 	std::cout << "search = " << search << std::endl;
 	while (mapIter != mapIter2)
 	{
+		if (mapIter->second.type == LOCATION && mapIter->second.match == "/" + _currentRoot)
+		{
+			
+		}
+		++mapIter;
+	}
+	mapIter = vectIter->begin();
+	while (mapIter != mapIter2)
+	{
 		if (mapIter->second.type == LOCATION && mapIter->second.match == "/" + search)
 		{
 			result = mapIter->second.root + path;
@@ -274,7 +283,11 @@ std::string	Header::getPath(vectorIterator vectIter, std::string path)
 				for (size_t j = 0; j < mapIter->second.index.size(); j++)
 				{
 					if (access((result + "/" + mapIter->second.index[j]).c_str(), R_OK) == 0)
+					{
+						_currentRoot = search;
+						_currentLocationBlock = mapIter;
 						return (result + "/" + mapIter->second.index[j]);
+					}
 				}
 			}
 			return (result);
@@ -286,7 +299,11 @@ std::string	Header::getPath(vectorIterator vectIter, std::string path)
 		for (size_t j = 0; j < vectIter->begin()->second.index.size(); j++)
 		{
 			if (access((vectIter->begin()->second.root + path + "/" + vectIter->begin()->second.index[j]).c_str(), R_OK) == 0)
+			{
+				_currentRoot.clear();
+				_currentLocationBlock = vectIter->begin();
 				return (vectIter->begin()->second.root + path + "/" + vectIter->begin()->second.index[j]);
+			}
 		}
 	}
 	return (vectIter->begin()->second.root + path);
