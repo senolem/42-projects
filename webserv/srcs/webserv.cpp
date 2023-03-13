@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/13 16:23:20 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/13 16:28:09 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,11 @@ void	webserv::startServer(void)
 						if (ret == 0)
 						{
 							if (!client->isResponseEmpty())
-								std::cout << GREEN << SERV << NONE << " Response sent (length " << client->getSent() << ")\n";
+								std::cout << GREEN << WEBSERV << NONE << " Response sent (length " << client->getSent() << ")\n";
 							FD_CLR(client->getSocket().fd, &_write_fds_bak);
 						}
+						else if (ret == -1)
+							std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to send response to client " << client->getResolved() << "(" << errno << ")\n";
 					}
 					client->checkTimeout();
 					if (!client->isOpen())
