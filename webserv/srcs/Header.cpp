@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:30:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/13 11:04:19 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/13 16:24:55 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,7 @@ std::string	Header::getResponse(t_request_header request)
 		setContentType(request, &header, request.path);
 		if (request.method == "GET")
 		{
-			std::ifstream	file(request.path.c_str(), std::ios::binary);
+			std::ifstream	file(request.path.c_str());
 			fileStream << file.rdbuf();
 			header.status_code = "200 OK";
 			header.content = fileStream.str();
@@ -238,7 +238,7 @@ std::string	Header::getResponse(t_request_header request)
 		}
 	}
 	responseStream << header.version << " " << header.status_code << "\r\n" << "Content-Type: " << header.content_type\
-	<< "\r\n" << "Content-Length: " << header.content_length << "\r\n" << "\r\n" << header.content;
+	<< "\r\n" << "Content-Length: " << header.content_length << "\r\n" << "Transfer-Encoding: identity \r\n" << "\r\n" << header.content;
 	return (responseStream.str());
 }
 

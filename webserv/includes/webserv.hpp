@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   webserv.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/06 16:22:59 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/13 15:36:37 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WEBSERV_HPP
 # define WEBSERV_HPP
+# define BUFFER_SIZE 65536
 # include <iostream>
 # include <string>
 # include <cstring>

@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/13 11:36:32 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/13 16:23:04 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ Client::Client(Server *server, Header *header) : _server(server), _socket(), _re
 	_port = htons(_socket.sockaddr_.sin_port);
 	_resolved = _host + ":" + ft_itoa(_port);
 	_open = true;
+	_sent = 0;
 	resetTimeout();
 	std::cout << GREEN << SERV << NONE << " Connection successfully established to " << _resolved << "\n";
 }
@@ -96,9 +97,14 @@ int	Client::getRequest(void)
 				readingDone = true;
 		}
 	}
-	std::cout << GREEN << SERV << NONE << " Request received :\n";
-	std::cout << request << "\n";
-	_request = _header->parseRequest(request);
+	if (request.length() > 0)
+	{
+		std::cout << GREEN << SERV << NONE << " Request received (length " << request.length() << ") :\n";
+		std::cout << request << "\n";
+		_request = _header->parseRequest(request);
+	}
+	else
+		memset(&_request, 0, sizeof(t_request_header));
 	if (rd == 0 || !readingDone)
 	{
 		_open = false;
@@ -117,10 +123,44 @@ std::string	Client::getResolved(void)
 	return (_resolved);
 }
 
-void	Client::sendResponse(std::string response)
+size_t	Client::getSent(void)
 {
-	send(_socket.fd, response.c_str(), response.length(), 0);
-	std::cout << GREEN << SERV << NONE << " Response sent\n";
+	return (_sent);
+}
+
+int	Client::sendResponse(void)
+{
+	std::string	str = _response.substr(_sent, BUFFER_SIZE);
+	int	i = 0;
+
+	i = send(_socket.fd, str.c_str(), str.length(), 0);
+	if (i == -1)
+	{
+		_open = false;
+		_sent = 0;
+		return (-1);
+	}
+	else
+	{
+		_sent += i;
+		if (_sent >= _response.size())
+		{
+			_open = false;
+			return (0);
+		}
+		else
+			return (1);
+	}
+}
+
+bool	Client::isResponseEmpty(void)
+{
+	return (_response.empty());
+}
+
+void	Client::setResponse(std::string response)
+{
+	_response = response;
 }
 
 bool	Client::isOpen(void)

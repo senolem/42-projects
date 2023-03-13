@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/09 14:17:08 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/13 16:23:20 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,13 @@ webserv	&webserv::operator=(const webserv &src)
 
 void	webserv::startServer(void)
 {
-	int								status = 0;  
+	int								status = 0; 
+	int								ret = 0; 
 	std::vector<Server>::iterator	iter;
 	std::vector<Server>::iterator	iter2;
 	std::vector<Client*>::iterator	iter3;
 	std::vector<Client*>::iterator	iter4;
+	//timeval							timeout = {10, 0};
 	int								client_fd;
 
 	for (size_t i = 0; i < _nb_vhost; i++)
@@ -101,8 +103,15 @@ void	webserv::startServer(void)
 					}
 					if (client->isOpen() && FD_ISSET(client->getSocket().fd, &_write_fds))
 					{
-						client->sendResponse(iter->getResponse(client->getParsedRequest()));
-						FD_CLR(client->getSocket().fd, &_write_fds_bak);
+						if (client->isResponseEmpty())
+							client->setResponse(iter->getResponse(client->getParsedRequest()));
+						ret = client->sendResponse();
+						if (ret == 0)
+						{
+							if (!client->isResponseEmpty())
+								std::cout << GREEN << SERV << NONE << " Response sent (length " << client->getSent() << ")\n";
+							FD_CLR(client->getSocket().fd, &_write_fds_bak);
+						}
 					}
 					client->checkTimeout();
 					if (!client->isOpen())
