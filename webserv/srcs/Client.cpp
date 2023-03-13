@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/07 15:45:46 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/13 11:36:32 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ std::string	Client::getResolved(void)
 
 void	Client::sendResponse(std::string response)
 {
-	write(_socket.fd, response.c_str(), response.length());
+	send(_socket.fd, response.c_str(), response.length(), 0);
 	std::cout << GREEN << SERV << NONE << " Response sent\n";
 }
 
