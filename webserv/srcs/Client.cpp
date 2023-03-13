@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/13 16:23:04 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/13 17:04:13 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	Client::getRequest(void)
 	while (!readingDone)
 	{
 		rd = recv(_socket.fd, buffer, bufferSize, 0);
+		if (request.size() > _server->getVirtualHosts().begin()->second.client_max_body_size)
+			return (-2);
 		if (rd == 0)
 			readingDone = true;
 		else if (rd > 0)

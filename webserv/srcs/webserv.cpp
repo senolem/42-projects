@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/13 16:28:09 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/13 17:05:44 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,11 @@ void	webserv::startServer(void)
 					Client	*client = *iter3;
 					if (client->isOpen() && FD_ISSET(client->getSocket().fd, &_read_fds))
 					{
-						if (client->getRequest())
+						ret = client->getRequest();
+						if (ret == 1)
 							FD_SET(client->getSocket().fd, &_write_fds_bak);
+						else if (ret == -2)
+							(void)ret;//send payload too large
 					}
 					if (client->isOpen() && FD_ISSET(client->getSocket().fd, &_write_fds))
 					{
