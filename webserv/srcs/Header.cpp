@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 11:30:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/09 17:45:18 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/13 11:04:19 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ t_request_header	Header::parseRequest(std::string buffer)
 		header.path = getPath(vectIter, vect.at(1));
 	else
 		header.path = getPath(vhosts.begin(), vect.at(1));
-	std::cout << "path = " << header.path << "\n";
 	i = buffer.find("\r\n\r\n");
 	if (i != std::string::npos && buffer.length() > i + 4)
 	{
@@ -252,6 +251,14 @@ std::string	Header::getPath(vectorIterator vectIter, std::string path)
 	std::string					result;
 	size_t						i = 0;
 
+	i = path.find_last_of('.');
+	if (i != std::string::npos)
+	{
+		if (path.substr(i, path.length() - i) == "html")
+			_currentRoot.clear();
+	}
+	else
+		_currentRoot.clear();
 	if (path != "/")
 		vect = split_string(path, "/");
 	else
@@ -260,16 +267,8 @@ std::string	Header::getPath(vectorIterator vectIter, std::string path)
 		search = vect.at(0).substr(0, vect.at(0).length() - 1);
 	else
 		search = vect.at(0);
-	std::cout << "search = " << search << std::endl;
-	while (mapIter != mapIter2)
-	{
-		if (mapIter->second.type == LOCATION && mapIter->second.match == "/" + _currentRoot)
-		{
-			
-		}
-		++mapIter;
-	}
-	mapIter = vectIter->begin();
+	if (vect.size() == 1 && !_currentRoot.empty() && path.find("favicon.ico") == std::string::npos)
+		search = _currentRoot;
 	while (mapIter != mapIter2)
 	{
 		if (mapIter->second.type == LOCATION && mapIter->second.match == "/" + search)
@@ -285,7 +284,6 @@ std::string	Header::getPath(vectorIterator vectIter, std::string path)
 					if (access((result + "/" + mapIter->second.index[j]).c_str(), R_OK) == 0)
 					{
 						_currentRoot = search;
-						_currentLocationBlock = mapIter;
 						return (result + "/" + mapIter->second.index[j]);
 					}
 				}
@@ -300,8 +298,7 @@ std::string	Header::getPath(vectorIterator vectIter, std::string path)
 		{
 			if (access((vectIter->begin()->second.root + path + "/" + vectIter->begin()->second.index[j]).c_str(), R_OK) == 0)
 			{
-				_currentRoot.clear();
-				_currentLocationBlock = vectIter->begin();
+				_currentRoot = search;
 				return (vectIter->begin()->second.root + path + "/" + vectIter->begin()->second.index[j]);
 			}
 		}
