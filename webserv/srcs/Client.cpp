@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/14 11:11:18 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/14 11:30:45 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,19 +82,26 @@ int	Client::getRequest(void)
 	bool		readingDone = false;
 	int			rd = 0;
 	std::string	request;
+	bool		check_size = false;
+	size_t		body_size = 0;
+	size_t		client_max_body_size = _server->getVirtualHosts().begin()->second.client_max_body_size;
 
 	memset(&buffer, 0, bufferSize);
 	resetTimeout();
 	while (!readingDone)
 	{
 		rd = recv(_socket.fd, buffer, bufferSize, 0);
-		if (request.size() > _server->getVirtualHosts().begin()->second.client_max_body_size)
+		if (check_size)
+			body_size += rd;
+		if (client_max_body_size != 0 && body_size > client_max_body_size)
 			return (-2);
 		if (rd == 0)
 			readingDone = true;
 		else if (rd > 0)
 		{
 			request.append(buffer, rd);
+			if (request.find("\r\n\r\n") != std::string::npos)
+				check_size = true;
 			if (rd < bufferSize)
 				readingDone = true;
 		}

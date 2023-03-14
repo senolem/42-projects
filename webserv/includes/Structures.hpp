@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/03/14 10:38:58 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/14 11:22:56 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_route
 	std::string						listen;
 	std::string						server_name;
 	std::string						access_log;
-	size_t							client_max_body_size;
+	ssize_t							client_max_body_size;
 	std::map<int, std::string>		error_page;
 	std::string						root;
 	std::vector<std::string>		index;
@@ -57,7 +57,7 @@ typedef struct s_route
 	bool							upload;
 	std::string						upload_path;
 	std::string						match;
-	s_route(void) : type(false), access_log(""), client_max_body_size(0), root(""), methods_allowed(), autoindex(false), upload(false), upload_path("")
+	s_route(void) : type(false), access_log(""), client_max_body_size(-1), root(""), methods_allowed(), autoindex(false), upload(false), upload_path("")
 	{
 		
 	}

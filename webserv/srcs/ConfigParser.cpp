@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:24:48 by melones           #+#    #+#             */
-/*   Updated: 2023/03/14 10:41:56 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/14 11:23:52 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -479,7 +479,7 @@ void	ConfigParser::fillDefault(t_route *route)
 		route->server_name = "default_server";
 	if (route->access_log.empty())
 		route->access_log = "logs/access.log";
-	if (route->client_max_body_size == 0)
+	if (route->client_max_body_size == -1)
 		route->client_max_body_size = 1000000;
 	route->error_page.insert(std::pair<int, std::string>(400, "default_error/400.html"));
 	route->error_page.insert(std::pair<int, std::string>(401, "default_error/401.html"));
