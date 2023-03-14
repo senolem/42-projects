@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/03/09 14:41:24 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/14 10:42:34 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	printCgiMap(const std::map<std::string, t_cgi> map)
 	while (iter != iter2)
 	{
 		std::cout << "	- [" << iter->second.filetype << "] path : " << iter->second.path << std::endl;
-		std::cout << "	- [" << iter->second.filetype << "] methods_allowed : " << concatMethods(iter->second.methods_allowed) << std::endl;
 		++iter;
 	}
 }

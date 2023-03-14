@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:24:48 by melones           #+#    #+#             */
-/*   Updated: 2023/03/13 16:33:28 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/14 10:41:56 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,7 +342,7 @@ void	ConfigParser::initFieldList(void)
 	_field_list["index"] = (t_field_traits){1, 0, true, true};
 	_field_list["methods_allowed"] = (t_field_traits){1, 3, true, true};
 	_field_list["autoindex"] = (t_field_traits){1, 1, true, true};
-	_field_list["cgi_pass"] = (t_field_traits){1, 5, true, true};
+	_field_list["cgi_pass"] = (t_field_traits){2, 2, true, true};
 	_field_list["upload"] = (t_field_traits){1, 1, true, true};
 	_field_list["upload_path"] = (t_field_traits){1, 1, true, true};
 }
@@ -437,26 +437,7 @@ void	ConfigParser::insertField(std::vector<char *> config, t_route *route)
 			route->autoindex = false;
 	}
 	else if (field == "cgi_pass")
-	{
-		t_methods						methods;
-		std::vector<char *>::iterator	iter3 = config.begin() + 2;
-		
-		methods.get = false;
-		methods.post = false;
-		methods.del = false;
-		while (iter3 != iter2)
-		{
-			std::string	tmp(*iter3);
-			if (tmp == "GET")
-				methods.get = true;
-			else if (tmp == "POST")
-				methods.post = true;
-			else if (tmp == "DELETE")
-				methods.del = true;
-			++iter3;
-		}
-		route->cgi_pass.insert(std::pair<std::string, t_cgi>(*iter, (t_cgi){*iter, *(iter + 1), methods}));
-	}
+		route->cgi_pass.insert(std::pair<std::string, t_cgi>(*iter, (t_cgi){*iter, *(iter + 1)}));
 	else if (field == "upload")
 	{
 		std::string	tmp(*iter);
