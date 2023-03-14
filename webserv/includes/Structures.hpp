@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/03/14 11:22:56 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/14 15:28:56 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,16 @@ typedef struct s_route
 
 typedef struct s_request_header
 {
-	std::string								method;
-	std::string								path;
-	std::string								version;
-	std::string								host;
-	std::multimap<float, std::string>		accept;
-	std::map<std::string, std::string>		cookie;
-	std::string								body;
-	std::vector<std::string>				parsed_body;
-	int										status;
+	std::string										method;
+	std::string										path;
+	std::string										version;
+	std::string										host;
+	std::multimap<float, std::string>				accept;
+	std::map<std::string, std::string>				cookie;
+	std::string										body;
+	std::vector<std::string>						parsed_body;
+	std::multimap<std::string, t_route>::iterator	matched_subserver;
+	int												status;
 	s_request_header(void) : method(""), path (""), version("HTTP/1.1"), host(""), status(0)
 	{
 		

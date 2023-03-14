@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/14 13:27:57 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/14 15:27:11 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ t_request_header	RequestParser::parseRequest(std::string buffer)
 	std::vector<std::string>							bufferVect;
 	std::vector<std::string>							vect;
 	vectorIterator										vectIter;
-	mapIterator											mapIterator;
 	std::vector<std::multimap<std::string, t_route> >	&vhosts = _webserv.getVirtualHosts();
 	size_t												i = 0;
 
@@ -71,17 +70,17 @@ t_request_header	RequestParser::parseRequest(std::string buffer)
 		return (header);
 	}
 	vectIter = _webserv.getHost(header.host);
-	mapIterator = vectIter->begin();
+	header.matched_subserver = vectIter->begin();
 	if (vectIter != vhosts.end())
-		header.path = getPath(vectIter, vect.at(1), &mapIterator);
+		header.path = getPath(vectIter, vect.at(1), &header.matched_subserver);
 	else
 	{
 		vectIter = vhosts.begin();
-		header.path = getPath(vhosts.begin(), vect.at(1), &mapIterator);
+		header.path = getPath(vhosts.begin(), vect.at(1), &header.matched_subserver);
 	}
-	if ((header.method == "GET" && mapIterator->second.methods_allowed.get == false) ||\
-		(header.method == "POST" && mapIterator->second.methods_allowed.post == false) ||\
-		(header.method == "DELETE" && mapIterator->second.methods_allowed.del == false))
+	if ((header.method == "GET" && header.matched_subserver->second.methods_allowed.get == false) ||\
+		(header.method == "POST" && header.matched_subserver->second.methods_allowed.post == false) ||\
+		(header.method == "DELETE" && header.matched_subserver->second.methods_allowed.del == false))
 	{
 		header.status = 405;
 		return (header);
@@ -342,9 +341,12 @@ void	RequestParser::setContentType(t_request_header &request, t_response_header 
 		request.status = 406;
 	else
 	{
-		cgiIter = _vhosts.begin()->second.cgi_pass.find("." + filetype);
-		if (cgiIter != _vhosts.begin()->second.cgi_pass.end())
+		cgiIter = request.matched_subserver->second.cgi_pass.find("." + filetype);
+		if (cgiIter != request.matched_subserver->second.cgi_pass.end())
+		{
+			std::cout << "Found CGI for type " << filetype << "\n";
 			executeCgi(cgiIter->second.path, request.parsed_body);
+		}
 	}
 }
 
@@ -407,13 +409,13 @@ int	RequestParser::executeCgi(std::string path, std::vector<std::string> env_)
 
 	if (pipe(fd) == -1)
 	{
-		std::cout << "[SERVER][ERROR]" << " Failed to create pipe (" << errno << ")\n";
+		std::cout << SERVER << ERROR << " Failed to create pipe (" << errno << ")\n";
 		return (1);
 	}
 	pid = fork();
 	if (pid == -1)
 	{
-		std::cout << "[SERVER][ERROR]" << " Failed to fork (" << errno << ")\n";
+		std::cout << SERVER << ERROR << " Failed to fork (" << errno << ")\n";
 		return (1);
 	}
 	if (pid == 0)
@@ -430,7 +432,7 @@ int	RequestParser::executeCgi(std::string path, std::vector<std::string> env_)
 		char	*argv[2] = {strdup(path.c_str()), 0};
 		if (execve(path.c_str(), argv, env) == -1)
 		{
-			std::cout << "[SERVER][ERROR]" << " Failed to execute CGI (" << errno << ")\n";
+			std::cout << SERVER << ERROR << " Failed to execute CGI (" << errno << ")\n";
 			return (1);
 		}
 	}
@@ -440,7 +442,7 @@ int	RequestParser::executeCgi(std::string path, std::vector<std::string> env_)
 		status = waitpid(pid, &status, 0);
 		if (status == -1)
 		{
-			std::cout << "[SERVER][ERROR]" << " Failed to wait for child process (" << errno << ")\n";
+			std::cout << SERVER << ERROR << " Failed to wait for child process (" << errno << ")\n";
 			return (1);
 		}
 		else if (WIFEXITED(status))
