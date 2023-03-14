@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:16:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/06 14:17:50 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/14 12:03:20 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char **argv)
 				if (vhosts)
 				{
 					webserv	webserv(vhosts);
+					//webserv.printConfig();
 					webserv.startServer();
 				}
 			}
@@ -37,6 +38,7 @@ int	main(int argc, char **argv)
 				if (vhosts)
 				{
 					webserv	webserv(vhosts);
+					//webserv.printConfig();
 					webserv.startServer();
 				}
 			}

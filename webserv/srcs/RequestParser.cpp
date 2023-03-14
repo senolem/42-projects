@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/14 11:34:45 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/14 13:27:57 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ t_request_header	RequestParser::parseRequest(std::string buffer)
 	std::vector<std::string>							bufferVect;
 	std::vector<std::string>							vect;
 	vectorIterator										vectIter;
+	mapIterator											mapIterator;
 	std::vector<std::multimap<std::string, t_route> >	&vhosts = _webserv.getVirtualHosts();
 	size_t												i = 0;
 
@@ -70,10 +71,21 @@ t_request_header	RequestParser::parseRequest(std::string buffer)
 		return (header);
 	}
 	vectIter = _webserv.getHost(header.host);
+	mapIterator = vectIter->begin();
 	if (vectIter != vhosts.end())
-		header.path = getPath(vectIter, vect.at(1));
+		header.path = getPath(vectIter, vect.at(1), &mapIterator);
 	else
-		header.path = getPath(vhosts.begin(), vect.at(1));
+	{
+		vectIter = vhosts.begin();
+		header.path = getPath(vhosts.begin(), vect.at(1), &mapIterator);
+	}
+	if ((header.method == "GET" && mapIterator->second.methods_allowed.get == false) ||\
+		(header.method == "POST" && mapIterator->second.methods_allowed.post == false) ||\
+		(header.method == "DELETE" && mapIterator->second.methods_allowed.del == false))
+	{
+		header.status = 405;
+		return (header);
+	}
 	i = buffer.find("\r\n\r\n");
 	if (i != std::string::npos && buffer.length() > i + 4)
 	{
@@ -242,7 +254,7 @@ std::string	RequestParser::getResponse(t_request_header request)
 	return (responseStream.str());
 }
 
-std::string	RequestParser::getPath(vectorIterator vectIter, std::string path)
+std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, mapIterator *subserver)
 {
 	std::vector<std::string>	vect;
 	std::string					search;
@@ -267,13 +279,14 @@ std::string	RequestParser::getPath(vectorIterator vectIter, std::string path)
 		search = vect.at(0).substr(0, vect.at(0).length() - 1);
 	else
 		search = vect.at(0);
-	if (vect.size() == 1 && !_currentRoot.empty() && path.find("favicon.ico") == std::string::npos)
+	if (vect.size() == 1 && !_currentRoot.empty() && path != "/favicon.ico")
 		search = _currentRoot;
 	while (mapIter != mapIter2)
 	{
 		if (mapIter->second.type == LOCATION && mapIter->second.match == "/" + search)
 		{
 			result = mapIter->second.root + path;
+			*subserver = mapIter;
 			i = result.find("/" + search, 0);
 			if (i != std::string::npos)
 				result.erase(i, search.length() + 1);

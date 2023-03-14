@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/14 11:08:07 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/14 13:21:45 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ class RequestParser
 		std::string							parseHostHeader(const std::string &header);
 		std::vector<std::string>			parseBodyForm(const std::string &body);
 		std::string							getResponse(t_request_header request);
-		std::string							getPath(vectorIterator vectIter, std::string path);
+		std::string							getPath(vectorIterator vectIter, std::string path, mapIterator *subserver);
 		void								setContentType(t_request_header &request, t_response_header *header, std::string path);
 		int									isAccepted(t_request_header header, const std::string &type);
 		std::string							getHeader(std::vector<std::string> header, std::string field);
