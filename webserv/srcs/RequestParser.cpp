@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/14 11:06:57 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/14 11:34:45 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -465,7 +465,7 @@ void	RequestParser::initErrors(void)
 	_errorsMap[410] = "410 Gone";
 	_errorsMap[411] = "401 Length Required";
 	_errorsMap[412] = "412 Precondition Failed";
-	_errorsMap[413] = "413 Content Too Large";
+	_errorsMap[413] = "413 Payload Too Large";
 	_errorsMap[414] = "414 URI Too Long";
 	_errorsMap[415] = "415 Unsupported Media Type";
 	_errorsMap[416] = "416 Range Not Satisfiable";
