@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Header.cpp                                         :+:      :+:    :+:   */
+/*   RequestParser.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/03 11:30:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/13 16:24:55 by albaur           ###   ########.fr       */
+/*   Created: 2023/03/14 11:05:56 by albaur            #+#    #+#             */
+/*   Updated: 2023/03/14 11:06:57 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Header.hpp"
+#include "RequestParser.hpp"
 
-Header::Header(webserv &webserv_, std::multimap<std::string, t_route> &vhosts) : _webserv(webserv_), _vhosts(vhosts)
+RequestParser::RequestParser(webserv &webserv_, std::multimap<std::string, t_route> &vhosts) : _webserv(webserv_), _vhosts(vhosts)
 {
 	initTypes();
 	initErrors();
 }
 
-Header::Header(const Header &src) : _webserv(src._webserv), _vhosts(src._vhosts), _typesMap(src._typesMap), _errorsMap(src._errorsMap)
+RequestParser::RequestParser(const RequestParser &src) : _webserv(src._webserv), _vhosts(src._vhosts), _typesMap(src._typesMap), _errorsMap(src._errorsMap)
 {
 
 }
 
-Header::~Header(void)
+RequestParser::~RequestParser(void)
 {
 
 }
 
-Header	&Header::operator=(const Header &src)
+RequestParser	&RequestParser::operator=(const RequestParser &src)
 {
 	if (this != &src)
 	{
@@ -40,7 +40,7 @@ Header	&Header::operator=(const Header &src)
 	return (*this);
 }
 
-t_request_header	Header::parseRequest(std::string buffer)
+t_request_header	RequestParser::parseRequest(std::string buffer)
 {
 	t_request_header									header;
 	std::vector<std::string>							bufferVect;
@@ -98,7 +98,7 @@ t_request_header	Header::parseRequest(std::string buffer)
 	return (header);
 }
 
-std::string	Header::parseHostHeader(const std::string &header)
+std::string	RequestParser::parseHostHeader(const std::string &header)
 {
 	std::vector<std::string>	vect;
 	std::string					host;
@@ -111,7 +111,7 @@ std::string	Header::parseHostHeader(const std::string &header)
 	return (vect.at(1));
 }
 
-std::map<std::string, std::string>	Header::parseCookieHeader(const std::string &header)
+std::map<std::string, std::string>	RequestParser::parseCookieHeader(const std::string &header)
 {
 	std::map<std::string, std::string>	cookie_header;
 	std::vector<std::string>			vect;
@@ -131,7 +131,7 @@ std::map<std::string, std::string>	Header::parseCookieHeader(const std::string &
 	return (cookie_header);
 }
 
-std::multimap<float, std::string>	Header::parseAcceptHeader(const std::string &header)
+std::multimap<float, std::string>	RequestParser::parseAcceptHeader(const std::string &header)
 {
 	std::multimap<float, std::string>	accept_header;
 	std::vector<std::string>			split;
@@ -159,7 +159,7 @@ std::multimap<float, std::string>	Header::parseAcceptHeader(const std::string &h
 	return (accept_header);
 }
 
-std::vector<std::string>	Header::parseBodyForm(const std::string &body)
+std::vector<std::string>	RequestParser::parseBodyForm(const std::string &body)
 {
 	std::vector<std::string>			pairs;
 	std::vector<std::string>			split = split_string(body, "&");
@@ -177,7 +177,7 @@ std::vector<std::string>	Header::parseBodyForm(const std::string &body)
 	return (pairs);
 }
 
-std::string	Header::getResponse(t_request_header request)
+std::string	RequestParser::getResponse(t_request_header request)
 {
 	std::stringstream	fileStream;
 	std::stringstream	responseStream;
@@ -242,7 +242,7 @@ std::string	Header::getResponse(t_request_header request)
 	return (responseStream.str());
 }
 
-std::string	Header::getPath(vectorIterator vectIter, std::string path)
+std::string	RequestParser::getPath(vectorIterator vectIter, std::string path)
 {
 	std::vector<std::string>	vect;
 	std::string					search;
@@ -306,7 +306,7 @@ std::string	Header::getPath(vectorIterator vectIter, std::string path)
 	return (vectIter->begin()->second.root + path);
 }
 
-void	Header::setContentType(t_request_header &request, t_response_header *header, std::string path)
+void	RequestParser::setContentType(t_request_header &request, t_response_header *header, std::string path)
 {
 	// Technically, this function should rather determine which content type
 	// should be returned if we'd like to manage serving multiple versions of a given
@@ -335,7 +335,7 @@ void	Header::setContentType(t_request_header &request, t_response_header *header
 	}
 }
 
-int	Header::isAccepted(t_request_header header, const std::string &type)
+int	RequestParser::isAccepted(t_request_header header, const std::string &type)
 {
 	std::map<float, std::string>::const_reverse_iterator	mapIter = header.accept.rbegin();
 	std::map<float, std::string>::const_reverse_iterator	mapIter2 = header.accept.rend();
@@ -361,7 +361,7 @@ int	Header::isAccepted(t_request_header header, const std::string &type)
 	return (0);
 }
 
-std::string	Header::getHeader(std::vector<std::string> header, std::string field)
+std::string	RequestParser::getHeader(std::vector<std::string> header, std::string field)
 {
 	size_t								i = 0;
 	std::vector<std::string>::iterator	iter = header.begin();
@@ -383,7 +383,7 @@ std::string	Header::getHeader(std::vector<std::string> header, std::string field
 	return (ret);
 }
 
-int	Header::executeCgi(std::string path, std::vector<std::string> env_)
+int	RequestParser::executeCgi(std::string path, std::vector<std::string> env_)
 {
 	int		fd[2];
 	pid_t	status = 0;
@@ -452,7 +452,7 @@ int	Header::executeCgi(std::string path, std::vector<std::string> env_)
 	return (0);
 }
 
-void	Header::initErrors(void)
+void	RequestParser::initErrors(void)
 {
 	_errorsMap[400] = "400 Bad Request";
 	_errorsMap[401] = "401 Unauthorized";
@@ -484,7 +484,7 @@ void	Header::initErrors(void)
 
 }
 
-void	Header::initTypes(void)
+void	RequestParser::initTypes(void)
 {
 	_typesMap["323"] = "text/h323";
     _typesMap["3g2"] = "video/3gpp2";

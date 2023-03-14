@@ -6,13 +6,13 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/13 17:04:13 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/14 11:11:18 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Client.hpp"
 
-Client::Client(Server *server, Header *header) : _server(server), _socket(), _request(), _host(), _port(), _resolved(), _request_time(0), _header(header), _open(false)
+Client::Client(Server *server, RequestParser *request_parser) : _server(server), _socket(), _request(), _host(), _port(), _resolved(), _request_time(0), _request_parser(request_parser), _open(false)
 {
 	int	flags = 0;
 	int	addrlen = sizeof(_socket.sockaddr_);
@@ -50,7 +50,7 @@ Client::Client(Server *server, Header *header) : _server(server), _socket(), _re
 	std::cout << GREEN << SERV << NONE << " Connection successfully established to " << _resolved << "\n";
 }
 
-Client::Client(const Client &src) : _server(src._server), _socket(src._socket), _request(src._request), _host(src._host), _port(src._port), _resolved(src._resolved), _request_time(src._request_time), _header(src._header), _open(src._open)
+Client::Client(const Client &src) : _server(src._server), _socket(src._socket), _request(src._request), _host(src._host), _port(src._port), _resolved(src._resolved), _request_time(src._request_time), _request_parser(src._request_parser), _open(src._open)
 {
 	*this = src;
 }
@@ -103,7 +103,7 @@ int	Client::getRequest(void)
 	{
 		std::cout << GREEN << SERV << NONE << " Request received (length " << request.length() << ") :\n";
 		std::cout << request << "\n";
-		_request = _header->parseRequest(request);
+		_request = _request_parser->parseRequest(request);
 	}
 	else
 		memset(&_request, 0, sizeof(t_request_header));

@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Header.hpp                                         :+:      :+:    :+:   */
+/*   RequestParser.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/03 11:26:20 by melones           #+#    #+#             */
-/*   Updated: 2023/03/09 13:53:38 by albaur           ###   ########.fr       */
+/*   Created: 2023/03/14 11:05:25 by albaur            #+#    #+#             */
+/*   Updated: 2023/03/14 11:08:07 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HEADER_HPP
-# define HEADER_HPP
+#ifndef REQUESTPARSER_HPP
+# define REQUESTPARSER_HPP
 # include "webserv.hpp"
 
 class webserv;
-class Header
+class RequestParser
 {
 	public:
 		typedef std::map<std::string, t_route>::iterator					mapIterator;
@@ -30,10 +30,10 @@ class Header
 		mapIterator								_currentLocationBlock;
 		
 	public:
-		Header(webserv &webserv_, std::multimap<std::string, t_route> &vhosts);
-		Header(const Header &src);
-		~Header(void);
-		Header	&operator=(const Header &src);
+		RequestParser(webserv &webserv_, std::multimap<std::string, t_route> &vhosts);
+		RequestParser(const RequestParser &src);
+		~RequestParser(void);
+		RequestParser	&operator=(const RequestParser &src);
 		
 		t_request_header					parseRequest(std::string buffer);
 		std::multimap<float, std::string>	parseAcceptHeader(const std::string &header);

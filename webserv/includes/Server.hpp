@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:59:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/13 17:01:35 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/14 11:07:25 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define SERVER_HPP
 # include "webserv.hpp"
 # include "Structures.hpp"
-# include "Header.hpp"
+# include "RequestParser.hpp"
 # include "Client.hpp"
 
 class webserv;
-class Header;
+class RequestParser;
 class Client;
 class Server
 {
@@ -27,7 +27,7 @@ class Server
 		std::multimap<std::string, t_route>	&_vhosts;
 		size_t								_nb_vhost;
 		t_socket							_socket;
-		Header								*_header;
+		RequestParser						*_request_parser;
 		std::vector<Client*>				_clients;
 
 	public:
