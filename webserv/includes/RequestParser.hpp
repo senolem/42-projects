@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/14 13:21:45 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/14 15:50:37 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ class RequestParser
 		std::string							getResponse(t_request_header request);
 		std::string							getPath(vectorIterator vectIter, std::string path, mapIterator *subserver);
 		void								setContentType(t_request_header &request, t_response_header *header, std::string path);
+		void								setStatusErrorPage(t_response_header *header, const t_request_header &request);
 		int									isAccepted(t_request_header header, const std::string &type);
 		std::string							getHeader(std::vector<std::string> header, std::string field);
 		int									executeCgi(std::string path, std::vector<std::string> env);

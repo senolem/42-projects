@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/14 15:27:11 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/14 16:43:46 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,43 +194,11 @@ std::string	RequestParser::getResponse(t_request_header request)
 	std::stringstream	responseStream;
 	t_response_header	header;
 
+	setContentType(request, &header, request.path);
 	if (request.status != 0)
-	{
-		if (request.method == "GET" || (request.status >= 400 && request.status <= 511))
-		{
-			header.content_type = "text/html";
-			std::map<int, std::string>::iterator	errorIter;
-			errorIter = _errorsMap.find(request.status);
-			if (errorIter != _errorsMap.end())
-				header.status_code = errorIter->second;
-			else
-				header.status_code = "500 Internal Server Error";
-			header.content_length = 0;
-			std::map<int, std::string>::iterator	iter;
-			iter = _vhosts.begin()->second.error_page.find(request.status);
-			if (iter != _vhosts.begin()->second.error_page.end())
-			{
-				if (access(iter->second.c_str(), R_OK) == 0)
-				{
-					std::ifstream	file(iter->second.c_str(), std::ios::binary);
-					fileStream << file.rdbuf();
-					header.content = fileStream.str();
-					header.content_length = header.content.size();
-				}
-			}
-		}
-		else if (request.method == "POST")
-		{
-
-		}
-		else if (request.method == "DELETE")
-		{
-
-		}
-	}
+		setStatusErrorPage(&header, request);
 	else
 	{
-		setContentType(request, &header, request.path);
 		if (request.method == "GET")
 		{
 			std::ifstream	file(request.path.c_str());
@@ -241,16 +209,41 @@ std::string	RequestParser::getResponse(t_request_header request)
 		}
 		else if (request.method == "POST")
 		{
-			
+
 		}
 		else if (request.method == "DELETE")
 		{
-			
+
 		}
 	}
 	responseStream << header.version << " " << header.status_code << "\r\n" << "Content-Type: " << header.content_type\
 	<< "\r\n" << "Content-Length: " << header.content_length << "\r\n" << "Transfer-Encoding: identity \r\n" << "\r\n" << header.content;
 	return (responseStream.str());
+}
+
+void	RequestParser::setStatusErrorPage(t_response_header *header, const t_request_header &request)
+{
+	std::stringstream	fileStream;
+	header->content_type = "text/html";
+	std::map<int, std::string>::iterator	errorIter;
+	errorIter = _errorsMap.find(request.status);
+	if (errorIter != _errorsMap.end())
+		header->status_code = errorIter->second;
+	else
+		header->status_code = "500 Internal Server Error";
+	header->content_length = 0;
+	std::map<int, std::string>::iterator	iter;
+	iter = _vhosts.begin()->second.error_page.find(request.status);
+	if (iter != _vhosts.begin()->second.error_page.end())
+	{
+		if (access(iter->second.c_str(), R_OK) == 0)
+		{
+			std::ifstream	file(iter->second.c_str(), std::ios::binary);
+			fileStream << file.rdbuf();
+			header->content = fileStream.str();
+			header->content_length = header->content.size();
+		}
+	}
 }
 
 std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, mapIterator *subserver)
@@ -344,7 +337,13 @@ void	RequestParser::setContentType(t_request_header &request, t_response_header 
 		cgiIter = request.matched_subserver->second.cgi_pass.find("." + filetype);
 		if (cgiIter != request.matched_subserver->second.cgi_pass.end())
 		{
-			std::cout << "Found CGI for type " << filetype << "\n";
+			std::cout << GREEN << SERV << NONE << " Found CGI for type " << filetype << " (" << cgiIter->second.path << "), executing...\n";
+			if (access(cgiIter->second.path.c_str(), X_OK))
+			{
+				std::cout << RED << ERROR << GREEN << SERV << NONE << " CGI at path " << cgiIter->second.path << " does not exists or has invalid execution permissions.\n";
+				request.status = 502;
+				return ;
+			}
 			executeCgi(cgiIter->second.path, request.parsed_body);
 		}
 	}
@@ -409,13 +408,13 @@ int	RequestParser::executeCgi(std::string path, std::vector<std::string> env_)
 
 	if (pipe(fd) == -1)
 	{
-		std::cout << SERVER << ERROR << " Failed to create pipe (" << errno << ")\n";
+		std::cout << GREEN << SERV << RED << ERROR << NONE << " Failed to create pipe (" << errno << ")\n";
 		return (1);
 	}
 	pid = fork();
 	if (pid == -1)
 	{
-		std::cout << SERVER << ERROR << " Failed to fork (" << errno << ")\n";
+		std::cout << GREEN << SERV << RED << ERROR << NONE << " Failed to fork (" << errno << ")\n";
 		return (1);
 	}
 	if (pid == 0)
@@ -432,7 +431,7 @@ int	RequestParser::executeCgi(std::string path, std::vector<std::string> env_)
 		char	*argv[2] = {strdup(path.c_str()), 0};
 		if (execve(path.c_str(), argv, env) == -1)
 		{
-			std::cout << SERVER << ERROR << " Failed to execute CGI (" << errno << ")\n";
+			std::cout << GREEN << SERV << RED << ERROR << NONE << " Failed to execute CGI (" << errno << ")\n";
 			return (1);
 		}
 	}
@@ -442,7 +441,7 @@ int	RequestParser::executeCgi(std::string path, std::vector<std::string> env_)
 		status = waitpid(pid, &status, 0);
 		if (status == -1)
 		{
-			std::cout << SERVER << ERROR << " Failed to wait for child process (" << errno << ")\n";
+			std::cout << GREEN << SERV << RED << ERROR << NONE << " Failed to wait for child process (" << errno << ")\n";
 			return (1);
 		}
 		else if (WIFEXITED(status))
