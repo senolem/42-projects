@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/03/14 10:42:34 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/15 19:46:46 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,4 +164,28 @@ std::string trim(const std::string& str, const std::string& totrim)
 	while ((pos = result.find_first_of(totrim)) != std::string::npos)
 		result.erase(pos, 1);
 	return (result);
+}
+
+char	**map_split(std::map<std::string, std::string> string_map)
+{
+	size_t											i = 0;
+	char											**tmp;
+	std::map<std::string, std::string>::iterator	iter = string_map.begin();
+	std::map<std::string, std::string>::iterator	iter2 = string_map.end();
+
+	tmp = new char*[string_map.size() + 1];
+	if (!tmp)
+		return (NULL);
+	while (iter != iter2)
+	{
+		std::string	tmp2(iter->first + "=" + iter->second);
+		tmp[i] = new char[tmp2.size() + 1];
+		if (!tmp[i])
+			return (NULL);
+		std::strcpy(tmp[i], tmp2.c_str());
+		++i;
+		++iter;
+	}
+	tmp[i] = NULL;
+	return (tmp);
 }

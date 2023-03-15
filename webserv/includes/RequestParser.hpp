@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RequestParser.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@42.fr>                      +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/15 15:12:50 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/15 18:31:18 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ class RequestParser
 		std::string							getHeader(std::vector<std::string> header, std::string field);
 		void								setContentType(t_request_header &request, t_response_header *header, std::string path);
 		void								setStatusErrorPage(t_response_header *header, const t_request_header &request);
+		void								handleGetResponse(t_request_header &request, t_response_header &response);
+		void								handlePostResponse(t_request_header &request, t_response_header &response);
+		void								handleDeleteResponse(t_request_header &request, t_response_header &response);
 		int									isAccepted(t_request_header header, const std::string &type);
 		void								initErrors(void);
 		void								initTypes(void);
