@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   RequestParser.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: albaur <albaur@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/14 15:50:37 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/15 15:12:50 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef REQUESTPARSER_HPP
 # define REQUESTPARSER_HPP
 # include "webserv.hpp"
+# include "CgiHandler.hpp"
 
 class webserv;
+class cgiHandler;
 class RequestParser
 {
 	public:
@@ -27,7 +29,7 @@ class RequestParser
 		std::map<std::string, std::string>		_typesMap;
 		std::map<int, std::string>				_errorsMap;
 		std::string								_currentRoot;
-		mapIterator								_currentLocationBlock;
+		std::string								_filetype;
 		
 	public:
 		RequestParser(webserv &webserv_, std::multimap<std::string, t_route> &vhosts);
@@ -42,11 +44,11 @@ class RequestParser
 		std::vector<std::string>			parseBodyForm(const std::string &body);
 		std::string							getResponse(t_request_header request);
 		std::string							getPath(vectorIterator vectIter, std::string path, mapIterator *subserver);
+		std::string							getFiletype(void);
+		std::string							getHeader(std::vector<std::string> header, std::string field);
 		void								setContentType(t_request_header &request, t_response_header *header, std::string path);
 		void								setStatusErrorPage(t_response_header *header, const t_request_header &request);
 		int									isAccepted(t_request_header header, const std::string &type);
-		std::string							getHeader(std::vector<std::string> header, std::string field);
-		int									executeCgi(std::string path, std::vector<std::string> env);
 		void								initErrors(void);
 		void								initTypes(void);
 };

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RequestParser.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: albaur <albaur@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/14 16:43:46 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/15 15:49:28 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,22 +190,40 @@ std::vector<std::string>	RequestParser::parseBodyForm(const std::string &body)
 
 std::string	RequestParser::getResponse(t_request_header request)
 {
-	std::stringstream	fileStream;
-	std::stringstream	responseStream;
-	t_response_header	header;
+	std::stringstream						fileStream;
+	std::stringstream						responseStream;
+	t_response_header						response;
+	std::map<std::string, t_cgi>::iterator	cgiIter;
 
-	setContentType(request, &header, request.path);
+	setContentType(request, &response, request.path);
 	if (request.status != 0)
-		setStatusErrorPage(&header, request);
+		setStatusErrorPage(&response, request);
 	else
 	{
 		if (request.method == "GET")
 		{
-			std::ifstream	file(request.path.c_str());
-			fileStream << file.rdbuf();
-			header.status_code = "200 OK";
-			header.content = fileStream.str();
-			header.content_length = header.content.size();
+			cgiIter = request.matched_subserver->second.cgi_pass.find("." + _filetype);
+			if (cgiIter != request.matched_subserver->second.cgi_pass.end())
+			{
+				std::cout << GREEN << SERV << NONE << " Found CGI for type " << _filetype << " (" << cgiIter->second.path << "), executing...\n";
+				if (access(cgiIter->second.path.c_str(), X_OK))
+				{
+					std::cout << RED << ERROR << GREEN << SERV << NONE << " CGI at path " << cgiIter->second.path << " does not exists or has invalid execution permissions.\n";
+					request.status = 502;
+				}
+				else
+				{
+					CgiHandler	cgi_handler(cgiIter->second.path, *this, request, response);
+				}
+			}
+			if (request.status == 0)
+			{
+				std::ifstream	file(request.path.c_str());
+				fileStream << file.rdbuf();
+				response.status_code = "200 OK";
+				response.content = fileStream.str();
+				response.content_length = response.content.size();
+			}
 		}
 		else if (request.method == "POST")
 		{
@@ -216,8 +234,10 @@ std::string	RequestParser::getResponse(t_request_header request)
 
 		}
 	}
-	responseStream << header.version << " " << header.status_code << "\r\n" << "Content-Type: " << header.content_type\
-	<< "\r\n" << "Content-Length: " << header.content_length << "\r\n" << "Transfer-Encoding: identity \r\n" << "\r\n" << header.content;
+	if (request.status != 0)
+		setStatusErrorPage(&response, request);
+	responseStream << response.version << " " << response.status_code << "\r\n" << "Content-Type: " << response.content_type\
+	<< "\r\n" << "Content-Length: " << response.content_length << "\r\n" << "Transfer-Encoding: identity \r\n" << "\r\n" << response.content;
 	return (responseStream.str());
 }
 
@@ -274,7 +294,7 @@ std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, ma
 	if (vect.size() == 1 && !_currentRoot.empty() && path != "/favicon.ico")
 		search = _currentRoot;
 	while (mapIter != mapIter2)
-	{
+	{getPath
 		if (mapIter->second.type == LOCATION && mapIter->second.match == "/" + search)
 		{
 			result = mapIter->second.root + path;
@@ -311,6 +331,11 @@ std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, ma
 	return (vectIter->begin()->second.root + path);
 }
 
+std::string	RequestParser::getFiletype(void)
+{
+	return (_filetype);
+}
+
 void	RequestParser::setContentType(t_request_header &request, t_response_header *header, std::string path)
 {
 	// Technically, this function should rather determine which content type
@@ -318,35 +343,18 @@ void	RequestParser::setContentType(t_request_header &request, t_response_header 
 	// URI, then we should be able to decide based on the weight "q=" parameter which
 	// content-type we should return. Instead, we simply check for matching type or not.
 	std::vector<std::string>						vect;
-	std::string										filetype;
 	std::map<std::string, std::string>::iterator	iter;
-	std::map<std::string, t_cgi>::iterator			cgiIter;
 
 	vect = split_string(path, ".");
 	if (!vect.empty())
-		filetype = vect.at(vect.size() - 1);
-	iter = _typesMap.find(filetype);
+		_filetype = vect.at(vect.size() - 1);
+	iter = _typesMap.find(_filetype);
 	if (iter != _typesMap.end())
 		header->content_type = iter->second;
 	else
 		header->content_type = "text/plain";
 	if (!isAccepted(request, header->content_type))
 		request.status = 406;
-	else
-	{
-		cgiIter = request.matched_subserver->second.cgi_pass.find("." + filetype);
-		if (cgiIter != request.matched_subserver->second.cgi_pass.end())
-		{
-			std::cout << GREEN << SERV << NONE << " Found CGI for type " << filetype << " (" << cgiIter->second.path << "), executing...\n";
-			if (access(cgiIter->second.path.c_str(), X_OK))
-			{
-				std::cout << RED << ERROR << GREEN << SERV << NONE << " CGI at path " << cgiIter->second.path << " does not exists or has invalid execution permissions.\n";
-				request.status = 502;
-				return ;
-			}
-			executeCgi(cgiIter->second.path, request.parsed_body);
-		}
-	}
 }
 
 int	RequestParser::isAccepted(t_request_header header, const std::string &type)
@@ -395,75 +403,6 @@ std::string	RequestParser::getHeader(std::vector<std::string> header, std::strin
 		++iter;
 	}
 	return (ret);
-}
-
-int	RequestParser::executeCgi(std::string path, std::vector<std::string> env_)
-{
-	int		fd[2];
-	pid_t	status = 0;
-	pid_t	pid = 0;
-	char	buffer[1024];
-    ssize_t	rd = 0;
-	char	**env = NULL;
-
-	if (pipe(fd) == -1)
-	{
-		std::cout << GREEN << SERV << RED << ERROR << NONE << " Failed to create pipe (" << errno << ")\n";
-		return (1);
-	}
-	pid = fork();
-	if (pid == -1)
-	{
-		std::cout << GREEN << SERV << RED << ERROR << NONE << " Failed to fork (" << errno << ")\n";
-		return (1);
-	}
-	if (pid == 0)
-	{
-		close(fd[0]);
-		dup2(fd[1], STDOUT_FILENO);
-		env = new char *[env_.size() + 1];
-		for (size_t i = 0; i < env_.size(); i++)
-		{
-			env[i] = new char[env_.at(i).size() + 1];
-			std::strcpy(env[i], env_[i].c_str());
-		}
-		env[env_.size()] = 0;
-		char	*argv[2] = {strdup(path.c_str()), 0};
-		if (execve(path.c_str(), argv, env) == -1)
-		{
-			std::cout << GREEN << SERV << RED << ERROR << NONE << " Failed to execute CGI (" << errno << ")\n";
-			return (1);
-		}
-	}
-	else
-	{
-		close(fd[1]);
-		status = waitpid(pid, &status, 0);
-		if (status == -1)
-		{
-			std::cout << GREEN << SERV << RED << ERROR << NONE << " Failed to wait for child process (" << errno << ")\n";
-			return (1);
-		}
-		else if (WIFEXITED(status))
-			return (0);
-		else if (WIFSIGNALED(status))
-			return (WTERMSIG(status));
-		while ((rd = read(fd[0], buffer, sizeof(buffer))) > 0)
-		{
-			std::cout.write(buffer, rd);
-		}
-		close(fd[0]);
-		if (env)
-		{
-			for (size_t i = 0; i < env_.size(); i++)
-			{
-				if (env[i])
-					delete[] env[i];
-			}
-			delete[] env;
-		}
-	}
-	return (0);
 }
 
 void	RequestParser::initErrors(void)

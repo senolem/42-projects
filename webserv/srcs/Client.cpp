@@ -112,8 +112,6 @@ int	Client::getRequest(void)
 		std::cout << request << "\n";
 		_request = _request_parser->parseRequest(request);
 	}
-	else
-		memset(&_request, 0, sizeof(t_request_header));
 	if (rd == 0 || !readingDone)
 	{
 		_open = false;
