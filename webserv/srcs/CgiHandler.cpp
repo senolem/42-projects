@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:42:02 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/15 20:22:23 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/15 20:24:39 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ CgiHandler::CgiHandler(std::string &cgi_path, RequestParser &request_parser, t_r
 	char	cwd[256];
 
 	getcwd(cwd, sizeof(cwd));
-	std::string	script_path = cwd;
-	script_path.append("/" + _request.path);
+	_script_path = cwd;
+	_script_path.append("/" + _request.path);
 	_env["REDIRECT_STATUS"] = "200";
 	_env["SERVER_PROTOCOL"] = _request.version;
 	_env["SERVER_PORT"] = _request.matched_subserver->second.listen;
@@ -28,7 +28,7 @@ CgiHandler::CgiHandler(std::string &cgi_path, RequestParser &request_parser, t_r
 	if (i != std::string::npos)
 		_env["PATH_INFO"] = _request.path.substr(i, _request.path.length());
 	if (_env.find("PATH_INFO") != _env.end())
-		_env["PATH_TRANSLATED"] = script_path;
+		_env["PATH_TRANSLATED"] = _script_path;
 	i = _request.path.find_last_of("." + _request_parser.getFiletype());
 	if (i != std::string::npos)
 		_env["SCRIPT_NAME"] = _request.path.substr(0, i);
@@ -98,10 +98,10 @@ std::string	CgiHandler::executeCgi(void)
 		char	**argv = new char*[3];
 
 		argv[0] = new char[_cgi_path.size() + 1];
-		argv[1] = new char[_env["PATH_TRANSLATED"].size() + 1];
+		argv[1] = new char[_script_path.size() + 1];
 		argv[2] = new char;
 		std::strcpy(argv[0], _cgi_path.c_str());
-		std::strcpy(argv[1], _env["PATH_TRANSLATED"].c_str());
+		std::strcpy(argv[1], _script_path.c_str());
 		argv[2] = 0;
 		dup2(fd_in, STDIN_FILENO);
 		dup2(fd_out, STDOUT_FILENO);

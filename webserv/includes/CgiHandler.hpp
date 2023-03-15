@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   CgiHandler.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@42.fr>                      +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:30:45 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/15 15:45:29 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/15 20:24:08 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ class CgiHandler
 	private:
 		std::map<std::string, std::string>	_env;
 		std::string							&_cgi_path;
+		std::string							_script_path;
 		RequestParser						&_request_parser;
 		t_request_header					&_request;
 		t_response_header					&_response;
