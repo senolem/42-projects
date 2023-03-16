@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:42:02 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/16 01:16:42 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/16 11:07:55 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,12 @@ std::string	CgiHandler::executeCgi(void)
 	}
 	else if (pid == 0)
 	{
-		char	**argv = new char*[3];
+		char	**argv = new char*[2];
 
-		argv[0] = new char[_cgi_path.size() + 1];
-		argv[1] = new char[_script_path.size() + 1];
-		argv[2] = new char;
-		std::strcpy(argv[0], _cgi_path.c_str());
-		std::strcpy(argv[1], _script_path.c_str());
-		argv[2] = 0;
+		argv[0] = new char[_script_path.size() + 1];
+		argv[1] = new char;
+		std::strcpy(argv[0], _script_path.c_str());
+		argv[1] = 0;
 		dup2(fd_in, STDIN_FILENO);
 		dup2(fd_out, STDOUT_FILENO);
 		execve(_cgi_path.c_str(), argv, env);

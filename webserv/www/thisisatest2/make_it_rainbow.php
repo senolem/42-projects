@@ -38,6 +38,7 @@
 			}
 			echo '<div class="rainbow-text">'.$result.'</div>';
 		}
+		include 'rainbow.php';
 	?>
 </body>
 </html>
