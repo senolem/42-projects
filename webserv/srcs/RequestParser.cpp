@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/16 01:14:53 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/16 01:17:09 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ t_request_header	RequestParser::parseRequest(std::string buffer)
 		if (vect.at(1).length() > i + 1)
 			header.query = vect.at(1).substr(i + 1, vect.at(1).length() - i + 1);
 		vect.at(1) = vect.at(1).substr(0, i);
-		std::cout << "query = " << header.query << " vect = " << vect.at(1) << std::endl;
 	}
 	if (vectIter != vhosts.end())
 		header.path = getPath(vectIter, vect.at(1), &header.matched_subserver);

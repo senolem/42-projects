@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:42:02 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/16 01:12:59 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/16 01:16:42 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,6 @@ CgiHandler::CgiHandler(std::string &cgi_path, RequestParser &request_parser, t_r
 	_env["QUERY_STRING"] = _request.query;
 	_env["CONTENT_LENGTH"] = _request.content_length;
 	_env["CONTENT_TYPE"] = _request.content_type;
-
-	std::cout << "ENV VAR : \n";
-	for (std::map<std::string, std::string>::iterator iter = _env.begin(); iter != _env.end(); iter++)
-	{
-		std::cout << iter->first << " = " << iter->second << "\n";
-	}
 }
 
 CgiHandler::CgiHandler(const CgiHandler &src) : _cgi_path(src._cgi_path), _request_parser(src._request_parser), _request(src._request), _response(src._response)
