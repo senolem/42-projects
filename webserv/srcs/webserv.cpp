@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/16 11:54:03 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/16 12:53:17 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,7 @@ void	webserv::startServer(void)
 		_write_fds = _write_fds_bak;
 		status = select(getMaxFd() + 1, &_read_fds, &_write_fds, NULL, NULL);
 		if (status == -1)
-		{
-			std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to select (" << errno << ")\n";
-			exit(1);
-		}
+			throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Failed to select\n");
 		else
 		{
 			iter = _subservers.begin();
@@ -157,24 +154,15 @@ t_socket	webserv::createSocket(int port)
 	
 	_socket.fd = socket(AF_INET, SOCK_STREAM, 0);
 	if (_socket.fd < 0)
-	{
-		std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to create socket (" << errno << ")\n";
-		exit(1);
-	}
+		throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Failed to create socket\n");
 	_socket.sockaddr_.sin_family = AF_INET;
 	_socket.sockaddr_.sin_addr.s_addr = INADDR_ANY;
 	_socket.sockaddr_.sin_port = htons(port);
 	memset(_socket.sockaddr_.sin_zero, 0, sizeof(_socket.sockaddr_.sin_addr));
 	if (bind(_socket.fd, (sockaddr *)&_socket.sockaddr_, sizeof(_socket.sockaddr_)) < 0)
-	{
-		std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to bind socket (" << errno << ")\n";
-		exit(1);
-	}
+		throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Failed to bind socket\n");
 	if (listen(_socket.fd, 10) < 0)
-	{
-		std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to listen socket (" << errno << ")\n";
-		exit(1);
-	}
+		throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Failed to listen socket\n");
 	std::cout << CYAN << WEBSERV << NONE << " Socket successfully created for port " << port << "\n";
 	return (_socket);
 }
@@ -222,10 +210,7 @@ std::string	webserv::resolveHost(std::string host)
 	hints.ai_socktype = SOCK_STREAM;
 	result = getaddrinfo(vect.at(0).c_str(), port.c_str(), &hints, &res);
 	if (result != 0)
-	{
-		std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to resolve hostname " << host << " " << "(" << errno << ")\n";
-		exit(1);
-	}
+		throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Failed to resolve hostname\n");
 	addrin = (struct sockaddr_in *)res->ai_addr;
 	binaryIP = (unsigned char *)&addrin->sin_addr.s_addr;
 	stringStream << (int)binaryIP[0] << "." << (int)binaryIP[1] << "." << (int)binaryIP[2] << "." << (int)binaryIP[3];

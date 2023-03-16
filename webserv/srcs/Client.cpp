@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/14 11:30:45 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/16 12:51:35 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,15 @@ Client::Client(Server *server, RequestParser *request_parser) : _server(server),
 	memset(&_socket.sockaddr_, 0, sizeof(_socket.sockaddr_));
 	_socket.fd = accept(_server->getSocket().fd, (sockaddr *)&_socket.sockaddr_, (socklen_t*)&addrlen);
 	if (_socket.fd < 0)
-	{
-		std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to accept connection (" << errno << ")\n";
-		exit(1);
-	}
+		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to accept connection\n");
 	flags = fcntl(_socket.fd, F_GETFL);
 	if (flags < 0)
-	{
-		std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to get socket flags (" << errno << ")\n";
-		exit(1);
-	}
+		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to get socket flags\n");
 	if (fcntl(_socket.fd, F_SETFL, flags | O_NONBLOCK) < 0)
-	{
-		std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to set socket to non-blocking mode (" << errno << ")\n";
-		exit(1);
-	}
+		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to set socket to non-blocking mode\n");
 	int opt = 1;
 	if (setsockopt(_socket.fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0)
-	{
-		std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to set socket options (" << errno << ")\n";
-		exit(1);
-	}
+		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to set socket options\n");
 	_host = inet_ntoa(_socket.sockaddr_.sin_addr);
 	_port = htons(_socket.sockaddr_.sin_port);
 	_resolved = _host + ":" + ft_itoa(_port);
