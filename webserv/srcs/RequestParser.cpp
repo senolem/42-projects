@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/16 11:56:03 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/16 12:04:40 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,13 @@ t_request_header	RequestParser::parseRequest(std::string buffer)
 		return (header);
 	}
 	i = buffer.find("\r\n\r\n");
-	if (i != std::string::npos && buffer.length() > i + 4 && header.method == "POST")
+	if (header.method == "POST" && i != std::string::npos && buffer.length() > i + 4)
 		header.body = buffer.substr(i + 4);
 	header.cookie = parseCookieHeader(getHeader(bufferVect, "Cookie:"));
 	header.accept = parseAcceptHeader(getHeader(bufferVect, "Accept:"));
-	if (getHeader(bufferVect, "Content-Type:").length() >= 14)
+	if (header.method == "POST" && getHeader(bufferVect, "Content-Type:").length() >= 14)
 		header.content_type = getHeader(bufferVect, "Content-Type:").substr(14);
-	if (getHeader(bufferVect, "Content-Length:").length() >= 16)
+	if (header.method == "POST" && getHeader(bufferVect, "Content-Length:").length() >= 16)
 		header.content_length = getHeader(bufferVect, "Content-Length:").substr(16);
 	if (access(header.path.c_str(), R_OK) != 0)
 		header.status = 404;

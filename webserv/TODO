@@ -1,0 +1,8 @@
+- Méthode DELETE
+- Authentification
+- Remplacer les access par file.open
+- Upload
+- Redirection (ajout dans parsing)
+- Logs
+- Autoindex
+- Timeout & pourquoi les connexions du client se ferment direct
