@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/15 18:31:18 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/16 00:16:53 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ class RequestParser
 		std::multimap<float, std::string>	parseAcceptHeader(const std::string &header);
 		std::map<std::string, std::string>	parseCookieHeader(const std::string &header);
 		std::string							parseHostHeader(const std::string &header);
-		std::vector<std::string>			parseBodyForm(const std::string &body);
 		std::string							getResponse(t_request_header request);
 		std::string							getPath(vectorIterator vectIter, std::string path, mapIterator *subserver);
 		std::string							getFiletype(void);

@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:42:02 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/15 20:24:39 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/16 01:12:59 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 CgiHandler::CgiHandler(std::string &cgi_path, RequestParser &request_parser, t_request_header &request, t_response_header &response) : _cgi_path(cgi_path), _request_parser(request_parser), _request(request), _response(response)
 {
-	size_t	i = 0;
-	char	cwd[256];
+	size_t		i = 0;
+	char		cwd[256];
 
 	getcwd(cwd, sizeof(cwd));
 	_script_path = cwd;
@@ -26,17 +26,20 @@ CgiHandler::CgiHandler(std::string &cgi_path, RequestParser &request_parser, t_r
 	_env["REQUEST_METHOD"] = _request.method;
 	i = _request.path.find_last_of("." + _request_parser.getFiletype() + "/");
 	if (i != std::string::npos)
-		_env["PATH_INFO"] = _request.path.substr(i, _request.path.length());
-	if (_env.find("PATH_INFO") != _env.end())
-		_env["PATH_TRANSLATED"] = _script_path;
+		_env["PATH_INFO"] = _request.path.substr(i + 1, _request.path.length() - i + 1);
+	_env["PATH_TRANSLATED"] = _script_path;
 	i = _request.path.find_last_of("." + _request_parser.getFiletype());
 	if (i != std::string::npos)
-		_env["SCRIPT_NAME"] = _request.path.substr(0, i);
-	i = _request.path.find_last_of("?");
-	if (i != std::string::npos)
-		_env["QUERY_STRING"] = _request.path.substr(i, _request.path.length());
-	_env["CONTENT_LENGTH"] = ft_itoa(_response.content.length());
-	_env["CONTENT_TYPE"] = _response.content_type;
+		_env["SCRIPT_NAME"] = _request.path.substr(0, i + 1);
+	_env["QUERY_STRING"] = _request.query;
+	_env["CONTENT_LENGTH"] = _request.content_length;
+	_env["CONTENT_TYPE"] = _request.content_type;
+
+	std::cout << "ENV VAR : \n";
+	for (std::map<std::string, std::string>::iterator iter = _env.begin(); iter != _env.end(); iter++)
+	{
+		std::cout << iter->first << " = " << iter->second << "\n";
+	}
 }
 
 CgiHandler::CgiHandler(const CgiHandler &src) : _cgi_path(src._cgi_path), _request_parser(src._request_parser), _request(src._request), _response(src._response)
@@ -78,20 +81,18 @@ std::string	CgiHandler::executeCgi(void)
 	if (!file_in || !file_out || !env)
 	{
 		if (!env)
-			std::cout << RED << ERROR << GREEN << SERVER << NONE << " Failed to allocate env for cgi (" << errno << ")\n";
+			std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to allocate env for cgi (" << errno << ")\n";
 		else
-		std::cout << RED << ERROR << GREEN << SERVER << NONE << " Failed to create temporary file for cgi (" << errno << ")\n";
-		return ("502");
+			std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to create temporary file for cgi (" << errno << ")\n";
+		return ("Status: 502\r\n\r\n");
 	}
-	//write(fd_in, _response.content.c_str(), _response.content.length()); We should pass POST arguments here :)
+	write(fd_in, _request.body.c_str(), _request.body.length());
 	lseek(fd_in, 0, SEEK_SET);
-
 	pid = fork();
-
 	if (pid == -1)
 	{
-		std::cout << RED << ERROR << GREEN << SERVER << NONE << " Failed to fork process (" << errno << ")\n";
-		return ("502");
+		std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to fork process (" << errno << ")\n";
+		return ("Status: 502\r\n\r\n");
 	}
 	else if (pid == 0)
 	{
@@ -106,8 +107,8 @@ std::string	CgiHandler::executeCgi(void)
 		dup2(fd_in, STDIN_FILENO);
 		dup2(fd_out, STDOUT_FILENO);
 		execve(_cgi_path.c_str(), argv, env);
-		std::cout << RED << ERROR << GREEN << SERVER << NONE << " Failed to execute cgi (" << errno << ")\n";
-		write(STDOUT_FILENO, "500", 4);
+		std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to execute cgi (" << errno << ")\n";
+		write(STDOUT_FILENO, "Status: 500\r\n\r\n", 4);
 		exit(1);
 	}
 	else
@@ -124,14 +125,12 @@ std::string	CgiHandler::executeCgi(void)
 			body.append(buffer);
 		}
 	}
-
 	dup2(stdin_bak, STDIN_FILENO);
 	dup2(stdout_bak, STDOUT_FILENO);
 	std::fclose(file_in);
 	std::fclose(file_out);
 	close(fd_in);
 	close(fd_out);
-
 	for (size_t i = 0; env[i]; i++)
 		delete[] env[i];
 	delete[] env;

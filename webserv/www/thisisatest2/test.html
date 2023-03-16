@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Make it Rainbow!</title>
+	<meta charset="UTF-8">
+	<style>
+		body {
+			background-color: #222;
+			color: #fff;
+			font-family: sans-serif;
+			text-align: center;
+		}
+		input[type="text"] {
+			background-color: #444;
+			border: none;
+			color: #fff;
+			font-size: 20px;
+			padding: 10px;
+			width: 400px;
+		}
+		input[type="submit"] {
+			background-color: #f00;
+			border: none;
+			color: #fff;
+			font-size: 20px;
+			padding: 10px;
+			width: 200px;
+			cursor: pointer;
+		}
+		.rainbow-text {
+			border: 1px dashed #999;
+			padding: 10px;
+			margin-top: 20px;
+			text-align: center;
+			background-image: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
+			background-clip: text;
+			-webkit-background-clip: text;
+			color: transparent;
+		}
+	</style>
+</head>
+<body>
+	<h1>Make it Rainbow!</h1>
+	<form action="make_it_rainbow.php" method="post">
+		<input type="text" name="text" placeholder="Enter text here...">
+		<br><br>
+		<input type="submit" name="submit" value="Make it rainbow!">
+	</form>
+</body>
+</html>

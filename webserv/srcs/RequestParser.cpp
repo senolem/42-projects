@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/15 18:32:23 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/16 01:14:53 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,14 @@ t_request_header	RequestParser::parseRequest(std::string buffer)
 	}
 	vectIter = _webserv.getHost(header.host);
 	header.matched_subserver = vectIter->begin();
+	i = vect.at(1).find("?");
+	if (i != std::string::npos)
+	{
+		if (vect.at(1).length() > i + 1)
+			header.query = vect.at(1).substr(i + 1, vect.at(1).length() - i + 1);
+		vect.at(1) = vect.at(1).substr(0, i);
+		std::cout << "query = " << header.query << " vect = " << vect.at(1) << std::endl;
+	}
 	if (vectIter != vhosts.end())
 		header.path = getPath(vectIter, vect.at(1), &header.matched_subserver);
 	else
@@ -87,23 +95,13 @@ t_request_header	RequestParser::parseRequest(std::string buffer)
 	}
 	i = buffer.find("\r\n\r\n");
 	if (i != std::string::npos && buffer.length() > i + 4)
-	{
 		header.body = buffer.substr(i + 4);
-		if (header.method == "POST")
-		{
-			// If we'd like to use more Content Type such as json or form-data we'd need a external lib for parsing
-			i = getHeader(bufferVect, "Content-Type:").find("application/x-www-form-urlencoded");
-			if (i != std::string::npos)
-				header.parsed_body = parseBodyForm(header.body);
-			else
-			{
-				header.status = 415;
-				return (header);
-			}
-		}
-	}
 	header.cookie = parseCookieHeader(getHeader(bufferVect, "Cookie:"));
 	header.accept = parseAcceptHeader(getHeader(bufferVect, "Accept:"));
+	if (getHeader(bufferVect, "Content-Type:").length() >= 14)
+		header.content_type = getHeader(bufferVect, "Content-Type:").substr(14);
+	if (getHeader(bufferVect, "Content-Length:").length() >= 16)
+		header.content_length = getHeader(bufferVect, "Content-Length:").substr(16);
 	if (access(header.path.c_str(), R_OK) != 0)
 		header.status = 404;
 	return (header);
@@ -170,24 +168,6 @@ std::multimap<float, std::string>	RequestParser::parseAcceptHeader(const std::st
 	return (accept_header);
 }
 
-std::vector<std::string>	RequestParser::parseBodyForm(const std::string &body)
-{
-	std::vector<std::string>			pairs;
-	std::vector<std::string>			split = split_string(body, "&");
-	std::vector<std::string>			split2;
-	std::vector<std::string>::iterator	iter = split.begin();
-	std::vector<std::string>::iterator	iter2 = split.end();
-
-    while (iter != iter2)
-	{
-		split2 = split_string(*iter, "=");
-		if (split2.size() == 2)
-			pairs.push_back(*iter);
-		++iter;
-	}
-	return (pairs);
-}
-
 std::string	RequestParser::getResponse(t_request_header request)
 {
 	std::stringstream						responseStream;
@@ -216,11 +196,14 @@ void	RequestParser::handleGetResponse(t_request_header &request, t_response_head
 {
 	std::stringstream						fileStream;
 	std::map<std::string, t_cgi>::iterator	cgi_iter;
+	std::string								body;
+	size_t									i = 0;
+	size_t									j = 0;
 
 	cgi_iter = request.matched_subserver->second.cgi_pass.find("." + _filetype);
 	if (cgi_iter != request.matched_subserver->second.cgi_pass.end())
 	{
-		std::cout << GREEN << SERV << NONE << " Found CGI for type " << _filetype << " (" << cgi_iter->second.path << "), executing...\n";
+		std::cout << GREEN << SERV << NONE << " Found CGI for type " << _filetype << " (" << cgi_iter->second.path << "), executing script : " << request.path << "\n";
 		std::ifstream	file(request.path.c_str());
 		fileStream << file.rdbuf();
 		response.status_code = "200 OK";
@@ -234,8 +217,23 @@ void	RequestParser::handleGetResponse(t_request_header &request, t_response_head
 		else
 		{
 			CgiHandler	cgi_handler(cgi_iter->second.path, *this, request, response);
-			response.content = cgi_handler.executeCgi();
-			response.content_length = response.content.size();
+			body = cgi_handler.executeCgi();
+			while (body.find("\r\n\r\n", i) != std::string::npos || body.find("\r\n", i) == i)
+			{
+				std::string	tmp = body.substr(i, body.find("\r\n", i) - i);
+				j = tmp.find("Status: ");
+				if (j != std::string::npos)
+					request.status = std::atoi(tmp.substr(j + 8, tmp.size()).c_str());
+				j = tmp.find("Content-type: ");
+				if (j != std::string::npos)
+					response.content_type = tmp.substr(j + 14, tmp.size()).c_str();
+				i += tmp.size() + 2;
+			}
+			size_t	k = body.length();
+			while (body.find("\r\n", k) == k)
+				k -= 2;
+			response.content = body.substr(i, k - i);
+			response.content_length = response.content.length();
 		}
 	}
 	else
@@ -250,8 +248,50 @@ void	RequestParser::handleGetResponse(t_request_header &request, t_response_head
 
 void	RequestParser::handlePostResponse(t_request_header &request, t_response_header &response)
 {
-	(void)request;
-	(void)response;
+	std::stringstream						fileStream;
+	std::map<std::string, t_cgi>::iterator	cgi_iter;
+	std::string								body;
+	size_t									i = 0;
+	size_t									j = 0;
+
+	cgi_iter = request.matched_subserver->second.cgi_pass.find("." + _filetype);
+	if (cgi_iter != request.matched_subserver->second.cgi_pass.end())
+	{
+		std::cout << GREEN << SERV << NONE << " Found CGI for type " << _filetype << " (" << cgi_iter->second.path << "), executing script : " << request.path << "\n";
+		std::ifstream	file(request.path.c_str());
+		fileStream << file.rdbuf();
+		response.status_code = "200 OK";
+		response.content = fileStream.str();
+		response.content_length = response.content.size();
+		if (access(cgi_iter->second.path.c_str(), X_OK))
+		{
+			std::cout << RED << ERROR << GREEN << SERV << NONE << " CGI at path " << cgi_iter->second.path << " does not exists or has invalid execution permissions.\n";
+			request.status = 502;
+		}
+		else
+		{
+			CgiHandler	cgi_handler(cgi_iter->second.path, *this, request, response);
+			body = cgi_handler.executeCgi();
+			if (body.size() == 0)
+				response.status_code = "204 OK";
+			while (body.find("\r\n\r\n", i) != std::string::npos || body.find("\r\n", i) == i)
+			{
+				std::string	tmp = body.substr(i, body.find("\r\n", i) - i);
+				j = tmp.find("Status: ");
+				if (j != std::string::npos)
+					request.status = std::atoi(tmp.substr(j + 8, tmp.size()).c_str());
+				j = tmp.find("Content-type: ");
+				if (j != std::string::npos)
+					response.content_type = tmp.substr(j + 14, tmp.size()).c_str();
+				i += tmp.size() + 2;
+			}
+			size_t	k = body.length();
+			while (body.find("\r\n", k) == k)
+				k -= 2;
+			response.content = body.substr(i, k - i);
+			response.content_length = response.content.length();
+		}
+	}
 }
 
 void	RequestParser::handleDeleteResponse(t_request_header &request, t_response_header &response)

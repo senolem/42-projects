@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Structures.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/03/14 15:28:56 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/16 00:44:36 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ typedef struct s_request_header
 	std::multimap<float, std::string>				accept;
 	std::map<std::string, std::string>				cookie;
 	std::string										body;
-	std::vector<std::string>						parsed_body;
+	std::string										content_type;
+	std::string										content_length;
+	std::string										query;
 	std::multimap<std::string, t_route>::iterator	matched_subserver;
 	int												status;
 	s_request_header(void) : method(""), path (""), version("HTTP/1.1"), host(""), status(0)

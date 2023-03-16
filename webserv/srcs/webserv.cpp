@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   webserv.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/14 16:37:38 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/16 01:09:32 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,10 @@ webserv::vectorIterator	webserv::getHost(std::string host)
 	{
 		if (vectIter->find(host) != vectIter->end()
 			|| resolveHost(vectIter->begin()->second.server_name + ":" + vectIter->begin()->second.listen) == resolved)
+		{
+			std::cout << vectIter->begin()->second.listen << " listen!!\n";
 			return (vectIter);
+		}
 		++vectIter;
 	}
 	std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Host not found, using first server block\n";
