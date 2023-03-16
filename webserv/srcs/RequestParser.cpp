@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/16 01:17:09 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/16 01:21:06 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_request_header	RequestParser::parseRequest(std::string buffer)
 		return (header);
 	}
 	i = buffer.find("\r\n\r\n");
-	if (i != std::string::npos && buffer.length() > i + 4)
+	if (i != std::string::npos && buffer.length() > i + 4 && header.method == "POST")
 		header.body = buffer.substr(i + 4);
 	header.cookie = parseCookieHeader(getHeader(bufferVect, "Cookie:"));
 	header.accept = parseAcceptHeader(getHeader(bufferVect, "Accept:"));
