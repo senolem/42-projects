@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:42:02 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/16 11:07:55 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/16 11:29:09 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ std::string	CgiHandler::executeCgi(void)
 		dup2(fd_out, STDOUT_FILENO);
 		execve(_cgi_path.c_str(), argv, env);
 		std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to execute cgi (" << errno << ")\n";
-		write(STDOUT_FILENO, "Status: 500\r\n\r\n", 4);
+		write(STDOUT_FILENO, "Status: 500\r\n\r\n", 16);
 		exit(1);
 	}
 	else

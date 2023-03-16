@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/16 01:09:32 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/16 11:54:03 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,19 +181,22 @@ t_socket	webserv::createSocket(int port)
 
 webserv::vectorIterator	webserv::getHost(std::string host)
 {
-	vectorIterator	vectIter = _vhosts->begin();
-	vectorIterator	vectIter2 = _vhosts->end();
-	std::string		resolved = resolveHost(host);
-	mapIterator		iter;
+	vectorIterator				vectIter = _vhosts->begin();
+	vectorIterator				vectIter2 = _vhosts->end();
+	std::string					resolved = resolveHost(host);
+	std::string					port;
+	std::vector<std::string>	vect = split_string(host, ":");
+	mapIterator					iter;
 	
+	if (vect.size() == 2)
+		port = vect.at(1);
+	else
+		port = "80";
 	while (vectIter != vectIter2)
 	{
-		if (vectIter->find(host) != vectIter->end()
-			|| resolveHost(vectIter->begin()->second.server_name + ":" + vectIter->begin()->second.listen) == resolved)
-		{
-			std::cout << vectIter->begin()->second.listen << " listen!!\n";
+		if (resolveHost(vectIter->begin()->second.server_name + ":" + vectIter->begin()->second.listen) == resolved\
+			&& port == vectIter->begin()->second.listen)
 			return (vectIter);
-		}
 		++vectIter;
 	}
 	std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Host not found, using first server block\n";
