@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 21:08:51 by melones           #+#    #+#             */
-/*   Updated: 2023/03/15 17:26:14 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/17 12:47:22 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,8 @@ std::string					getHeader(std::vector<std::string> header, std::string field);
 char						*ft_itoa(int n);
 std::string					trim(const std::string& str, const std::string& totrim);
 char						**map_split(std::map<std::string, std::string> string_map);
+int							get_path_type(const std::string &path);
+bool						is_consecutive_slash(char lhs, char rhs);
+std::string					remove_consecutive_slashes(const std::string &str);
 
 #endif

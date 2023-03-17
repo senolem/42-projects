@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/03/16 00:44:36 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/17 12:16:58 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ typedef struct s_request_header
 	std::string										query;
 	std::multimap<std::string, t_route>::iterator	matched_subserver;
 	int												status;
-	s_request_header(void) : method(""), path (""), version("HTTP/1.1"), host(""), status(0)
+	bool											autoindex;
+	s_request_header(void) : method(""), path (""), version("HTTP/1.1"), host(""), status(0), autoindex(false)
 	{
 		
 	}

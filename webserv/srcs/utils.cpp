@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/03/15 19:46:46 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/17 12:46:59 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,5 +187,39 @@ char	**map_split(std::map<std::string, std::string> string_map)
 		++iter;
 	}
 	tmp[i] = NULL;
+	return (tmp);
+}
+
+int	get_path_type(const std::string &path)
+{
+	struct stat	st;
+	int			res;
+
+	res = stat(path.c_str(), &st);
+	if (res == 0)
+	{
+		if (st.st_mode & S_IFREG)
+			return (0);
+		else if (st.st_mode & S_IFDIR)
+			return (1);
+		else
+			return (-1);
+	}
+	else if (res == -1 && errno == ENOENT)
+		return (-2);
+	return (-1);
+}
+
+bool	is_consecutive_slash(char lhs, char rhs)
+{
+	return (lhs == '/' && rhs == '/');
+}
+
+std::string	remove_consecutive_slashes(const std::string &str)
+{
+	std::string	tmp(str);
+
+	std::string::iterator	iter = std::unique(tmp.begin(), tmp.end(), is_consecutive_slash);
+	tmp.erase(iter, tmp.end());
 	return (tmp);
 }

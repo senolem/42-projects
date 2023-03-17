@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/16 13:20:57 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/17 13:31:32 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,71 +42,82 @@ RequestParser	&RequestParser::operator=(const RequestParser &src)
 
 t_request_header	RequestParser::parseRequest(std::string buffer)
 {
-	t_request_header									header;
+	t_request_header									request;
 	std::vector<std::string>							bufferVect;
 	std::vector<std::string>							vect;
 	vectorIterator										vectIter;
 	std::vector<std::multimap<std::string, t_route> >	&vhosts = _webserv.getVirtualHosts();
 	size_t												i = 0;
+	int													res = 0;
 
 	bufferVect = split_string(buffer, "\r\n");
 	vect = split_string(bufferVect.at(0), " ");
 	if (vect.size() != 3)
 	{
-		header.status = 400;
-		return (header);
+		request.status = 400;
+		return (request);
 	}
-	header.method = vect.at(0);
-	if (header.method != "GET" && header.method != "POST" && header.method != "DELETE")
+	request.method = vect.at(0);
+	if (request.method != "GET" && request.method != "POST" && request.method != "DELETE")
 	{
-		header.status = 501;
-		return (header);
+		request.status = 501;
+		return (request);
 	}
-	header.version = vect.at(2);
-	header.host = parseHostHeader(getHeader(bufferVect, "Host:"));
-	if (header.host.empty())
+	request.version = vect.at(2);
+	request.host = parseHostHeader(getHeader(bufferVect, "Host:"));
+	if (request.host.empty())
 	{
-		header.status = 400;
-		return (header);
+		request.status = 400;
+		return (request);
 	}
-	vectIter = _webserv.getHost(header.host);
-	header.matched_subserver = vectIter->begin();
+	vectIter = _webserv.getHost(request.host);
+	request.matched_subserver = vectIter->begin();
 	i = vect.at(1).find("?");
 	if (i != std::string::npos)
 	{
 		if (vect.at(1).length() > i + 1)
-			header.query = vect.at(1).substr(i + 1, vect.at(1).length() - i + 1);
+			request.query = vect.at(1).substr(i + 1, vect.at(1).length() - i + 1);
 		vect.at(1) = vect.at(1).substr(0, i);
 	}
 	if (vectIter != vhosts.end())
-		header.path = getPath(vectIter, vect.at(1), &header.matched_subserver);
+		request.path = getPath(vectIter, vect.at(1), &request.matched_subserver);
 	else
 	{
 		vectIter = vhosts.begin();
-		header.path = getPath(vhosts.begin(), vect.at(1), &header.matched_subserver);
+		request.path = getPath(vhosts.begin(), vect.at(1), &request.matched_subserver);
 	}
-	if ((header.method == "GET" && header.matched_subserver->second.methods_allowed.get == false) ||\
-		(header.method == "POST" && header.matched_subserver->second.methods_allowed.post == false) ||\
-		(header.method == "DELETE" && header.matched_subserver->second.methods_allowed.del == false))
+	if ((request.method == "GET" && request.matched_subserver->second.methods_allowed.get == false) ||\
+		(request.method == "POST" && request.matched_subserver->second.methods_allowed.post == false) ||\
+		(request.method == "DELETE" && request.matched_subserver->second.methods_allowed.del == false))
 	{
-		header.status = 405;
-		return (header);
+		request.status = 405;
+		return (request);
 	}
 	i = buffer.find("\r\n\r\n");
-	if (header.method == "POST" && i != std::string::npos && buffer.length() > i + 4)
-		header.body = buffer.substr(i + 4);
-	header.cookie = parseCookieHeader(getHeader(bufferVect, "Cookie:"));
-	header.accept = parseAcceptHeader(getHeader(bufferVect, "Accept:"));
-	if (header.method == "POST" && getHeader(bufferVect, "Content-Type:").length() >= 14)
-		header.content_type = getHeader(bufferVect, "Content-Type:").substr(14);
-	if (header.method == "POST" && getHeader(bufferVect, "Content-Length:").length() >= 16)
-		header.content_length = getHeader(bufferVect, "Content-Length:").substr(16);
-	std::ifstream	file(header.path.c_str());
-	if (!file.is_open())
-		header.status = 404;
-	else
-		file.close();
-	return (header);
+	if (request.method == "POST" && i != std::string::npos && buffer.length() > i + 4)
+		request.body = buffer.substr(i + 4);
+	request.cookie = parseCookieHeader(getHeader(bufferVect, "Cookie:"));
+	request.accept = parseAcceptHeader(getHeader(bufferVect, "Accept:"));
+	if (request.method == "POST" && getHeader(bufferVect, "Content-Type:").length() >= 14)
+		request.content_type = getHeader(bufferVect, "Content-Type:").substr(14);
+	if (request.method == "POST" && getHeader(bufferVect, "Content-Length:").length() >= 16)
+		request.content_length = getHeader(bufferVect, "Content-Length:").substr(16);
+	res = get_path_type(request.path);
+	if (res == 0)
+	{
+		std::ifstream	file(request.path.c_str());
+		if (!file.is_open())
+			request.status = 403;
+	}
+	else if (res == 1 && request.matched_subserver->second.autoindex == false)
+		request.status = 403;
+	else if (res == 1 && request.matched_subserver->second.autoindex == true)
+		request.autoindex = true;
+	else if (res == -2)
+		request.status = 404;
+	else if (res == -1)
+		request.status = 500;
+	return (request);
 }
 
 std::string	RequestParser::parseHostHeader(const std::string &header)
@@ -242,6 +253,37 @@ void	RequestParser::handleGetResponse(t_request_header &request, t_response_head
 			response.content_length = response.content.length();
 		}
 	}
+	else if (request.autoindex == true && request.matched_subserver->second.autoindex == true)
+	{
+		std::string					page;
+		std::string					directory;
+		std::string					tmp(request.path);
+		std::vector<std::string>	links;
+
+		if (request.path.at(request.path.length() - 1) == '/' && request.path.length() > 1)
+			tmp.erase(request.path.length() - 1);
+		directory = tmp.substr(tmp.find_last_of('/'));
+		tmp.erase(tmp.find(request.matched_subserver->second.root), request.matched_subserver->second.root.length());
+		DIR	*dir = opendir(request.path.c_str());
+		if (!dir)
+		{
+			std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to open folder " << request.path << "\n";
+			request.status = 500;
+			return ;
+		}
+		page = "<!DOCTYPE html>\n<html>\n<head>\n<style>body{background-color:#111;color:#eee;text-align:center}.content{width:80%;margin:0 auto;border:0.5px dashed #ccc;background-color:#222;padding:1em}.content a{display:block;background-color:#333;color:#eee;text-decoration:none;padding:0.5em;margin:0.5em;border-radius:0.25em;transition:background-color 0.2s ease-in-out}.content a:hover{background-color:#70537e;color:#eee}</style>\n<title>Directory " + directory + "</title>\n</head>\n<body>\n<h1>Directory " + directory + " content</h1>\n<div class=\"content\">\n";
+		for (struct dirent *curr = readdir(dir); curr; curr = readdir(dir))
+			links.push_back("<a href =\"http://" + request.matched_subserver->first + ":" + request.matched_subserver->second.listen + tmp + "/" + curr->d_name + "\">" + curr->d_name + "</a>\n");
+		std::sort(links.begin(), links.end());
+		for (std::vector<std::string>::iterator iter = links.begin(); iter != links.end(); iter++)
+			page += *iter;
+		page += "</div>\n</body>\n</html>\n";
+		closedir(dir);
+		response.status_code = "200 OK";
+		response.content = page;
+		response.content_length = page.size();
+		response.content_type = "text/html";
+	}
 	else
 	{
 		std::ifstream	file(request.path.c_str());
@@ -351,6 +393,7 @@ std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, ma
 	std::string					result;
 	size_t						i = 0;
 
+	path = remove_consecutive_slashes(path);
 	i = path.find_last_of('.');
 	if (i != std::string::npos)
 	{
@@ -382,11 +425,9 @@ std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, ma
 			{
 				for (size_t j = 0; j < mapIter->second.index.size(); j++)
 				{
-					std::ifstream	file((result + "/" + mapIter->second.index[j]).c_str());
-					if (file.is_open())
+					if (!get_path_type(result + "/" + mapIter->second.index[j]))
 					{
 						_currentRoot = search;
-						file.close();
 						return (result + "/" + mapIter->second.index[j]);
 					}
 				}
@@ -399,7 +440,7 @@ std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, ma
 	{
 		for (size_t j = 0; j < vectIter->begin()->second.index.size(); j++)
 		{
-			if (access((vectIter->begin()->second.root + path + "/" + vectIter->begin()->second.index[j]).c_str(), R_OK) == 0)
+			if (!get_path_type(vectIter->begin()->second.root + path + "/" + vectIter->begin()->second.index[j]))
 			{
 				_currentRoot = search;
 				return (vectIter->begin()->second.root + path + "/" + vectIter->begin()->second.index[j]);
