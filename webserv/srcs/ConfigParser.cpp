@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ConfigParser.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:24:48 by melones           #+#    #+#             */
-/*   Updated: 2023/03/14 11:23:52 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/16 13:17:48 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,16 @@ int	ConfigParser::sanityCheck(void)
 		std::cout << "ConfigParser error: Cannot access given path." << std::endl;
 		return (1);
 	}
-	if (access(_path.c_str(), R_OK) != 0)
+	std::ifstream	file(_path.c_str());
+	if (!file.is_open())
 	{
 		std::cout << "ConfigParser error: Cannot access given path. Check whether if file exists and that correct permissions are set." << std::endl;
 		return (1);
 	}
-	std::ifstream	conf(_path.c_str());
-	if (conf)
+	else
 	{
-		config_stream << conf.rdbuf();
+		config_stream << file.rdbuf();
+		file.close();
 		config_string = config_stream.str();
 		if (config_string.empty())
 		{

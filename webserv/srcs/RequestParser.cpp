@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/16 12:04:40 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/16 13:20:57 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,11 @@ t_request_header	RequestParser::parseRequest(std::string buffer)
 		header.content_type = getHeader(bufferVect, "Content-Type:").substr(14);
 	if (header.method == "POST" && getHeader(bufferVect, "Content-Length:").length() >= 16)
 		header.content_length = getHeader(bufferVect, "Content-Length:").substr(16);
-	if (access(header.path.c_str(), R_OK) != 0)
+	std::ifstream	file(header.path.c_str());
+	if (!file.is_open())
 		header.status = 404;
+	else
+		file.close();
 	return (header);
 }
 
@@ -204,7 +207,11 @@ void	RequestParser::handleGetResponse(t_request_header &request, t_response_head
 	{
 		std::cout << GREEN << SERV << NONE << " Found CGI for type " << _filetype << " (" << cgi_iter->second.path << "), executing script : " << request.path << "\n";
 		std::ifstream	file(request.path.c_str());
-		fileStream << file.rdbuf();
+		if (file.is_open())
+		{
+			fileStream << file.rdbuf();
+			file.close();
+		}
 		response.status_code = "200 OK";
 		response.content = fileStream.str();
 		response.content_length = response.content.size();
@@ -238,7 +245,11 @@ void	RequestParser::handleGetResponse(t_request_header &request, t_response_head
 	else
 	{
 		std::ifstream	file(request.path.c_str());
-		fileStream << file.rdbuf();
+		if (file.is_open())
+		{
+			fileStream << file.rdbuf();
+			file.close();
+		}
 		response.status_code = "200 OK";
 		response.content = fileStream.str();
 		response.content_length = response.content.size();
@@ -258,7 +269,11 @@ void	RequestParser::handlePostResponse(t_request_header &request, t_response_hea
 	{
 		std::cout << GREEN << SERV << NONE << " Found CGI for type " << _filetype << " (" << cgi_iter->second.path << "), executing script : " << request.path << "\n";
 		std::ifstream	file(request.path.c_str());
-		fileStream << file.rdbuf();
+		if (file.is_open())
+		{
+			fileStream << file.rdbuf();
+			file.close();
+		}
 		response.status_code = "200 OK";
 		response.content = fileStream.str();
 		response.content_length = response.content.size();
@@ -314,12 +329,15 @@ void	RequestParser::setStatusErrorPage(t_response_header *header, const t_reques
 	iter = _vhosts.begin()->second.error_page.find(request.status);
 	if (iter != _vhosts.begin()->second.error_page.end())
 	{
-		if (access(iter->second.c_str(), R_OK) == 0)
+		std::ifstream	file(iter->second.c_str());
+		if (file.is_open())
 		{
-			std::ifstream	file(iter->second.c_str(), std::ios::binary);
-			fileStream << file.rdbuf();
+			std::ifstream	error_page(iter->second.c_str(), std::ios::binary);
+			fileStream << error_page.rdbuf();
 			header->content = fileStream.str();
 			header->content_length = header->content.size();
+			error_page.close();
+			file.close();
 		}
 	}
 }
@@ -364,9 +382,11 @@ std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, ma
 			{
 				for (size_t j = 0; j < mapIter->second.index.size(); j++)
 				{
-					if (access((result + "/" + mapIter->second.index[j]).c_str(), R_OK) == 0)
+					std::ifstream	file((result + "/" + mapIter->second.index[j]).c_str());
+					if (file.is_open())
 					{
 						_currentRoot = search;
+						file.close();
 						return (result + "/" + mapIter->second.index[j]);
 					}
 				}
