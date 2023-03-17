@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+		@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+		* {
+		  margin: 0;
+		  padding: 0;
+		  box-sizing: border-box;
+		  text-align: center;
+		}
+
+		html {
+		  font-size: 16px;
+		  font-family: 'Open Sans', sans-serif;
+		  line-height: 1.5;
+		}
+
+		body {
+		  background-color: #1c1c1c;
+		  color: #fff;
+		  margin: 0;
+		  padding: 0;
+		}
+
+		a {
+		  color: #fff;
+		  text-decoration: none;
+		}
+
+		.content {
+		  max-width: 80%;
+		  padding-top: 20px;
+		  margin-left: auto;
+		  margin-right: auto;
+		  display: grid;
+		}
+
+		.content table {
+		  border-collapse: collapse;
+		  /*! margin: 20px auto 0; */
+		  font-size: 0.875em;
+		  max-width: 100%;
+		}
+
+		.content th,
+		.content td {
+		  border: none;
+		  padding: 0.5em;
+		}
+
+		.content th {
+		  text-align: left;
+		  font-size: 1em;
+		  padding-right: 20px;
+		  width: 85%;
+		}
+
+		.content th + th {
+		  width: 10%;
+		  padding-left: 0;
+		  padding-right: 0;
+		  min-width: 100px;
+		}
+
+		.content th + th + th {
+		  width: 20%;
+		}
+
+		.content th + th + th + th {
+		  width: 5%;
+		}
+
+		.content td:first-of-type {
+		  padding-left: 10px;
+		  padding-right: 10px;
+		}
+
+		.content th:first-of-type {
+		  padding-left: 10px;
+		}
+
+		.content td {
+		  padding: 5px 0;
+		  border-bottom: 1px solid #2c2c2c;
+		  vertical-align: middle;
+		  text-align: left;
+		  transition: background 0.3s ease-in;
+		}
+
+		.content td:last-child,
+		.content th:last-child {
+		  text-align: right;
+		  min-width: 150px;
+		}
+
+		.content th:last-child {
+		  padding-right: 5px;
+		}
+
+		.content td:last-child {
+		  padding-right: 10px;
+		}
+
+		.content td a {
+		  display: block;
+		}
+
+		.content tr.parent a {
+		  color: #9099a3;
+		}
+
+		.content tr:hover td {
+		  background-color: #444;
+		}
+
+		.content th {
+		  font-weight: 400;
+		  padding: 0.5em;
+		  width: auto;
+		  background-color: #222;
+		  color: #eee;
+		}
+
+		.content td {
+		  background-color: #333;
+		  color: #eee;
+		}
+
+		.content a:hover {
+		  color: #ab71ff;
+		}
+    	</style>
+    <title>Index of %DIRECTORY%</title>
+  </head>
+  <body>
+    <h1>Index of %DIRECTORY%</h1>
+    <div class="content">
+      <table>
+        <thead>
+          <tr>
+            <th onclick="sortTable(0)">Name</th>
+            <th onclick="sortTable(1)">Size</th>
+            <th onclick="sortTable(2)">Last Modified</th>
+          </tr>
+        </thead>
+        <tbody>

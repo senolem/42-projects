@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/16 00:16:53 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/17 18:31:50 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define REQUESTPARSER_HPP
 # include "webserv.hpp"
 # include "CgiHandler.hpp"
+# include "DirectoryListing.hpp"
 
 class webserv;
 class cgiHandler;

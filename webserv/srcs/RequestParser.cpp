@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/17 13:31:32 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/17 18:33:42 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,34 +255,8 @@ void	RequestParser::handleGetResponse(t_request_header &request, t_response_head
 	}
 	else if (request.autoindex == true && request.matched_subserver->second.autoindex == true)
 	{
-		std::string					page;
-		std::string					directory;
-		std::string					tmp(request.path);
-		std::vector<std::string>	links;
-
-		if (request.path.at(request.path.length() - 1) == '/' && request.path.length() > 1)
-			tmp.erase(request.path.length() - 1);
-		directory = tmp.substr(tmp.find_last_of('/'));
-		tmp.erase(tmp.find(request.matched_subserver->second.root), request.matched_subserver->second.root.length());
-		DIR	*dir = opendir(request.path.c_str());
-		if (!dir)
-		{
-			std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to open folder " << request.path << "\n";
-			request.status = 500;
-			return ;
-		}
-		page = "<!DOCTYPE html>\n<html>\n<head>\n<style>body{background-color:#111;color:#eee;text-align:center}.content{width:80%;margin:0 auto;border:0.5px dashed #ccc;background-color:#222;padding:1em}.content a{display:block;background-color:#333;color:#eee;text-decoration:none;padding:0.5em;margin:0.5em;border-radius:0.25em;transition:background-color 0.2s ease-in-out}.content a:hover{background-color:#70537e;color:#eee}</style>\n<title>Directory " + directory + "</title>\n</head>\n<body>\n<h1>Directory " + directory + " content</h1>\n<div class=\"content\">\n";
-		for (struct dirent *curr = readdir(dir); curr; curr = readdir(dir))
-			links.push_back("<a href =\"http://" + request.matched_subserver->first + ":" + request.matched_subserver->second.listen + tmp + "/" + curr->d_name + "\">" + curr->d_name + "</a>\n");
-		std::sort(links.begin(), links.end());
-		for (std::vector<std::string>::iterator iter = links.begin(); iter != links.end(); iter++)
-			page += *iter;
-		page += "</div>\n</body>\n</html>\n";
-		closedir(dir);
-		response.status_code = "200 OK";
-		response.content = page;
-		response.content_length = page.size();
-		response.content_type = "text/html";
+		DirectoryListing	directory_listing;
+		directory_listing.generate(response, request);
 	}
 	else
 	{

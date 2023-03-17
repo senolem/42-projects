@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: albaur <albaur@42.fr>                      +#+  +:+       +#+         #
+#    By: melones <melones@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/15 15:17:23 by albaur            #+#    #+#              #
-#    Updated: 2023/03/15 13:47:35 by albaur           ###   ########.fr        #
+#    Updated: 2023/03/17 17:15:15 by melones          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ C_EXTENSION = .cpp
 #		눈_눈			SOURCES			눈_눈
 
 MAIN_PATH	=	
-MAIN_FILES 	= 	main Exception ConfigParser RequestParser CgiHandler webserv Server Client utils
+MAIN_FILES 	= 	main Exception ConfigParser RequestParser CgiHandler DirectoryListing webserv Server Client utils
 SRCS_FILES	+=	$(addprefix $(MAIN_PATH), $(MAIN_FILES))
 
 SRCS_FILES_EXT	+= 	$(addsuffix $(C_EXTENSION), $(SRCS_FILES))

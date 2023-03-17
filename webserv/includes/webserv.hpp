@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/17 11:48:17 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/17 18:11:58 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # include <sstream>
 # include <algorithm>
 # include <map>
+# include <ctime>
 # include "Structures.hpp"
 # include "Server.hpp"
 # include "utils.hpp"
