@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/16 12:51:35 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/18 06:51:43 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,32 +66,35 @@ Client  &Client::operator=(const Client &src)
 int	Client::getRequest(void)
 {
 	char		buffer[1024];
-	int			bufferSize = sizeof(buffer);
-	bool		readingDone = false;
+	int			buffer_size = sizeof(buffer);
+	bool		reading_done = false;
 	int			rd = 0;
 	std::string	request;
 	bool		check_size = false;
 	size_t		body_size = 0;
+	size_t		request_size = 0;
 	size_t		client_max_body_size = _server->getVirtualHosts().begin()->second.client_max_body_size;
 
-	memset(&buffer, 0, bufferSize);
+	memset(&buffer, 0, buffer_size);
 	resetTimeout();
-	while (!readingDone)
+	while (!reading_done)
 	{
-		rd = recv(_socket.fd, buffer, bufferSize, 0);
+		rd = recv(_socket.fd, buffer, buffer_size, 0);
+		request_size += rd;
 		if (check_size)
 			body_size += rd;
-		if (client_max_body_size != 0 && body_size > client_max_body_size)
+		if ((client_max_body_size != 0 && body_size > client_max_body_size) ||
+			(request_size > MAX_REQUEST_SIZE_PROTECTION && MAX_REQUEST_SIZE_PROTECTION != 0))
 			return (-2);
 		if (rd == 0)
-			readingDone = true;
+			reading_done = true;
 		else if (rd > 0)
 		{
 			request.append(buffer, rd);
 			if (request.find("\r\n\r\n") != std::string::npos)
 				check_size = true;
-			if (rd < bufferSize)
-				readingDone = true;
+			if (rd < buffer_size)
+				reading_done = true;
 		}
 	}
 	if (request.length() > 0)
@@ -100,7 +103,7 @@ int	Client::getRequest(void)
 		std::cout << request << "\n";
 		_request = _request_parser->parseRequest(request);
 	}
-	if (rd == 0 || !readingDone)
+	if (rd == 0 || !reading_done)
 	{
 		_open = false;
 		return (0);

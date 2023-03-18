@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/03/17 12:46:59 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/18 04:44:48 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,12 @@ std::string	concatMethods(const t_methods methods)
 	str += "] ";
 	str += "DELETE [";
 	if (methods.del)
+		str += "true";
+	else
+		str += "false";
+	str += "]";
+	str += "HEAD [";
+	if (methods.head)
 		str += "true";
 	else
 		str += "false";

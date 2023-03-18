@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/03/17 12:16:58 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/18 04:46:30 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ typedef struct s_methods
 	bool	get;
 	bool	post;
 	bool	del;
+	bool	head;
+
+	s_methods(void) : get(false), post(false), del(false),  head(false)
+	{
+		
+	}
 }	t_methods;
 
 typedef struct s_cgi

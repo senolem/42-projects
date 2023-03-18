@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:24:48 by melones           #+#    #+#             */
-/*   Updated: 2023/03/16 13:17:48 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/18 06:20:01 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,7 +341,7 @@ void	ConfigParser::initFieldList(void)
 	_field_list["error_page"] = (t_field_traits){2, 2, true, false};
 	_field_list["root"] = (t_field_traits){1, 1, true, true};
 	_field_list["index"] = (t_field_traits){1, 0, true, true};
-	_field_list["methods_allowed"] = (t_field_traits){1, 3, true, true};
+	_field_list["methods_allowed"] = (t_field_traits){1, 4, true, true};
 	_field_list["autoindex"] = (t_field_traits){1, 1, true, true};
 	_field_list["cgi_pass"] = (t_field_traits){2, 2, true, true};
 	_field_list["upload"] = (t_field_traits){1, 1, true, true};
@@ -426,6 +426,8 @@ void	ConfigParser::insertField(std::vector<char *> config, t_route *route)
 				route->methods_allowed.post = true;
 			else if (tmp == "DELETE")
 				route->methods_allowed.del = true;
+			else if (tmp == "HEAD")
+				route->methods_allowed.head = true;
 			++iter;
 		}
 	}

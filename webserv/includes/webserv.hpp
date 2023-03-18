@@ -6,13 +6,14 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/17 18:11:58 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/18 06:49:16 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WEBSERV_HPP
 # define WEBSERV_HPP
 # define BUFFER_SIZE 65536
+# define MAX_REQUEST_SIZE_PROTECTION 100000000
 # include <iostream>
 # include <string>
 # include <cstring>

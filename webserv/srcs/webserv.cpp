@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/16 12:53:17 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/18 06:56:26 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,8 +169,8 @@ t_socket	webserv::createSocket(int port)
 
 webserv::vectorIterator	webserv::getHost(std::string host)
 {
-	vectorIterator				vectIter = _vhosts->begin();
-	vectorIterator				vectIter2 = _vhosts->end();
+	vectorIterator				vect_iter = _vhosts->begin();
+	vectorIterator				vect_iter2 = _vhosts->end();
 	std::string					resolved = resolveHost(host);
 	std::string					port;
 	std::vector<std::string>	vect = split_string(host, ":");
@@ -180,15 +180,15 @@ webserv::vectorIterator	webserv::getHost(std::string host)
 		port = vect.at(1);
 	else
 		port = "80";
-	while (vectIter != vectIter2)
+	while (vect_iter != vect_iter2)
 	{
-		if (resolveHost(vectIter->begin()->second.server_name + ":" + vectIter->begin()->second.listen) == resolved\
-			&& port == vectIter->begin()->second.listen)
-			return (vectIter);
-		++vectIter;
+		if (resolveHost(vect_iter->begin()->second.server_name + ":" + vect_iter->begin()->second.listen) == resolved\
+			&& port == vect_iter->begin()->second.listen)
+			return (vect_iter);
+		++vect_iter;
 	}
 	std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Host not found, using first server block\n";
-	return (vectIter);
+	return (vect_iter);
 }
 
 std::string	webserv::resolveHost(std::string host)
@@ -198,8 +198,8 @@ std::string	webserv::resolveHost(std::string host)
 	struct sockaddr_in			*addrin;
 	std::string					port;
 	std::vector<std::string>	vect = split_string(host, ":");
-	std::ostringstream			stringStream;
-	unsigned char				*binaryIP;
+	std::ostringstream			string_stream;
+	unsigned char				*binary_ip;
 
 	if (vect.size() == 2)
 		port = vect.at(1);
@@ -212,9 +212,9 @@ std::string	webserv::resolveHost(std::string host)
 	if (result != 0)
 		throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Failed to resolve hostname\n");
 	addrin = (struct sockaddr_in *)res->ai_addr;
-	binaryIP = (unsigned char *)&addrin->sin_addr.s_addr;
-	stringStream << (int)binaryIP[0] << "." << (int)binaryIP[1] << "." << (int)binaryIP[2] << "." << (int)binaryIP[3];
-	return (stringStream.str());
+	binary_ip = (unsigned char *)&addrin->sin_addr.s_addr;
+	string_stream << (int)binary_ip[0] << "." << (int)binary_ip[1] << "." << (int)binary_ip[2] << "." << (int)binary_ip[3];
+	return (string_stream.str());
 }
 
 std::vector<std::multimap<std::string, t_route> >	&webserv::getVirtualHosts(void)
@@ -229,16 +229,16 @@ int	webserv::getMaxFd(void)
 
 void	webserv::printConfig(void)
 {
-	vectorIterator	vectIter = _vhosts->begin();
-	vectorIterator	vectIter2 = _vhosts->end();
+	vectorIterator	vect_iter = _vhosts->begin();
+	vectorIterator	vect_iter2 = _vhosts->end();
 	mapIterator		mapIter;
 	mapIterator		mapIter2;
 	
-	while (vectIter != vectIter2)
+	while (vect_iter != vect_iter2)
 	{
 		std::cout << "__________________________________________________\n";
-		mapIter = vectIter->begin();
-		mapIter2 = vectIter->end();
+		mapIter = vect_iter->begin();
+		mapIter2 = vect_iter->end();
 		std::cout << "Route [" << mapIter->first << "]\n";
 		while (mapIter != mapIter2)
 		{
@@ -262,6 +262,6 @@ void	webserv::printConfig(void)
 			std::cout << "++++++++++++++++++++++++++++++++++++++++++++++++++\n";
 			++mapIter;
 		}
-		++vectIter;
+		++vect_iter;
 	}
 }
