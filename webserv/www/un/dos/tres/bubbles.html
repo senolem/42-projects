@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bubbles Animation</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			height: 100vh;
+			background-color: #FFFFFF;
+			overflow: hidden;
+		}
+
+		.bubble {
+			position: absolute;
+			background-color: #7CB342;
+			border-radius: 50%;
+			animation: bubble 4s linear forwards;
+			animation-iteration-count: infinite;
+			animation-timing-function: linear;
+			will-change: transform;
+		}
+
+		.bubble.orange {
+			background-color: #FFA500;
+			animation-name: bubble-orange;
+		}
+
+		@keyframes bubble {
+			0% {
+				transform: translate(0, 0) scale(0);
+				opacity: 1;
+			}
+			50% {
+				transform: translate(50%, 50%) scale(1);
+				opacity: 0.5;
+			}
+			100% {
+				transform: translate(100%, 100%) scale(0);
+				opacity: 0;
+			}
+		}
+
+		@keyframes bubble-orange {
+			0% {
+				transform: translate(0, 0) scale(0);
+				opacity: 1;
+			}
+			50% {
+				transform: translate(25%, 25%) scale(1);
+				opacity: 0.5;
+			}
+			100% {
+				transform: translate(50%, 50%) scale(0);
+				opacity: 0;
+			}
+		}
+	</style>
+</head>
+<body>
+	<script>
+		var MAX_BUBBLES = 30; // Maximum number of bubbles on screen
+		var bubbles = []; // Array to store bubble elements
+
+		// Helper function to generate random number within a range
+		function getRandom(min, max) {
+			return Math.random() * (max - min) + min;
+		}
+
+		// Function to spawn a bubble at a random position and with a random size
+		function spawnBubble() {
+			// Remove the oldest bubble if the maximum number is reached
+			if (bubbles.length >= MAX_BUBBLES) {
+				var oldestBubble = bubbles.shift();
+				oldestBubble.remove();
+			}
+
+			// Create a new bubble element
+			var bubble = document.createElement("div");
+			bubble.classList.add("bubble");
+
+			// Randomize the bubble position and size
+			var size = getRandom(50, 150);
+			var x = getRandom(0, window.innerWidth - size);
+			var y = getRandom(0, window.innerHeight - size);
+
+			// Apply the position and size to the bubble element
+			bubble.style.width = size + "px";
+			bubble.style.height = size + "px";
+			bubble.style.top = y + "px";
+			bubble.style.left = x + "px";
+
+			// Randomize the bubble color
+			if (Math.random() > 0.5) {
+				bubble.classList.add("orange");
+			}
+
+			// Append the bubble element to the body and the bubbles array
+			document.body.appendChild(bubble);
+			bubbles.push(bubble);
+
+			// Remove the bubble element after the animation ends
+			bubble.addEventListener("animationend", function() {
+			var index = bubbles.indexOf(bubble);
+			if (index !== -1) {
+				bubbles.splice(index, 1);
+				bubble.remove();
+			}
+			});
+		}
+
+		// Spawn initial bubbles
+		for (var i = 0; i < 10; i++) {
+			spawnBubble();
+		}
+
+		// Spawn a new bubble every second
+		setInterval(spawnBubble, 1000);
+		
+		// Move bubbles randomly
+		setInterval(function() {
+			for (var i = 0; i < bubbles.length; i++) {
+				var bubble = bubbles[i];
+				var x = parseInt(bubble.style.left, 10);
+				var y = parseInt(bubble.style.top, 10);
+				var dx = getRandom(-10, 10);
+				var dy = getRandom(-10, 10);
+				var newX = x + dx;
+				var newY = y + dy;
+				if (newX < 0) {
+					newX = 0;
+				} else if (newX > window.innerWidth - parseInt(bubble.style.width, 10)) {
+					newX = window.innerWidth - parseInt(bubble.style.width, 10);
+				}
+				if (newY < 0) {
+					newY = 0;
+				} else if (newY > window.innerHeight - parseInt(bubble.style.height, 10)) {
+					newY = window.innerHeight - parseInt(bubble.style.height, 10);
+				}
+				bubble.style.left = newX + "px";
+				bubble.style.top = newY + "px";
+			}
+		}, 50);
+	</script>
+</body>
+</html>

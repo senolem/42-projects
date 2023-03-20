@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RequestParser.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/18 06:55:10 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/20 11:50:27 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,7 @@ void	RequestParser::handleGetResponse(t_request_header &request, t_response_head
 	cgi_iter = request.matched_subserver->second.cgi_pass.find("." + _filetype);
 	if (cgi_iter != request.matched_subserver->second.cgi_pass.end())
 	{
-		std::cout << GREEN << SERV << NONE << " Found CGI for type " << _filetype << " (" << cgi_iter->second.path << "), executing script : " << request.path << "\n";
+		std::cout << BLUE << INFO << GREEN << SERV << NONE << " Found CGI for type " << _filetype << " (" << cgi_iter->second.path << "), executing script : " << request.path << "\n";
 		std::ifstream	file(request.path.c_str());
 		if (file.is_open())
 		{
@@ -287,7 +287,7 @@ void	RequestParser::handlePostResponse(t_request_header &request, t_response_hea
 	cgi_iter = request.matched_subserver->second.cgi_pass.find("." + _filetype);
 	if (cgi_iter != request.matched_subserver->second.cgi_pass.end())
 	{
-		std::cout << GREEN << SERV << NONE << " Found CGI for type " << _filetype << " (" << cgi_iter->second.path << "), executing script : " << request.path << "\n";
+		std::cout << BLUE << INFO << GREEN << SERV << NONE << " Found CGI for type " << _filetype << " (" << cgi_iter->second.path << "), executing script : " << request.path << "\n";
 		std::ifstream	file(request.path.c_str());
 		if (file.is_open())
 		{
@@ -369,6 +369,7 @@ std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, ma
 	mapIterator					map_iter = vectIter->begin();
 	mapIterator					map_iter2 = vectIter->end();
 	std::string					result;
+	std::string					concat;
 	size_t						i = 0;
 
 	path = remove_consecutive_slashes(path);
@@ -384,10 +385,12 @@ std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, ma
 		vect = split_string(path, "/");
 	else
 		vect.push_back("/");
-	if (path.find_last_of('/') == path.length())
-		search = vect.at(0).substr(0, vect.at(0).length() - 1);
+	concat = concatStringVector(vect, '/');
+	if (path.find_last_of('/') == path.length() && concat.length() > 0)
+		search = concat.substr(0, concat.length() - 1);
 	else
-		search = vect.at(0);
+		search = concat;
+	std::cout << search << "\n";
 	if (vect.size() == 1 && !_currentRoot.empty() && path != "/favicon.ico")
 		search = _currentRoot;
 	while (map_iter != map_iter2)

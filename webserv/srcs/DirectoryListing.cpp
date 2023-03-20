@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   DirectoryListing.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 17:12:42 by melones           #+#    #+#             */
-/*   Updated: 2023/03/17 20:06:51 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/20 10:22:06 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,10 +123,10 @@ std::string	DirectoryListing::getModifiedDate(struct stat &st)
 {
 	std::string	date;
 	char		buffer[256];
-	struct tm	date_tm;
+	struct tm	*date_tm;
 
-	localtime_r(&st.st_mtim.tv_sec, &date_tm);
-	std::strftime(buffer, sizeof(buffer), "%d-%m-%Y %H:%M:%S", &date_tm);
+	date_tm = std::localtime(&st.st_mtimespec.tv_sec);
+	std::strftime(buffer, sizeof(buffer), "%d-%m-%Y %H:%M:%S", date_tm);
 	date = buffer;
 	return (date);
 }

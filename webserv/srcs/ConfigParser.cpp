@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ConfigParser.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:24:48 by melones           #+#    #+#             */
-/*   Updated: 2023/03/18 06:20:01 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/20 11:34:17 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ std::vector<std::multimap<std::string, t_route> >	*ConfigParser::init(std::strin
 	try
 	{
 		if (sanityCheck() || prepareParsing() || syntaxCheck())
-			throw Exception("Config parsing failed.");
+			throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + "Config parsing failed.");
 		else
 		{
 			parseConfig();

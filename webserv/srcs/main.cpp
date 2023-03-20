@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:16:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/14 12:03:20 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/20 11:36:40 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 		{	
 			if (argc == 1)
 			{
-				std::cout << "No configuration file provided. Using default: conf/default.conf\n";
+				std::cout << BLUE + INFO + CYAN + WEBSERV + NONE << " No configuration file provided. Using default: conf/default.conf\n";
 				vhosts = config.init("conf/default.conf");
 				if (vhosts)
 				{

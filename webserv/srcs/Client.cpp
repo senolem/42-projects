@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/18 06:51:43 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/20 14:07:19 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,22 @@ Client::Client(Server *server, RequestParser *request_parser) : _server(server),
 	memset(&_socket.sockaddr_, 0, sizeof(_socket.sockaddr_));
 	_socket.fd = accept(_server->getSocket().fd, (sockaddr *)&_socket.sockaddr_, (socklen_t*)&addrlen);
 	if (_socket.fd < 0)
-		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to accept connection\n");
+		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to accept connection");
 	flags = fcntl(_socket.fd, F_GETFL);
 	if (flags < 0)
-		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to get socket flags\n");
+		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to get socket flags");
 	if (fcntl(_socket.fd, F_SETFL, flags | O_NONBLOCK) < 0)
-		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to set socket to non-blocking mode\n");
+		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to set socket to non-blocking mode");
 	int opt = 1;
 	if (setsockopt(_socket.fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0)
-		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to set socket options\n");
+		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to set socket options");
 	_host = inet_ntoa(_socket.sockaddr_.sin_addr);
 	_port = htons(_socket.sockaddr_.sin_port);
 	_resolved = _host + ":" + ft_itoa(_port);
 	_open = true;
 	_sent = 0;
 	resetTimeout();
-	std::cout << GREEN << SERV << NONE << " Connection successfully established to " << _resolved << "\n";
+	std::cout << BLUE << INFO << GREEN << SERV << NONE << " Connection successfully established to " << _resolved << "\n";
 }
 
 Client::Client(const Client &src) : _server(src._server), _socket(src._socket), _request(src._request), _host(src._host), _port(src._port), _resolved(src._resolved), _request_time(src._request_time), _request_parser(src._request_parser), _open(src._open)
@@ -71,15 +71,20 @@ int	Client::getRequest(void)
 	int			rd = 0;
 	std::string	request;
 	bool		check_size = false;
-	size_t		body_size = 0;
-	size_t		request_size = 0;
-	size_t		client_max_body_size = _server->getVirtualHosts().begin()->second.client_max_body_size;
+	int			body_size = 0;
+	int			request_size = 0;
+	int			client_max_body_size = _server->getVirtualHosts().begin()->second.client_max_body_size;
 
 	memset(&buffer, 0, buffer_size);
 	resetTimeout();
 	while (!reading_done)
 	{
 		rd = recv(_socket.fd, buffer, buffer_size, 0);
+		if (rd == -1)
+		{
+			_open = false;
+			return (-1);
+		}
 		request_size += rd;
 		if (check_size)
 			body_size += rd;
@@ -99,7 +104,7 @@ int	Client::getRequest(void)
 	}
 	if (request.length() > 0)
 	{
-		std::cout << GREEN << SERV << NONE << " Request received (length " << request.length() << ") :\n";
+		std::cout << BLUE << INFO << GREEN << SERV << NONE << " Request received (length " << request.length() << ") :\n";
 		std::cout << request << "\n";
 		_request = _request_parser->parseRequest(request);
 	}
@@ -128,6 +133,7 @@ size_t	Client::getSent(void)
 
 int	Client::sendResponse(void)
 {
+	std::cout << "response length : " <<  _response.length() << " sent : " << _sent << "\n";
 	std::string	str = _response.substr(_sent, BUFFER_SIZE);
 	int	i = 0;
 
@@ -141,6 +147,7 @@ int	Client::sendResponse(void)
 	else
 	{
 		_sent += i;
+		std::cout << "sent2 : " << _sent << "\n";
 		if (_sent >= _response.size())
 		{
 			_open = false;

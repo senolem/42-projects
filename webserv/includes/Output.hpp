@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Output.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:08:34 by melones           #+#    #+#             */
-/*   Updated: 2023/03/06 12:16:50 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/20 11:36:14 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 const std::string	SERV = "[SERVER]";
 const std::string	WEBSERV = "[webserv]";
 const std::string	ERROR = "[ERROR]";
+const std::string	INFO = "[INFO]";
 const std::string	RED = "\033[31m";
 const std::string	GREEN = "\033[32m";
 const std::string	YELLOW = "\033[33m";
