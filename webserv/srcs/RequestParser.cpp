@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RequestParser.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/20 16:16:58 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/20 21:20:46 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,11 @@ t_request_header	RequestParser::parseRequest(std::string buffer)
 		vect.at(1) = vect.at(1).substr(0, i);
 	}
 	if (vect_iter != vhosts.end())
-		request.path = getPath(vect_iter, vect.at(1), &request.matched_subserver);
+		request.path = getPath(vect_iter, vect.at(1), &request.matched_subserver, request.method);
 	else
 	{
 		vect_iter = vhosts.begin();
-		request.path = getPath(vhosts.begin(), vect.at(1), &request.matched_subserver);
+		request.path = getPath(vhosts.begin(), vect.at(1), &request.matched_subserver, request.method);
 	}
 	if ((request.method == "GET" && request.matched_subserver->second.methods_allowed.get == false) ||\
 		(request.method == "POST" && request.matched_subserver->second.methods_allowed.post == false) ||\
@@ -204,8 +204,11 @@ std::string	RequestParser::getResponse(t_request_header request)
 		if (request.method == "HEAD")
 			response.content.clear();
 	}
-	response_stream << response.version << " " << response.status_code << "\r\n" << "Content-Type: " << response.content_type\
-	<< "\r\n" << "Content-Length: " << response.content_length << "\r\n" << "Transfer-Encoding: identity \r\n" << "\r\n" << response.content;
+	response_stream << response.version << " " << response.status_code << "\r\n" << "Transfer-Encoding: identity \r\n";
+	if (!response.content.empty())
+		response_stream << "Content-Type: " << response.content_type << "\r\n" << "Content-Length: " << response.content_length << "\r\n" << "\r\n" << response.content;
+	else
+		response_stream << "\r\n";
 	return (response_stream.str());
 }
 
@@ -307,7 +310,7 @@ void	RequestParser::handlePostResponse(t_request_header &request, t_response_hea
 			CgiHandler	cgi_handler(cgi_iter->second.path, *this, request, response);
 			body = cgi_handler.executeCgi();
 			if (body.size() == 0)
-				response.status_code = "204 OK";
+				response.status_code = "204 No Content";
 			while (body.find("\r\n\r\n", i) != std::string::npos || body.find("\r\n", i) == i)
 			{
 				std::string	tmp = body.substr(i, body.find("\r\n", i) - i);
@@ -330,21 +333,34 @@ void	RequestParser::handlePostResponse(t_request_header &request, t_response_hea
 
 void	RequestParser::handleDeleteResponse(t_request_header &request, t_response_header &response)
 {
-	(void)request;
-	(void)response;
+	if (!get_path_type(request.path))
+	{
+		if (access(request.path.c_str(), W_OK))
+		{
+			if (!remove(request.path.c_str()))
+			{
+				delete(request.path.c_str());
+				response.status_code = "204 No Content";
+			}
+		}
+		else
+			request.status = 403;
+	}
+	else
+		request.status = 404;
 }
 
-void	RequestParser::setStatusErrorPage(t_response_header *header, const t_request_header &request)
+void	RequestParser::setStatusErrorPage(t_response_header *response, const t_request_header &request)
 {
 	std::stringstream	file_stream;
-	header->content_type = "text/html";
+	response->content_type = "text/html";
 	std::map<int, std::string>::iterator	errorIter;
 	errorIter = _errorsMap.find(request.status);
 	if (errorIter != _errorsMap.end())
-		header->status_code = errorIter->second;
+		response->status_code = errorIter->second;
 	else
-		header->status_code = "500 Internal Server Error";
-	header->content_length = 0;
+		response->status_code = "500 Internal Server Error";
+	response->content_length = 0;
 	std::map<int, std::string>::iterator	iter;
 	iter = _vhosts.begin()->second.error_page.find(request.status);
 	if (iter != _vhosts.begin()->second.error_page.end())
@@ -354,15 +370,15 @@ void	RequestParser::setStatusErrorPage(t_response_header *header, const t_reques
 		{
 			std::ifstream	error_page(iter->second.c_str(), std::ios::binary);
 			file_stream << error_page.rdbuf();
-			header->content = file_stream.str();
-			header->content_length = header->content.size();
+			response->content = file_stream.str();
+			response->content_length = response->content.size();
 			error_page.close();
 			file.close();
 		}
 	}
 }
 
-std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, mapIterator *subserver)
+std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, mapIterator *subserver, std::string method)
 {
 	std::vector<std::string>	vect;
 	std::string					search;
@@ -409,7 +425,7 @@ std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, ma
 			i = result.find("/" + search, 0);
 			if (i != std::string::npos)
 				result.erase(i, search.length() + 1);
-			if (path.find('.') == std::string::npos)
+			if ((method == "GET" || method == "HEAD") && path.find('.') == std::string::npos)
 			{
 				for (size_t j = 0; j < map_iter->second.index.size(); j++)
 				{
@@ -424,7 +440,7 @@ std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, ma
 		}
 		++map_iter;
 	}
-	if (path.find('.') == std::string::npos)
+	if ((method == "GET" || method == "HEAD") && path.find('.') == std::string::npos)
 	{
 		for (size_t j = 0; j < vectIter->begin()->second.index.size(); j++)
 		{
@@ -443,7 +459,7 @@ std::string	RequestParser::getFiletype(void)
 	return (_filetype);
 }
 
-void	RequestParser::setContentType(t_request_header &request, t_response_header *header, std::string path)
+void	RequestParser::setContentType(t_request_header &request, t_response_header *response, std::string path)
 {
 	// Technically, this function should rather determine which content type
 	// should be returned if we'd like to manage serving multiple versions of a given
@@ -457,17 +473,17 @@ void	RequestParser::setContentType(t_request_header &request, t_response_header 
 		_filetype = vect.at(vect.size() - 1);
 	iter = _typesMap.find(_filetype);
 	if (iter != _typesMap.end())
-		header->content_type = iter->second;
+		response->content_type = iter->second;
 	else
-		header->content_type = "text/plain";
-	if (!isAccepted(request, header->content_type))
+		response->content_type = "text/plain";
+	if (!isAccepted(request, response->content_type))
 		request.status = 406;
 }
 
-int	RequestParser::isAccepted(t_request_header header, const std::string &type)
+int	RequestParser::isAccepted(t_request_header request, const std::string &type)
 {
-	std::map<float, std::string>::const_reverse_iterator	map_iter = header.accept.rbegin();
-	std::map<float, std::string>::const_reverse_iterator	map_iter2 = header.accept.rend();
+	std::map<float, std::string>::const_reverse_iterator	map_iter = request.accept.rbegin();
+	std::map<float, std::string>::const_reverse_iterator	map_iter2 = request.accept.rend();
 	std::vector<std::string>								type_split = split_string(type, "/");
 	std::vector<std::string>								iter_split;
 

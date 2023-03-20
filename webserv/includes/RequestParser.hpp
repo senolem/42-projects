@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/17 18:31:50 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/20 20:52:39 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ class RequestParser
 		std::map<std::string, std::string>	parseCookieHeader(const std::string &header);
 		std::string							parseHostHeader(const std::string &header);
 		std::string							getResponse(t_request_header request);
-		std::string							getPath(vectorIterator vectIter, std::string path, mapIterator *subserver);
+		std::string							getPath(vectorIterator vectIter, std::string path, mapIterator *subserver, std::string method);
 		std::string							getFiletype(void);
 		std::string							getHeader(std::vector<std::string> header, std::string field);
 		void								setContentType(t_request_header &request, t_response_header *header, std::string path);
