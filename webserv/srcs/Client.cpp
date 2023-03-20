@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/20 14:07:19 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/20 14:20:33 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,6 @@ size_t	Client::getSent(void)
 
 int	Client::sendResponse(void)
 {
-	std::cout << "response length : " <<  _response.length() << " sent : " << _sent << "\n";
 	std::string	str = _response.substr(_sent, BUFFER_SIZE);
 	int	i = 0;
 
@@ -147,7 +146,6 @@ int	Client::sendResponse(void)
 	else
 	{
 		_sent += i;
-		std::cout << "sent2 : " << _sent << "\n";
 		if (_sent >= _response.size())
 		{
 			_open = false;
