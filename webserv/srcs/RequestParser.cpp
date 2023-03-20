@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/20 21:20:46 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/20 22:42:37 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ t_request_header	RequestParser::parseRequest(std::string buffer)
 	}
 	if (vect_iter != vhosts.end())
 		request.path = getPath(vect_iter, vect.at(1), &request.matched_subserver, request.method);
-	else
+	if (vect_iter == vhosts.end() || request.path.empty())
 	{
-		vect_iter = vhosts.begin();
-		request.path = getPath(vhosts.begin(), vect.at(1), &request.matched_subserver, request.method);
+		request.status = 500;
+		return (request);
 	}
 	if ((request.method == "GET" && request.matched_subserver->second.methods_allowed.get == false) ||\
 		(request.method == "POST" && request.matched_subserver->second.methods_allowed.post == false) ||\
@@ -335,13 +335,12 @@ void	RequestParser::handleDeleteResponse(t_request_header &request, t_response_h
 {
 	if (!get_path_type(request.path))
 	{
-		if (access(request.path.c_str(), W_OK))
+		if (!access(request.path.c_str(), W_OK))
 		{
 			if (!remove(request.path.c_str()))
-			{
-				delete(request.path.c_str());
 				response.status_code = "204 No Content";
-			}
+			else
+				request.status = 403;
 		}
 		else
 			request.status = 403;
@@ -415,7 +414,7 @@ std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, ma
 		if (i != std::string::npos)
 		{
 			match = search.substr(0, i);
-			if (map_iter->second.match == "/" + match && get_path_type(map_iter->second.root + search.substr(i)) >= 0)
+			if (map_iter->second.match == "/" + match)
 				search = match;
 		}
 		if (map_iter->second.type == LOCATION && map_iter->second.match == "/" + search)

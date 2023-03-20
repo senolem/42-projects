@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ConfigParser.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:24:48 by melones           #+#    #+#             */
-/*   Updated: 2023/03/20 11:34:17 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/20 21:48:37 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,14 @@ std::vector<std::multimap<std::string, t_route> >	*ConfigParser::init(std::strin
 	_path = path;
 	initFieldList();
 	_nb_vhost = 0;
-	try
+	if (sanityCheck() || prepareParsing() || syntaxCheck())
+		throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + "Config parsing failed.");
+	else
 	{
-		if (sanityCheck() || prepareParsing() || syntaxCheck())
+		if (parseConfig())
 			throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + "Config parsing failed.");
-		else
-		{
-			parseConfig();
-			return (_vhosts);
-		}
+		return (_vhosts);
 	}
-	catch (std::exception &e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
-	return (NULL);
 }
 
 int	ConfigParser::sanityCheck(void)
@@ -233,6 +226,7 @@ int	ConfigParser::parseConfig(void)
 		if (j == std::string::npos)
 		{
 			std::cout << "ConfigParser error: Cannot find server field." << std::endl;
+			delete vhosts;
 			return (1);
 		}
 		_configs[i].erase(j, 7);
@@ -241,6 +235,7 @@ int	ConfigParser::parseConfig(void)
 		else
 		{
 			std::cout << "ConfigParser error: Unclosed brackets for server field." << std::endl;
+			delete vhosts;
 			return (1);
 		}
 	}
@@ -268,6 +263,7 @@ int	ConfigParser::parseConfig(void)
 					else
 					{
 						std::cout << "ConfigParser error: Invalid path for location field." << std::endl;
+						delete vhosts;
 						return (1);
 					}
 				}
@@ -278,6 +274,7 @@ int	ConfigParser::parseConfig(void)
 					else
 					{
 						std::cout << "ConfigParser error: Invalid location field syntax." << std::endl;
+						delete vhosts;
 						return (1);
 					}
 				}
@@ -300,7 +297,10 @@ int	ConfigParser::parseConfig(void)
 		}
 		t_route	*route = parseRoute(_configs[i]);
 		if (!route)
+		{
+			delete vhosts;
 			return (1);
+		}
 		vhost.insert(std::pair<std::string, t_route>(route->server_name, *route));
 		for (size_t m = 0; m < locations.size(); m++)
 		{
@@ -318,7 +318,10 @@ int	ConfigParser::parseConfig(void)
 				locations[m].erase(o);
 			t_route	*subroute = parseRoute(locations[m]);
 			if (!subroute)
+			{
+				delete vhosts;
 				return (1);
+			}
 			subroute->match = match;
 			subroute->type = LOCATION;
 			vhost.insert(std::pair<std::string, t_route>(route->server_name, *subroute));
@@ -371,12 +374,14 @@ int	ConfigParser::parseField(std::string field, t_route *route)
 		if (iter == _field_list.end())
 		{
 			std::cout << "ConfigParser error: Unknown token '" << *vct.begin() << "'" << std::endl;
+			delete[] tmp;
 			return (1);
 		}
 		traits = iter->second;
 		if ((vct.size() - 1 > traits.maximum_arguments && traits.maximum_arguments != 0) || vct.size() - 1 < traits.minimum_arguments)
 		{
 			std::cout << "ConfigParser error: Invalid number of arguments for token '" << *vct.begin() << "'" << std::endl;
+			delete[] tmp;
 			return (1);
 		}
 		insertField(vct, route);
@@ -466,7 +471,10 @@ t_route	*ConfigParser::parseRoute(std::string config)
 	while (token)
 	{
 		if (parseField(token, route))
+		{
+			delete[] tmp;
 			return (NULL);
+		}
 		token = strtok_r(NULL, ";", &saveptr);
 	}
 	fillDefault(route);
