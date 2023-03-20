@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/03/18 04:44:48 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/20 14:38:29 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ std::string	concatMethods(const t_methods methods)
 		str += "true";
 	else
 		str += "false";
-	str += "]";
+	str += "] ";
 	str += "HEAD [";
 	if (methods.head)
 		str += "true";

@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/20 11:50:27 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/20 15:47:30 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -370,6 +370,7 @@ std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, ma
 	mapIterator					map_iter2 = vectIter->end();
 	std::string					result;
 	std::string					concat;
+	std::string					match;
 	size_t						i = 0;
 
 	path = remove_consecutive_slashes(path);
@@ -395,6 +396,13 @@ std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, ma
 		search = _currentRoot;
 	while (map_iter != map_iter2)
 	{
+		i = search.find_last_of('/');
+		if (i != std::string::npos)
+		{
+			match = search.substr(0, i);
+			if (map_iter->second.match == "/" + match && !get_path_type(map_iter->second.root + search.substr(i)))
+				search = match;
+		}
 		if (map_iter->second.type == LOCATION && map_iter->second.match == "/" + search)
 		{
 			result = map_iter->second.root + path;
@@ -402,7 +410,7 @@ std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, ma
 			i = result.find("/" + search, 0);
 			if (i != std::string::npos)
 				result.erase(i, search.length() + 1);
-			if (path.find_last_of('.') == std::string::npos)
+			if (path.find('.') == std::string::npos)
 			{
 				for (size_t j = 0; j < map_iter->second.index.size(); j++)
 				{
@@ -417,7 +425,7 @@ std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, ma
 		}
 		++map_iter;
 	}
-	if (path.find_last_of('.') == std::string::npos)
+	if (path.find('.') == std::string::npos)
 	{
 		for (size_t j = 0; j < vectIter->begin()->second.index.size(); j++)
 		{
