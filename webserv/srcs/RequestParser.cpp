@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/20 15:47:30 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/20 16:16:58 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -391,7 +391,6 @@ std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, ma
 		search = concat.substr(0, concat.length() - 1);
 	else
 		search = concat;
-	std::cout << search << "\n";
 	if (vect.size() == 1 && !_currentRoot.empty() && path != "/favicon.ico")
 		search = _currentRoot;
 	while (map_iter != map_iter2)
@@ -400,7 +399,7 @@ std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, ma
 		if (i != std::string::npos)
 		{
 			match = search.substr(0, i);
-			if (map_iter->second.match == "/" + match && !get_path_type(map_iter->second.root + search.substr(i)))
+			if (map_iter->second.match == "/" + match && get_path_type(map_iter->second.root + search.substr(i)) >= 0)
 				search = match;
 		}
 		if (map_iter->second.type == LOCATION && map_iter->second.match == "/" + search)
