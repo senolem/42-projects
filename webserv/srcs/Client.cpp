@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/20 14:20:33 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/20 14:30:33 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,9 +133,17 @@ size_t	Client::getSent(void)
 
 int	Client::sendResponse(void)
 {
-	std::string	str = _response.substr(_sent, BUFFER_SIZE);
-	int	i = 0;
+	int			i = 0;
+	std::string	str;
 
+	if (_sent <= _response.size())
+		str = _response.substr(_sent, BUFFER_SIZE);
+	else
+	{
+		_open = false;
+		_sent = 0;
+		return (-1);
+	}
 	i = send(_socket.fd, str.c_str(), str.length(), 0);
 	if (i == -1)
 	{
