@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:16 by melones           #+#    #+#             */
-/*   Updated: 2023/03/14 11:09:13 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/21 15:24:55 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ std::vector<Client*>	*Server::getClients(void)
 	return (&_clients);
 }
 
-std::string	Server::getResponse(t_request_header request)
+std::string	Server::getResponse(t_request request)
 {
 	return (_request_parser->getResponse(request));
 }

@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:59:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/14 11:07:25 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/21 15:24:55 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ class Server
 		int											newConnection(void);
 		t_socket									getSocket(void);
 		std::vector<Client*>						*getClients(void);
-		std::string									getResponse(t_request_header request);
+		std::string									getResponse(t_request request);
 		const std::multimap<std::string, t_route>	&getVirtualHosts(void);
 };
 

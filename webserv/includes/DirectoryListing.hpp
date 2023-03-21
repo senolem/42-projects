@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   DirectoryListing.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 17:09:32 by melones           #+#    #+#             */
-/*   Updated: 2023/03/17 19:54:02 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/21 15:25:10 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ class DirectoryListing
 		DirectoryListing	&operator=(const DirectoryListing &src);
 
 		std::string	getPage(void);
-		void		generate(t_response_header &response, t_request_header &request);
+		void		generate(t_response &response, t_request &request);
 		std::string	getSize(struct stat &st);
 		std::string	getModifiedDate(struct stat &st);
 };

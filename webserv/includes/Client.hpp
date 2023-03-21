@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:48:37 by melones           #+#    #+#             */
-/*   Updated: 2023/03/16 12:49:05 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/21 15:24:55 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ class Client
 		Client  &operator=(const Client &src);
 
 		int							getRequest(void);
-		t_request_header			getParsedRequest(void);
+		t_request			getParsedRequest(void);
 		t_socket					getSocket(void);
 		std::string					getResolved(void);
 		size_t						getSent(void);
@@ -43,7 +43,7 @@ class Client
 	private:
 		Server					*_server;
 		t_socket				_socket;
-		t_request_header		_request;
+		t_request		_request;
 		std::string				_host;
 		int						_port;
 		std::string				_resolved;

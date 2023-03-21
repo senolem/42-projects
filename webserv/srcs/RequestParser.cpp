@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RequestParser.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/20 22:42:37 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/21 18:05:51 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ RequestParser	&RequestParser::operator=(const RequestParser &src)
 	return (*this);
 }
 
-t_request_header	RequestParser::parseRequest(std::string buffer)
+t_request	RequestParser::parseRequest(std::string buffer)
 {
-	t_request_header									request;
+	t_request											request;
 	std::vector<std::string>							buffer_vect;
 	std::vector<std::string>							vect;
 	vectorIterator										vect_iter;
@@ -93,9 +93,14 @@ t_request_header	RequestParser::parseRequest(std::string buffer)
 		request.status = 405;
 		return (request);
 	}
+	request.transfer_encoding = parseTransferEncodingHeader(getHeader(buffer_vect, "Transfer-Encoding:"));
 	i = buffer.find("\r\n\r\n");
 	if (request.method == "POST" && i != std::string::npos && buffer.length() > i + 4)
+	{
 		request.body = buffer.substr(i + 4);
+		if (request.transfer_encoding == "chunked")
+			parseChunkedBody(request);
+	}
 	request.cookie = parseCookieHeader(getHeader(buffer_vect, "Cookie:"));
 	request.accept = parseAcceptHeader(getHeader(buffer_vect, "Accept:"));
 	if (request.method == "POST" && getHeader(buffer_vect, "Content-Type:").length() >= 14)
@@ -183,10 +188,45 @@ std::multimap<float, std::string>	RequestParser::parseAcceptHeader(const std::st
 	return (accept_header);
 }
 
-std::string	RequestParser::getResponse(t_request_header request)
+std::string	RequestParser::parseTransferEncodingHeader(const std::string &header)
 {
-	std::stringstream						response_stream;
-	t_response_header						response;
+	std::vector<std::string>	split;
+
+	split = split_string(header, " ");
+	if (split.size() != 2)
+		return (std::string());
+	return (split.at(1));
+}
+
+void	RequestParser::parseChunkedBody(t_request &request)
+{
+	size_t		i = 0;
+	std::string	body;
+	std::string	tmp;
+	int			chunk_len;
+
+	while (i < request.body.size())
+	{
+		size_t	len = request.body.find("\r\n", i);
+		if (len == std::string::npos)
+			return ;
+		chunk_len = request.body.find("\r\n, len");
+		if (chunk_len == std::string::npos || chunk_len > len)
+			chunk_len = len;
+		int	chunk_size = std::strtol(request.body.substr(i, chunk_len - i).c_str(), NULL, 16);
+		if (chunk_size < 0)
+			return ;
+		body += request.body.substr(len + 2, chunk_size);
+	}
+	request.body = body;
+	std::cout << "------RESULT-------\n";
+	std::cout << body << "\n";
+}
+
+std::string	RequestParser::getResponse(t_request request)
+{
+	std::stringstream	response_stream;
+	t_response			response;
 
 	if (request.status != 0)
 		setStatusErrorPage(&response, request);
@@ -212,7 +252,7 @@ std::string	RequestParser::getResponse(t_request_header request)
 	return (response_stream.str());
 }
 
-void	RequestParser::handleGetResponse(t_request_header &request, t_response_header &response)
+void	RequestParser::handleGetResponse(t_request &request, t_response &response)
 {
 	std::stringstream						file_stream;
 	std::map<std::string, t_cgi>::iterator	cgi_iter;
@@ -279,7 +319,7 @@ void	RequestParser::handleGetResponse(t_request_header &request, t_response_head
 	}
 }
 
-void	RequestParser::handlePostResponse(t_request_header &request, t_response_header &response)
+void	RequestParser::handlePostResponse(t_request &request, t_response &response)
 {
 	std::stringstream						file_stream;
 	std::map<std::string, t_cgi>::iterator	cgi_iter;
@@ -331,7 +371,7 @@ void	RequestParser::handlePostResponse(t_request_header &request, t_response_hea
 	}
 }
 
-void	RequestParser::handleDeleteResponse(t_request_header &request, t_response_header &response)
+void	RequestParser::handleDeleteResponse(t_request &request, t_response &response)
 {
 	if (!get_path_type(request.path))
 	{
@@ -349,7 +389,7 @@ void	RequestParser::handleDeleteResponse(t_request_header &request, t_response_h
 		request.status = 404;
 }
 
-void	RequestParser::setStatusErrorPage(t_response_header *response, const t_request_header &request)
+void	RequestParser::setStatusErrorPage(t_response *response, const t_request &request)
 {
 	std::stringstream	file_stream;
 	response->content_type = "text/html";
@@ -458,7 +498,7 @@ std::string	RequestParser::getFiletype(void)
 	return (_filetype);
 }
 
-void	RequestParser::setContentType(t_request_header &request, t_response_header *response, std::string path)
+void	RequestParser::setContentType(t_request &request, t_response *response, std::string path)
 {
 	// Technically, this function should rather determine which content type
 	// should be returned if we'd like to manage serving multiple versions of a given
@@ -479,7 +519,7 @@ void	RequestParser::setContentType(t_request_header &request, t_response_header 
 		request.status = 406;
 }
 
-int	RequestParser::isAccepted(t_request_header request, const std::string &type)
+int	RequestParser::isAccepted(t_request request, const std::string &type)
 {
 	std::map<float, std::string>::const_reverse_iterator	map_iter = request.accept.rbegin();
 	std::map<float, std::string>::const_reverse_iterator	map_iter2 = request.accept.rend();

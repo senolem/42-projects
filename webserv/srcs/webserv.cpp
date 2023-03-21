@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/20 15:50:19 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/21 15:24:55 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	webserv::startServer(void)
 							std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to read request from client " << client->getResolved() << "\n";
 						else if (ret == -2)
 						{
-							t_request_header	tmp;
+							t_request	tmp;
 							tmp.status = 413;
 							client->setResponse(iter->getResponse(tmp));
 							FD_SET(client->getSocket().fd, &_write_fds_bak);

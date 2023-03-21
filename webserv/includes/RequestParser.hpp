@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RequestParser.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/20 20:52:39 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/21 15:25:10 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,22 @@ class RequestParser
 		~RequestParser(void);
 		RequestParser	&operator=(const RequestParser &src);
 		
-		t_request_header					parseRequest(std::string buffer);
+		t_request					parseRequest(std::string buffer);
 		std::multimap<float, std::string>	parseAcceptHeader(const std::string &header);
+		std::string							parseTransferEncodingHeader(const std::string &header);
+		void								parseChunkedBody(t_request &request);
 		std::map<std::string, std::string>	parseCookieHeader(const std::string &header);
 		std::string							parseHostHeader(const std::string &header);
-		std::string							getResponse(t_request_header request);
+		std::string							getResponse(t_request request);
 		std::string							getPath(vectorIterator vectIter, std::string path, mapIterator *subserver, std::string method);
 		std::string							getFiletype(void);
 		std::string							getHeader(std::vector<std::string> header, std::string field);
-		void								setContentType(t_request_header &request, t_response_header *header, std::string path);
-		void								setStatusErrorPage(t_response_header *header, const t_request_header &request);
-		void								handleGetResponse(t_request_header &request, t_response_header &response);
-		void								handlePostResponse(t_request_header &request, t_response_header &response);
-		void								handleDeleteResponse(t_request_header &request, t_response_header &response);
-		int									isAccepted(t_request_header header, const std::string &type);
+		void								setContentType(t_request &request, t_response *header, std::string path);
+		void								setStatusErrorPage(t_response *header, const t_request &request);
+		void								handleGetResponse(t_request &request, t_response &response);
+		void								handlePostResponse(t_request &request, t_response &response);
+		void								handleDeleteResponse(t_request &request, t_response &response);
+		int									isAccepted(t_request header, const std::string &type);
 		void								initErrors(void);
 		void								initTypes(void);
 };

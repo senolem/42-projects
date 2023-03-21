@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   CgiHandler.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:42:02 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/16 11:29:09 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/21 15:25:10 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "CgiHandler.hpp"
 
-CgiHandler::CgiHandler(std::string &cgi_path, RequestParser &request_parser, t_request_header &request, t_response_header &response) : _cgi_path(cgi_path), _request_parser(request_parser), _request(request), _response(response)
+CgiHandler::CgiHandler(std::string &cgi_path, RequestParser &request_parser, t_request &request, t_response &response) : _cgi_path(cgi_path), _request_parser(request_parser), _request(request), _response(response)
 {
 	size_t		i = 0;
 	char		cwd[256];

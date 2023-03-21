@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Structures.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/03/18 04:46:30 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/21 15:25:10 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_request_header
 	std::string										body;
 	std::string										content_type;
 	std::string										content_length;
+	std::string										transfer_encoding;
 	std::string										query;
 	std::multimap<std::string, t_route>::iterator	matched_subserver;
 	int												status;
@@ -88,7 +89,7 @@ typedef struct s_request_header
 	{
 		
 	}
-}	t_request_header;
+}	t_request;
 
 typedef struct s_response_header
 {
@@ -102,7 +103,7 @@ typedef struct s_response_header
 	{
 		
 	}
-}	t_response_header;
+}	t_response;
 
 typedef struct s_socket
 {

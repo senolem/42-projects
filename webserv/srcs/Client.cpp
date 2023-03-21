@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/20 14:30:33 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/21 15:24:55 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ Client  &Client::operator=(const Client &src)
 
 int	Client::getRequest(void)
 {
-	char		buffer[1024];
+	char		buffer[BUFFER_SIZE];
 	int			buffer_size = sizeof(buffer);
 	bool		reading_done = false;
 	int			rd = 0;
@@ -116,7 +116,7 @@ int	Client::getRequest(void)
 	return (1);
 }
 
-t_request_header	Client::getParsedRequest(void)
+t_request	Client::getParsedRequest(void)
 {
 	return (_request);
 }

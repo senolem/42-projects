@@ -6,13 +6,13 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/20 12:21:44 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/21 14:50:03 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WEBSERV_HPP
 # define WEBSERV_HPP
-# define BUFFER_SIZE 65536
+# define BUFFER_SIZE 4096
 # define MAX_REQUEST_SIZE_PROTECTION 100000000
 # include <iostream>
 # include <string>

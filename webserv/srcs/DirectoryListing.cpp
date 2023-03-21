@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   DirectoryListing.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 17:12:42 by melones           #+#    #+#             */
-/*   Updated: 2023/03/20 19:53:23 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/21 15:25:10 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ std::string	DirectoryListing::getPage(void)
 	return (string_stream.str());
 }
 
-void	DirectoryListing::generate(t_response_header &response, t_request_header &request)
+void	DirectoryListing::generate(t_response &response, t_request &request)
 {
 	struct stat					st;
 	std::string					page;
