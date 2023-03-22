@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:30:45 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/22 19:40:49 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/22 21:46:47 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ class CgiHandler
 		std::string							&_cgi_path;
 		std::string							_script_path;
 		RequestHandler						&_request_handler;
-		t_request					&_request;
-		t_response					&_response;
+		t_request							&_request;
+		t_response							&_response;
 };
 
 #endif

@@ -1,2 +1,0 @@
-[34m[INFO][36m[webserv][0m No configuration file provided. Using default: conf/default.conf
-ConfigParser error: Unknown token '	methods_allowed'

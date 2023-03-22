@@ -38,7 +38,7 @@ class RequestHandler
 		~RequestHandler(void);
 		RequestHandler	&operator=(const RequestHandler &src);
 		
-		t_request					parseRequest(std::string buffer);
+		t_request							parseRequest(std::string buffer);
 		std::multimap<float, std::string>	parseAcceptHeader(const std::string &header);
 		std::string							parseTransferEncodingHeader(const std::string &header);
 		void								parseChunkedBody(t_request &request);

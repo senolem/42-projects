@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/22 20:19:29 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/22 21:52:18 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ webserv::vectorIterator	webserv::getHost(std::string host)
 			return (vect_iter);
 		++vect_iter;
 	}
-	std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Host not found, using first server block\n";
+	std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Host \"" << host << "\" did not match any of the server blocks\n";
 	return (vect_iter);
 }
 

@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/03/22 19:41:30 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/22 21:50:50 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 		return (request);
 	}
 	vect_iter = _webserv.getHost(request.host);
+	if (vect_iter == vhosts.end())
+	{
+		request.status = 500;
+		return (request);
+	}
 	request.matched_subserver = vect_iter->begin();
 	i = vect.at(1).find("?");
 	if (i != std::string::npos)

@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:59:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/22 19:40:49 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/22 22:13:08 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,14 @@ class Server
 		~Server(void);
 		Server  &operator=(const Server &src);
 
+		std::ofstream								_log_file;
+
 		int											newConnection(void);
 		t_socket									getSocket(void);
 		std::vector<Client*>						*getClients(void);
 		std::string									getResponse(t_request request);
 		const std::multimap<std::string, t_route>	&getVirtualHosts(void);
+		void										writeAccessLog(const std::string &str);
 };
 
 #endif

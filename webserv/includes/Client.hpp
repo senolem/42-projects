@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:48:37 by melones           #+#    #+#             */
-/*   Updated: 2023/03/22 19:40:49 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/22 22:12:02 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ class Client
 		Client  &operator=(const Client &src);
 
 		int							getRequest(void);
-		t_request			getParsedRequest(void);
+		t_request					getParsedRequest(void);
 		t_socket					getSocket(void);
 		std::string					getResolved(void);
 		size_t						getSent(void);
@@ -43,7 +43,7 @@ class Client
 	private:
 		Server					*_server;
 		t_socket				_socket;
-		t_request		_request;
+		t_request				_request;
 		std::string				_host;
 		int						_port;
 		std::string				_resolved;

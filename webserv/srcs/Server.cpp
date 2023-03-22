@@ -6,24 +6,28 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:16 by melones           #+#    #+#             */
-/*   Updated: 2023/03/22 20:23:09 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/22 22:45:16 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Server.hpp"
 
-Server::Server(webserv &webserv_, std::multimap<std::string, t_route> &vhosts, t_socket socket_) : _webserv(webserv_), _vhosts(vhosts), _socket(socket_), _request_handler(new RequestHandler(webserv_, vhosts))
+Server::Server(webserv &webserv_, std::multimap<std::string, t_route> &vhosts, t_socket socket_) : _webserv(webserv_), _vhosts(vhosts), _socket(socket_)
 {
-
+	_request_handler = new RequestHandler(webserv_, vhosts);
+	_log_file.open(_vhosts.begin()->second.access_log.c_str(), std::ios::out | std::ios::app);
+	if (!_log_file.is_open())
+		std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to open log file (Does the parent folder exists?)\n";
 }
 
-Server::Server(const Server &src) : _webserv(src._webserv), _vhosts(src._vhosts), _socket(src._socket), _request_handler(new RequestHandler(src._webserv, src._vhosts))
+Server::Server(const Server &src) : _webserv(src._webserv), _vhosts(src._vhosts), _socket(src._socket)
 {
 	*this = src;
 }
 
 Server::~Server(void)
 {
+	_log_file.close();
 	delete _request_handler;
 }
 
@@ -35,6 +39,9 @@ Server	&Server::operator=(const Server &src)
 		this->_nb_vhost = src._nb_vhost;
 		this->_socket = src._socket;
 		this->_request_handler = new RequestHandler(src._webserv, src._vhosts);
+		this->_log_file.open(src._vhosts.begin()->second.access_log.c_str(), std::ios::out | std::ios::app);
+		if (!_log_file.is_open())
+			std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to open log file (Does the parent folder exists?)\n";
 	}
 	return (*this);
 }
@@ -64,4 +71,15 @@ std::string	Server::getResponse(t_request request)
 const std::multimap<std::string, t_route>	&Server::getVirtualHosts(void)
 {
 	return (_vhosts);
+}
+
+void	Server::writeAccessLog(const std::string &str)
+{
+	if (!_log_file.is_open())
+		std::cout << RED + ERROR + GREEN + SERV + NONE + " Cannot write to log file\n";
+	else
+	{
+		_log_file << str;
+		_log_file.flush();
+	}
 }
