@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/03/23 00:43:08 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/23 00:46:05 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,7 @@ void	RequestHandler::parseChunkedBody(t_request &request)
 		body += request.body.substr(len + 2, chunk_size);
 	}
 	request.body = body;
+	request.content_length = body.length();
 	std::cout << "------RESULT-------\n";
 	std::cout << body << "\n";
 }
