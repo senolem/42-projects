@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   CgiHandler.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:30:45 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/21 15:25:10 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/22 19:40:49 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CGIHANDLER_HPP
 # define CGIHANDLER_HPP
 # include "webserv.hpp"
-# include "RequestParser.hpp"
+# include "RequestHandler.hpp"
 
-class RequestParser;
+class RequestHandler;
 class CgiHandler
 {
 	public:
-		CgiHandler(std::string &cgi_path, RequestParser &request_parser, t_request &request, t_response &response);
+		CgiHandler(std::string &cgi_path, RequestHandler &request_handler, t_request &request, t_response &response);
 		CgiHandler(const CgiHandler &src);
 		~CgiHandler(void);
 		CgiHandler	&operator=(const CgiHandler &src);
@@ -30,7 +30,7 @@ class CgiHandler
 		std::map<std::string, std::string>	_env;
 		std::string							&_cgi_path;
 		std::string							_script_path;
-		RequestParser						&_request_parser;
+		RequestHandler						&_request_handler;
 		t_request					&_request;
 		t_response					&_response;
 };

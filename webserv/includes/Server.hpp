@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:59:35 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/21 15:24:55 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/22 19:40:49 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define SERVER_HPP
 # include "webserv.hpp"
 # include "Structures.hpp"
-# include "RequestParser.hpp"
+# include "RequestHandler.hpp"
 # include "Client.hpp"
 
 class webserv;
-class RequestParser;
+class RequestHandler;
 class Client;
 class Server
 {
@@ -27,7 +27,7 @@ class Server
 		std::multimap<std::string, t_route>	&_vhosts;
 		size_t								_nb_vhost;
 		t_socket							_socket;
-		RequestParser						*_request_parser;
+		RequestHandler						*_request_handler;
 		std::vector<Client*>				_clients;
 
 	public:

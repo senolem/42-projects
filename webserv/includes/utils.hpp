@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 21:08:51 by melones           #+#    #+#             */
-/*   Updated: 2023/03/17 12:47:22 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/22 20:19:46 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ std::string					concatMethods(const t_methods methods);
 void						printCgiMap(const std::map<std::string, t_cgi> map);
 std::vector<std::string>	split_string(const std::string &str, const std::string &c);
 std::string					getHeader(std::vector<std::string> header, std::string field);
-char						*ft_itoa(int n);
 std::string					trim(const std::string& str, const std::string& totrim);
 char						**map_split(std::map<std::string, std::string> string_map);
 int							get_path_type(const std::string &path);
 bool						is_consecutive_slash(char lhs, char rhs);
 std::string					remove_consecutive_slashes(const std::string &str);
+std::string					itostr(int i);
 
 #endif

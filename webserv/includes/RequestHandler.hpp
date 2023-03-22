@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RequestParser.hpp                                  :+:      :+:    :+:   */
+/*   RequestHandler.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:05:25 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/21 15:25:10 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/22 19:39:43 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef REQUESTPARSER_HPP
-# define REQUESTPARSER_HPP
+#ifndef REQUESTHANDLER_HPP
+# define REQUESTHANDLER_HPP
 # include "webserv.hpp"
 # include "CgiHandler.hpp"
 # include "DirectoryListing.hpp"
 
 class webserv;
 class cgiHandler;
-class RequestParser
+class RequestHandler
 {
 	public:
 		typedef std::map<std::string, t_route>::iterator					mapIterator;
@@ -33,10 +33,10 @@ class RequestParser
 		std::string								_filetype;
 		
 	public:
-		RequestParser(webserv &webserv_, std::multimap<std::string, t_route> &vhosts);
-		RequestParser(const RequestParser &src);
-		~RequestParser(void);
-		RequestParser	&operator=(const RequestParser &src);
+		RequestHandler(webserv &webserv_, std::multimap<std::string, t_route> &vhosts);
+		RequestHandler(const RequestHandler &src);
+		~RequestHandler(void);
+		RequestHandler	&operator=(const RequestHandler &src);
 		
 		t_request					parseRequest(std::string buffer);
 		std::multimap<float, std::string>	parseAcceptHeader(const std::string &header);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/03/20 14:38:29 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/22 20:19:51 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,34 +128,6 @@ int	ft_intlen(long n)
 	return (len);
 }
 
-char	*ft_itoa(int n)
-{
-	int		i;
-	char	*toreturn;
-	long	nb;
-
-	nb = n;
-	i = ft_intlen(nb);
-	toreturn = (char *)malloc(i * sizeof(char) + 1);
-	if (!toreturn)
-		return (0);
-	toreturn[i--] = '\0';
-	if (nb == 0)
-		toreturn[0] = 48;
-	if (nb < 0)
-	{
-		toreturn[0] = '-';
-		nb = nb * -1;
-	}
-	while (nb)
-	{
-		toreturn[i] = 48 + (nb % 10);
-		nb = nb / 10;
-		i--;
-	}
-	return (toreturn);
-}
-
 std::string trim(const std::string& str, const std::string& totrim)
 {
 	std::string	result = str;
@@ -228,4 +200,12 @@ std::string	remove_consecutive_slashes(const std::string &str)
 	std::string::iterator	iter = std::unique(tmp.begin(), tmp.end(), is_consecutive_slash);
 	tmp.erase(iter, tmp.end());
 	return (tmp);
+}
+
+std::string	itostr(int i)
+{
+	std::stringstream	stream;
+
+	stream << i;
+	return (stream.str());
 }

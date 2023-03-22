@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/21 15:24:55 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/22 20:19:24 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Client.hpp"
 
-Client::Client(Server *server, RequestParser *request_parser) : _server(server), _socket(), _request(), _host(), _port(), _resolved(), _request_time(0), _request_parser(request_parser), _open(false)
+Client::Client(Server *server, RequestHandler *request_handler) : _server(server), _socket(), _request(), _host(), _port(), _resolved(), _request_time(0), _request_handler(request_handler), _open(false)
 {
 	int	flags = 0;
 	int	addrlen = sizeof(_socket.sockaddr_);
@@ -31,14 +31,14 @@ Client::Client(Server *server, RequestParser *request_parser) : _server(server),
 		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to set socket options");
 	_host = inet_ntoa(_socket.sockaddr_.sin_addr);
 	_port = htons(_socket.sockaddr_.sin_port);
-	_resolved = _host + ":" + ft_itoa(_port);
+	_resolved = _host + ":" + itostr(_port);
 	_open = true;
 	_sent = 0;
 	resetTimeout();
 	std::cout << BLUE << INFO << GREEN << SERV << NONE << " Connection successfully established to " << _resolved << "\n";
 }
 
-Client::Client(const Client &src) : _server(src._server), _socket(src._socket), _request(src._request), _host(src._host), _port(src._port), _resolved(src._resolved), _request_time(src._request_time), _request_parser(src._request_parser), _open(src._open)
+Client::Client(const Client &src) : _server(src._server), _socket(src._socket), _request(src._request), _host(src._host), _port(src._port), _resolved(src._resolved), _request_time(src._request_time), _request_handler(src._request_handler), _open(src._open)
 {
 	*this = src;
 }
@@ -106,7 +106,7 @@ int	Client::getRequest(void)
 	{
 		std::cout << BLUE << INFO << GREEN << SERV << NONE << " Request received (length " << request.length() << ") :\n";
 		std::cout << request << "\n";
-		_request = _request_parser->parseRequest(request);
+		_request = _request_handler->parseRequest(request);
 	}
 	if (rd == 0 || !reading_done)
 	{

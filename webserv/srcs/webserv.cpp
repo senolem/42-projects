@@ -3,41 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   webserv.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/21 15:24:55 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/22 20:19:29 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "webserv.hpp"
 
-webserv::webserv(std::vector<std::multimap<std::string, t_route> > *src)
+webserv::webserv(std::vector<std::multimap<std::string, t_route> > *src) : _vhosts(src), _nb_vhost(_vhosts->size())
 {
-	_vhosts = src;
-	_nb_vhost = _vhosts->size();
 	FD_ZERO(&_read_fds);
 	FD_ZERO(&_write_fds);
 	FD_ZERO(&_read_fds_bak);
 	FD_ZERO(&_write_fds_bak);
 }
 
-webserv::webserv(const webserv &src)
+webserv::webserv(const webserv &src) : _subservers(src._subservers), _vhosts(src._vhosts), _nb_vhost(src._nb_vhost), _sockets(src._sockets), _read_fds(src._read_fds), _write_fds(src._write_fds_bak), _read_fds_bak(src._read_fds_bak), _write_fds_bak(src._write_fds_bak), _activeConnections(src._activeConnections)
 {
 	*this = src;
 }
 
 webserv::~webserv(void)
 {
-
+	delete _vhosts;
 }
 
 webserv	&webserv::operator=(const webserv &src)
 {
 	if (this != &src)
 	{
-		this->_vhosts = src._vhosts;
-		this->_nb_vhost = _vhosts->size();
+		_subservers = src._subservers;
+		_vhosts = src._vhosts;
+		_nb_vhost = src._nb_vhost;
+		_sockets = src._sockets;
+		_read_fds = src._read_fds;
+		_write_fds = src._write_fds_bak;
+		_read_fds_bak = src._read_fds_bak;
+		_write_fds_bak = src._write_fds_bak;
+		_activeConnections = src._activeConnections;
 	}
 	return (*this);
 }
@@ -159,9 +164,9 @@ t_socket	webserv::createSocket(int port)
 	_socket.sockaddr_.sin_port = htons(port);
 	memset(_socket.sockaddr_.sin_zero, 0, sizeof(_socket.sockaddr_.sin_addr));
 	if (bind(_socket.fd, (sockaddr *)&_socket.sockaddr_, sizeof(_socket.sockaddr_)) < 0)
-		throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Failed to bind socket for port " + ft_itoa(port));
+		throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Failed to bind socket for port " + itostr(port));
 	if (listen(_socket.fd, 10) < 0)
-		throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Failed to bind socket for port " + ft_itoa(port));
+		throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Failed to listen socket for port " + itostr(port));
 	std::cout << BLUE << INFO << CYAN << WEBSERV << NONE << " Socket successfully created for port " << port << "\n";
 	return (_socket);
 }

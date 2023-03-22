@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:24:48 by melones           #+#    #+#             */
-/*   Updated: 2023/03/20 21:48:37 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/22 20:15:31 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,6 +327,7 @@ int	ConfigParser::parseConfig(void)
 			vhost.insert(std::pair<std::string, t_route>(route->server_name, *subroute));
 			delete subroute;
 		}
+		delete route;
 		vhosts->push_back(vhost);
 		vhost.clear();
 		locations.clear();

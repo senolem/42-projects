@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RequestParser.cpp                                  :+:      :+:    :+:   */
+/*   RequestHandler.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 11:05:56 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/21 18:05:51 by albaur           ###   ########.fr       */
+/*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
+/*   Updated: 2023/03/22 19:41:30 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RequestParser.hpp"
+#include "RequestHandler.hpp"
 
-RequestParser::RequestParser(webserv &webserv_, std::multimap<std::string, t_route> &vhosts) : _webserv(webserv_), _vhosts(vhosts)
+RequestHandler::RequestHandler(webserv &webserv_, std::multimap<std::string, t_route> &vhosts) : _webserv(webserv_), _vhosts(vhosts)
 {
 	initTypes();
 	initErrors();
 }
 
-RequestParser::RequestParser(const RequestParser &src) : _webserv(src._webserv), _vhosts(src._vhosts), _typesMap(src._typesMap), _errorsMap(src._errorsMap)
+RequestHandler::RequestHandler(const RequestHandler &src) : _webserv(src._webserv), _vhosts(src._vhosts), _typesMap(src._typesMap), _errorsMap(src._errorsMap)
 {
 
 }
 
-RequestParser::~RequestParser(void)
+RequestHandler::~RequestHandler(void)
 {
 
 }
 
-RequestParser	&RequestParser::operator=(const RequestParser &src)
+RequestHandler	&RequestHandler::operator=(const RequestHandler &src)
 {
 	if (this != &src)
 	{
@@ -40,7 +40,7 @@ RequestParser	&RequestParser::operator=(const RequestParser &src)
 	return (*this);
 }
 
-t_request	RequestParser::parseRequest(std::string buffer)
+t_request	RequestHandler::parseRequest(std::string buffer)
 {
 	t_request											request;
 	std::vector<std::string>							buffer_vect;
@@ -125,7 +125,7 @@ t_request	RequestParser::parseRequest(std::string buffer)
 	return (request);
 }
 
-std::string	RequestParser::parseHostHeader(const std::string &header)
+std::string	RequestHandler::parseHostHeader(const std::string &header)
 {
 	std::vector<std::string>	vect;
 	std::string					host;
@@ -138,7 +138,7 @@ std::string	RequestParser::parseHostHeader(const std::string &header)
 	return (vect.at(1));
 }
 
-std::map<std::string, std::string>	RequestParser::parseCookieHeader(const std::string &header)
+std::map<std::string, std::string>	RequestHandler::parseCookieHeader(const std::string &header)
 {
 	std::map<std::string, std::string>	cookie_header;
 	std::vector<std::string>			vect;
@@ -158,7 +158,7 @@ std::map<std::string, std::string>	RequestParser::parseCookieHeader(const std::s
 	return (cookie_header);
 }
 
-std::multimap<float, std::string>	RequestParser::parseAcceptHeader(const std::string &header)
+std::multimap<float, std::string>	RequestHandler::parseAcceptHeader(const std::string &header)
 {
 	std::multimap<float, std::string>	accept_header;
 	std::string							trimmed(header);
@@ -188,7 +188,7 @@ std::multimap<float, std::string>	RequestParser::parseAcceptHeader(const std::st
 	return (accept_header);
 }
 
-std::string	RequestParser::parseTransferEncodingHeader(const std::string &header)
+std::string	RequestHandler::parseTransferEncodingHeader(const std::string &header)
 {
 	std::vector<std::string>	split;
 
@@ -198,12 +198,12 @@ std::string	RequestParser::parseTransferEncodingHeader(const std::string &header
 	return (split.at(1));
 }
 
-void	RequestParser::parseChunkedBody(t_request &request)
+void	RequestHandler::parseChunkedBody(t_request &request)
 {
 	size_t		i = 0;
 	std::string	body;
 	std::string	tmp;
-	int			chunk_len;
+	size_t		chunk_len;
 
 	while (i < request.body.size())
 	{
@@ -223,7 +223,7 @@ void	RequestParser::parseChunkedBody(t_request &request)
 	std::cout << body << "\n";
 }
 
-std::string	RequestParser::getResponse(t_request request)
+std::string	RequestHandler::getResponse(t_request request)
 {
 	std::stringstream	response_stream;
 	t_response			response;
@@ -252,7 +252,7 @@ std::string	RequestParser::getResponse(t_request request)
 	return (response_stream.str());
 }
 
-void	RequestParser::handleGetResponse(t_request &request, t_response &response)
+void	RequestHandler::handleGetResponse(t_request &request, t_response &response)
 {
 	std::stringstream						file_stream;
 	std::map<std::string, t_cgi>::iterator	cgi_iter;
@@ -319,7 +319,7 @@ void	RequestParser::handleGetResponse(t_request &request, t_response &response)
 	}
 }
 
-void	RequestParser::handlePostResponse(t_request &request, t_response &response)
+void	RequestHandler::handlePostResponse(t_request &request, t_response &response)
 {
 	std::stringstream						file_stream;
 	std::map<std::string, t_cgi>::iterator	cgi_iter;
@@ -371,7 +371,7 @@ void	RequestParser::handlePostResponse(t_request &request, t_response &response)
 	}
 }
 
-void	RequestParser::handleDeleteResponse(t_request &request, t_response &response)
+void	RequestHandler::handleDeleteResponse(t_request &request, t_response &response)
 {
 	if (!get_path_type(request.path))
 	{
@@ -389,7 +389,7 @@ void	RequestParser::handleDeleteResponse(t_request &request, t_response &respons
 		request.status = 404;
 }
 
-void	RequestParser::setStatusErrorPage(t_response *response, const t_request &request)
+void	RequestHandler::setStatusErrorPage(t_response *response, const t_request &request)
 {
 	std::stringstream	file_stream;
 	response->content_type = "text/html";
@@ -417,7 +417,7 @@ void	RequestParser::setStatusErrorPage(t_response *response, const t_request &re
 	}
 }
 
-std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, mapIterator *subserver, std::string method)
+std::string	RequestHandler::getPath(vectorIterator vectIter, std::string path, mapIterator *subserver, std::string method)
 {
 	std::vector<std::string>	vect;
 	std::string					search;
@@ -493,12 +493,12 @@ std::string	RequestParser::getPath(vectorIterator vectIter, std::string path, ma
 	return (vectIter->begin()->second.root + path);
 }
 
-std::string	RequestParser::getFiletype(void)
+std::string	RequestHandler::getFiletype(void)
 {
 	return (_filetype);
 }
 
-void	RequestParser::setContentType(t_request &request, t_response *response, std::string path)
+void	RequestHandler::setContentType(t_request &request, t_response *response, std::string path)
 {
 	// Technically, this function should rather determine which content type
 	// should be returned if we'd like to manage serving multiple versions of a given
@@ -519,7 +519,7 @@ void	RequestParser::setContentType(t_request &request, t_response *response, std
 		request.status = 406;
 }
 
-int	RequestParser::isAccepted(t_request request, const std::string &type)
+int	RequestHandler::isAccepted(t_request request, const std::string &type)
 {
 	std::map<float, std::string>::const_reverse_iterator	map_iter = request.accept.rbegin();
 	std::map<float, std::string>::const_reverse_iterator	map_iter2 = request.accept.rend();
@@ -545,7 +545,7 @@ int	RequestParser::isAccepted(t_request request, const std::string &type)
 	return (0);
 }
 
-std::string	RequestParser::getHeader(std::vector<std::string> header, std::string field)
+std::string	RequestHandler::getHeader(std::vector<std::string> header, std::string field)
 {
 	size_t								i = 0;
 	std::vector<std::string>::iterator	iter = header.begin();
@@ -567,7 +567,7 @@ std::string	RequestParser::getHeader(std::vector<std::string> header, std::strin
 	return (ret);
 }
 
-void	RequestParser::initErrors(void)
+void	RequestHandler::initErrors(void)
 {
 	_errorsMap[400] = "400 Bad Request";
 	_errorsMap[401] = "401 Unauthorized";
@@ -599,7 +599,7 @@ void	RequestParser::initErrors(void)
 
 }
 
-void	RequestParser::initTypes(void)
+void	RequestHandler::initTypes(void)
 {
 	_typesMap["323"] = "text/h323";
     _typesMap["3g2"] = "video/3gpp2";

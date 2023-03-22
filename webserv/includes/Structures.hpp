@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Structures.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/03/21 15:25:10 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/22 19:37:37 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct s_route
 	}
 }	t_route;
 
-typedef struct s_request_header
+typedef struct s_request
 {
 	std::string										method;
 	std::string										path;
@@ -85,13 +85,13 @@ typedef struct s_request_header
 	std::multimap<std::string, t_route>::iterator	matched_subserver;
 	int												status;
 	bool											autoindex;
-	s_request_header(void) : method(""), path (""), version("HTTP/1.1"), host(""), status(0), autoindex(false)
+	s_request(void) : method(""), path (""), version("HTTP/1.1"), host(""), status(0), autoindex(false)
 	{
 		
 	}
 }	t_request;
 
-typedef struct s_response_header
+typedef struct s_response
 {
 	std::string	version;
 	std::string	status_code;
@@ -99,7 +99,7 @@ typedef struct s_response_header
 	size_t		content_length;
 	std::string	content;
 	std::string	body;
-	s_response_header(void) : version("HTTP/1.1"), status_code(""), content_type(""), content_length(0), content("")
+	s_response(void) : version("HTTP/1.1"), status_code(""), content_type(""), content_length(0), content("")
 	{
 		
 	}
