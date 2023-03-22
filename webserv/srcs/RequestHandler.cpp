@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/03/22 21:50:50 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/23 00:43:08 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,32 +49,21 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 	std::vector<std::multimap<std::string, t_route> >	&vhosts = _webserv.getVirtualHosts();
 	size_t												i = 0;
 	int													res = 0;
+	std::string											content_length;
 
 	buffer_vect = split_string(buffer, "\r\n");	vect = split_string(buffer_vect.at(0), " ");
 	if (vect.size() != 3)
-	{
-		request.status = 400;
-		return (request);
-	}
+		return (returnStatusCode(request, 400));
 	request.method = vect.at(0);
 	if (request.method != "GET" && request.method != "POST" && request.method != "DELETE" && request.method != "HEAD")
-	{
-		request.status = 501;
-		return (request);
-	}
+		return (returnStatusCode(request, 501));
 	request.version = vect.at(2);
 	request.host = parseHostHeader(getHeader(buffer_vect, "Host:"));
 	if (request.host.empty())
-	{
-		request.status = 400;
-		return (request);
-	}
+		return (returnStatusCode(request, 400));
 	vect_iter = _webserv.getHost(request.host);
 	if (vect_iter == vhosts.end())
-	{
-		request.status = 500;
-		return (request);
-	}
+		return (returnStatusCode(request, 500));
 	request.matched_subserver = vect_iter->begin();
 	i = vect.at(1).find("?");
 	if (i != std::string::npos)
@@ -86,18 +75,12 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 	if (vect_iter != vhosts.end())
 		request.path = getPath(vect_iter, vect.at(1), &request.matched_subserver, request.method);
 	if (vect_iter == vhosts.end() || request.path.empty())
-	{
-		request.status = 500;
-		return (request);
-	}
+		return (returnStatusCode(request, 500));
 	if ((request.method == "GET" && request.matched_subserver->second.methods_allowed.get == false) ||\
 		(request.method == "POST" && request.matched_subserver->second.methods_allowed.post == false) ||\
 		(request.method == "DELETE" && request.matched_subserver->second.methods_allowed.del == false) ||\
 		(request.method == "HEAD" && request.matched_subserver->second.methods_allowed.head == false))
-	{
-		request.status = 405;
-		return (request);
-	}
+		return (returnStatusCode(request, 405));
 	request.transfer_encoding = parseTransferEncodingHeader(getHeader(buffer_vect, "Transfer-Encoding:"));
 	i = buffer.find("\r\n\r\n");
 	if (request.method == "POST" && i != std::string::npos && buffer.length() > i + 4)
@@ -110,23 +93,32 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 	request.accept = parseAcceptHeader(getHeader(buffer_vect, "Accept:"));
 	if (request.method == "POST" && getHeader(buffer_vect, "Content-Type:").length() >= 14)
 		request.content_type = getHeader(buffer_vect, "Content-Type:").substr(14);
-	if (request.method == "POST" && getHeader(buffer_vect, "Content-Length:").length() >= 16)
-		request.content_length = getHeader(buffer_vect, "Content-Length:").substr(16);
+	content_length = getHeader(buffer_vect, "Content-Length:");
+	if (request.method == "POST" && content_length.length() >= 16)
+		request.content_length = content_length.substr(16);
+	else if (request.method == "POST" && content_length.length() < 16 && request.transfer_encoding != "chunked")
+		return (returnStatusCode(request, 411));
 	res = get_path_type(request.path);
 	if (res == 0)
 	{
 		std::ifstream	file(request.path.c_str());
 		if (!file.is_open())
-			request.status = 403;
+			return (returnStatusCode(request, 403));
 	}
 	else if (res == 1 && request.matched_subserver->second.autoindex == false)
-		request.status = 403;
+		return (returnStatusCode(request, 403));
 	else if (res == 1 && request.matched_subserver->second.autoindex == true)
 		request.autoindex = true;
 	else if (res == -2)
-		request.status = 404;
+		return (returnStatusCode(request, 404));
 	else if (res == -1)
-		request.status = 500;
+		return (returnStatusCode(request, 500));
+	return (request);
+}
+
+t_request	RequestHandler::returnStatusCode(t_request &request, int status)
+{
+	request.status = status;
 	return (request);
 }
 
@@ -347,7 +339,7 @@ void	RequestHandler::handlePostResponse(t_request &request, t_response &response
 		response.content_length = response.content.size();
 		if (access(cgi_iter->second.path.c_str(), X_OK))
 		{
-			std::cout << RED << ERROR << GREEN << SERV << NONE << " CGI at path " << cgi_iter->second.path << " does not exists or has invalid execution permissions.\n";
+			std::cout << RED << ERROR << GREEN << SERV << NONE << " CGI at path " << cgi_iter->second.path << " does not exist or has invalid execution permissions.\n";
 			request.status = 502;
 		}
 		else

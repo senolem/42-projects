@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/03/22 20:19:51 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/23 00:15:56 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,26 +108,6 @@ std::vector<std::string> split_string(const std::string &s, const std::string &c
 	return (vect);
 }
 
-int	ft_intlen(long n)
-{
-	int	len;
-
-	len = 0;
-	if (n == 0)
-		return (1);
-	if (n < 0)
-	{
-		n = n * -1;
-		len++;
-	}
-	while (n > 0)
-	{
-		n = n / 10;
-		len++;
-	}
-	return (len);
-}
-
 std::string trim(const std::string& str, const std::string& totrim)
 {
 	std::string	result = str;
@@ -208,4 +188,21 @@ std::string	itostr(int i)
 
 	stream << i;
 	return (stream.str());
+}
+
+std::string	get_date(void)
+{
+	time_t		now = time(NULL);
+	std::string	date;
+	char		buffer[256];
+	struct tm	*date_tm;
+
+	#if defined(__APPLE__)
+		date_tm = std::localtime(&now);
+	#else
+		date_tm = std::localtime(&now);
+	#endif
+	std::strftime(buffer, sizeof(buffer), "on %d-%m-%Y at %H:%M:%S", date_tm);
+	date = buffer;
+	return (date);
 }

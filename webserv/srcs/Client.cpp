@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/22 22:11:37 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/23 00:18:43 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	Client::getRequest(void)
 	{
 		std::cout << BLUE << INFO << GREEN << SERV << NONE << " Request received from " << _resolved << " (length " << request.length() << ") :\n";
 		std::cout << request << "\n";
-		_server->writeAccessLog("Request received from " + _resolved + " :" + "\n" + request + "\n");
+		_server->writeAccessLog("Request received from " + _resolved + " " + get_date() + " :" + "\n" + request + "\n");
 		_request = _request_handler->parseRequest(request);
 	}
 	if (rd == 0 || !reading_done)

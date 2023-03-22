@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 21:08:51 by melones           #+#    #+#             */
-/*   Updated: 2023/03/22 20:19:46 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/23 00:16:58 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ int							get_path_type(const std::string &path);
 bool						is_consecutive_slash(char lhs, char rhs);
 std::string					remove_consecutive_slashes(const std::string &str);
 std::string					itostr(int i);
+std::string					get_date(void);
 
 #endif
