@@ -1,4 +1,7 @@
+#!/usr/bin/python3
+
 import os
+import cgi
 
 print("Content-Type: text/html")
 print()

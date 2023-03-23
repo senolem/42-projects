@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:42:02 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/23 20:30:22 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/23 20:44:45 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ CgiHandler::CgiHandler(std::string &cgi_path, RequestHandler &request_handler, t
 	_env["REMOTE_ADDR"] = _request.remote_addr;
 	_env["SERVER_NAME"] = _request.matched_subserver->second.server_name;
 	_env["SERVER_SOFTWARE"] = "Webserv/1.0";
+	_env["GATEWAY_INTERFACE"] = "CGI/1.1";
 }
 
 CgiHandler::CgiHandler(const CgiHandler &src) : _cgi_path(src._cgi_path), _request_handler(src._request_handler), _request(src._request), _response(src._response)
