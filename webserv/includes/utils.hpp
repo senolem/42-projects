@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 21:08:51 by melones           #+#    #+#             */
-/*   Updated: 2023/03/23 00:16:58 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/23 18:14:47 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define UTILS_HPP
 # include "webserv.hpp"
 
-std::string					concatStringVector(const std::vector<std::string> &vct, const char c);
+std::string					concatStringVector(const std::vector<std::string> &vct, const std::string c);
 void						printIntStringMap(const std::map<int, std::string> map);
 std::string					concatMethods(const t_methods methods);
 void						printCgiMap(const std::map<std::string, t_cgi> map);

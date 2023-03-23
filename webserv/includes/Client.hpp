@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:48:37 by melones           #+#    #+#             */
-/*   Updated: 2023/03/22 22:12:02 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/23 19:50:47 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,17 @@ class Client
 		void						resetTimeout(void);
 
 	private:
-		Server					*_server;
-		t_socket				_socket;
-		t_request				_request;
-		std::string				_host;
-		int						_port;
-		std::string				_resolved;
-		time_t					_request_time;
-		RequestHandler			*_request_handler;
-		bool					_open;
-		std::string				_response;
-		size_t					_sent;
+		Server						*_server;
+		t_socket					_socket;
+		t_request					_request;
+		std::string					_host;
+		int							_port;
+		std::string					_resolved;
+		time_t						_request_time;
+		RequestHandler				*_request_handler;
+		bool						_open;
+		std::string					_response;
+		size_t						_sent;
 };
 
 #endif

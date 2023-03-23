@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/06 13:46:44 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/23 16:51:27 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ class ConfigParser
 		size_t												_nb_vhost;
 		std::vector<size_t>									_pos;
 		std::vector<std::multimap<std::string, t_route> >	*_vhosts;
+
+		struct is_whitespace
+		{
+			bool	operator()(char c)
+			{
+				return (std::isspace(static_cast<unsigned char>(c)));
+			}
+		};
 	
 	public:
 		ConfigParser(void);

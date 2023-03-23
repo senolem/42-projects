@@ -6,13 +6,13 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/03/23 00:15:56 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/23 18:14:11 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "webserv.hpp"
 
-std::string	concatStringVector(const std::vector<std::string> &vct, const char c)
+std::string	concatStringVector(const std::vector<std::string> &vct, const std::string c)
 {
 	std::vector<std::string>::const_iterator	iter = vct.begin();
 	std::vector<std::string>::const_iterator	iter2 = vct.end();

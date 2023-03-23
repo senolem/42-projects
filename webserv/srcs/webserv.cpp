@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/22 21:52:18 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/23 18:15:11 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,7 +255,7 @@ void	webserv::printConfig(void)
 			std::cout << "error_page :\n";
 			printIntStringMap(route.error_page);
 			std::cout << "root : " << route.root << "\n";
-			std::cout << "index : " << concatStringVector(route.index, ' ') << "\n";
+			std::cout << "index : " << concatStringVector(route.index, " ") << "\n";
 			std::cout << "methods_allowed : " << concatMethods(route.methods_allowed) << "\n";
 			std::cout << "autoindex : " << (route.autoindex ? "true":"false") << "\n";
 			std::cout << "cgi_pass : \n";

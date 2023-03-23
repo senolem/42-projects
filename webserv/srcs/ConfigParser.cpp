@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:24:48 by melones           #+#    #+#             */
-/*   Updated: 2023/03/22 20:15:31 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/23 19:09:17 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ std::vector<std::multimap<std::string, t_route> >	*ConfigParser::init(std::strin
 	initFieldList();
 	_nb_vhost = 0;
 	if (sanityCheck() || prepareParsing() || syntaxCheck())
-		throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + "Config parsing failed.");
+		throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Config parsing failed.");
 	else
 	{
 		if (parseConfig())
-			throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + "Config parsing failed.");
+			throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Config parsing failed.");
 		return (_vhosts);
 	}
 }
@@ -113,13 +113,14 @@ int	ConfigParser::prepareParsing(void)
 		_config_string.erase(i, j - i + 1);
 		i = _config_string.find("#");
 	}
+	std::replace_if(_config_string.begin(), _config_string.end(), is_whitespace(), ' ');
 	while (iter != iter2)
 	{
 		if (isspace(*iter))
 		{
 			iter3 = iter + 1;
 			iter4 = iter - 1;
-			if ((iter3 != iter2 && isspace(*iter3)) || *iter == '\n' || iter == _config_string.begin() \
+			if ((iter3 != iter2 && std::isspace(*iter3)) || *iter == '\n' || iter == _config_string.begin() \
 				|| *iter3 == '{' || *iter3 == '}' || (iter != _config_string.begin() && *iter4 == '{') \
 				|| (iter != _config_string.begin() && *iter4 == '}'))
 			{
@@ -319,9 +320,11 @@ int	ConfigParser::parseConfig(void)
 			t_route	*subroute = parseRoute(locations[m]);
 			if (!subroute)
 			{
+				delete route;
 				delete vhosts;
 				return (1);
 			}
+			subroute->listen = route->listen;
 			subroute->match = match;
 			subroute->type = LOCATION;
 			vhost.insert(std::pair<std::string, t_route>(route->server_name, *subroute));
@@ -473,6 +476,10 @@ t_route	*ConfigParser::parseRoute(std::string config)
 	{
 		if (parseField(token, route))
 		{
+			route->cgi_pass.clear();
+			route->error_page.clear();
+			route->index.clear();
+			delete route;
 			delete[] tmp;
 			return (NULL);
 		}

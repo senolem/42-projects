@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/03/23 00:46:05 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/23 18:40:05 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,25 +200,39 @@ void	RequestHandler::parseChunkedBody(t_request &request)
 	size_t		i = 0;
 	std::string	body;
 	std::string	tmp;
-	size_t		chunk_len;
+	int			malformed = 1;
 
 	while (i < request.body.size())
 	{
 		size_t	len = request.body.find("\r\n", i);
 		if (len == std::string::npos)
+		{
+			request.status = 400;
 			return ;
-		chunk_len = request.body.find("\r\n, len");
-		if (chunk_len == std::string::npos || chunk_len > len)
-			chunk_len = len;
-		int	chunk_size = std::strtol(request.body.substr(i, chunk_len - i).c_str(), NULL, 16);
-		if (chunk_size < 0)
+		}
+		int	chunk_size = std::strtol(request.body.substr(i, len - i).c_str(), NULL, 16);
+		if (chunk_size < 0 || static_cast<size_t>(chunk_size) > (request.body.size() - i - 2))
+		{
+			request.status = 400;
 			return ;
-		body += request.body.substr(len + 2, chunk_size);
+		}
+		else if (chunk_size == 0)
+		{
+			malformed = 0;
+			break ;
+		}
+		i = len + 2;
+		body += request.body.substr(i, chunk_size);
+		i += chunk_size + 2;
 	}
+	if (malformed)
+	{
+		request.status = 400;
+		return ;
+	}
+	body += "\r\n";
 	request.body = body;
 	request.content_length = body.length();
-	std::cout << "------RESULT-------\n";
-	std::cout << body << "\n";
 }
 
 std::string	RequestHandler::getResponse(t_request request)
@@ -242,7 +256,9 @@ std::string	RequestHandler::getResponse(t_request request)
 		if (request.method == "HEAD")
 			response.content.clear();
 	}
-	response_stream << response.version << " " << response.status_code << "\r\n" << "Transfer-Encoding: identity \r\n";
+	response_stream << response.version << " " << response.status_code << "\r\n" << "Transfer-Encoding: " << response.transfer_encoding << "\r\n";
+	if (request.status == 405)
+		response_stream << "Allow: " << response.allow << "\r\n";
 	if (!response.content.empty())
 		response_stream << "Content-Type: " << response.content_type << "\r\n" << "Content-Length: " << response.content_length << "\r\n" << "\r\n" << response.content;
 	else
@@ -257,6 +273,7 @@ void	RequestHandler::handleGetResponse(t_request &request, t_response &response)
 	std::string								body;
 	size_t									i = 0;
 	size_t									j = 0;
+	int										skip = 0;
 
 	cgi_iter = request.matched_subserver->second.cgi_pass.find("." + _filetype);
 	if (cgi_iter != request.matched_subserver->second.cgi_pass.end())
@@ -280,6 +297,8 @@ void	RequestHandler::handleGetResponse(t_request &request, t_response &response)
 		{
 			CgiHandler	cgi_handler(cgi_iter->second.path, *this, request, response);
 			body = cgi_handler.executeCgi();
+			if (body.size() == 0)
+				response.status_code = "204 No Content";
 			while (body.find("\r\n\r\n", i) != std::string::npos || body.find("\r\n", i) == i)
 			{
 				std::string	tmp = body.substr(i, body.find("\r\n", i) - i);
@@ -289,13 +308,27 @@ void	RequestHandler::handleGetResponse(t_request &request, t_response &response)
 				j = tmp.find("Content-type: ");
 				if (j != std::string::npos)
 					response.content_type = tmp.substr(j + 14, tmp.size()).c_str();
+				j = tmp.find("Content-Length: ");
+				if (j != std::string::npos)
+				{
+					response.content_length = std::atoi(tmp.substr(j + 16, tmp.size()).c_str());
+					skip = 1;
+				}
+				j = tmp.find("Transfer-Encoding: ");
+				if (j != std::string::npos)
+					response.transfer_encoding = tmp.substr(j + 19, tmp.size()).c_str();
 				i += tmp.size() + 2;
 			}
 			size_t	k = body.length();
 			while (body.find("\r\n", k) == k)
 				k -= 2;
-			response.content = body.substr(i, k - i);
-			response.content_length = response.content.length();
+			if (skip)
+				response.content = body.substr(i, response.content_length);
+			else
+			{
+				response.content = body.substr(i, k - i);
+				response.content_length = response.content.length();
+			}
 		}
 	}
 	else if (request.autoindex == true && request.matched_subserver->second.autoindex == true)
@@ -324,6 +357,7 @@ void	RequestHandler::handlePostResponse(t_request &request, t_response &response
 	std::string								body;
 	size_t									i = 0;
 	size_t									j = 0;
+	int										skip = 0;
 
 	cgi_iter = request.matched_subserver->second.cgi_pass.find("." + _filetype);
 	if (cgi_iter != request.matched_subserver->second.cgi_pass.end())
@@ -358,15 +392,31 @@ void	RequestHandler::handlePostResponse(t_request &request, t_response &response
 				j = tmp.find("Content-type: ");
 				if (j != std::string::npos)
 					response.content_type = tmp.substr(j + 14, tmp.size()).c_str();
+				j = tmp.find("Content-Length: ");
+				if (j != std::string::npos)
+				{
+					response.content_length = std::atoi(tmp.substr(j + 16, tmp.size()).c_str());
+					skip = 1;
+				}
+				j = tmp.find("Transfer-Encoding: ");
+				if (j != std::string::npos)
+					response.transfer_encoding = tmp.substr(j + 19, tmp.size()).c_str();
 				i += tmp.size() + 2;
 			}
 			size_t	k = body.length();
 			while (body.find("\r\n", k) == k)
 				k -= 2;
-			response.content = body.substr(i, k - i);
-			response.content_length = response.content.length();
+			if (skip)
+				response.content = body.substr(i, response.content_length);
+			else
+			{
+				response.content = body.substr(i, k - i);
+				response.content_length = response.content.length();
+			}
 		}
 	}
+	else
+		request.status = 405;
 }
 
 void	RequestHandler::handleDeleteResponse(t_request &request, t_response &response)
@@ -413,6 +463,22 @@ void	RequestHandler::setStatusErrorPage(t_response *response, const t_request &r
 			file.close();
 		}
 	}
+	if (request.status == 405)
+	{
+		std::vector<std::string>	allowed;
+		if (request.matched_subserver != _vhosts.end())
+		{
+			if (request.matched_subserver->second.methods_allowed.get)
+				allowed.push_back("GET");
+			if (request.matched_subserver->second.methods_allowed.post)
+				allowed.push_back("POST");
+			if (request.matched_subserver->second.methods_allowed.del)
+				allowed.push_back("DELETE");
+			if (request.matched_subserver->second.methods_allowed.head)
+				allowed.push_back("HEAD");
+			response->allow = concatStringVector(allowed, ", ");
+		}
+	}
 }
 
 std::string	RequestHandler::getPath(vectorIterator vectIter, std::string path, mapIterator *subserver, std::string method)
@@ -439,7 +505,7 @@ std::string	RequestHandler::getPath(vectorIterator vectIter, std::string path, m
 		vect = split_string(path, "/");
 	else
 		vect.push_back("/");
-	concat = concatStringVector(vect, '/');
+	concat = concatStringVector(vect, "/");
 	if (path.find_last_of('/') == path.length() && concat.length() > 0)
 		search = concat.substr(0, concat.length() - 1);
 	else

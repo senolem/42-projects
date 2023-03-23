@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/03/22 19:37:37 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/23 19:40:17 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_route
 	bool							upload;
 	std::string						upload_path;
 	std::string						match;
-	s_route(void) : type(false), access_log(""), client_max_body_size(-1), root(""), methods_allowed(), autoindex(false), upload(false), upload_path("")
+	s_route(void) : type(false), client_max_body_size(-1), autoindex(false), upload(false)
 	{
 		
 	}
@@ -82,10 +82,11 @@ typedef struct s_request
 	std::string										content_length;
 	std::string										transfer_encoding;
 	std::string										query;
+	std::string										remote_addr;
 	std::multimap<std::string, t_route>::iterator	matched_subserver;
 	int												status;
 	bool											autoindex;
-	s_request(void) : method(""), path (""), version("HTTP/1.1"), host(""), status(0), autoindex(false)
+	s_request(void) : version("HTTP/1.1"), status(0), autoindex(false)
 	{
 		
 	}
@@ -97,9 +98,11 @@ typedef struct s_response
 	std::string	status_code;
 	std::string	content_type;
 	size_t		content_length;
+	std::string	transfer_encoding;
 	std::string	content;
 	std::string	body;
-	s_response(void) : version("HTTP/1.1"), status_code(""), content_type(""), content_length(0), content("")
+	std::string	allow;
+	s_response(void) : version("HTTP/1.1"), content_length(0), transfer_encoding("identity")
 	{
 		
 	}

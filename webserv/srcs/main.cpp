@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:16:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/20 15:23:16 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/23 16:42:02 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int argc, char **argv)
 					webserv	webserv(vhosts);
 					//webserv.printConfig();
 					webserv.startServer();
+					delete vhosts;
 				}
 			}
 			else
@@ -40,6 +41,7 @@ int	main(int argc, char **argv)
 					webserv	webserv(vhosts);
 					//webserv.printConfig();
 					webserv.startServer();
+					delete vhosts;
 				}
 			}
 		}
@@ -47,7 +49,6 @@ int	main(int argc, char **argv)
 		{
 			std::cerr << e.what() << '\n';
 		}
-		
 	}
 	else
 	{

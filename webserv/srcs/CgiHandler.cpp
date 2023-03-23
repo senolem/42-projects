@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:42:02 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/22 19:40:49 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/23 20:30:22 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ CgiHandler::CgiHandler(std::string &cgi_path, RequestHandler &request_handler, t
 	_env["QUERY_STRING"] = _request.query;
 	_env["CONTENT_LENGTH"] = _request.content_length;
 	_env["CONTENT_TYPE"] = _request.content_type;
+	_env["HTTP_COOKIE"] = parseCookie(request.cookie);
+	_env["REMOTE_ADDR"] = _request.remote_addr;
+	_env["SERVER_NAME"] = _request.matched_subserver->second.server_name;
+	_env["SERVER_SOFTWARE"] = "Webserv/1.0";
 }
 
 CgiHandler::CgiHandler(const CgiHandler &src) : _cgi_path(src._cgi_path), _request_handler(src._request_handler), _request(src._request), _response(src._response)
@@ -71,6 +75,7 @@ std::string	CgiHandler::executeCgi(void)
 	bool		readingDone = false;
 	std::string	body;
 	char		**env = map_split(_env);
+	int			status;
 
 	if (!file_in || !file_out || !env)
 	{
@@ -107,7 +112,16 @@ std::string	CgiHandler::executeCgi(void)
 	{
 		char	buffer[1024];
 
-		waitpid(pid, NULL, 0);
+		if (waitpid(pid, &status, 0) == -1)
+		{
+			std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to wait for child (" << errno << ")\n";
+			return ("Status: 500\r\n\r\n");
+		}
+		if (WEXITSTATUS(status) && WIFEXITED((status)))
+		{
+			std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to execute cgi script (" << errno << ")\n";
+			return ("Status: 502\r\n\r\n");
+		}
 		lseek(fd_out, 0, SEEK_SET);
 		while (!readingDone)
 		{
@@ -127,4 +141,19 @@ std::string	CgiHandler::executeCgi(void)
 		delete[] env[i];
 	delete[] env;
 	return (body);
+}
+
+std::string	CgiHandler::parseCookie(const std::map<std::string, std::string> &cookies)
+{
+	std::map<std::string, std::string>::const_iterator	iter = cookies.begin();
+	std::map<std::string, std::string>::const_iterator	iter2 = cookies.end();
+	std::string											parsedCookies;
+
+	while (iter != iter2)
+	{
+		parsedCookies.append("HTTP_" + iter->first + "=" + iter->second);
+		if (++iter != iter2)
+			parsedCookies.append("&");
+	}
+	return (parsedCookies);
 }
