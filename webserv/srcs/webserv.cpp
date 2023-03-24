@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/23 18:15:11 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/23 23:14:01 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,10 +214,14 @@ std::string	webserv::resolveHost(std::string host)
 	hints.ai_socktype = SOCK_STREAM;
 	result = getaddrinfo(vect.at(0).c_str(), port.c_str(), &hints, &res);
 	if (result != 0)
+	{
+		freeaddrinfo(res);
 		throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Failed to resolve hostname");
+	}
 	addrin = (struct sockaddr_in *)res->ai_addr;
 	binary_ip = (unsigned char *)&addrin->sin_addr.s_addr;
 	string_stream << (int)binary_ip[0] << "." << (int)binary_ip[1] << "." << (int)binary_ip[2] << "." << (int)binary_ip[3];
+	freeaddrinfo(res);
 	return (string_stream.str());
 }
 

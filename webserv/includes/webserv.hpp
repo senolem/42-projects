@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   webserv.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/21 14:50:03 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/24 01:53:23 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ class webserv
 		~webserv(void);
 		webserv	&operator=(const webserv &src);
 
-		void													startServer(void);
-		t_socket												createSocket(int port);
-		vectorIterator											getHost(std::string host);
-		std::string												resolveHost(std::string host);
-		void													printConfig(void);
-		std::vector<std::multimap<std::string, t_route> >		&getVirtualHosts(void);
-		int														getMaxFd(void);
+		void												startServer(void);
+		t_socket											createSocket(int port);
+		vectorIterator										getHost(std::string host);
+		std::string											resolveHost(std::string host);
+		void												printConfig(void);
+		int													getMaxFd(void);
+		std::vector<std::multimap<std::string, t_route> >	&getVirtualHosts(void);
 };
 
 #endif

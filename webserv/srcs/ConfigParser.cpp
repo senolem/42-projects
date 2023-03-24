@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:24:48 by melones           #+#    #+#             */
-/*   Updated: 2023/03/23 19:09:17 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/24 01:42:40 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,6 +325,7 @@ int	ConfigParser::parseConfig(void)
 				return (1);
 			}
 			subroute->listen = route->listen;
+			subroute->server_name = route->server_name;
 			subroute->match = match;
 			subroute->type = LOCATION;
 			vhost.insert(std::pair<std::string, t_route>(route->server_name, *subroute));
@@ -337,22 +338,6 @@ int	ConfigParser::parseConfig(void)
 	}
 	_vhosts = vhosts;
 	return (0);
-}
-
-void	ConfigParser::initFieldList(void)
-{
-	_field_list["listen"] = (t_field_traits){1, 1, false, false};
-	_field_list["server_name"] = (t_field_traits){1, 1, true, false};
-	_field_list["access_log"] = (t_field_traits){1, 1, true, false};
-	_field_list["client_max_body_size"] = (t_field_traits){1, 1, true, false};
-	_field_list["error_page"] = (t_field_traits){2, 2, true, false};
-	_field_list["root"] = (t_field_traits){1, 1, true, true};
-	_field_list["index"] = (t_field_traits){1, 0, true, true};
-	_field_list["methods_allowed"] = (t_field_traits){1, 4, true, true};
-	_field_list["autoindex"] = (t_field_traits){1, 1, true, true};
-	_field_list["cgi_pass"] = (t_field_traits){2, 2, true, true};
-	_field_list["upload"] = (t_field_traits){1, 1, true, true};
-	_field_list["upload_path"] = (t_field_traits){1, 1, true, true};
 }
 
 int	ConfigParser::parseField(std::string field, t_route *route)
@@ -393,6 +378,50 @@ int	ConfigParser::parseField(std::string field, t_route *route)
 	}
 	delete[] tmp;
 	return (0);
+}
+
+t_route	*ConfigParser::parseRoute(std::string config)
+{
+	char	*token;
+	char	*tmp;
+	char	*saveptr;
+	t_route	*route = new t_route;
+	
+	tmp = new char[config.length() + 1];
+	std::strcpy(tmp, config.data());
+	token = strtok_r(tmp, ";", &saveptr);
+	while (token)
+	{
+		if (parseField(token, route))
+		{
+			route->cgi_pass.clear();
+			route->error_page.clear();
+			route->index.clear();
+			delete route;
+			delete[] tmp;
+			return (NULL);
+		}
+		token = strtok_r(NULL, ";", &saveptr);
+	}
+	fillDefault(route);
+	delete[] tmp;
+	return (route);
+}
+
+void	ConfigParser::initFieldList(void)
+{
+	_field_list["listen"] = (t_field_traits){1, 1, false, false};
+	_field_list["server_name"] = (t_field_traits){1, 1, true, false};
+	_field_list["access_log"] = (t_field_traits){1, 1, true, false};
+	_field_list["client_max_body_size"] = (t_field_traits){1, 1, true, false};
+	_field_list["error_page"] = (t_field_traits){2, 2, true, false};
+	_field_list["root"] = (t_field_traits){1, 1, true, true};
+	_field_list["index"] = (t_field_traits){1, 0, true, true};
+	_field_list["methods_allowed"] = (t_field_traits){1, 4, true, true};
+	_field_list["autoindex"] = (t_field_traits){1, 1, true, true};
+	_field_list["cgi_pass"] = (t_field_traits){2, 2, true, true};
+	_field_list["upload"] = (t_field_traits){1, 1, true, true};
+	_field_list["upload_path"] = (t_field_traits){1, 1, true, true};
 }
 
 void	ConfigParser::insertField(std::vector<char *> config, t_route *route)
@@ -462,40 +491,10 @@ void	ConfigParser::insertField(std::vector<char *> config, t_route *route)
 		route->upload_path = *iter;
 }
 
-t_route	*ConfigParser::parseRoute(std::string config)
-{
-	char	*token;
-	char	*tmp;
-	char	*saveptr;
-	t_route	*route = new t_route;
-	
-	tmp = new char[config.length() + 1];
-	std::strcpy(tmp, config.data());
-	token = strtok_r(tmp, ";", &saveptr);
-	while (token)
-	{
-		if (parseField(token, route))
-		{
-			route->cgi_pass.clear();
-			route->error_page.clear();
-			route->index.clear();
-			delete route;
-			delete[] tmp;
-			return (NULL);
-		}
-		token = strtok_r(NULL, ";", &saveptr);
-	}
-	fillDefault(route);
-	delete[] tmp;
-	return (route);
-}
-
 void	ConfigParser::fillDefault(t_route *route)
 {
 	if (route->listen.empty())
 		route->listen = "80";
-	if (route->server_name.empty())
-		route->server_name = "default_server";
 	if (route->access_log.empty())
 		route->access_log = "logs/access.log";
 	if (route->client_max_body_size == -1)

@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/03/23 18:14:11 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/24 01:20:38 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,4 +205,25 @@ std::string	get_date(void)
 	std::strftime(buffer, sizeof(buffer), "on %d-%m-%Y at %H:%M:%S", date_tm);
 	date = buffer;
 	return (date);
+}
+
+char	to_lower(char c)
+{
+	if (std::isupper(c))
+		return (std::tolower(c));
+	else
+		return (c);
+}
+
+bool	toLowerStringCompare(std::string s1, std::string s2)
+{
+	std::string::iterator	iter;
+	std::string				lower_s1(s1.size(), ' ');
+	std::string				lower_s2(s2.size(), ' ');
+
+	if (s1.empty() || s2.empty())
+		return (false);
+	std::transform(s1.begin(), s1.end(), lower_s1.begin(), to_lower);
+	std::transform(s2.begin(), s2.end(), lower_s2.begin(), to_lower);
+	return (lower_s1 == lower_s2);
 }

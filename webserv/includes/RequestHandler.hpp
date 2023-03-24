@@ -44,12 +44,14 @@ class RequestHandler
 		void								parseChunkedBody(t_request &request);
 		std::map<std::string, std::string>	parseCookieHeader(const std::string &header);
 		std::string							parseHostHeader(const std::string &header);
+		void								parseCgiBodyHeaders(t_request &request, t_response &response, std::string &body, int &skip, size_t &i);
 		std::string							getResponse(t_request request);
 		std::string							getPath(vectorIterator vectIter, std::string path, mapIterator *subserver, std::string method);
 		std::string							getFiletype(void);
 		std::string							getHeader(std::vector<std::string> header, std::string field);
 		void								setContentType(t_request &request, t_response *header, std::string path);
 		void								setStatusErrorPage(t_response *header, const t_request &request);
+		void								handleCgi(t_request &request, t_response &response, std::stringstream &file_stream, std::map<std::string, t_cgi>::iterator cgi_iter);
 		void								handleGetResponse(t_request &request, t_response &response);
 		void								handlePostResponse(t_request &request, t_response &response);
 		void								handleDeleteResponse(t_request &request, t_response &response);

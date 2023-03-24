@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/23 16:51:27 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/24 01:41:49 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,17 @@ class ConfigParser
 		ConfigParser	&operator=(const ConfigParser &src);
 
 		std::vector<std::multimap<std::string, t_route> >	*init(std::string path);
+
 	private:
-		int													sanityCheck(void);
-		int													prepareParsing(void);
-		int													syntaxCheck(void);
-		int													parseConfig(void);
-		void												initFieldList(void);
-		int													parseField(std::string field, t_route *route);
-		void												insertField(std::vector<char *> config, t_route *route);
-		t_route												*parseRoute(std::string config);
-		void												fillDefault(t_route *route);
+		int		sanityCheck(void);
+		int		prepareParsing(void);
+		int		syntaxCheck(void);
+		int		parseConfig(void);
+		int		parseField(std::string field, t_route *route);
+		t_route	*parseRoute(std::string config);
+		void	initFieldList(void);
+		void	insertField(std::vector<char *> config, t_route *route);
+		void	fillDefault(t_route *route);
 };
 
 #endif

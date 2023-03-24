@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/03/23 18:40:05 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/24 01:49:15 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,45 +116,6 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 	return (request);
 }
 
-t_request	RequestHandler::returnStatusCode(t_request &request, int status)
-{
-	request.status = status;
-	return (request);
-}
-
-std::string	RequestHandler::parseHostHeader(const std::string &header)
-{
-	std::vector<std::string>	vect;
-	std::string					host;
-
-	if (header.empty())
-		return (header);
-	vect = split_string(header, " ");
-	if (vect.size() != 2)
-		return (header);
-	return (vect.at(1));
-}
-
-std::map<std::string, std::string>	RequestHandler::parseCookieHeader(const std::string &header)
-{
-	std::map<std::string, std::string>	cookie_header;
-	std::vector<std::string>			vect;
-	std::vector<std::string>			vect2;
-
-	if (header.length() > 8)
-	{
-		vect = split_string(header.substr(8), "; ");
-		for (std::vector<std::string>::iterator iter = vect.begin(); iter != vect.end(); iter++)
-		{
-			vect2 = split_string(*iter, "=");
-			if (vect2.size() != 2)
-				continue ;
-			cookie_header.insert(std::pair<std::string, std::string>(vect2.at(0), vect2.at(1)));
-		}
-	}
-	return (cookie_header);
-}
-
 std::multimap<float, std::string>	RequestHandler::parseAcceptHeader(const std::string &header)
 {
 	std::multimap<float, std::string>	accept_header;
@@ -235,6 +196,61 @@ void	RequestHandler::parseChunkedBody(t_request &request)
 	request.content_length = body.length();
 }
 
+std::map<std::string, std::string>	RequestHandler::parseCookieHeader(const std::string &header)
+{
+	std::map<std::string, std::string>	cookie_header;
+	std::vector<std::string>			vect;
+	std::vector<std::string>			vect2;
+
+	if (header.length() > 8)
+	{
+		vect = split_string(header.substr(8), "; ");
+		for (std::vector<std::string>::iterator iter = vect.begin(); iter != vect.end(); iter++)
+		{
+			vect2 = split_string(*iter, "=");
+			if (vect2.size() != 2)
+				continue ;
+			cookie_header.insert(std::pair<std::string, std::string>(vect2.at(0), vect2.at(1)));
+		}
+	}
+	return (cookie_header);
+}
+
+std::string	RequestHandler::parseHostHeader(const std::string &header)
+{
+	std::vector<std::string>	vect;
+	std::string					host;
+
+	if (header.empty())
+		return (header);
+	vect = split_string(header, " ");
+	if (vect.size() != 2)
+		return (header);
+	return (vect.at(1));
+}
+
+void	RequestHandler::parseCgiBodyHeaders(t_request &request, t_response &response, std::string &body, int &skip, size_t &i)
+{
+	while (body.find("\r\n\r\n", i) != std::string::npos || body.find("\r\n", i) == i)
+	{
+		std::string	tmp = body.substr(i, body.find("\r\n", i) - i);
+		if (tmp.length() > 8 && toLowerStringCompare("Status: ", tmp.substr(0, 8)))
+			request.status = std::atoi(tmp.substr(8, tmp.size()).c_str());
+		if (tmp.length() > 14 && toLowerStringCompare("Content-type: ", tmp.substr(0, 14)))
+			response.content_type = tmp.substr(14, tmp.size()).c_str();
+		if (tmp.length() > 16 && toLowerStringCompare("Content-length: ", tmp.substr(0, 16)))
+		{
+			response.content_length = std::atoi(tmp.substr(16, tmp.size()).c_str());
+			skip = 1;
+		}
+		if (tmp.length() > 19 && toLowerStringCompare("Transfer-encoding: ", tmp.substr(0, 19)))
+			response.transfer_encoding = tmp.substr(19, tmp.size()).c_str();
+		if (tmp.length() > 12 && toLowerStringCompare("Set-cookie: ", tmp.substr(0, 12)))
+			response.set_cookie.push_back(tmp.substr(12, tmp.size()).c_str());
+		i += tmp.size() + 2;
+	}
+}
+
 std::string	RequestHandler::getResponse(t_request request)
 {
 	std::stringstream	response_stream;
@@ -259,226 +275,21 @@ std::string	RequestHandler::getResponse(t_request request)
 	response_stream << response.version << " " << response.status_code << "\r\n" << "Transfer-Encoding: " << response.transfer_encoding << "\r\n";
 	if (request.status == 405)
 		response_stream << "Allow: " << response.allow << "\r\n";
+	if (!response.set_cookie.empty())
+	{
+		for (std::vector<std::string>::iterator iter = response.set_cookie.begin(); iter != response.set_cookie.end(); iter++)
+			response_stream << "Set-Cookie: " << *iter << "\r\n";
+	}
 	if (!response.content.empty())
-		response_stream << "Content-Type: " << response.content_type << "\r\n" << "Content-Length: " << response.content_length << "\r\n" << "\r\n" << response.content;
+	{
+		response_stream << "Content-Type: " << response.content_type << "\r\n";
+		if (response.transfer_encoding != "chunked")
+			response_stream << "Content-Length: " << response.content_length << "\r\n";
+		response_stream << "\r\n" << response.content;
+	}
 	else
 		response_stream << "\r\n";
 	return (response_stream.str());
-}
-
-void	RequestHandler::handleGetResponse(t_request &request, t_response &response)
-{
-	std::stringstream						file_stream;
-	std::map<std::string, t_cgi>::iterator	cgi_iter;
-	std::string								body;
-	size_t									i = 0;
-	size_t									j = 0;
-	int										skip = 0;
-
-	cgi_iter = request.matched_subserver->second.cgi_pass.find("." + _filetype);
-	if (cgi_iter != request.matched_subserver->second.cgi_pass.end())
-	{
-		std::cout << BLUE << INFO << GREEN << SERV << NONE << " Found CGI for type " << _filetype << " (" << cgi_iter->second.path << "), executing script : " << request.path << "\n";
-		std::ifstream	file(request.path.c_str());
-		if (file.is_open())
-		{
-			file_stream << file.rdbuf();
-			file.close();
-		}
-		response.status_code = "200 OK";
-		response.content = file_stream.str();
-		response.content_length = response.content.size();
-		if (access(cgi_iter->second.path.c_str(), X_OK))
-		{
-			std::cout << RED << ERROR << GREEN << SERV << NONE << " CGI at path " << cgi_iter->second.path << " does not exists or has invalid execution permissions.\n";
-			request.status = 502;
-		}
-		else
-		{
-			CgiHandler	cgi_handler(cgi_iter->second.path, *this, request, response);
-			body = cgi_handler.executeCgi();
-			if (body.size() == 0)
-				response.status_code = "204 No Content";
-			while (body.find("\r\n\r\n", i) != std::string::npos || body.find("\r\n", i) == i)
-			{
-				std::string	tmp = body.substr(i, body.find("\r\n", i) - i);
-				j = tmp.find("Status: ");
-				if (j != std::string::npos)
-					request.status = std::atoi(tmp.substr(j + 8, tmp.size()).c_str());
-				j = tmp.find("Content-type: ");
-				if (j != std::string::npos)
-					response.content_type = tmp.substr(j + 14, tmp.size()).c_str();
-				j = tmp.find("Content-Length: ");
-				if (j != std::string::npos)
-				{
-					response.content_length = std::atoi(tmp.substr(j + 16, tmp.size()).c_str());
-					skip = 1;
-				}
-				j = tmp.find("Transfer-Encoding: ");
-				if (j != std::string::npos)
-					response.transfer_encoding = tmp.substr(j + 19, tmp.size()).c_str();
-				i += tmp.size() + 2;
-			}
-			size_t	k = body.length();
-			while (body.find("\r\n", k) == k)
-				k -= 2;
-			if (skip)
-				response.content = body.substr(i, response.content_length);
-			else
-			{
-				response.content = body.substr(i, k - i);
-				response.content_length = response.content.length();
-			}
-		}
-	}
-	else if (request.autoindex == true && request.matched_subserver->second.autoindex == true)
-	{
-		DirectoryListing	directory_listing;
-		directory_listing.generate(response, request);
-	}
-	else
-	{
-		std::ifstream	file(request.path.c_str());
-		if (file.is_open())
-		{
-			file_stream << file.rdbuf();
-			file.close();
-		}
-		response.status_code = "200 OK";
-		response.content = file_stream.str();
-		response.content_length = response.content.size();
-	}
-}
-
-void	RequestHandler::handlePostResponse(t_request &request, t_response &response)
-{
-	std::stringstream						file_stream;
-	std::map<std::string, t_cgi>::iterator	cgi_iter;
-	std::string								body;
-	size_t									i = 0;
-	size_t									j = 0;
-	int										skip = 0;
-
-	cgi_iter = request.matched_subserver->second.cgi_pass.find("." + _filetype);
-	if (cgi_iter != request.matched_subserver->second.cgi_pass.end())
-	{
-		std::cout << BLUE << INFO << GREEN << SERV << NONE << " Found CGI for type " << _filetype << " (" << cgi_iter->second.path << "), executing script : " << request.path << "\n";
-		std::ifstream	file(request.path.c_str());
-		if (file.is_open())
-		{
-			file_stream << file.rdbuf();
-			file.close();
-		}
-		response.status_code = "200 OK";
-		response.content = file_stream.str();
-		response.content_length = response.content.size();
-		if (access(cgi_iter->second.path.c_str(), X_OK))
-		{
-			std::cout << RED << ERROR << GREEN << SERV << NONE << " CGI at path " << cgi_iter->second.path << " does not exist or has invalid execution permissions.\n";
-			request.status = 502;
-		}
-		else
-		{
-			CgiHandler	cgi_handler(cgi_iter->second.path, *this, request, response);
-			body = cgi_handler.executeCgi();
-			if (body.size() == 0)
-				response.status_code = "204 No Content";
-			while (body.find("\r\n\r\n", i) != std::string::npos || body.find("\r\n", i) == i)
-			{
-				std::string	tmp = body.substr(i, body.find("\r\n", i) - i);
-				j = tmp.find("Status: ");
-				if (j != std::string::npos)
-					request.status = std::atoi(tmp.substr(j + 8, tmp.size()).c_str());
-				j = tmp.find("Content-type: ");
-				if (j != std::string::npos)
-					response.content_type = tmp.substr(j + 14, tmp.size()).c_str();
-				j = tmp.find("Content-Length: ");
-				if (j != std::string::npos)
-				{
-					response.content_length = std::atoi(tmp.substr(j + 16, tmp.size()).c_str());
-					skip = 1;
-				}
-				j = tmp.find("Transfer-Encoding: ");
-				if (j != std::string::npos)
-					response.transfer_encoding = tmp.substr(j + 19, tmp.size()).c_str();
-				i += tmp.size() + 2;
-			}
-			size_t	k = body.length();
-			while (body.find("\r\n", k) == k)
-				k -= 2;
-			if (skip)
-				response.content = body.substr(i, response.content_length);
-			else
-			{
-				response.content = body.substr(i, k - i);
-				response.content_length = response.content.length();
-			}
-		}
-	}
-	else
-		request.status = 405;
-}
-
-void	RequestHandler::handleDeleteResponse(t_request &request, t_response &response)
-{
-	if (!get_path_type(request.path))
-	{
-		if (!access(request.path.c_str(), W_OK))
-		{
-			if (!remove(request.path.c_str()))
-				response.status_code = "204 No Content";
-			else
-				request.status = 403;
-		}
-		else
-			request.status = 403;
-	}
-	else
-		request.status = 404;
-}
-
-void	RequestHandler::setStatusErrorPage(t_response *response, const t_request &request)
-{
-	std::stringstream	file_stream;
-	response->content_type = "text/html";
-	std::map<int, std::string>::iterator	errorIter;
-	errorIter = _errorsMap.find(request.status);
-	if (errorIter != _errorsMap.end())
-		response->status_code = errorIter->second;
-	else
-		response->status_code = "500 Internal Server Error";
-	response->content_length = 0;
-	std::map<int, std::string>::iterator	iter;
-	iter = _vhosts.begin()->second.error_page.find(request.status);
-	if (iter != _vhosts.begin()->second.error_page.end())
-	{
-		std::ifstream	file(iter->second.c_str());
-		if (file.is_open())
-		{
-			std::ifstream	error_page(iter->second.c_str(), std::ios::binary);
-			file_stream << error_page.rdbuf();
-			response->content = file_stream.str();
-			response->content_length = response->content.size();
-			error_page.close();
-			file.close();
-		}
-	}
-	if (request.status == 405)
-	{
-		std::vector<std::string>	allowed;
-		if (request.matched_subserver != _vhosts.end())
-		{
-			if (request.matched_subserver->second.methods_allowed.get)
-				allowed.push_back("GET");
-			if (request.matched_subserver->second.methods_allowed.post)
-				allowed.push_back("POST");
-			if (request.matched_subserver->second.methods_allowed.del)
-				allowed.push_back("DELETE");
-			if (request.matched_subserver->second.methods_allowed.head)
-				allowed.push_back("HEAD");
-			response->allow = concatStringVector(allowed, ", ");
-		}
-	}
 }
 
 std::string	RequestHandler::getPath(vectorIterator vectIter, std::string path, mapIterator *subserver, std::string method)
@@ -562,6 +373,28 @@ std::string	RequestHandler::getFiletype(void)
 	return (_filetype);
 }
 
+std::string	RequestHandler::getHeader(std::vector<std::string> header, std::string field)
+{
+	size_t								i = 0;
+	std::vector<std::string>::iterator	iter = header.begin();
+	std::vector<std::string>::iterator	iter2 = header.end();
+	std::string							ret;
+
+	while (iter != iter2)
+	{
+		i = iter->find(field);
+		if (i != std::string::npos)
+		{
+			if (i == 0)
+				return (*iter);
+			else
+				return (ret);
+		}
+		++iter;
+	}
+	return (ret);
+}
+
 void	RequestHandler::setContentType(t_request &request, t_response *response, std::string path)
 {
 	// Technically, this function should rather determine which content type
@@ -581,6 +414,154 @@ void	RequestHandler::setContentType(t_request &request, t_response *response, st
 		response->content_type = "text/plain";
 	if (!isAccepted(request, response->content_type))
 		request.status = 406;
+}
+
+void	RequestHandler::setStatusErrorPage(t_response *response, const t_request &request)
+{
+	std::stringstream	file_stream;
+	response->content_type = "text/html";
+	std::map<int, std::string>::iterator	errorIter;
+	errorIter = _errorsMap.find(request.status);
+	if (errorIter != _errorsMap.end())
+		response->status_code = errorIter->second;
+	else
+		response->status_code = "500 Internal Server Error";
+	response->content_length = 0;
+	std::map<int, std::string>::iterator	iter;
+	iter = _vhosts.begin()->second.error_page.find(request.status);
+	if (iter != _vhosts.begin()->second.error_page.end())
+	{
+		std::ifstream	file(iter->second.c_str());
+		if (file.is_open())
+		{
+			std::ifstream	error_page(iter->second.c_str(), std::ios::binary);
+			file_stream << error_page.rdbuf();
+			response->content = file_stream.str();
+			response->content_length = response->content.size();
+			error_page.close();
+			file.close();
+		}
+	}
+	if (request.status == 405)
+	{
+		std::vector<std::string>	allowed;
+		if (request.matched_subserver != _vhosts.end())
+		{
+			if (request.matched_subserver->second.methods_allowed.get)
+				allowed.push_back("GET");
+			if (request.matched_subserver->second.methods_allowed.post)
+				allowed.push_back("POST");
+			if (request.matched_subserver->second.methods_allowed.del)
+				allowed.push_back("DELETE");
+			if (request.matched_subserver->second.methods_allowed.head)
+				allowed.push_back("HEAD");
+			response->allow = concatStringVector(allowed, ", ");
+		}
+	}
+}
+
+void	RequestHandler::handleCgi(t_request &request, t_response &response, std::stringstream &file_stream, std::map<std::string, t_cgi>::iterator cgi_iter)
+{
+	size_t		i = 0;
+	int			skip = 0;
+	std::string	body;
+
+	std::cout << BLUE << INFO << GREEN << SERV << NONE << " Found CGI for type " << _filetype << " (" << cgi_iter->second.path << "), executing script : " << request.path << "\n";
+	std::ifstream	file(request.path.c_str());
+	if (file.is_open())
+	{
+		file_stream << file.rdbuf();
+		file.close();
+	}
+	response.status_code = "200 OK";
+	response.content = file_stream.str();
+	response.content_length = response.content.size();
+	if (access(cgi_iter->second.path.c_str(), X_OK))
+	{
+		std::cout << RED << ERROR << GREEN << SERV << NONE << " CGI at path " << cgi_iter->second.path << " does not exists or has invalid execution permissions.\n";
+		request.status = 502;
+	}
+	else
+	{
+		CgiHandler	cgi_handler(cgi_iter->second.path, *this, request, response);
+		body = cgi_handler.executeCgi();
+		if (body.size() == 0)
+			response.status_code = "204 No Content";
+		parseCgiBodyHeaders(request, response, body, skip, i);
+		size_t	k = body.length();
+		while (body.find("\r\n", k) == k)
+			k -= 2;
+		if (skip)
+			response.content = body.substr(i, response.content_length);
+		else
+		{
+			response.content = body.substr(i, k - i);
+			response.content_length = response.content.length();
+		}
+	}
+}
+
+void	RequestHandler::handleGetResponse(t_request &request, t_response &response)
+{
+	std::stringstream						file_stream;
+	std::map<std::string, t_cgi>::iterator	cgi_iter;
+
+	cgi_iter = request.matched_subserver->second.cgi_pass.find("." + _filetype);
+	if (cgi_iter != request.matched_subserver->second.cgi_pass.end())
+		handleCgi(request, response, file_stream, cgi_iter);
+	else if (request.autoindex == true && request.matched_subserver->second.autoindex == true)
+	{
+		DirectoryListing	directory_listing;
+		directory_listing.generate(response, request);
+	}
+	else
+	{
+		std::ifstream	file(request.path.c_str());
+		if (file.is_open())
+		{
+			file_stream << file.rdbuf();
+			file.close();
+		}
+		response.status_code = "200 OK";
+		response.content = file_stream.str();
+		response.content_length = response.content.size();
+	}
+}
+
+void	RequestHandler::handlePostResponse(t_request &request, t_response &response)
+{
+	std::stringstream						file_stream;
+	std::map<std::string, t_cgi>::iterator	cgi_iter;
+
+	cgi_iter = request.matched_subserver->second.cgi_pass.find("." + _filetype);
+	if (cgi_iter != request.matched_subserver->second.cgi_pass.end())
+		handleCgi(request, response, file_stream, cgi_iter);
+	else
+		request.status = 405;
+}
+
+void	RequestHandler::handleDeleteResponse(t_request &request, t_response &response)
+{
+	if (!get_path_type(request.path))
+	{
+		if (!access(request.path.c_str(), W_OK))
+		{
+			if (!remove(request.path.c_str()))
+				response.status_code = "204 No Content";
+			else
+				request.status = 403;
+		}
+		else
+			request.status = 403;
+	}
+	else
+		request.status = 404;
+}
+
+t_request	RequestHandler::returnStatusCode(t_request &request, int status)
+{
+	request.status = status;
+	return (request);
 }
 
 int	RequestHandler::isAccepted(t_request request, const std::string &type)
@@ -607,28 +588,6 @@ int	RequestHandler::isAccepted(t_request request, const std::string &type)
 		++map_iter;
 	}
 	return (0);
-}
-
-std::string	RequestHandler::getHeader(std::vector<std::string> header, std::string field)
-{
-	size_t								i = 0;
-	std::vector<std::string>::iterator	iter = header.begin();
-	std::vector<std::string>::iterator	iter2 = header.end();
-	std::string							ret;
-
-	while (iter != iter2)
-	{
-		i = iter->find(field);
-		if (i != std::string::npos)
-		{
-			if (i == 0)
-				return (*iter);
-			else
-				return (ret);
-		}
-		++iter;
-	}
-	return (ret);
 }
 
 void	RequestHandler::initErrors(void)

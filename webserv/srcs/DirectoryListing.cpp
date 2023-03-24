@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   DirectoryListing.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 17:12:42 by melones           #+#    #+#             */
-/*   Updated: 2023/03/21 15:25:10 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/24 01:43:24 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,40 @@ std::string	DirectoryListing::getPage(void)
 		return ("500");
 	string_stream << file.rdbuf();
 	return (string_stream.str());
+}
+
+std::string	DirectoryListing::getSize(struct stat &st)
+{
+	std::string	size;
+
+	const char*	units[] = {"B", "KB", "MB", "GB", "TB"};
+	int			i = 0;
+	double		bytes = static_cast<double>(st.st_size);
+	char		buffer[128];
+
+	while (bytes >= 1024 && i < 4)
+	{
+		bytes /= 1024.0;
+		++i;
+	}
+	std::snprintf(buffer, sizeof(buffer), "%.2f %s", bytes, units[i]);
+	return (buffer);
+}
+
+std::string	DirectoryListing::getModifiedDate(struct stat &st)
+{
+	std::string	date;
+	char		buffer[256];
+	struct tm	*date_tm;
+
+	#if defined(__APPLE__)
+		date_tm = std::localtime(&st.st_mtimespec.tv_sec);
+	#else
+		date_tm = std::localtime(&st.st_mtim.tv_sec);
+	#endif
+	std::strftime(buffer, sizeof(buffer), "%d-%m-%Y %H:%M:%S", date_tm);
+	date = buffer;
+	return (date);
 }
 
 void	DirectoryListing::generate(t_response &response, t_request &request)
@@ -99,38 +133,4 @@ void	DirectoryListing::generate(t_response &response, t_request &request)
 	response.content = page;
 	response.content_length = page.size();
 	response.content_type = "text/html";
-}
-
-std::string	DirectoryListing::getSize(struct stat &st)
-{
-	std::string	size;
-
-	const char*	units[] = {"B", "KB", "MB", "GB", "TB"};
-	int			i = 0;
-	double		bytes = static_cast<double>(st.st_size);
-	char		buffer[128];
-
-	while (bytes >= 1024 && i < 4)
-	{
-		bytes /= 1024.0;
-		++i;
-	}
-	std::snprintf(buffer, sizeof(buffer), "%.2f %s", bytes, units[i]);
-	return (buffer);
-}
-
-std::string	DirectoryListing::getModifiedDate(struct stat &st)
-{
-	std::string	date;
-	char		buffer[256];
-	struct tm	*date_tm;
-
-	#if defined(__APPLE__)
-		date_tm = std::localtime(&st.st_mtimespec.tv_sec);
-	#else
-		date_tm = std::localtime(&st.st_mtim.tv_sec);
-	#endif
-	std::strftime(buffer, sizeof(buffer), "%d-%m-%Y %H:%M:%S", date_tm);
-	date = buffer;
-	return (date);
 }

@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/03/23 19:40:17 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/24 01:26:11 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,15 @@ typedef struct s_request
 
 typedef struct s_response
 {
-	std::string	version;
-	std::string	status_code;
-	std::string	content_type;
-	size_t		content_length;
-	std::string	transfer_encoding;
-	std::string	content;
-	std::string	body;
-	std::string	allow;
+	std::string					version;
+	std::string					status_code;
+	std::string					content_type;
+	size_t						content_length;
+	std::string					transfer_encoding;
+	std::string					content;
+	std::string					body;
+	std::string					allow;
+	std::vector<std::string>	set_cookie;
 	s_response(void) : version("HTTP/1.1"), content_length(0), transfer_encoding("identity")
 	{
 		

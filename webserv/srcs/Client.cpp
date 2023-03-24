@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/23 19:43:05 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/24 01:40:39 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,11 @@ t_request	Client::getParsedRequest(void)
 	return (_request);
 }
 
+t_socket	Client::getSocket(void)
+{
+	return (_socket);
+}
+
 std::string	Client::getResolved(void)
 {
 	return (_resolved);
@@ -131,6 +136,21 @@ std::string	Client::getResolved(void)
 size_t	Client::getSent(void)
 {
 	return (_sent);
+}
+
+bool	Client::isOpen(void)
+{
+	return (_open);
+}
+
+bool	Client::isResponseEmpty(void)
+{
+	return (_response.empty());
+}
+
+void	Client::setResponse(std::string response)
+{
+	_response = response;
 }
 
 int	Client::sendResponse(void)
@@ -164,26 +184,6 @@ int	Client::sendResponse(void)
 		else
 			return (1);
 	}
-}
-
-bool	Client::isResponseEmpty(void)
-{
-	return (_response.empty());
-}
-
-void	Client::setResponse(std::string response)
-{
-	_response = response;
-}
-
-bool	Client::isOpen(void)
-{
-	return (_open);
-}
-
-t_socket	Client::getSocket(void)
-{
-	return (_socket);
 }
 
 void	Client::checkTimeout(void)
