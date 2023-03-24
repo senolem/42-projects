@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/24 01:53:23 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/24 19:49:18 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ class webserv
 		fd_set												_read_fds_bak;
 		fd_set												_write_fds_bak;
 		std::map<int, int>									_activeConnections;
+		bool												_done;
 	
 	public:
 		typedef std::map<std::string, t_route>::iterator					mapIterator;
