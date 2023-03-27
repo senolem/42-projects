@@ -1,0 +1,35 @@
+body {
+background-color: #1e1e1e;
+color: #fff;
+font-family: Helvetica, sans-serif;
+text-align: center;
+}
+
+h1 {
+font-size: 2em;
+margin-bottom: 1em;
+}
+
+img {
+transition: all 0.3s ease-in-out;
+padding-top: 0.5em;
+padding-bottom: 0.5em;
+}
+
+img:hover {
+transform: scale(1.2);
+}
+
+#ruffle_test {
+padding-top: 0.5em;
+padding-bottom: 0.5em;
+}
+
+#ejs_wrapper {
+width: 800px;
+height: 600px;
+margin-left: auto;
+margin-right: auto;
+padding-top: 0.5em;
+padding-bottom: 0.5em;
+}
