@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/27 03:22:31 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/27 16:08:11 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	webserv::startServer(void)
 		status = select(getMaxFd() + 1, &_read_fds, &_write_fds, NULL, NULL);
 		if (status == -1)
 			throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Failed to select");
-		else if (status > 0)
+		else
 		{
 			iter = _subservers.begin();
 			iter2 = _subservers.end();
@@ -103,10 +103,8 @@ void	webserv::startServer(void)
 						int	ret = client->getRequest();
 						if (ret == 0)
 							FD_SET(client->getSocket().fd, &_read_fds_bak);
-						if (ret == 1)
+						else if (ret == 1)
 							FD_SET(client->getSocket().fd, &_write_fds_bak);
-						else if (ret == 2)
-							FD_CLR(client->getSocket().fd, &_read_fds_bak);
 						else if (ret == -1)
 							std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to read request from client " << client->getResolved() << "\n";
 						else if (ret == -2)
@@ -114,34 +112,18 @@ void	webserv::startServer(void)
 							t_request	tmp;
 							tmp.status = 413;
 							client->setResponse(iter->getResponse(tmp));
-							FD_SET(client->getSocket().fd, &_write_fds);
+							FD_SET(client->getSocket().fd, &_write_fds_bak);
 						}
 					}
 					if (client->isOpen() && FD_ISSET(client->getSocket().fd, &_write_fds))
 					{
-						if (!client->getParsedRequests().empty() || !client->getDone())
-						{
-							if (client->getDone())
-							{
-								client->setSent(0);
-								client->setResponse("");
-								client->setResponse(iter->getResponse(*client->getParsedRequests().begin()));
-								client->getParsedRequests().erase(client->getParsedRequests().begin());
-							}
-							int	ret = client->sendResponse();
-							if (ret == 0)
-							{
-								std::cout << BLUE << INFO <<  CYAN << WEBSERV << NONE << " Response sent to client " << client->getResolved() << " (length " << client->getSent() << ")\n";
-								client->setDone(true);
-							}
-							else if (ret == 1)
-								client->setDone(false);
-							else if (ret == -1)
-							{
-								client->setDone(false);
-								std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to send response to client " << client->getResolved() << "\n";
-							}
-						}
+						if (client->isResponseEmpty())
+							client->setResponse(iter->getResponse(client->getParsedRequest()));
+						int	ret = client->sendResponse();
+						if (ret == 0 && !client->isResponseEmpty())
+							std::cout << BLUE << INFO <<  CYAN << WEBSERV << NONE << " Response sent (length " << client->getSent() << ")\n";
+						else if (ret == -1)
+							std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to send response to client " << client->getResolved() << "(" << errno << ")\n";
 					}
 					client->checkTimeout();
 					if (!client->isOpen())
