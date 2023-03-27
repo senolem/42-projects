@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:48:37 by melones           #+#    #+#             */
-/*   Updated: 2023/03/27 15:40:20 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/27 22:12:58 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ class Client
 		t_socket					getSocket(void);
 		std::string					getResolved(void);
 		size_t						getSent(void);
+		void						setSent(size_t sent);
 		bool						isOpen(void);
 		bool						isResponseEmpty(void);
 		void						setResponse(std::string response);

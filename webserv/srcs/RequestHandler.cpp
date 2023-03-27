@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/03/27 19:35:23 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/27 22:08:03 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,28 +82,28 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 		(request.method == "DELETE" && request.matched_subserver->second.methods_allowed.del == false) ||\
 		(request.method == "HEAD" && request.matched_subserver->second.methods_allowed.head == false))
 		return (returnStatusCode(request, 405));
-	request.transfer_encoding = parseTransferEncodingHeader(getHeader(buffer_vect, "Transfer-Encoding:"));
+	request.transfer_encoding = strToLower(parseTransferEncodingHeader(getHeader(buffer_vect, "Transfer-Encoding:")));
 	i = buffer.find("\r\n\r\n");
 	if (request.method == "POST" && i != std::string::npos && buffer.length() > i + 4)
 	{
 		request.body = buffer.substr(i + 4);
-		if (request.transfer_encoding == "chunked")
+		if (toLowerStringCompare("chunked", request.transfer_encoding))
 			parseChunkedBody(request);
 	}
 	request.cookie = parseCookieHeader(getHeader(buffer_vect, "Cookie:"));
 	request.accept = parseAcceptHeader(getHeader(buffer_vect, "Accept:"));
-	content_type = getHeader(buffer_vect, "Content-Type:");
+	content_type = strToLower(getHeader(buffer_vect, "Content-Type:"));
 	if (request.method == "POST" && content_type.length() >= 14)
 	{
 		vect = split_string(content_type, ";");
 		if (vect.size() == 1)
-			request.content_type = content_type.substr(14);
+			request.content_type = strToLower(content_type.substr(14));
 		else if (vect.size() == 2)
 		{
-			size_t	pos = vect.at(1).find("boundary=");
+			size_t	pos = findCaseInsensitive(vect.at(1), "boundary=");
 			if (pos != std::string::npos)
 			{
-				request.content_type = vect.at(0).substr(14);
+				request.content_type = strToLower(vect.at(0).substr(14));
 				request.boundary = vect.at(1).substr(pos + 9);
 				if (!(request.boundary.length() > 0 && request.boundary.length() <= 70 && !std::isspace(request.boundary.at(request.boundary.length() - 1))))
 					return (returnStatusCode(request, 500));
@@ -159,7 +159,7 @@ std::multimap<float, std::string>	RequestHandler::parseAcceptHeader(const std::s
 	{
 		split2 = split_string(*iter, ";q=");
 		if (split2.size() == 2)
-			accept_header.insert(std::pair<float, std::string>(std::atof(split2.at(1).c_str()), split2.at(0)));
+			accept_header.insert(std::pair<float, std::string>(std::atof(split2.at(1).c_str()), strToLower(split2.at(0))));
 		else if (split2.size() == 1 && iter->find(";") == std::string::npos)
 			accept_header.insert(std::pair<float, std::string>(1.0f, split2.at(0)));
 		++iter;
@@ -328,7 +328,7 @@ std::string	RequestHandler::getPath(vectorIterator vectIter, std::string path, m
 	i = path.find_last_of('.');
 	if (i != std::string::npos)
 	{
-		if (path.substr(i, path.length() - i) == "html")
+		if (strToLower(path.substr(i, path.length() - i)) == "html")
 			_currentRoot.clear();
 	}
 	else
@@ -400,10 +400,14 @@ std::string	RequestHandler::getHeader(std::vector<std::string> header, std::stri
 	std::vector<std::string>::iterator	iter = header.begin();
 	std::vector<std::string>::iterator	iter2 = header.end();
 	std::string							ret;
+	std::string							to_lower;
+	std::string							tmp;
 
+	to_lower = strToLower(field);
 	while (iter != iter2)
 	{
-		i = iter->find(field);
+		tmp = strToLower(*iter);
+		i = tmp.find(to_lower);
 		if (i != std::string::npos)
 		{
 			if (i == 0)
@@ -527,7 +531,7 @@ void	RequestHandler::handleGetResponse(t_request &request, t_response &response)
 	std::stringstream						file_stream;
 	std::map<std::string, t_cgi>::iterator	cgi_iter;
 
-	cgi_iter = request.matched_subserver->second.cgi_pass.find("." + _filetype);
+	cgi_iter = request.matched_subserver->second.cgi_pass.find("." + strToLower(_filetype));
 	if (cgi_iter != request.matched_subserver->second.cgi_pass.end())
 		handleCgi(request, response, file_stream, cgi_iter);
 	else if (request.autoindex == true && request.matched_subserver->second.autoindex == true)
@@ -554,7 +558,7 @@ void	RequestHandler::handlePostResponse(t_request &request, t_response &response
 	std::stringstream						file_stream;
 	std::map<std::string, t_cgi>::iterator	cgi_iter;
 
-	cgi_iter = request.matched_subserver->second.cgi_pass.find("." + _filetype);
+	cgi_iter = request.matched_subserver->second.cgi_pass.find("." + strToLower(_filetype));
 	if (cgi_iter != request.matched_subserver->second.cgi_pass.end())
 		handleCgi(request, response, file_stream, cgi_iter);
 	else if (request.content_type == "multipart/form-data")

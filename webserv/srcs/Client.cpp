@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/27 20:58:30 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/27 22:13:22 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	Client::getRequest(void)
 			while (_buffer.find("\r\n\r\n", i) != std::string::npos || _buffer.find("\r\n", i) == i)
 			{
 				std::string	tmp = _buffer.substr(i, _buffer.find("\r\n", i) - i);
-				if (tmp.length() > 16 && toLowerStringCompare("Content-length: ", tmp.substr(0, 16)))
+				if (tmp.length() > 16 && toLowerStringCompare("content-length: ", tmp.substr(0, 16)))
 				{
 					int	tmp_length = std::atoi(tmp.substr(16, tmp.size()).c_str());
 					if (tmp_length >= 0)
@@ -118,7 +118,7 @@ int	Client::getRequest(void)
 					else
 						_content_length = 0;	
 				}
-				else if (tmp.length() > 19 && toLowerStringCompare("Transfer-encoding: ", tmp.substr(0, 19)))
+				else if (tmp.length() > 19 && toLowerStringCompare("transfer-encoding: ", tmp.substr(0, 19)))
 				{
 					if (toLowerStringCompare("chunked", tmp.substr(19, tmp.size())))
 						_is_chunked = true;		
@@ -194,6 +194,11 @@ size_t	Client::getSent(void)
 	return (_sent);
 }
 
+void	Client::setSent(size_t sent)
+{
+	_sent = sent;
+}
+
 bool	Client::isOpen(void)
 {
 	return (_open);
@@ -235,7 +240,6 @@ int	Client::sendResponse(void)
 		if (_sent >= _response.size())
 		{
 			_open = false;
-			_sent = 0;
 			return (0);
 		}
 		else

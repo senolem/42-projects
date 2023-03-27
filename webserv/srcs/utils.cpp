@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/03/24 01:20:38 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/27 22:10:03 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,4 +226,19 @@ bool	toLowerStringCompare(std::string s1, std::string s2)
 	std::transform(s1.begin(), s1.end(), lower_s1.begin(), to_lower);
 	std::transform(s2.begin(), s2.end(), lower_s2.begin(), to_lower);
 	return (lower_s1 == lower_s2);
+}
+
+std::string	strToLower(const std::string &str)
+{
+	std::string	tmp(str);
+
+	std::transform(tmp.begin(), tmp.end(), tmp.begin(), ::tolower);
+	return (tmp);
+}
+
+size_t	findCaseInsensitive(std::string str, std::string to_search, size_t pos)
+{
+	std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+	std::transform(to_search.begin(), to_search.end(), to_search.begin(), ::tolower);
+	return (str.find(to_search, pos));
 }

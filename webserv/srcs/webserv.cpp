@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/27 18:41:06 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/27 22:14:25 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,10 @@ void	webserv::startServer(void)
 							client->setResponse(iter->getResponse(client->getParsedRequest()));
 						int	ret = client->sendResponse();
 						if (ret == 0 && !client->isResponseEmpty())
+						{
 							std::cout << BLUE << INFO <<  CYAN << WEBSERV << NONE << " Response sent to client " << client->getResolved() << " (length " << client->getSent() << ")\n";
+							client->setSent(0);
+						}
 						else if (ret == -1)
 							std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to send response to client " << client->getResolved() << "\n";
 					}
