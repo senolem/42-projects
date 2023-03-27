@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/03/25 02:14:44 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/27 03:36:38 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,7 +272,7 @@ std::string	RequestHandler::getResponse(t_request request)
 		if (request.method == "HEAD")
 			response.content.clear();
 	}
-	response_stream << response.version << " " << response.status_code << "\r\n" << "Transfer-Encoding: " << response.transfer_encoding << "\r\n";
+	response_stream << response.version << " " << response.status_code << "\r\n" << "Connection: close\r\n" << "Transfer-Encoding: " << response.transfer_encoding << "\r\n";
 	if (request.status == 405)
 		response_stream << "Allow: " << response.allow << "\r\n";
 	if (!response.set_cookie.empty())
