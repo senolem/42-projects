@@ -1,6 +1,3 @@
-- Méthode DELETE
-- Authentification
 - Upload
 - Redirection (ajout dans parsing)
-- Logs
-- Timeout & pourquoi les connexions du client se ferment direct
+- Timeout

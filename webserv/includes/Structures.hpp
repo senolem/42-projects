@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/03/24 01:26:11 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/27 18:58:38 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct s_request
 	std::map<std::string, std::string>				cookie;
 	std::string										body;
 	std::string										content_type;
+	std::string										boundary;
 	std::string										content_length;
 	std::string										transfer_encoding;
 	std::string										query;

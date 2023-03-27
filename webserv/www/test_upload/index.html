@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>File Upload</title>
+	<style>
+		body {
+			background-color: #1e1e1e;
+			color: #fff;
+			font-family: Helvetica, sans-serif;
+			text-align: center;
+			font-size: 32px;
+		}
+	</style>
+</head>
+<body>
+	<h1>File Upload</h1>
+	<form method="post" enctype="multipart/form-data">
+		<div>
+		  <label for="file">Choose file to upload</label>
+		  <input type="file" id="file" name="file" multiple />
+		</div>
+		<div>
+		  <button>Submit</button>
+		</div>
+	  </form>
+	<p><a href="/upload/">View uploaded files</a></p>
+</body>
+</html>

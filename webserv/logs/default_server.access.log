@@ -6968,3 +6968,1483 @@ Sec-Fetch-User: ?1
 
 
 
+Request received from 10.0.2.2:49331 on 27-03-2023 at 16:42:01 :
+GET /test2/hello_world.py HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:49344 on 27-03-2023 at 16:42:37 :
+GET /test2/hello_world.py HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:50128 on 27-03-2023 at 17:11:07 :
+GET / HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:50131 on 27-03-2023 at 17:11:08 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50132 on 27-03-2023 at 17:11:08 :
+GET /ruffle/ruffle.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50133 on 27-03-2023 at 17:11:08 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50134 on 27-03-2023 at 17:11:08 :
+GET /test.png HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50137 on 27-03-2023 at 17:11:08 :
+GET /ruffle/core.ruffle.41529982bb1d17c0fcda.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50138 on 27-03-2023 at 17:11:08 :
+GET /ruffle/0dff3a92b0776e8a65b8.wasm HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50147 on 27-03-2023 at 17:11:09 :
+GET /ruffle/tboi.swf HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50151 on 27-03-2023 at 17:11:14 :
+GET / HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50154 on 27-03-2023 at 17:11:14 :
+GET /ruffle/ruffle.js.map HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: cross-site
+Cache-Control: max-age=0
+
+
+
+Request received from 10.0.2.2:50155 on 27-03-2023 at 17:11:14 :
+GET /ruffle/core.ruffle.41529982bb1d17c0fcda.js.map HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: cross-site
+Cache-Control: max-age=0
+
+
+
+Request received from 10.0.2.2:50161 on 27-03-2023 at 17:11:22 :
+GET / HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:50162 on 27-03-2023 at 17:11:22 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50163 on 27-03-2023 at 17:11:22 :
+GET /ruffle/ruffle.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50164 on 27-03-2023 at 17:11:22 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50165 on 27-03-2023 at 17:11:22 :
+GET /ruffle/core.ruffle.41529982bb1d17c0fcda.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50166 on 27-03-2023 at 17:11:22 :
+GET /test.png HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50167 on 27-03-2023 at 17:11:23 :
+GET /ruffle/0dff3a92b0776e8a65b8.wasm HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50170 on 27-03-2023 at 17:11:23 :
+GET /ruffle/ruffle.js.map HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: cross-site
+Cache-Control: max-age=0
+
+
+
+Request received from 10.0.2.2:50171 on 27-03-2023 at 17:11:24 :
+GET /ruffle/core.ruffle.41529982bb1d17c0fcda.js.map HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: cross-site
+Cache-Control: max-age=0
+
+
+
+Request received from 10.0.2.2:50172 on 27-03-2023 at 17:11:24 :
+GET /ruffle/tboi.swf HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50806 on 27-03-2023 at 17:36:08 :
+GET /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:50832 on 27-03-2023 at 17:36:55 :
+GET / HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:50833 on 27-03-2023 at 17:36:55 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50834 on 27-03-2023 at 17:36:55 :
+GET /ruffle/ruffle.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50835 on 27-03-2023 at 17:36:55 :
+GET /test.png HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50836 on 27-03-2023 at 17:36:55 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50837 on 27-03-2023 at 17:36:55 :
+GET /ruffle/core.ruffle.41529982bb1d17c0fcda.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50838 on 27-03-2023 at 17:36:55 :
+GET /ruffle/0dff3a92b0776e8a65b8.wasm HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50841 on 27-03-2023 at 17:36:56 :
+GET /ruffle/tboi.swf HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50843 on 27-03-2023 at 17:36:59 :
+GET / HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50844 on 27-03-2023 at 17:36:59 :
+GET /ruffle/ruffle.js.map HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: cross-site
+Cache-Control: max-age=0
+
+
+
+Request received from 10.0.2.2:50845 on 27-03-2023 at 17:36:59 :
+GET /ruffle/core.ruffle.41529982bb1d17c0fcda.js.map HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: cross-site
+Cache-Control: max-age=0
+
+
+
+Request received from 10.0.2.2:50852 on 27-03-2023 at 17:37:13 :
+GET /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:50854 on 27-03-2023 at 17:37:15 :
+GET /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: cross-site
+
+
+
+Request received from 10.0.2.2:50855 on 27-03-2023 at 17:37:15 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test_upload
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50863 on 27-03-2023 at 17:37:29 :
+GET /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:50865 on 27-03-2023 at 17:37:31 :
+GET /upload/ HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test_upload
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:50872 on 27-03-2023 at 17:37:47 :
+GET /upload/ HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test_upload
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:50881 on 27-03-2023 at 17:38:06 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: multipart/form-data; boundary=---------------------------20193883939136506241812271752
+Content-Length: 333
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test_upload
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------20193883939136506241812271752
+Content-Disposition: form-data; name="file"; filename="soundfix.bat"
+Content-Type: application/octet-stream
+
+net stop audiosrv
+net stop AudioEndpointBuilder
+net start audiosrv
+net start AudioEndpointBuilder
+-----------------------------20193883939136506241812271752--
+
+
+Request received from 10.0.2.2:50940 on 27-03-2023 at 17:40:23 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test_upload
+Content-Type: multipart/form-data; boundary=---------------------------20193883939136506241812271752
+Content-Length: 333
+Origin: http://localhost:8080
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------20193883939136506241812271752
+Content-Disposition: form-data; name="file"; filename="soundfix.bat"
+Content-Type: application/octet-stream
+
+net stop audiosrv
+net stop AudioEndpointBuilder
+net start audiosrv
+net start AudioEndpointBuilder
+-----------------------------20193883939136506241812271752--
+
+
+Request received from 10.0.2.2:51010 on 27-03-2023 at 17:42:45 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test_upload
+Content-Type: multipart/form-data; boundary=---------------------------20193883939136506241812271752
+Content-Length: 333
+Origin: http://localhost:8080
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------20193883939136506241812271752
+Content-Disposition: form-data; name="file"; filename="soundfix.bat"
+Content-Type: application/octet-stream
+
+net stop audiosrv
+net stop AudioEndpointBuilder
+net start audiosrv
+net start AudioEndpointBuilder
+-----------------------------20193883939136506241812271752--
+
+
+Request received from 10.0.2.2:57180 on 27-03-2023 at 18:21:59 :
+GET /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:57182 on 27-03-2023 at 18:22:01 :
+GET /upload/ HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test_upload
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:57184 on 27-03-2023 at 18:22:04 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: multipart/form-data; boundary=---------------------------11894710731550188013600008782
+Content-Length: 224
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test_upload
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------11894710731550188013600008782
+Content-Disposition: form-data; name="file"; filename=""
+Content-Type: application/octet-stream
+
+
+-----------------------------11894710731550188013600008782--
+
+
+Request received from 10.0.2.2:57241 on 27-03-2023 at 18:23:57 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test_upload
+Content-Type: multipart/form-data; boundary=---------------------------11894710731550188013600008782
+Content-Length: 224
+Origin: http://localhost:8080
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------11894710731550188013600008782
+Content-Disposition: form-data; name="file"; filename=""
+Content-Type: application/octet-stream
+
+
+-----------------------------11894710731550188013600008782--
+
+
+Request received from 10.0.2.2:57261 on 27-03-2023 at 18:24:34 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test_upload
+Content-Type: multipart/form-data; boundary=---------------------------11894710731550188013600008782
+Content-Length: 224
+Origin: http://localhost:8080
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+-----------------------------11894710731550188013600008782
+Content-Disposition: form-data; name="file"; filename=""
+Content-Type: application/octet-stream
+
+
+-----------------------------11894710731550188013600008782--
+
+
+Request received from 10.0.2.2:57262 on 27-03-2023 at 18:24:35 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test_upload
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:52506 on 27-03-2023 at 18:28:01 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test_upload
+Content-Type: multipart/form-data; boundary=---------------------------11894710731550188013600008782
+Content-Length: 224
+Origin: http://localhost:8080
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------11894710731550188013600008782
+Content-Disposition: form-data; name="file"; filename=""
+Content-Type: application/octet-stream
+
+
+-----------------------------11894710731550188013600008782--
+
+
+Request received from 10.0.2.2:52523 on 27-03-2023 at 18:28:40 :
+GET /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+DNT: 1
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:52524 on 27-03-2023 at 18:28:40 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+DNT: 1
+Connection: keep-alive
+Referer: http://localhost:8080/test_upload
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:56061 on 27-03-2023 at 18:38:30 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+DNT: 1
+Connection: keep-alive
+Referer: http://localhost:8080/test_upload
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:56237 on 27-03-2023 at 18:41:33 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test_upload
+Content-Type: multipart/form-data; boundary=---------------------------20193883939136506241812271752
+Content-Length: 333
+Origin: http://localhost:8080
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------20193883939136506241812271752
+Content-Disposition: form-data; name="file"; filename="soundfix.bat"
+Content-Type: application/octet-stream
+
+net stop audiosrv
+net stop AudioEndpointBuilder
+net start audiosrv
+net start AudioEndpointBuilder
+-----------------------------20193883939136506241812271752--
+
+
+Request received from 10.0.2.2:56238 on 27-03-2023 at 18:41:35 :
+GET /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:56242 on 27-03-2023 at 18:41:39 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: multipart/form-data; boundary=---------------------------19245119849706180093621790119
+Content-Length: 224
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test_upload
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------19245119849706180093621790119
+Content-Disposition: form-data; name="file"; filename=""
+Content-Type: application/octet-stream
+
+
+-----------------------------19245119849706180093621790119--
+
+
+Request received from 10.0.2.2:56243 on 27-03-2023 at 18:41:40 :
+GET /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:56247 on 27-03-2023 at 18:41:46 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: multipart/form-data; boundary=---------------------------8131092299537676313942964148
+Content-Length: 331
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test_upload
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------8131092299537676313942964148
+Content-Disposition: form-data; name="file"; filename="soundfix.bat"
+Content-Type: application/octet-stream
+
+net stop audiosrv
+net stop AudioEndpointBuilder
+net start audiosrv
+net start AudioEndpointBuilder
+-----------------------------8131092299537676313942964148--
+
+
+Request received from 10.0.2.2:50833 on 27-03-2023 at 19:11:21 :
+GET /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:50835 on 27-03-2023 at 19:11:23 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: multipart/form-data; boundary=---------------------------308185865919937936143025876973
+Content-Length: 335
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test_upload
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------308185865919937936143025876973
+Content-Disposition: form-data; name="file"; filename="soundfix.bat"
+Content-Type: application/octet-stream
+
+net stop audiosrv
+net stop AudioEndpointBuilder
+net start audiosrv
+net start AudioEndpointBuilder
+-----------------------------308185865919937936143025876973--
+
+
+Request received from 10.0.2.2:50888 on 27-03-2023 at 19:12:58 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test_upload
+Content-Type: multipart/form-data; boundary=---------------------------308185865919937936143025876973
+Content-Length: 335
+Origin: http://localhost:8080
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------308185865919937936143025876973
+Content-Disposition: form-data; name="file"; filename="soundfix.bat"
+Content-Type: application/octet-stream
+
+net stop audiosrv
+net stop AudioEndpointBuilder
+net start audiosrv
+net start AudioEndpointBuilder
+-----------------------------308185865919937936143025876973--
+
+
+Request received from 10.0.2.2:50948 on 27-03-2023 at 19:14:45 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test_upload
+Content-Type: multipart/form-data; boundary=---------------------------308185865919937936143025876973
+Content-Length: 335
+Origin: http://localhost:8080
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------308185865919937936143025876973
+Content-Disposition: form-data; name="file"; filename="soundfix.bat"
+Content-Type: application/octet-stream
+
+net stop audiosrv
+net stop AudioEndpointBuilder
+net start audiosrv
+net start AudioEndpointBuilder
+-----------------------------308185865919937936143025876973--
+
+
+Request received from 10.0.2.2:50986 on 27-03-2023 at 19:16:01 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test_upload
+Content-Type: multipart/form-data; boundary=---------------------------308185865919937936143025876973
+Content-Length: 335
+Origin: http://localhost:8080
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------308185865919937936143025876973
+Content-Disposition: form-data; name="file"; filename="soundfix.bat"
+Content-Type: application/octet-stream
+
+net stop audiosrv
+net stop AudioEndpointBuilder
+net start audiosrv
+net start AudioEndpointBuilder
+-----------------------------308185865919937936143025876973--
+
+
+Request received from 10.0.2.2:51064 on 27-03-2023 at 19:17:44 :
+GET /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:51066 on 27-03-2023 at 19:17:46 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: multipart/form-data; boundary=---------------------------2146616198925013576721874725
+Content-Length: 331
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test_upload
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------2146616198925013576721874725
+Content-Disposition: form-data; name="file"; filename="soundfix.bat"
+Content-Type: application/octet-stream
+
+net stop audiosrv
+net stop AudioEndpointBuilder
+net start audiosrv
+net start AudioEndpointBuilder
+-----------------------------2146616198925013576721874725--
+
+
+Request received from 10.0.2.2:51108 on 27-03-2023 at 19:19:17 :
+GET /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:51109 on 27-03-2023 at 19:19:18 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: multipart/form-data; boundary=---------------------------6985243694082081243763232021
+Content-Length: 331
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test_upload
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------6985243694082081243763232021
+Content-Disposition: form-data; name="file"; filename="soundfix.bat"
+Content-Type: application/octet-stream
+
+net stop audiosrv
+net stop AudioEndpointBuilder
+net start audiosrv
+net start AudioEndpointBuilder
+-----------------------------6985243694082081243763232021--
+
+
+Request received from 10.0.2.2:51242 on 27-03-2023 at 19:22:44 :
+GET /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:51243 on 27-03-2023 at 19:22:45 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: multipart/form-data; boundary=---------------------------3584077796391418284011997552
+Content-Length: 331
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test_upload
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------3584077796391418284011997552
+Content-Disposition: form-data; name="file"; filename="soundfix.bat"
+Content-Type: application/octet-stream
+
+net stop audiosrv
+net stop AudioEndpointBuilder
+net start audiosrv
+net start AudioEndpointBuilder
+-----------------------------3584077796391418284011997552--
+
+
+Request received from 10.0.2.2:58103 on 27-03-2023 at 19:28:40 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test_upload
+Content-Type: multipart/form-data; boundary=---------------------------3584077796391418284011997552
+Content-Length: 331
+Origin: http://localhost:8080
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------3584077796391418284011997552
+Content-Disposition: form-data; name="file"; filename="soundfix.bat"
+Content-Type: application/octet-stream
+
+net stop audiosrv
+net stop AudioEndpointBuilder
+net start audiosrv
+net start AudioEndpointBuilder
+-----------------------------3584077796391418284011997552--
+
+
+Request received from 10.0.2.2:58142 on 27-03-2023 at 19:30:08 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test_upload
+Content-Type: multipart/form-data; boundary=---------------------------3584077796391418284011997552
+Content-Length: 331
+Origin: http://localhost:8080
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------3584077796391418284011997552
+Content-Disposition: form-data; name="file"; filename="soundfix.bat"
+Content-Type: application/octet-stream
+
+net stop audiosrv
+net stop AudioEndpointBuilder
+net start audiosrv
+net start AudioEndpointBuilder
+-----------------------------3584077796391418284011997552--
+
+
+Request received from 10.0.2.2:58224 on 27-03-2023 at 19:32:48 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test_upload
+Content-Type: multipart/form-data; boundary=---------------------------3584077796391418284011997552
+Content-Length: 331
+Origin: http://localhost:8080
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------3584077796391418284011997552
+Content-Disposition: form-data; name="file"; filename="soundfix.bat"
+Content-Type: application/octet-stream
+
+net stop audiosrv
+net stop AudioEndpointBuilder
+net start audiosrv
+net start AudioEndpointBuilder
+-----------------------------3584077796391418284011997552--
+
+
+Request received from 10.0.2.2:58575 on 27-03-2023 at 19:42:53 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test_upload
+Content-Type: multipart/form-data; boundary=---------------------------3584077796391418284011997552
+Content-Length: 331
+Origin: http://localhost:8080
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------3584077796391418284011997552
+Content-Disposition: form-data; name="file"; filename="soundfix.bat"
+Content-Type: application/octet-stream
+
+net stop audiosrv
+net stop AudioEndpointBuilder
+net start audiosrv
+net start AudioEndpointBuilder
+-----------------------------3584077796391418284011997552--
+
+

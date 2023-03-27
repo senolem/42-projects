@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/03/27 03:36:38 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/27 19:35:23 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 	size_t												i = 0;
 	int													res = 0;
 	std::string											content_length;
+	std::string											content_type;
 
 	buffer_vect = split_string(buffer, "\r\n");	vect = split_string(buffer_vect.at(0), " ");
 	if (vect.size() != 3)
@@ -91,8 +92,28 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 	}
 	request.cookie = parseCookieHeader(getHeader(buffer_vect, "Cookie:"));
 	request.accept = parseAcceptHeader(getHeader(buffer_vect, "Accept:"));
-	if (request.method == "POST" && getHeader(buffer_vect, "Content-Type:").length() >= 14)
-		request.content_type = getHeader(buffer_vect, "Content-Type:").substr(14);
+	content_type = getHeader(buffer_vect, "Content-Type:");
+	if (request.method == "POST" && content_type.length() >= 14)
+	{
+		vect = split_string(content_type, ";");
+		if (vect.size() == 1)
+			request.content_type = content_type.substr(14);
+		else if (vect.size() == 2)
+		{
+			size_t	pos = vect.at(1).find("boundary=");
+			if (pos != std::string::npos)
+			{
+				request.content_type = vect.at(0).substr(14);
+				request.boundary = vect.at(1).substr(pos + 9);
+				if (!(request.boundary.length() > 0 && request.boundary.length() <= 70 && !std::isspace(request.boundary.at(request.boundary.length() - 1))))
+					return (returnStatusCode(request, 500));
+			}
+			else
+				return (returnStatusCode(request, 500));
+		}
+		else
+			return (returnStatusCode(request, 500));
+	}
 	content_length = getHeader(buffer_vect, "Content-Length:");
 	if (request.method == "POST" && content_length.length() >= 16)
 		request.content_length = content_length.substr(16);
@@ -536,6 +557,8 @@ void	RequestHandler::handlePostResponse(t_request &request, t_response &response
 	cgi_iter = request.matched_subserver->second.cgi_pass.find("." + _filetype);
 	if (cgi_iter != request.matched_subserver->second.cgi_pass.end())
 		handleCgi(request, response, file_stream, cgi_iter);
+	else if (request.content_type == "multipart/form-data")
+		std::cout << "bonjour je suis l'upload" << "\n";
 	else
 		request.status = 405;
 }
