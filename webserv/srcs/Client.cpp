@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/27 16:09:25 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/27 16:39:03 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,7 @@ int	Client::sendResponse(void)
 		if (_sent >= _response.size())
 		{
 			_open = false;
+			_sent = 0;
 			return (0);
 		}
 		else

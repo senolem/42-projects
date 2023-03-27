@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:42:02 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/24 01:01:37 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/27 16:36:07 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,62 +86,70 @@ std::string	CgiHandler::executeCgi(void)
 			std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to create temporary file for cgi (" << errno << ")\n";
 		return ("Status: 502\r\n\r\n");
 	}
-	write(fd_in, _request.body.c_str(), _request.body.length());
-	lseek(fd_in, 0, SEEK_SET);
-	pid = fork();
-	if (pid == -1)
-	{
-		std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to fork process (" << errno << ")\n";
+	if (write(fd_in, _request.body.c_str(), _request.body.length()) < 0)
 		return ("Status: 502\r\n\r\n");
-	}
-	else if (pid == 0)
+	else
 	{
-		char	**argv;
-
-		if (_script_path.find(".py") != std::string::npos) // subject asks for script path as first argument but we instead need the interpreter for python
+		lseek(fd_in, 0, SEEK_SET);
+		pid = fork();
+		if (pid == -1)
 		{
-			argv = new char*[3];
-			argv[0] = new char[strlen(_cgi_path.c_str()) + 1];
-			argv[1] = new char[strlen(_script_path.c_str()) + 1];
-			std::strcpy(argv[0], _cgi_path.c_str());
-			std::strcpy(argv[1], _script_path.c_str());
-			argv[2] = 0;
+			std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to fork process (" << errno << ")\n";
+			return ("Status: 502\r\n\r\n");
+		}
+		else if (pid == 0)
+		{
+			char	**argv;
+
+			if (_script_path.find(".py") != std::string::npos) // subject asks for script path as first argument but we instead need the interpreter for python
+			{
+				argv = new char*[3];
+				argv[0] = new char[strlen(_cgi_path.c_str()) + 1];
+				argv[1] = new char[strlen(_script_path.c_str()) + 1];
+				std::strcpy(argv[0], _cgi_path.c_str());
+				std::strcpy(argv[1], _script_path.c_str());
+				argv[2] = 0;
+			}
+			else
+			{
+				argv = new char*[2];
+				argv[0] = new char[_script_path.size() + 1];
+				std::strcpy(argv[0], _script_path.c_str());
+				argv[1] = 0;
+			}
+			dup2(fd_in, STDIN_FILENO);
+			dup2(fd_out, STDOUT_FILENO);
+			execve(_cgi_path.c_str(), argv, env);
+			std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to execute cgi (" << errno << ")\n";
+			write(STDOUT_FILENO, "Status: 500\r\n\r\n", 16);
+			exit(1);
 		}
 		else
 		{
-			argv = new char*[2];
-			argv[0] = new char[_script_path.size() + 1];
-			std::strcpy(argv[0], _script_path.c_str());
-			argv[1] = 0;
-		}
-		dup2(fd_in, STDIN_FILENO);
-		dup2(fd_out, STDOUT_FILENO);
-		execve(_cgi_path.c_str(), argv, env);
-		std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to execute cgi (" << errno << ")\n";
-		write(STDOUT_FILENO, "Status: 500\r\n\r\n", 16);
-		exit(1);
-	}
-	else
-	{
-		char	buffer[1024];
-
-		if (waitpid(pid, &status, 0) == -1)
-		{
-			std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to wait for child (" << errno << ")\n";
-			return ("Status: 500\r\n\r\n");
-		}
-		if (WEXITSTATUS(status) && WIFEXITED((status)))
-		{
-			std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to execute cgi script (" << errno << ")\n";
-			return ("Status: 502\r\n\r\n");
-		}
-		lseek(fd_out, 0, SEEK_SET);
-		while (!readingDone)
-		{
-			memset(buffer, 0, sizeof(buffer));
-			if (read(fd_out, buffer, sizeof(buffer) - 1) <= 0)
-				readingDone = true;
-			body.append(buffer);
+			char	buffer[1024];
+			if (waitpid(pid, &status, 0) == -1)
+			{
+				std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to wait for child (" << errno << ")\n";
+				return ("Status: 500\r\n\r\n");
+			}
+			if (WEXITSTATUS(status) && WIFEXITED((status)))
+			{
+				std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to execute cgi script (" << errno << ")\n";
+				return ("Status: 502\r\n\r\n");
+			}
+			lseek(fd_out, 0, SEEK_SET);
+			while (!readingDone)
+			{
+				int	ret;
+				memset(buffer, 0, sizeof(buffer));
+				ret = read(fd_out, buffer, sizeof(buffer) - 1);
+				if (ret == 0)
+					readingDone = true;
+				else if (ret > 0)
+					body.append(buffer);
+				else
+					return ("Status: 502\r\n\r\n");
+			}
 		}
 	}
 	dup2(stdin_bak, STDIN_FILENO);
