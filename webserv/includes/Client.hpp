@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:48:37 by melones           #+#    #+#             */
-/*   Updated: 2023/03/24 19:48:26 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/27 03:07:30 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ class Client
 		t_socket					getSocket(void);
 		std::string					getResolved(void);
 		size_t						getSent(void);
+		bool						getDone(void);
 		void						setSent(size_t sent);
+		void						setDone(bool done);
 		bool						isOpen(void);
 		bool						isResponseEmpty(void);
 		bool						isRequestBufferEmpty(void);
@@ -56,12 +58,12 @@ class Client
 		bool						_open;
 		std::string					_response;
 		size_t						_sent;
-		bool						_reading_done;
 		bool						_is_chunked;
 		ssize_t						_content_length;
 		int							_request_size;
 		int							_body_size;
 		bool						_check_size;
+		bool						_done;
 };
 
 #endif

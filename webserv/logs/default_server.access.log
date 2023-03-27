@@ -12489,3 +12489,3394 @@ Sec-Fetch-Mode: cors
 Sec-Fetch-Site: same-origin
 
 
+Request received from 10.0.2.2:65496 on 24-03-2023 at 22:41:42 :
+GET / HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:65496 on 24-03-2023 at 22:41:42 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:65497 on 24-03-2023 at 22:41:42 :
+GET /ruffle/ruffle.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:65497 on 24-03-2023 at 22:41:42 :
+GET /test.png HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:65497 on 24-03-2023 at 22:41:42 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:65497 on 24-03-2023 at 22:41:42 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:65496 on 24-03-2023 at 22:41:42 :
+GET /ruffle/core.ruffle.41529982bb1d17c0fcda.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:65496 on 24-03-2023 at 22:41:42 :
+GET /ruffle/0dff3a92b0776e8a65b8.wasm HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:65496 on 24-03-2023 at 22:41:44 :
+GET /ruffle/tboi.swf HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:65496 on 24-03-2023 at 22:42:16 :
+GET / HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: cross-site
+
+
+Request received from 10.0.2.2:65496 on 24-03-2023 at 22:42:16 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:65496 on 24-03-2023 at 22:42:16 :
+GET /ruffle/ruffle.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:65514 on 24-03-2023 at 22:42:16 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:65496 on 24-03-2023 at 22:42:16 :
+GET /test.png HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:65496 on 24-03-2023 at 22:42:16 :
+GET /ruffle/core.ruffle.41529982bb1d17c0fcda.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:65496 on 24-03-2023 at 22:42:16 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:65496 on 24-03-2023 at 22:42:16 :
+GET /ruffle/0dff3a92b0776e8a65b8.wasm HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:65496 on 24-03-2023 at 22:42:18 :
+GET /ruffle/tboi.swf HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:65496 on 24-03-2023 at 22:43:35 :
+GET /test@ HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:65496 on 24-03-2023 at 22:43:35 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test@
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:65514 on 24-03-2023 at 22:43:43 :
+GET /test2 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:65514 on 24-03-2023 at 22:43:56 :
+GET /test2/hello_world.py HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:65514 on 24-03-2023 at 22:44:12 :
+GET /test2/test.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:55177 on 25-03-2023 at 02:03:35 :
+GET / HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:55177 on 25-03-2023 at 02:03:35 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:55178 on 25-03-2023 at 02:03:35 :
+GET /ruffle/ruffle.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:55178 on 25-03-2023 at 02:03:35 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:55178 on 25-03-2023 at 02:03:35 :
+GET /test.png HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:55178 on 25-03-2023 at 02:03:35 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:55177 on 25-03-2023 at 02:03:35 :
+GET /ruffle/core.ruffle.41529982bb1d17c0fcda.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:55178 on 25-03-2023 at 02:03:35 :
+GET /ruffle/0dff3a92b0776e8a65b8.wasm HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:55178 on 25-03-2023 at 02:03:36 :
+GET /ruffle/tboi.swf HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:55178 on 25-03-2023 at 02:03:38 :
+GET /test2/ HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:55178 on 25-03-2023 at 02:03:38 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test2/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:55177 on 25-03-2023 at 02:03:45 :
+GET /test2/index.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:55177 on 25-03-2023 at 02:03:49 :
+GET /test2/test.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:55177 on 25-03-2023 at 02:03:51 :
+POST /test2/make_it_rainbow.php HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 34
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test2/test.html
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:55193 on 25-03-2023 at 02:03:58 :
+GET /test2/test.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:55193 on 25-03-2023 at 02:03:58 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test2/test.html
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:55222 on 25-03-2023 at 02:04:53 :
+POST /test2/make_it_rainbow.php HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 34
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test2/test.html
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:55299 on 25-03-2023 at 02:07:07 :
+POST /test2/make_it_rainbow.php HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 34
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test2/test.html
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:55798 on 25-03-2023 at 02:18:20 :
+POST /test2/make_it_rainbow.php HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test2/test.html
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 34
+Origin: http://localhost:8080
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:55799 on 25-03-2023 at 02:18:22 :
+GET /test2/test.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:55799 on 25-03-2023 at 02:18:22 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test2/test.html
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:55799 on 25-03-2023 at 02:18:23 :
+POST /test2/make_it_rainbow.php HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 31
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test2/test.html
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:55832 on 25-03-2023 at 02:19:08 :
+POST /test2/make_it_rainbow.php HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 34
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test2/test.html
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:55918 on 25-03-2023 at 02:21:31 :
+POST /test2/make_it_rainbow.php HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test2/test.html
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 34
+Origin: http://localhost:8080
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:55957 on 25-03-2023 at 02:22:22 :
+POST /test2/make_it_rainbow.php HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test2/test.html
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 34
+Origin: http://localhost:8080
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:56012 on 25-03-2023 at 02:23:38 :
+POST /test2/make_it_rainbow.php HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test2/test.html
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 34
+Origin: http://localhost:8080
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:56330 on 25-03-2023 at 02:33:44 :
+POST /test2/make_it_rainbow.php HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test2/test.html
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 34
+Origin: http://localhost:8080
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+text=aaa&submit=Make+it+rainbow%21
+Request received from 10.0.2.2:56330 on 25-03-2023 at 02:33:44 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test2/make_it_rainbow.php
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:56330 on 25-03-2023 at 02:34:24 :
+GET /tes HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:56330 on 25-03-2023 at 02:34:26 :
+GET / HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:56330 on 25-03-2023 at 02:34:26 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:56355 on 25-03-2023 at 02:34:26 :
+GET /ruffle/ruffle.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:56330 on 25-03-2023 at 02:34:26 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:56469 on 25-03-2023 at 02:36:15 :
+GET / HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:56469 on 25-03-2023 at 02:36:15 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:56470 on 25-03-2023 at 02:36:15 :
+GET /ruffle/ruffle.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:56471 on 25-03-2023 at 02:36:15 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52187 on 25-03-2023 at 02:40:56 :
+GET / HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:52187 on 25-03-2023 at 02:40:56 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52187 on 25-03-2023 at 02:40:56 :
+GET /ruffle/ruffle.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52189 on 25-03-2023 at 02:40:56 :
+GET /test.png HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52187 on 25-03-2023 at 02:40:57 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52267 on 25-03-2023 at 02:42:20 :
+GET / HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: cross-site
+
+
+Request received from 10.0.2.2:52267 on 25-03-2023 at 02:42:20 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52267 on 25-03-2023 at 02:42:20 :
+GET /ruffle/ruffle.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52267 on 25-03-2023 at 02:42:20 :
+GET /test.png HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52267 on 25-03-2023 at 02:42:20 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52267 on 25-03-2023 at 02:42:20 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52267 on 25-03-2023 at 02:42:20 :
+GET /ruffle/core.ruffle.41529982bb1d17c0fcda.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52267 on 25-03-2023 at 02:42:20 :
+GET /ruffle/0dff3a92b0776e8a65b8.wasm HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52267 on 25-03-2023 at 02:42:21 :
+GET /ruffle/tboi.swf HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52267 on 25-03-2023 at 02:42:35 :
+GET /test2/ HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:52267 on 25-03-2023 at 02:42:35 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test2/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52300 on 25-03-2023 at 02:42:39 :
+GET /test2/test.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:52300 on 25-03-2023 at 02:42:41 :
+POST /test2/make_it_rainbow.php HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 35
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test2/test.html
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:52340 on 25-03-2023 at 02:43:55 :
+POST /test2/make_it_rainbow.php HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test2/test.html
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 35
+Origin: http://localhost:8080
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+text=azaa&submit=Make+it+rainbow%21
+Request received from 10.0.2.2:52340 on 25-03-2023 at 02:43:55 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test2/make_it_rainbow.php
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52340 on 25-03-2023 at 02:44:05 :
+GET / HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:52340 on 25-03-2023 at 02:44:05 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52345 on 25-03-2023 at 02:44:05 :
+GET /ruffle/ruffle.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52340 on 25-03-2023 at 02:44:05 :
+GET /test.png HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52340 on 25-03-2023 at 02:44:05 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52340 on 25-03-2023 at 02:44:05 :
+GET /ruffle/core.ruffle.41529982bb1d17c0fcda.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52340 on 25-03-2023 at 02:44:05 :
+GET /ruffle/0dff3a92b0776e8a65b8.wasm HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52340 on 25-03-2023 at 02:44:06 :
+GET /ruffle/tboi.swf HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52340 on 25-03-2023 at 02:44:10 :
+HEAD /emulatorjs/super-mario-world.smc HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: application/json, text/plain, */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52340 on 25-03-2023 at 02:44:10 :
+GET /emulatorjs/super-mario-world.smc HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: application/json, text/plain, */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52340 on 25-03-2023 at 02:44:17 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:52340 on 25-03-2023 at 02:44:17 :
+GET /index.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: iframe
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52340 on 25-03-2023 at 02:44:17 :
+GET /audio.mp3 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: audio/webm,audio/ogg,audio/wav,audio/*;q=0.9,application/ogg;q=0.7,video/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: audio
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:52345 on 25-03-2023 at 02:44:17 :
+GET /video.mp4 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: video/webm,video/ogg,video/*;q=0.9,application/ogg;q=0.7,audio/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: video
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:52633 on 25-03-2023 at 02:52:17 :
+POST /test2/make_it_rainbow.php HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test2/test.html
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 35
+Origin: http://localhost:8080
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+text=azaa&submit=Make+it+rainbow%21
+Request received from 10.0.2.2:52633 on 25-03-2023 at 02:52:19 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:52635 on 25-03-2023 at 02:52:21 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: cross-site
+
+
+Request received from 10.0.2.2:52651 on 25-03-2023 at 02:52:36 :
+GET / HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:52651 on 25-03-2023 at 02:52:36 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52652 on 25-03-2023 at 02:52:36 :
+GET /ruffle/ruffle.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:52651 on 25-03-2023 at 02:52:36 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61284 on 25-03-2023 at 02:55:02 :
+GET / HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:61337 on 25-03-2023 at 02:56:28 :
+GET / HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:61337 on 25-03-2023 at 02:56:28 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61337 on 25-03-2023 at 02:56:28 :
+GET /ruffle/ruffle.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61338 on 25-03-2023 at 02:56:28 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61481 on 25-03-2023 at 02:58:48 :
+GET / HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: cross-site
+
+
+Request received from 10.0.2.2:61481 on 25-03-2023 at 02:58:48 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61482 on 25-03-2023 at 02:58:48 :
+GET /ruffle/ruffle.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61481 on 25-03-2023 at 02:58:48 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61482 on 25-03-2023 at 02:58:48 :
+GET /test.png HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61482 on 25-03-2023 at 02:58:48 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61482 on 25-03-2023 at 02:58:48 :
+GET /ruffle/core.ruffle.41529982bb1d17c0fcda.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61482 on 25-03-2023 at 02:58:49 :
+GET /ruffle/0dff3a92b0776e8a65b8.wasm HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61482 on 25-03-2023 at 02:58:50 :
+GET /ruffle/tboi.swf HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61482 on 25-03-2023 at 02:58:53 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:61482 on 25-03-2023 at 02:58:53 :
+GET /index.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: iframe
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61481 on 25-03-2023 at 02:58:53 :
+GET /video.mp4 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: video/webm,video/ogg,video/*;q=0.9,application/ogg;q=0.7,audio/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: video
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:61482 on 25-03-2023 at 02:58:53 :
+GET /audio.mp3 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: audio/webm,audio/ogg,audio/wav,audio/*;q=0.9,application/ogg;q=0.7,video/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: audio
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:61481 on 25-03-2023 at 02:58:59 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:61481 on 25-03-2023 at 02:58:59 :
+GET /audio.mp3 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: audio/webm,audio/ogg,audio/wav,audio/*;q=0.9,application/ogg;q=0.7,video/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: audio
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:61492 on 25-03-2023 at 02:58:59 :
+GET /index.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: iframe
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61495 on 25-03-2023 at 02:59:07 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: cross-site
+
+
+Request received from 10.0.2.2:61499 on 25-03-2023 at 02:59:15 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: cross-site
+
+
+Request received from 10.0.2.2:61499 on 25-03-2023 at 02:59:15 :
+GET /index.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: iframe
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61500 on 25-03-2023 at 02:59:15 :
+GET /audio.mp3 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: audio/webm,audio/ogg,audio/wav,audio/*;q=0.9,application/ogg;q=0.7,video/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: audio
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:61501 on 25-03-2023 at 02:59:15 :
+GET /video.mp4 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: video/webm,video/ogg,video/*;q=0.9,application/ogg;q=0.7,audio/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: video
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:61499 on 25-03-2023 at 02:59:15 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61508 on 25-03-2023 at 02:59:30 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+DNT: 1
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:61514 on 25-03-2023 at 02:59:40 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+DNT: 1
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:61514 on 25-03-2023 at 02:59:40 :
+GET /index.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+DNT: 1
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: iframe
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61514 on 25-03-2023 at 02:59:40 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+DNT: 1
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61514 on 25-03-2023 at 02:59:40 :
+GET /audio.mp3 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: audio/webm,audio/ogg,audio/wav,audio/*;q=0.9,application/ogg;q=0.7,video/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+DNT: 1
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Sec-Fetch-Dest: audio
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:61517 on 25-03-2023 at 02:59:40 :
+GET /video.mp4 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: video/webm,video/ogg,video/*;q=0.9,application/ogg;q=0.7,audio/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+DNT: 1
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Sec-Fetch-Dest: video
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:61534 on 25-03-2023 at 03:00:08 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:61535 on 25-03-2023 at 03:00:10 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:61535 on 25-03-2023 at 03:00:10 :
+GET /index.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: iframe
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61536 on 25-03-2023 at 03:00:10 :
+GET /audio.mp3 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: audio/webm,audio/ogg,audio/wav,audio/*;q=0.9,application/ogg;q=0.7,video/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: audio
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:61537 on 25-03-2023 at 03:00:10 :
+GET /video.mp4 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: video/webm,video/ogg,video/*;q=0.9,application/ogg;q=0.7,audio/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: video
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:61535 on 25-03-2023 at 03:00:10 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61540 on 25-03-2023 at 03:00:11 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: cross-site
+
+
+Request received from 10.0.2.2:61540 on 25-03-2023 at 03:00:11 :
+GET /index.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: iframe
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61541 on 25-03-2023 at 03:00:11 :
+GET /audio.mp3 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: audio/webm,audio/ogg,audio/wav,audio/*;q=0.9,application/ogg;q=0.7,video/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: audio
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:61542 on 25-03-2023 at 03:00:11 :
+GET /video.mp4 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: video/webm,video/ogg,video/*;q=0.9,application/ogg;q=0.7,audio/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: video
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:61540 on 25-03-2023 at 03:00:11 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: cross-site
+
+
+Request received from 10.0.2.2:61543 on 25-03-2023 at 03:00:11 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: cross-site
+
+
+Request received from 10.0.2.2:61543 on 25-03-2023 at 03:00:11 :
+GET /index.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: iframe
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61544 on 25-03-2023 at 03:00:11 :
+GET /audio.mp3 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: audio/webm,audio/ogg,audio/wav,audio/*;q=0.9,application/ogg;q=0.7,video/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: audio
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:61545 on 25-03-2023 at 03:00:11 :
+GET /video.mp4 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: video/webm,video/ogg,video/*;q=0.9,application/ogg;q=0.7,audio/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: video
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:61543 on 25-03-2023 at 03:00:12 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61546 on 25-03-2023 at 03:00:12 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: cross-site
+
+
+Request received from 10.0.2.2:61546 on 25-03-2023 at 03:00:12 :
+GET /index.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/test
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: iframe
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61547 on 25-03-2023 at 03:00:12 :
+GET /audio.mp3 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: audio/webm,audio/ogg,audio/wav,audio/*;q=0.9,application/ogg;q=0.7,video/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: audio
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:61548 on 25-03-2023 at 03:00:12 :
+GET /video.mp4 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: video/webm,video/ogg,video/*;q=0.9,application/ogg;q=0.7,audio/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: video
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:61546 on 25-03-2023 at 03:00:12 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61595 on 25-03-2023 at 03:01:44 :
+GET / HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:61595 on 25-03-2023 at 03:01:44 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61596 on 25-03-2023 at 03:01:44 :
+GET /ruffle/ruffle.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61595 on 25-03-2023 at 03:01:44 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61596 on 25-03-2023 at 03:01:45 :
+GET /test.png HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61596 on 25-03-2023 at 03:01:45 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61596 on 25-03-2023 at 03:01:45 :
+GET /ruffle/core.ruffle.41529982bb1d17c0fcda.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61596 on 25-03-2023 at 03:01:45 :
+GET /ruffle/0dff3a92b0776e8a65b8.wasm HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:61596 on 25-03-2023 at 03:01:46 :
+GET /ruffle/tboi.swf HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58089 on 26-03-2023 at 01:54:01 :
+GET / HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:58089 on 26-03-2023 at 01:54:01 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58090 on 26-03-2023 at 01:54:01 :
+GET /ruffle/ruffle.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58090 on 26-03-2023 at 01:54:01 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58090 on 26-03-2023 at 01:54:01 :
+GET /test.png HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58090 on 26-03-2023 at 01:54:02 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58089 on 26-03-2023 at 01:54:02 :
+GET /ruffle/core.ruffle.41529982bb1d17c0fcda.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58089 on 26-03-2023 at 01:54:02 :
+GET /ruffle/0dff3a92b0776e8a65b8.wasm HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58089 on 26-03-2023 at 01:54:03 :
+GET /ruffle/tboi.swf HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58089 on 26-03-2023 at 01:54:10 :
+GET /test2/ HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:58089 on 26-03-2023 at 01:54:10 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test2/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58103 on 26-03-2023 at 01:54:14 :
+GET /test2/index.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:58103 on 26-03-2023 at 01:54:16 :
+GET /test2/test.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:58103 on 26-03-2023 at 01:54:18 :
+POST /test2/make_it_rainbow.php HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 35
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test2/test.html
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+text=aaaa&submit=Make+it+rainbow%21
+Request received from 10.0.2.2:58103 on 26-03-2023 at 01:54:25 :
+POST /test2/make_it_rainbow.php HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 115
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test2/test.html
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+text=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&submit=Make+it+rainbow%21
+Request received from 10.0.2.2:58103 on 26-03-2023 at 01:54:55 :
+POST /test2/make_it_rainbow.php HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 6446
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test2/test.html
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+text=+%D5%80%D5%A1%D5%B5%D5%A5%D6%80%D5%A5%D5%B6+Shqip+%E2%80%AB%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9+%D0%91%D1%8A%D0%BB%D0%B3%D0%B0%D1%80%D1%81%D0%BA%D0%B8+Catal%C3%A0+%E4%B8%AD%E6%96%87%E7%AE%80%E4%BD%93+Hrvatski+%C4%8Cesky+Dansk+Nederlands+English+Eesti+Filipino+Suomi+Fran%C3%A7ais+%E1%83%A5%E1%83%90%E1%83%A0%E1%83%97%E1%83%A3%E1%83%9A%E1%83%98+Deutsch+%CE%95%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BA%CE%AC+%E2%80%AB%D7%A2%D7%91%D7%A8%D7%99%D7%AA+%E0%A4%B9%E0%A4%BF%E0%A4%A8%E0%A5%8D%E0%A4%A6%E0%A5%80+Magyar+Indonesia+Italiano+Latviski+Lietuvi%C5%A1kai+%D0%BC%D0%B0%D0%BA%D0%B5%D0%B4%D0%BE%D0%BD%D1%81%D0%BA%D0%B8+Melayu+Norsk+Polski+Portugu%C3%AAs+Rom%C3%A2na+Pycc%D0%BA%D0%B8%D0%B9+%D0%A1%D1%80%D0%BF%D1%81%D0%BA%D0%B8+Sloven%C4%8Dina+Sloven%C5%A1%C4%8Dina+Es
+Request received from 10.0.2.2:58103 on 26-03-2023 at 01:54:55 :
+pa%C3%B1ol+Svenska+%E0%B9%84%E0%B8%97%E0%B8%A2+T%C3%BCrk%C3%A7e+%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%81%D1%8C%D0%BA%D0%B0+Ti%E1%BA%BFng+Vi%E1%BB%87t+Lorem+Ipsum+%22Neque+porro+quisquam+est+qui+dolorem+ipsum+quia+dolor+sit+amet%2C+consectetur%2C+adipisci+velit...%22+%22There+is+no+one+who+loves+pain+itself%2C+who+seeks+after+it+and+wants+to+have+it%2C+simply+because+it+is+pain...%22++Lorem+ipsum+dolor+sit+amet%2C+consectetur+adipiscing+elit.+Vivamus+egestas+sollicitudin+libero%2C+vitae+venenatis+tellus.+Praesent+condimentum+tincidunt+turpis%2C+ut+pretium+felis+vehicula+eu.+Morbi+mattis+hendrerit+lorem%2C+sagittis+viverra+erat+gravida+vitae.+Sed+pretium+ex+eget+dui+pellentesque%2C+at+suscipit+lacus+sollicitudin.+Phasellus+lacus+orci%2C+tristique+eu+nunc+vitae%2C+finibus+faucibus+lorem.+Quisque+non+posuere+purus%2C+sed+ultrices+ligula.+Nulla+eros+dui%2C+lacinia+at+aliquet+sit+amet%2C+volutpat+ut+urna.+Quisque+tincidunt+orci+sed+massa+sagittis%2C+sit+amet+consectetur+lorem+posuere.+Vivamus+sagittis+at+magna+sit+amet+cursus.+Sed+justo+mi%2C+congue+id+est+in%2C+finibus+aliquam+libero.+Maecenas+finibus+massa+a+urna+consequat+pharetra.+Integer+pretium+ut+ligula+vitae+porta.++Donec+porta+purus+ac+velit+ornare+pretium.+Fusce+in+faucibus+nibh%2C+at+blandit+elit.+Praesent+quis+imperdiet+felis.+Fusce+accumsan+luctus+ipsum%2C+nec+molestie+justo+facilisis+nec.+In+lacinia+tristique+malesuada.+Pellentesque+orci+erat%2C+consectetur+sit+amet+semper+sit+amet%2C+ullamcorper+vel+turpis.+Cras+gravida+nulla+sem%2C+non+placerat+erat+suscipit+id.+Cras+enim+odio%2C+viverra+at+ultricies+vel%2C+volutpat+at+nulla.+Phasellus+orci+odio%2C+condimentum+eu+tincidunt+non%2C+placerat+id+magna.+Praesent+gravida+interdum+odio+at+vulputate.+Vestibulum+mauris+eros%2C+elementum+non+mauris+sit+amet%2C+congue+bibendum+est.+In+tincidunt+iaculis+molestie.++Quisque+euismod%2C+magna+a+posuere+vehicula%2C+tortor+neque+scelerisque+urna%2C+ut+condimentum+est+tellus+at+lacus.+Class+aptent+taciti+sociosqu+ad+litora+torquent+per+conubia+nostra%2C+per+inceptos+himenaeos.+Integer+gravida+tincidunt+viverra.+Vestibulum+ante+ipsum+primis+in+faucibus+orci+luctus+et+ultrices+posuere+cubilia+curae%3B+Praesent+ultrices%2C+arcu+eu+fermentum+maximus%2C+dolor+ante+viverra+sem%2C+non+bibendum+velit+neque+eget+massa.+Quisque+eu+purus+consequat%2C+commodo+urna+eget%2C+aliquam+mauris.+Vestibulum+pharetra+odio+leo%2C+vitae+cursus+purus+gravida+a.+Integer+ut+molestie+velit.+Nulla+nec+tellus+tincidunt%2C+consectetur+nibh+at%2C+sollicitudin+est.+Sed+ornare+luctus+condimentum.+Duis+sodales+volutpat+nibh%2C+sed+aliquet+urna.+In+condimentum+quis+arcu+quis+lobortis.+Proin+id+condimentum+ex.+Proin+leo+turpis%2C+placerat+eu+faucibus+non%2C+sodales+a+ipsum.++Donec+nec+ultrices+augue.+Nunc+luctus+ante+lacus%2C+sit+amet+consectetur+erat+suscipit+vitae.+Suspendisse+tincidunt+interdum+orci+non+auctor.+Donec+dolor+orci%2C+gravida+non+ex+a%2C+tincidu
+Request received from 10.0.2.2:58103 on 26-03-2023 at 01:54:55 :
+nt+lacinia+ligula.+Sed+sagittis%2C+leo+id+dictum+malesuada%2C+odio+turpis+dignissim+massa%2C+sed+ultricies+nunc+magna+nec+felis.+Suspendisse+fringilla+bibendum+venenatis.+Nam+vel+nisi+eget+lectus+congue+varius+non+dapibus+libero.+Fusce+suscipit+fermentum+libero%2C+sed+consectetur+ante+faucibus+non.+Donec+tempus+magna+id+leo+ornare+posuere.+Interdum+et+malesuada+fames+ac+ante+ipsum+primis+in+faucibus.+Aliquam+id+risus+ligula.+Ut+eget+massa+in+metus+mattis+vehicula+at+nec+ante.+Suspendisse+at+dictum+odio%2C+ut+maximus+eros.+Cras+risus+libero%2C+ultricies+a+purus+at%2C+sollicitudin+venenatis+justo.+Sed+in+odio+tellus.++Pellentesque+semper+sodales+eros%2C+in+tincidunt+erat+mattis+at.+In+hac+habitasse+platea+dictumst.+Phasellus+molestie+vehicula+odio+sit+amet+eleifend.+Sed+tellus+metus%2C+auctor+eget+nulla+eu%2C+lobortis+ullamcorper+urna.+In+hac+habitasse+platea+dictumst.+Praesent+laoreet+sit+amet+mi+eu+mollis.+Duis+nec+feugiat+mi%2C+ut+laoreet+nunc.+Nam+condimentum+quam+pulvinar+nisi+feugiat%2C+quis+varius+lorem+congue.+Cras+ultricies+lobortis+accumsan.+Vivamus+id+blandit+est.+Sed+in+posuere+justo.+Sed+in+orci+ut+nisi+euismod+bibendum+id+id+mauris.++Nam+elementum+nulla+sit+amet+nulla+ultrices%2C+non+rhoncus+neque+consequat.+Donec+sollicitudin+justo+nec+ipsum+elementum%2C+euismod+egestas+sapien+sodales.+Quisque+tincidunt%2C+ipsum+non+semper+viverra%2C+tortor+metus+molestie+lorem%2C+et+efficitur+sapien+lorem+ac+leo.+Donec+tristique+dictum+augue+ut+volutpat.+Fusce+auctor+elit+et+urna+tincidunt+porta.+Nullam+nulla+mi%2C+venenatis+at+neque+in%2C+dapibus+sollicitudin+libero.+Nullam+consectetur+augue+eget+placerat+laoreet.+Vestibulum+interdum+orci+non+nisi+malesuada%2C+ut+rutrum+mi+eleifend.++Cras+vel+viverra+quam.+Vestibulum+vel+sapien+commodo%2C+consectetur+eros+sed%2C+gravida+risus.+Curabitur+elit+arcu%2C+laoreet+quis+neque+accumsan%2C+blandit+luctus+sem.+Vivamus+eget+malesuada+massa.+Phasellus+sit+amet+mi+et+odio+blandit+ultrices.+Morbi+id+semper+justo%2C+eget+pulvinar+eros.+Praesent+sit+amet+lacus+dictum%2C+venenatis+quam+et%2C+ornare+erat.+Sed+egestas+turpis+finibus+pulvinar+consectetur.++Aliquam+eget+faucibus+nibh.+Morbi+leo+nunc%2C+sodales+a+mauris+at%2C+tempus+facilisis+lorem.+Integer+vitae+ligula+euismod%2C+faucibus+magna+eu%2C+pharetra+libero.+Aliquam+accumsan+lectus+ac+nunc+varius+viverra.+Suspendisse+aliquet+justo+sed+congue+finibus.+Aenean+lacus+elit%2C+egestas+ullamcorper+dictum+ac%2C+euismod+a+quam.+Sed+nec+urna+nec+tellus+hendrerit+euismod+id+eget+ante.+Nam+vitae+leo+non+dolor+interdum+dapibus+et+eu+turpis.+Duis+et+orci+vitae+nisl+dictum+tristique.+Nam+nec+scelerisque+justo.+In+dui.+Generated+8+paragraphs%2C+745+words%2C+5000+bytes+of+Lorem+Ipsum+help%40lipsum.com+Privacy+Policy&submit=Make+it+rainbow%21
+Request received from 10.0.2.2:58164 on 26-03-2023 at 01:55:28 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:58164 on 26-03-2023 at 01:55:28 :
+GET /index.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: iframe
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58164 on 26-03-2023 at 01:55:28 :
+GET /video.mp4 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: video/webm,video/ogg,video/*;q=0.9,application/ogg;q=0.7,audio/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: video
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:58166 on 26-03-2023 at 01:55:28 :
+GET /audio.mp3 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: audio/webm,audio/ogg,audio/wav,audio/*;q=0.9,application/ogg;q=0.7,video/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: audio
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:58164 on 26-03-2023 at 01:55:32 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:58164 on 26-03-2023 at 01:55:32 :
+GET /index.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: iframe
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58168 on 26-03-2023 at 01:55:32 :
+GET /audio.mp3 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: audio/webm,audio/ogg,audio/wav,audio/*;q=0.9,application/ogg;q=0.7,video/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: audio
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:58164 on 26-03-2023 at 01:55:33 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:58171 on 26-03-2023 at 01:55:35 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:58171 on 26-03-2023 at 01:55:35 :
+GET /index.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: iframe
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58171 on 26-03-2023 at 01:55:39 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: cross-site
+
+
+Request received from 10.0.2.2:58171 on 26-03-2023 at 01:55:39 :
+GET /index.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: iframe
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58176 on 26-03-2023 at 01:55:39 :
+GET /audio.mp3 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: audio/webm,audio/ogg,audio/wav,audio/*;q=0.9,application/ogg;q=0.7,video/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: audio
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:58171 on 26-03-2023 at 01:55:40 :
+GET /video.mp4 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: video/webm,video/ogg,video/*;q=0.9,application/ogg;q=0.7,audio/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: video
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:58177 on 26-03-2023 at 01:55:40 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58178 on 26-03-2023 at 01:55:41 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: cross-site
+
+
+Request received from 10.0.2.2:58181 on 26-03-2023 at 01:55:43 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: cross-site
+
+
+Request received from 10.0.2.2:58181 on 26-03-2023 at 01:55:43 :
+GET /index.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: iframe
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58181 on 26-03-2023 at 01:55:43 :
+GET /audio.mp3 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: audio/webm,audio/ogg,audio/wav,audio/*;q=0.9,application/ogg;q=0.7,video/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: audio
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:58182 on 26-03-2023 at 01:55:43 :
+GET /video.mp4 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: video/webm,video/ogg,video/*;q=0.9,application/ogg;q=0.7,audio/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: video
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:58183 on 26-03-2023 at 01:55:43 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58186 on 26-03-2023 at 01:55:46 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:58186 on 26-03-2023 at 01:55:46 :
+GET /index.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: iframe
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58187 on 26-03-2023 at 01:55:46 :
+GET /audio.mp3 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: audio/webm,audio/ogg,audio/wav,audio/*;q=0.9,application/ogg;q=0.7,video/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: audio
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:58188 on 26-03-2023 at 01:55:46 :
+GET /video.mp4 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: video/webm,video/ogg,video/*;q=0.9,application/ogg;q=0.7,audio/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: video
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:58186 on 26-03-2023 at 01:55:46 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58190 on 26-03-2023 at 01:55:48 :
+GET /test HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:58190 on 26-03-2023 at 01:55:48 :
+GET /index.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: iframe
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58191 on 26-03-2023 at 01:55:48 :
+GET /video.mp4 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: video/webm,video/ogg,video/*;q=0.9,application/ogg;q=0.7,audio/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=0-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: video
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:58191 on 26-03-2023 at 01:55:48 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+Request received from 10.0.2.2:58191 on 26-03-2023 at 01:55:51 :
+GET /audio.mp3 HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: audio/webm,audio/ogg,audio/wav,audio/*;q=0.9,application/ogg;q=0.7,video/*;q=0.6,*/*;q=0.5
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Range: bytes=160825-
+Connection: keep-alive
+Referer: http://localhost:8080/test
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: audio
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Accept-Encoding: identity
+
+
+Request received from 10.0.2.2:63705 on 26-03-2023 at 01:57:18 :
+GET /test2/test.html HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+Request received from 10.0.2.2:63705 on 26-03-2023 at 01:57:21 :
+POST /test2/make_it_rainbow.php HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 6446
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test2/test.html
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+text=+%D5%80%D5%A1%D5%B5%D5%A5%D6%80%D5%A5%D5%B6+Shqip+%E2%80%AB%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9+%D0%91%D1%8A%D0%BB%D0%B3%D0%B0%D1%80%D1%81%D0%BA%D0%B8+Catal%C3%A0+%E4%B8%AD%E6%96%87%E7%AE%80%E4%BD%93+Hrvatski+%C4%8Cesky+Dansk+Nederlands+English+Eesti+Filipino+Suomi+Fran%C3%A7ais+%E1%83%A5%E1%83%90%E1%83%A0%E1%83%97%E1%83%A3%E1%83%9A%E1%83%98+Deutsch+%CE%95%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BA%CE%AC+%E2%80%AB%D7%A2%D7%91%D7%A8%D7%99%D7%AA+%E0%A4%B9%E0%A4%BF%E0%A4%A8%E0%A5%8D%E0%A4%A6%E0%A5%80+Magyar+Indonesia+Italiano+Latviski+Lietuvi%C5%A1kai+%D0%BC%D0%B0%D0%BA%D0%B5%D0%B4%D0%BE%D0%BD%D1%81%D0%BA%D0%B8+Melayu+Norsk+Polski+Portugu%C3%AAs+Rom%C3%A2na+Pycc%D0%BA%D0%B8%D0%B9+%D0%A1%D1%80%D0%BF%D1%81%D0%BA%D0%B8+Sloven%C4%8Dina+Sloven%C5%A1%C4%8Dina+Es
+Request received from 10.0.2.2:63705 on 26-03-2023 at 01:57:21 :
+pa%C3%B1ol+Svenska+%E0%B9%84%E0%B8%97%E0%B8%A2+T%C3%BCrk%C3%A7e+%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%81%D1%8C%D0%BA%D0%B0+Ti%E1%BA%BFng+Vi%E1%BB%87t+Lorem+Ipsum+%22Neque+porro+quisquam+est+qui+dolorem+ipsum+quia+dolor+sit+amet%2C+consectetur%2C+adipisci+velit...%22+%22There+is+no+one+who+loves+pain+itself%2C+who+seeks+after+it+and+wants+to+have+it%2C+simply+because+it+is+pain...%22++Lorem+ipsum+dolor+sit+amet%2C+consectetur+adipiscing+elit.+Vivamus+egestas+sollicitudin+libero%2C+vitae+venenatis+tellus.+Praesent+condimentum+tincidunt+turpis%2C+ut+pretium+felis+vehicula+eu.+Morbi+mattis+hendrerit+lorem%2C+sagittis+viverra+erat+gravida+vitae.+Sed+pretium+ex+eget+dui+pellentesque%2C+at+suscipit+lacus+sollicitudin.+Phasellus+lacus+orci%2C+tristique+eu+nunc+vitae%2C+finibus+faucibus+lorem.+Quisque+non+posuere+purus%2C+sed+ultrices+ligula.+Nulla+eros+dui%2C+lacinia+at+aliquet+sit+amet%2C+volutpat+ut+urna.+Quisque+tincidunt+orci+sed+massa+sagittis%2C+sit+amet+consectetur+lorem+posuere.+Vivamus+sagittis+at+magna+sit+amet+cursus.+Sed+justo+mi%2C+congue+id+est+in%2C+finibus+aliquam+libero.+Maecenas+finibus+massa+a+urna+consequat+pharetra.+Integer+pretium+ut+ligula+vitae+porta.++Donec+porta+purus+ac+velit+ornare+pretium.+Fusce+in+faucibus+nibh%2C+at+blandit+elit.+Praesent+quis+imperdiet+felis.+Fusce+accumsan+luctus+ipsum%2C+nec+molestie+justo+facilisis+nec.+In+lacinia+tristique+malesuada.+Pellentesque+orci+erat%2C+consectetur+sit+amet+semper+sit+amet%2C+ullamcorper+vel+turpis.+Cras+gravida+nulla+sem%2C+non+placerat+erat+suscipit+id.+Cras+enim+odio%2C+viverra+at+ultricies+vel%2C+volutpat+at+nulla.+Phasellus+orci+odio%2C+condimentum+eu+tincidunt+non%2C+placerat+id+magna.+Praesent+gravida+interdum+odio+at+vulputate.+Vestibulum+mauris+eros%2C+elementum+non+mauris+sit+amet%2C+congue+bibendum+est.+In+tincidunt+iaculis+molestie.++Quisque+euismod%2C+magna+a+posuere+vehicula%2C+tortor+neque+scelerisque+urna%2C+ut+condimentum+est+tellus+at+lacus.+Class+aptent+taciti+sociosqu+ad+litora+torquent+per+conubia+nostra%2C+per+inceptos+himenaeos.+Integer+gravida+tincidunt+viverra.+Vestibulum+ante+ipsum+primis+in+faucibus+orci+luctus+et+ultrices+posuere+cubilia+curae%3B+Praesent+ultrices%2C+arcu+eu+fermentum+maximus%2C+dolor+ante+viverra+sem%2C+non+bibendum+velit+neque+eget+massa.+Quisque+eu+purus+consequat%2C+commodo+urna+eget%2C+aliquam+mauris.+Vestibulum+pharetra+odio+leo%2C+vitae+cursus+purus+gravida+a.+Integer+ut+molestie+velit.+Nulla+nec+tellus+tincidunt%2C+consectetur+nibh+at%2C+sollicitudin+est.+Sed+ornare+luctus+condimentum.+Duis+sodales+volutpat+nibh%2C+sed+aliquet+urna.+In+condimentum+quis+arcu+quis+lobortis.+Proin+id+condimentum+ex.+Proin+leo+turpis%2C+placerat+eu+faucibus+non%2C+sodales+a+ipsum.++Donec+nec+ultrices+augue.+Nunc+luctus+ante+lacus%2C+sit+amet+consectetur+erat+suscipit+vitae.+Suspendisse+tincidunt+interdum+orci+non+auctor.+Donec+dolor+orci%2C+gravida+non+ex+a%2C+tincidu
+Request received from 10.0.2.2:63705 on 26-03-2023 at 01:57:21 :
+nt+lacinia+ligula.+Sed+sagittis%2C+leo+id+dictum+malesuada%2C+odio+turpis+dignissim+massa%2C+sed+ultricies+nunc+magna+nec+felis.+Suspendisse+fringilla+bibendum+venenatis.+Nam+vel+nisi+eget+lectus+congue+varius+non+dapibus+libero.+Fusce+suscipit+fermentum+libero%2C+sed+consectetur+ante+faucibus+non.+Donec+tempus+magna+id+leo+ornare+posuere.+Interdum+et+malesuada+fames+ac+ante+ipsum+primis+in+faucibus.+Aliquam+id+risus+ligula.+Ut+eget+massa+in+metus+mattis+vehicula+at+nec+ante.+Suspendisse+at+dictum+odio%2C+ut+maximus+eros.+Cras+risus+libero%2C+ultricies+a+purus+at%2C+sollicitudin+venenatis+justo.+Sed+in+odio+tellus.++Pellentesque+semper+sodales+eros%2C+in+tincidunt+erat+mattis+at.+In+hac+habitasse+platea+dictumst.+Phasellus+molestie+vehicula+odio+sit+amet+eleifend.+Sed+tellus+metus%2C+auctor+eget+nulla+eu%2C+lobortis+ullamcorper+urna.+In+hac+habitasse+platea+dictumst.+Praesent+laoreet+sit+amet+mi+eu+mollis.+Duis+nec+feugiat+mi%2C+ut+laoreet+nunc.+Nam+condimentum+quam+pulvinar+nisi+feugiat%2C+quis+varius+lorem+congue.+Cras+ultricies+lobortis+accumsan.+Vivamus+id+blandit+est.+Sed+in+posuere+justo.+Sed+in+orci+ut+nisi+euismod+bibendum+id+id+mauris.++Nam+elementum+nulla+sit+amet+nulla+ultrices%2C+non+rhoncus+neque+consequat.+Donec+sollicitudin+justo+nec+ipsum+elementum%2C+euismod+egestas+sapien+sodales.+Quisque+tincidunt%2C+ipsum+non+semper+viverra%2C+tortor+metus+molestie+lorem%2C+et+efficitur+sapien+lorem+ac+leo.+Donec+tristique+dictum+augue+ut+volutpat.+Fusce+auctor+elit+et+urna+tincidunt+porta.+Nullam+nulla+mi%2C+venenatis+at+neque+in%2C+dapibus+sollicitudin+libero.+Nullam+consectetur+augue+eget+placerat+laoreet.+Vestibulum+interdum+orci+non+nisi+malesuada%2C+ut+rutrum+mi+eleifend.++Cras+vel+viverra+quam.+Vestibulum+vel+sapien+commodo%2C+consectetur+eros+sed%2C+gravida+risus.+Curabitur+elit+arcu%2C+laoreet+quis+neque+accumsan%2C+blandit+luctus+sem.+Vivamus+eget+malesuada+massa.+Phasellus+sit+amet+mi+et+odio+blandit+ultrices.+Morbi+id+semper+justo%2C+eget+pulvinar+eros.+Praesent+sit+amet+lacus+dictum%2C+venenatis+quam+et%2C+ornare+erat.+Sed+egestas+turpis+finibus+pulvinar+consectetur.++Aliquam+eget+faucibus+nibh.+Morbi+leo+nunc%2C+sodales+a+mauris+at%2C+tempus+facilisis+lorem.+Integer+vitae+ligula+euismod%2C+faucibus+magna+eu%2C+pharetra+libero.+Aliquam+accumsan+lectus+ac+nunc+varius+viverra.+Suspendisse+aliquet+justo+sed+congue+finibus.+Aenean+lacus+elit%2C+egestas+ullamcorper+dictum+ac%2C+euismod+a+quam.+Sed+nec+urna+nec+tellus+hendrerit+euismod+id+eget+ante.+Nam+vitae+leo+non+dolor+interdum+dapibus+et+eu+turpis.+Duis+et+orci+vitae+nisl+dictum+tristique.+Nam+nec+scelerisque+justo.+In+dui.+Generated+8+paragraphs%2C+745+words%2C+5000+bytes+of+Lorem+Ipsum+help%40lipsum.com+Privacy+Policy&submit=Make+it+rainbow%21
+Request received from 10.0.2.2:63789 on 26-03-2023 at 01:59:29 :
+POST /test2/make_it_rainbow.php HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 6446
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test2/test.html
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+text=+%D5%80%D5%A1%D5%B5%D5%A5%D6%80%D5%A5%D5%B6+Shqip+%E2%80%AB%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9+%D0%91%D1%8A%D0%BB%D0%B3%D0%B0%D1%80%D1%81%D0%BA%D0%B8+Catal%C3%A0+%E4%B8%AD%E6%96%87%E7%AE%80%E4%BD%93+Hrvatski+%C4%8Cesky+Dansk+Nederlands+English+Eesti+Filipino+Suomi+Fran%C3%A7ais+%E1%83%A5%E1%83%90%E1%83%A0%E1%83%97%E1%83%A3%E1%83%9A%E1%83%98+Deutsch+%CE%95%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BA%CE%AC+%E2%80%AB%D7%A2%D7%91%D7%A8%D7%99%D7%AA+%E0%A4%B9%E0%A4%BF%E0%A4%A8%E0%A5%8D%E0%A4%A6%E0%A5%80+Magyar+Indonesia+Italiano+Latviski+Lietuvi%C5%A1kai+%D0%BC%D0%B0%D0%BA%D0%B5%D0%B4%D0%BE%D0%BD%D1%81%D0%BA%D0%B8+Melayu+Norsk+Polski+Portugu%C3%AAs+Rom%C3%A2na+Pycc%D0%BA%D0%B8%D0%B9+%D0%A1%D1%80%D0%BF%D1%81%D0%BA%D0%B8+Sloven%C4%8Dina+Sloven%C5%A1%C4%8Dina+Espa%C3%B1ol+Svenska+%E0%B9%84%E0%B8%97%E0%B8%A2+T%C3%BCrk%C3%A7e+%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%81%D1%8C%D0%BA%D0%B0+Ti%E1%BA%BFng+Vi%E1%BB%87t+Lorem+Ipsum+%22Neque+porro+quisquam+est+qui+dolorem+ipsum+quia+dolor+sit+amet%2C+consectetur%2C+adipisci+velit...%22+%22There+is+no+one+who+loves+pain+itself%2C+who+seeks+after+it+and+wants+to+have+it%2C+simply+because+it+is+pain...%22++Lorem+ipsum+dolor+sit+amet%2C+consectetur+adipiscing+elit.+Vivamus+egestas+sollicitudin+libero%2C+vitae+venenatis+tellus.+Praesent+condimentum+tincidunt+turpis%2C+ut+pretium+felis+vehicula+eu.+Morbi+mattis+hendrerit+lorem%2C+sagittis+viverra+erat+gravida+vitae.+Sed+pretium+ex+eget+dui+pellentesque%2C+at+suscipit+lacus+sollicitudin.+Phasellus+lacus+orci%2C+tristique+eu+nunc+vitae%2C+finibus+faucibus+lorem.+Quisque+non+posuere+purus%2C+sed+ultrices+ligula.+Nulla+eros+dui%2C+lacinia+at+aliquet+sit+amet%2C+volutpat+ut+urna.+Quisque+tincidunt+orci+sed+massa+sagittis%2C+sit+amet+consectetur+lorem+posuere.+Vivamus+sagittis+at+magna+sit+amet+cursus.+Sed+justo+mi%2C+congue+id+est+in%2C+finibus+aliquam+libero.+Maecenas+finibus+massa+a+urna+consequat+pharetra.+Integer+pretium+ut+ligula+vitae+porta.++Donec+porta+purus+ac+velit+ornare+pretium.+Fusce+in+faucibus+nibh%2C+at+blandit+elit.+Praesent+quis+imperdiet+felis.+Fusce+accumsan+luctus+ipsum%2C+nec+molestie+justo+facilisis+nec.+In+lacinia+tristique+malesuada.+Pellentesque+orci+erat%2C+consectetur+sit+amet+semper+sit+amet%2C+ullamcorper+vel+turpis.+Cras+gravida+nulla+sem%2C+non+placerat+erat+suscipit+id.+Cras+enim+odio%2C+viverra+at+ultricies+vel%2C+volutpat+at+nulla.+Phasellus+orci+odio%2C+condimentum+eu+tincidunt+non%2C+placerat+id+magna.+Praesent+gravida+interdum+odio+at+vulputate.+Vestibulum+mauris+eros%2C+elementum+non+mauris+sit+amet%2C+congue+bibendum+est.+In+tincidunt+iaculis+molestie.++Quisque+euismod%2C+magna+a+posuere+vehicula%2C+tortor+neque+scelerisque+urna%2C+ut+condimentum+est+tellus+at+lacus.+Class+aptent+taciti+sociosqu+ad+litora+torquent+per+conubia+nostra%2C+per+inceptos+himenaeos.+Integer+gravida+tincidunt+viverra.+Vestibulum+ante+ipsum+primis+in+faucibus+orci+luctus+et+ultrices+posuere+cubilia+curae%3B+Praesent+ultrices%2C+arcu+eu+fermentum+maximus%2C+dolor+ante+viverra+sem%2C+non+bibendum+velit+neque+eget+massa.+Quisque+eu+purus+consequat%2C+commodo+urna+eget%2C+aliquam+mauris.+Vestibulum+pharetra+odio+leo%2C+vitae+cursus+purus+gravida+a.+Integer+ut+molestie+velit.+Nulla+nec+tellus+tincidunt%2C+consectetur+nibh+at%2C+sollicitudin+est.+Sed+ornare+luctus+condimentum.+Duis+sodales+volutpat+nibh%2C+sed+aliquet+urna.+In+condimentum+quis+arcu+quis+lobort
+Request received from 10.0.2.2:63789 on 26-03-2023 at 01:59:29 :
+is.+Proin+id+condimentum+ex.+Proin+leo+turpis%2C+placerat+eu+faucibus+non%2C+sodales+a+ipsum.++Donec+nec+ultrices+augue.+Nunc+luctus+ante+lacus%2C+sit+amet+consectetur+erat+suscipit+vitae.+Suspendisse+tincidunt+interdum+orci+non+auctor.+Donec+dolor+orci%2C+gravida+non+ex+a%2C+tincidunt+lacinia+ligula.+Sed+sagittis%2C+leo+id+dictum+malesuada%2C+odio+turpis+dignissim+massa%2C+sed+ultricies+nunc+magna+nec+felis.+Suspendisse+fringilla+bibendum+venenatis.+Nam+vel+nisi+eget+lectus+congue+varius+non+dapibus+libero.+Fusce+suscipit+fermentum+libero%2C+sed+consectetur+ante+faucibus+non.+Donec+tempus+magna+id+leo+ornare+posuere.+Interdum+et+malesuada+fames+ac+ante+ipsum+primis+in+faucibus.+Aliquam+id+risus+ligula.+Ut+eget+massa+in+metus+mattis+vehicula+at+nec+ante.+Suspendisse+at+dictum+odio%2C+ut+maximus+eros.+Cras+risus+libero%2C+ultricies+a+purus+at%2C+sollicitudin+venenatis+justo.+Sed+in+odio+tellus.++Pellentesque+semper+sodales+eros%2C+in+tincidunt+erat+mattis+at.+In+hac+habitasse+platea+dictumst.+Phasellus+molestie+vehicula+odio+sit+amet+eleifend.+Sed+tellus+metus%2C+auctor+eget+nulla+eu%2C+lobortis+ullamcorper+urna.+In+hac+habitasse+platea+dictumst.+Praesent+laoreet+sit+amet+mi+eu+mollis.+Duis+nec+feugiat+mi%2C+ut+laoreet+nunc.+Nam+condimentum+quam+pulvinar+nisi+feugiat%2C+quis+varius+lorem+congue.+Cras+ultricies+lobortis+accumsan.+Vivamus+id+blandit+est.+Sed+in+posuere+justo.+Sed+in+orci+ut+nisi+euismod+bibendum+id+id+mauris.++Nam+elementum+nulla+sit+amet+nulla+ultrices%2C+non+rhoncus+neque+consequat.+Donec+sollicitudin+justo+nec+ipsum+elementum%2C+euismod+egestas+sapien+sodales.+Quisque+tincidunt%2C+ipsum+non+semper+viverra%2C+tortor+metus+molestie+lorem%2C+et+efficitur+sapien+lorem+ac+leo.+Donec+tristique+dictum+augue+ut+volutpat.+Fusce+auctor+elit+et+urna+tincidunt+porta.+Nullam+nulla+mi%2C+venenatis+at+neque+in%2C+dapibus+sollicitudin+libero.+Nullam+consectetur+augue+eget+placerat+laoreet.+Vestibulum+interdum+orci+non+nisi+malesuada%2C+ut+rutrum+mi+eleifend.++Cras+vel+viverra+quam.+Vestibulum+vel+sapien+commodo%2C+consectetur+eros+sed%2C+gravida+risus.+Curabitur+elit+arcu%2C+laoreet+quis+neque+accumsan%2C+blandit+luctus+sem.+Vivamus+eget+malesuada+massa.+Phasellus+sit+amet+mi+et+odio+blandit+ultrices.+Morbi+id+semper+justo%2C+eget+pulvinar+eros.+Praesent+sit+amet+lacus+dictum%2C+venenatis+quam+et%2C+ornare+erat.+Sed+egestas+turpis+finibus+pulvinar+consectetur.++Aliquam+eget+faucibus+nibh.+Morbi+leo+nunc%2C+sodales+a+mauris+at%2C+tempus+facilisis+lorem.+Integer+vitae+ligula+euismod%2C+faucibus+magna+eu%2C+pharetra+libero.+Aliquam+accumsan+lectus+ac+nunc+varius+viverra.+Suspendisse+aliquet+justo+sed+congue+finibus.+Aenean+lacus+elit%2C+egestas+ullamcorper+dictum+ac%2C+euismod+a+quam.+Sed+nec+urna+nec+tellus+hendrerit+euismod+id+eget+ante.+Nam+vitae+leo+non+dolor+interdum+dapibus+et+eu+turpis.+Duis+et+orci+vitae+nisl+dictum+tristique.+Nam+nec+scelerisque+justo.+In+dui.+Generated+8+paragraphs%2C+745+words%2C+5000+bytes+of+Lorem+Ipsum+help%40lipsum.com+Privacy+Policy&submit=Make+it+rainbow%21
+Request received from 10.0.2.2:64028 on 26-03-2023 at 03:06:23 :
+POST /test2/make_it_rainbow.php HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 6446
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test2/test.html
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+text=+%D5%80%D5%A1%D5%B5%D5%A5%D6%80%D5%A5%D5%B6+Shqip+%E2%80%AB%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9+%D0%91%D1%8A%D0%BB%D0%B3%D0%B0%D1%80%D1%81%D0%BA%D0%B8+Catal%C3%A0+%E4%B8%AD%E6%96%87%E7%AE%80%E4%BD%93+Hrvatski+%C4%8Cesky+Dansk+Nederlands+English+Eesti+Filipino+Suomi+Fran%C3%A7ais+%E1%83%A5%E1%83%90%E1%83%A0%E1%83%97%E1%83%A3%E1%83%9A%E1%83%98+Deutsch+%CE%95%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BA%CE%AC+%E2%80%AB%D7%A2%D7%91%D7%A8%D7%99%D7%AA+%E0%A4%B9%E0%A4%BF%E0%A4%A8%E0%A5%8D%E0%A4%A6%E0%A5%80+Magyar+Indonesia+Italiano+Latviski+Lietuvi%C5%A1kai+%D0%BC%D0%B0%D0%BA%D0%B5%D0%B4%D0%BE%D0%BD%D1%81%D0%BA%D0%B8+Melayu+Norsk+Polski+Portugu%C3%AAs+Rom%C3%A2na+Pycc%D0%BA%D0%B8%D0%B9+%D0%A1%D1%80%D0%BF%D1%81%D0%BA%D0%B8+Sloven%C4%8Dina+Sloven%C5%A1%C4%8Dina+Es
+Request received from 10.0.2.2:64028 on 26-03-2023 at 03:06:23 :
+pa%C3%B1ol+Svenska+%E0%B9%84%E0%B8%97%E0%B8%A2+T%C3%BCrk%C3%A7e+%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D1%81%D1%8C%D0%BA%D0%B0+Ti%E1%BA%BFng+Vi%E1%BB%87t+Lorem+Ipsum+%22Neque+porro+quisquam+est+qui+dolorem+ipsum+quia+dolor+sit+amet%2C+consectetur%2C+adipisci+velit...%22+%22There+is+no+one+who+loves+pain+itself%2C+who+seeks+after+it+and+wants+to+have+it%2C+simply+because+it+is+pain...%22++Lorem+ipsum+dolor+sit+amet%2C+consectetur+adipiscing+elit.+Vivamus+egestas+sollicitudin+libero%2C+vitae+venenatis+tellus.+Praesent+condimentum+tincidunt+turpis%2C+ut+pretium+felis+vehicula+eu.+Morbi+mattis+hendrerit+lorem%2C+sagittis+viverra+erat+gravida+vitae.+Sed+pretium+ex+eget+dui+pellentesque%2C+at+suscipit+lacus+sollicitudin.+Phasellus+lacus+orci%2C+tristique+eu+nunc+vitae%2C+finibus+faucibus+lorem.+Quisque+non+posuere+purus%2C+sed+ultrices+ligula.+Nulla+eros+dui%2C+lacinia+at+aliquet+sit+amet%2C+volutpat+ut+urna.+Quisque+tincidunt+orci+sed+massa+sagittis%2C+sit+amet+consectetur+lorem+posuere.+Vivamus+sagittis+at+magna+sit+amet+cursus.+Sed+justo+mi%2C+congue+id+est+in%2C+finibus+aliquam+libero.+Maecenas+finibus+massa+a+urna+consequat+pharetra.+Integer+pretium+ut+ligula+vitae+porta.++Donec+porta+purus+ac+velit+ornare+pretium.+Fusce+in+faucibus+nibh%2C+at+blandit+elit.+Praesent+quis+imperdiet+felis.+Fusce+accumsan+luctus+ipsum%2C+nec+molestie+justo+facilisis+nec.+In+lacinia+tristique+malesuada.+Pellentesque+orci+erat%2C+consectetur+sit+amet+semper+sit+amet%2C+ullamcorper+vel+turpis.+Cras+gravida+nulla+sem%2C+non+placerat+erat+suscipit+id.+Cras+enim+odio%2C+viverra+at+ultricies+vel%2C+volutpat+at+nulla.+Phasellus+orci+odio%2C+condimentum+eu+tincidunt+non%2C+placerat+id+magna.+Praesent+gravida+interdum+odio+at+vulputate.+Vestibulum+mauris+eros%2C+elementum+non+mauris+sit+amet%2C+congue+bibendum+est.+In+tincidunt+iaculis+molestie.++Quisque+euismod%2C+magna+a+posuere+vehicula%2C+tortor+neque+scelerisque+urna%2C+ut+condimentum+est+tellus+at+lacus.+Class+aptent+taciti+sociosqu+ad+litora+torquent+per+conubia+nostra%2C+per+inceptos+himenaeos.+Integer+gravida+tincidunt+viverra.+Vestibulum+ante+ipsum+primis+in+faucibus+orci+luctus+et+ultrices+posuere+cubilia+curae%3B+Praesent+ultrices%2C+arcu+eu+fermentum+maximus%2C+dolor+ante+viverra+sem%2C+non+bibendum+velit+neque+eget+massa.+Quisque+eu+purus+consequat%2C+commodo+urna+eget%2C+aliquam+mauris.+Vestibulum+pharetra+odio+leo%2C+vitae+cursus+purus+gravida+a.+Integer+ut+molestie+velit.+Nulla+nec+tellus+tincidunt%2C+consectetur+nibh+at%2C+sollicitudin+est.+Sed+ornare+luctus+condimentum.+Duis+sodales+volutpat+nibh%2C+sed+aliquet+urna.+In+condimentum+quis+arcu+quis+lobortis.+Proin+id+condimentum+ex.+Proin+leo+turpis%2C+placerat+eu+faucibus+non%2C+sodales+a+ipsum.++Donec+nec+ultrices+augue.+Nunc+luctus+ante+lacus%2C+sit+amet+consectetur+erat+suscipit+vitae.+Suspendisse+tincidunt+interdum+orci+non+auctor.+Donec+dolor+orci%2C+gravida+non+ex+a%2C+tincidunt+lacinia+ligula.+Sed+sagittis%2C+leo+id+dictum+malesuada%2C+odio+turpis+dignissim+massa%2C+sed+ultricies+nunc+magna+nec+felis.+Suspendisse+fringilla+bibendum+venenatis.+Nam+vel+nisi+eget+lectus+congue+varius+non+dapibus+libero.+Fusce+suscipit+fermentum+libero%2C+sed+consectetur+ante+faucibus+non.+Donec+tempus+magna+id+leo+ornare+posuere.+Interdum+et+malesuada+fames+ac+ante+ipsum+primis+in+faucibus.+Aliquam+id+risus+ligula.+Ut+eget+massa+in+metus+mattis+vehicula+at+nec+ante.+Suspendisse+at+dictum+odio%2C+ut+maximus+eros.+Cras+risus+libero%2C+ultricies+a+purus+at%2C+sollicitudin+venenatis+justo.+Sed+in+odio+tellus.++Pellentesque+semper+sodales+eros%2C+in+tincidunt+erat+mattis+at.+In+hac+habitasse+platea+dictumst.+Phasellus+molestie+vehicula+odio+sit+amet+eleifend.+Sed+tellus+metus%2C+auctor+eget+nulla+eu%2C+lobortis+ullamcorper+urna.+In+hac+habitasse+platea+dictumst.+Praesent+laoreet+sit+amet+mi+eu+mollis.+Duis+nec+feugiat+mi%2C+ut+laoreet+nunc.+Nam+condimentum+quam+pulvinar+nisi+feugiat%2C+quis+varius+lorem+congue.+Cras+ultricies+lobortis+accumsan.+Vivamus+id+blandit+est.+Sed+in+posuere+justo.+Sed+in+orci+ut+nisi+euismod+bibendum+id+id+mauris.++Nam+elementum+nulla+sit+amet+nulla+ultrices%2C+non+rhoncus+neque+consequat.+Donec+sollicitudin+justo+nec+ipsum+elementum%2C+euismod+egestas+sapien+sodales.+Quisque+tincidunt%2C+ipsum+non+semper+viverra%2C+tortor+metus+molestie+lorem%2C+et+efficitur+sapien+lorem+ac+leo.+Donec+tristique+dictum+augue+ut+volutpat.+Fusce+auctor+elit+et+urna+tincidunt+porta.+Nullam+nulla+mi%2C+venenatis+at+neque+in%2C+dapibus+sollicitudin+libero.+Nullam+consectetur+augue+eget+placerat+laoreet.+Vestibulum+interdum+orci+non+nisi+malesuada%2C+ut+rutrum+mi+eleifend.++Cras+vel+viverra+quam.+Vestibulum+vel+sapien+commodo%2C+consectetur+eros+sed%2C+gravida+risus.+Curabitur+elit+arcu%2C+laoreet+quis+neque+accumsan%2C+blandit+luctus+sem.+Vivamus+eget+malesuada+massa.+Phasellus+sit+amet+mi+et+odio+blandit+ultrices.+Morbi+id+semper+justo%2C+eget+pulvinar+eros.+Praesent+sit+amet+lacus+dictum%2C+venenatis+quam+et%2C+ornare+erat.+Sed+egestas+turpis+finibus+pulvinar+consectetur.++Aliquam+eget+faucibus+nibh.+Morbi+leo+nunc%2C+sodales+a+mauris+at%2C+tempus+facilisis+lorem.+Integer+vitae+ligula+euismod%2C+faucibus+magna+eu%2C+pharetra+libero.+Aliquam+accumsan+lectus+ac+nunc+varius+viverra.+Suspendisse+aliquet+justo+sed+congue+finibus.+Aenean+lacus+elit%2C+egestas+ullamcorper+dictum+ac%2C+euismod+a+quam.+Sed+nec+urna+nec+tellus+hendrerit+euismod+id+eget+ante.+Nam+vitae+leo+non+dolor+interdum+dapibus+et+eu+turpis.+Duis+et+orci+vitae+nisl+dictum+tristique.+Nam+nec+scelerisque+justo.+In+dui.+Generated+8+paragraphs%2C+745+words%2C+5000+bytes+of+Lorem+Ipsum+help%40lipsum.com+Privacy+Policy&submit=Make+it+rainbow%21

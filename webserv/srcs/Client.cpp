@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/24 20:08:56 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/27 03:09:26 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ Client::Client(Server *server, RequestHandler *request_handler) : _server(server
 	_sent = 0;
 	_content_length = -1;
 	_is_chunked = false;
-	_reading_done = false;
 	_request_size = 0;
 	_body_size = 0;
 	_check_size = false;
@@ -69,7 +68,6 @@ Client  &Client::operator=(const Client &src)
 		this->_open = src._open;
 		this->_response = src._response;
 		this->_sent = src._sent;
-		this->_reading_done = src._reading_done;
 		this->_is_chunked = src._is_chunked;
 		this->_content_length = src._content_length;
 		this->_request_size = src._request_size;
@@ -85,10 +83,12 @@ int	Client::getRequest(void)
 	int			buffer_size = sizeof(buffer);
 	int			rd = 0;
 	int			client_max_body_size = _server->getVirtualHosts().begin()->second.client_max_body_size;
-	size_t		j = 0;
+	size_t		i = 0;
 	std::string					tmp;
 	std::vector<std::string>	vect;
-	size_t	pos = 0;
+	size_t	pos = std::string::npos;
+	size_t	pos2 = std::string::npos;
+	bool	do_split = false;
 
 	memset(&buffer, 0, buffer_size);
 	resetTimeout();
@@ -98,99 +98,96 @@ int	Client::getRequest(void)
 		_open = false;
 		return (-1);
 	}
-	_request_size += rd;
-	if (_check_size)
-		_body_size += rd;
-	if ((client_max_body_size != 0 && _body_size > client_max_body_size) ||
-		(_request_size > MAX_REQUEST_SIZE_PROTECTION && MAX_REQUEST_SIZE_PROTECTION != 0))
-		return (-2);
-	if (rd == 0)
-	{
-		_reading_done = true;
+	else if (rd == 0)
 		return (2);
-	}
 	else if (rd > 0)
 	{
 		_request_buffer.append(buffer, rd);
 		pos = _request_buffer.find("\r\n\r\n");
-		if (pos != std::string::npos)
-		{
+		if (!_check_size && pos != std::string::npos)
 			_check_size = true;
-			if (_content_length == -1 && !_is_chunked)
-				_reading_done = true;
-		}
-		if (!_is_chunked)
+		if (!_is_chunked && _content_length == -1)
 		{
-			for (size_t i = _request_buffer.find("\r\n", 0, pos); i != std::string::npos; i = _request_buffer.find("\r\n", 0, pos))
+			while (_request_buffer.find("\r\n\r\n", i) != std::string::npos || _request_buffer.find("\r\n", i) == i)
 			{
-				std::cout << "tmp2 = " << tmp;
-				if (i > 0 && (j = _request_buffer.find_last_of("\r\n", 0, i - 1) != std::string::npos))
+				std::string	tmp = _request_buffer.substr(i, _request_buffer.find("\r\n", i) - i);
+				if (tmp.length() > 16 && toLowerStringCompare("Content-length: ", tmp.substr(0, 16)))
 				{
-					tmp = _request_buffer.substr(i, j + 2);
-					std::cout << "tmp3 = " << tmp;
-					if (toLowerStringCompare("Content-length: ", tmp))
-					{
-						vect = split_string(tmp, " ");
-						if (vect.size() == 2)
-						{
-							long	tmp_length = std::strtol(vect.at(1).c_str(), NULL, 10);
-							if (tmp_length >= 0)
-								_content_length = tmp_length;
-							else
-								_content_length = 0;
-						}
-					}
-					else if (toLowerStringCompare("Transfer-encoding: chunked", tmp))
-						_is_chunked = true;
-					tmp.clear();
+					int	tmp_length = std::atoi(tmp.substr(16, tmp.size()).c_str());
+					if (tmp_length >= 0)
+						_content_length = tmp_length;
+					else
+						_content_length = 0;	
+				}
+				else if (tmp.length() > 19 && toLowerStringCompare("Transfer-encoding: ", tmp.substr(0, 19)))
+				{
+					if (toLowerStringCompare("chunked", tmp.substr(19, tmp.size())))
+						_is_chunked = true;		
+				}
+				i += tmp.size() + 2;
+			}
+			tmp.clear();
+		}
+		if (_is_chunked)
+		{
+			if (_check_size)
+			{
+				pos2 = _request_buffer.find("0\r\n", pos);
+				if (pos2 != std::string::npos)
+				{
+					pos2 += 3;
+					do_split = true;
 				}
 			}
 		}
-		if (_is_chunked && _check_size && _request_buffer.find("0\r\n"))
-			_reading_done = true;
-		if (_content_length != -1 && rd == buffer_size)
+		else if (_content_length >= 0)
 		{
-			if (_content_length < buffer_size)
+			if (_check_size && _content_length >= 0 && (size_t)_content_length <= _request_buffer.length() - pos + 4)
 			{
-				tmp = _request_buffer.substr(_content_length);
-				_request_buffer.erase(_content_length);
+				pos2 = (pos + 4) + _content_length;
+				do_split = true;
 			}
-			_content_length -= rd;
 		}
-		else if (_check_size && rd < buffer_size)
+		if (_check_size)
 		{
-			tmp = _request_buffer.substr(pos + 4);
-			_request_buffer.erase(pos + 4);
+			if (_is_chunked)
+				_body_size = pos2;
+			else if (_content_length >= 0)
+				_body_size = _request_buffer.length() - pos + 4;
+			_request_size = _request_buffer.length() - _body_size;
 		}
-		if (rd < buffer_size)
-			_reading_done = true;
-	}
-	if (_request_buffer.length() > 0 && _reading_done)
-	{
-		std::cout << BLUE << INFO << GREEN << SERV << NONE << " Request received from " << _resolved << " (length " << _request_buffer.length() << ") :\n";
-		std::cout << _request_buffer << "\n";
-		_server->writeAccessLog("Request received from " + _resolved + " " + get_date() + " :" + "\n" + _request_buffer + "\n");
-		t_request	parsed_request = _request_handler->parseRequest(_request_buffer);
-		parsed_request.remote_addr = _host;
-		_requests.push_back(parsed_request);
-		_request_buffer.clear();
-		if (!tmp.empty())
+		if (rd < buffer_size && _check_size && _content_length == -1 && !_is_chunked && !do_split)
 		{
-			_request_buffer.append(tmp);
-			std::cout << "request_buffer " << _request_buffer << "\n";
+			do_split = true;
+			pos2 = rd;
 		}
-		_content_length = -1;
-		_is_chunked = false;
-		_reading_done = false;
-		_request_size = 0;
-		_body_size = 0;
-		_check_size = false;
-		if (_request_buffer.empty())
-			return (1);
-		else
-			return (0);
+		if ((client_max_body_size != 0 && _body_size > client_max_body_size) ||
+			(_request_size > MAX_REQUEST_SIZE_PROTECTION && MAX_REQUEST_SIZE_PROTECTION != 0))
+			return (-2);
+		if (do_split)
+		{
+			std::cout << BLUE << INFO << GREEN << SERV << NONE << " Request received from " << _resolved << " (length " << _request_buffer.length() << ") :\n";
+			tmp = _request_buffer.substr(pos2);
+			_request_buffer.erase(pos2);
+			std::cout << _request_buffer << "\n";
+			t_request	parsed_request = _request_handler->parseRequest(_request_buffer);
+			parsed_request.remote_addr = _host;
+			_requests.push_back(parsed_request);
+			_request_buffer.clear();
+			if (!tmp.empty())
+				_request_buffer = tmp;
+			_content_length = -1;
+			_is_chunked = false;
+			_request_size = 0;
+			_body_size = 0;
+			_check_size = false;
+			if (_request_buffer.empty())
+				return (1);
+			else
+				return (0);
+		}
 	}
-	return (1);
+	return (0);
 }
 
 std::vector<t_request>	&Client::getParsedRequests(void)
@@ -213,9 +210,20 @@ size_t	Client::getSent(void)
 	return (_sent);
 }
 
+bool	Client::getDone(void)
+{
+	return (_done);
+}
+
 void	Client::setSent(size_t sent)
 {
 	_sent = sent;
+}
+
+
+void	Client::setDone(bool done)
+{
+	_done = done;
 }
 
 bool	Client::isOpen(void)
@@ -272,7 +280,7 @@ void	Client::checkTimeout(void)
 {
 	struct timeval	tv;
 	gettimeofday(&tv, NULL);
-	if (tv.tv_usec - _request_time > 30000000)
+	if (tv.tv_usec - _request_time > 120000000)
 		_open = false;
 }
 

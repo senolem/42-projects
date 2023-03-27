@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/03/24 01:49:15 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/25 02:14:44 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,16 +236,16 @@ void	RequestHandler::parseCgiBodyHeaders(t_request &request, t_response &respons
 		std::string	tmp = body.substr(i, body.find("\r\n", i) - i);
 		if (tmp.length() > 8 && toLowerStringCompare("Status: ", tmp.substr(0, 8)))
 			request.status = std::atoi(tmp.substr(8, tmp.size()).c_str());
-		if (tmp.length() > 14 && toLowerStringCompare("Content-type: ", tmp.substr(0, 14)))
+		else if (tmp.length() > 14 && toLowerStringCompare("Content-type: ", tmp.substr(0, 14)))
 			response.content_type = tmp.substr(14, tmp.size()).c_str();
-		if (tmp.length() > 16 && toLowerStringCompare("Content-length: ", tmp.substr(0, 16)))
+		else if (tmp.length() > 16 && toLowerStringCompare("Content-length: ", tmp.substr(0, 16)))
 		{
 			response.content_length = std::atoi(tmp.substr(16, tmp.size()).c_str());
 			skip = 1;
 		}
-		if (tmp.length() > 19 && toLowerStringCompare("Transfer-encoding: ", tmp.substr(0, 19)))
+		else if (tmp.length() > 19 && toLowerStringCompare("Transfer-encoding: ", tmp.substr(0, 19)))
 			response.transfer_encoding = tmp.substr(19, tmp.size()).c_str();
-		if (tmp.length() > 12 && toLowerStringCompare("Set-cookie: ", tmp.substr(0, 12)))
+		else if (tmp.length() > 12 && toLowerStringCompare("Set-cookie: ", tmp.substr(0, 12)))
 			response.set_cookie.push_back(tmp.substr(12, tmp.size()).c_str());
 		i += tmp.size() + 2;
 	}

@@ -6,13 +6,13 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/24 20:09:38 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/27 03:17:09 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "webserv.hpp"
 
-webserv::webserv(std::vector<std::multimap<std::string, t_route> > *src) : _vhosts(src), _nb_vhost(_vhosts->size()), _done(true)
+webserv::webserv(std::vector<std::multimap<std::string, t_route> > *src) : _vhosts(src), _nb_vhost(_vhosts->size())
 {
 	FD_ZERO(&_read_fds);
 	FD_ZERO(&_write_fds);
@@ -20,7 +20,7 @@ webserv::webserv(std::vector<std::multimap<std::string, t_route> > *src) : _vhos
 	FD_ZERO(&_write_fds_bak);
 }
 
-webserv::webserv(const webserv &src) : _subservers(src._subservers), _vhosts(src._vhosts), _nb_vhost(src._nb_vhost), _sockets(src._sockets), _read_fds(src._read_fds), _write_fds(src._write_fds_bak), _read_fds_bak(src._read_fds_bak), _write_fds_bak(src._write_fds_bak), _activeConnections(src._activeConnections), _done(src._done)
+webserv::webserv(const webserv &src) : _subservers(src._subservers), _vhosts(src._vhosts), _nb_vhost(src._nb_vhost), _sockets(src._sockets), _read_fds(src._read_fds), _write_fds(src._write_fds_bak), _read_fds_bak(src._read_fds_bak), _write_fds_bak(src._write_fds_bak), _activeConnections(src._activeConnections)
 {
 	*this = src;
 }
@@ -28,6 +28,8 @@ webserv::webserv(const webserv &src) : _subservers(src._subservers), _vhosts(src
 webserv::~webserv(void)
 {
 	delete _vhosts;
+	for (size_t i = 0; _sockets.size(); i++)
+		close(_sockets[i].fd);
 }
 
 webserv	&webserv::operator=(const webserv &src)
@@ -43,7 +45,6 @@ webserv	&webserv::operator=(const webserv &src)
 		_read_fds_bak = src._read_fds_bak;
 		_write_fds_bak = src._write_fds_bak;
 		_activeConnections = src._activeConnections;
-		_done = src._done;
 	}
 	return (*this);
 }
@@ -51,12 +52,10 @@ webserv	&webserv::operator=(const webserv &src)
 void	webserv::startServer(void)
 {
 	int								status = 0; 
-	int								ret = 0; 
 	std::vector<Server>::iterator	iter;
 	std::vector<Server>::iterator	iter2;
 	std::vector<Client*>::iterator	iter3;
 	std::vector<Client*>::iterator	iter4;
-	//timeval							timeout = {10, 0};
 	int								client_fd;
 
 	for (size_t i = 0; i < _nb_vhost; i++)
@@ -82,7 +81,7 @@ void	webserv::startServer(void)
 		status = select(getMaxFd() + 1, &_read_fds, &_write_fds, NULL, NULL);
 		if (status == -1)
 			throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Failed to select");
-		else
+		else if (status > 0)
 		{
 			iter = _subservers.begin();
 			iter2 = _subservers.end();
@@ -101,12 +100,12 @@ void	webserv::startServer(void)
 					Client	*client = *iter3;
 					if (client->isOpen() && FD_ISSET(client->getSocket().fd, &_read_fds))
 					{
-						ret = client->getRequest();
+						int	ret = client->getRequest();
 						if (ret == 0)
 							FD_SET(client->getSocket().fd, &_read_fds_bak);
 						if (ret == 1)
 							FD_SET(client->getSocket().fd, &_write_fds_bak);
-						if (ret == 2)
+						else if (ret == 2)
 							FD_CLR(client->getSocket().fd, &_read_fds_bak);
 						else if (ret == -1)
 							std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to read request from client " << client->getResolved() << "\n";
@@ -118,37 +117,31 @@ void	webserv::startServer(void)
 							FD_SET(client->getSocket().fd, &_write_fds);
 						}
 					}
-					if (client->isOpen() && FD_ISSET(client->getSocket().fd, &_write_fds))
+					if (client->isOpen() && FD_ISSET(client->getSocket().fd, &_write_fds) && !FD_ISSET(client->getSocket().fd, &_read_fds))
 					{
-						if (!client->getParsedRequests().empty())
+						if (!client->getParsedRequests().empty() || !client->getDone())
 						{
-							std::string	tmp2;
-							if (_done)
+							if (client->getDone())
 							{
-								tmp2 = iter->getResponse(*client->getParsedRequests().begin());
-								client->setResponse(tmp2);
-							}
-							ret = client->sendResponse();
-							if (ret == 0)
-							{
-								std::cout << BLUE << INFO <<  CYAN << WEBSERV << NONE << " Response sent (length " << client->getSent() << ")\n";
-								client->getParsedRequests().erase(client->getParsedRequests().begin());
 								client->setSent(0);
 								client->setResponse("");
-								_done = true;
+								client->setResponse(iter->getResponse(*client->getParsedRequests().begin()));
+								client->getParsedRequests().erase(client->getParsedRequests().begin());
+							}
+							int	ret = client->sendResponse();
+							if (ret == 0)
+							{
+								std::cout << BLUE << INFO <<  CYAN << WEBSERV << NONE << " Response sent to client " << client->getResolved() << " (length " << client->getSent() << ")\n";
+								client->setDone(true);
 							}
 							else if (ret == 1)
-								_done = false;
+								client->setDone(false);
 							else if (ret == -1)
 							{
-								_done = true;
-								std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to send response to client " << "errno = " << errno << "tmp 2 = " << tmp2.size() << " " << client->getResolved() << "\n";
+								client->setDone(false);
+								std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to send response to client " << client->getResolved() << "\n";
 							}
 						}
-						if (!client->getParsedRequests().empty())
-							FD_SET(client->getSocket().fd, &_write_fds_bak);
-						else
-							FD_CLR(client->getSocket().fd, &_write_fds_bak);
 					}
 					client->checkTimeout();
 					if (!client->isOpen())
@@ -174,8 +167,6 @@ void	webserv::startServer(void)
 			}
 		}
 	}
-	for (size_t i = 0; _sockets.size(); i++)
-		close(_sockets[i].fd);
 }
 
 t_socket	webserv::createSocket(int port)
