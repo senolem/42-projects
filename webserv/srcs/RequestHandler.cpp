@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/03/27 22:08:03 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/28 01:15:40 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,15 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 	if (request.method == "POST" && content_type.length() >= 14)
 	{
 		vect = split_string(content_type, ";");
-		if (vect.size() == 1)
+		if (vect.size() == 1 && vect.at(0).length() > 14)
 			request.content_type = strToLower(content_type.substr(14));
 		else if (vect.size() == 2)
 		{
 			size_t	pos = findCaseInsensitive(vect.at(1), "boundary=");
-			if (pos != std::string::npos)
+			if (pos != std::string::npos && vect.at(0).length() > 14 && vect.at(1).length() > pos + 11 + 2)
 			{
 				request.content_type = strToLower(vect.at(0).substr(14));
-				request.boundary = vect.at(1).substr(pos + 9);
+				request.boundary = vect.at(1).substr(pos + 11, vect.at(1).length() - (pos + 11 + 2));
 				if (!(request.boundary.length() > 0 && request.boundary.length() <= 70 && !std::isspace(request.boundary.at(request.boundary.length() - 1))))
 					return (returnStatusCode(request, 500));
 			}

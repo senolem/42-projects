@@ -9418,3 +9418,192 @@ Sec-Fetch-Site: same-origin
 
 
 
+Request received from 10.0.2.2:50290 on 28-03-2023 at 01:07:47 :
+GET / HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:50291 on 28-03-2023 at 01:07:47 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50292 on 28-03-2023 at 01:07:47 :
+GET /ruffle/ruffle.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50293 on 28-03-2023 at 01:07:47 :
+GET /style.css HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/css,*/*;q=0.1
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: style
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50294 on 28-03-2023 at 01:07:47 :
+GET /test.png HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50296 on 28-03-2023 at 01:07:47 :
+GET /ruffle/core.ruffle.41529982bb1d17c0fcda.js HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: script
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50297 on 28-03-2023 at 01:07:47 :
+GET /favicon.ico HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50298 on 28-03-2023 at 01:07:47 :
+GET /ruffle/0dff3a92b0776e8a65b8.wasm HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50300 on 28-03-2023 at 01:07:48 :
+GET /ruffle/tboi.swf HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:50307 on 28-03-2023 at 01:08:01 :
+GET /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:50310 on 28-03-2023 at 01:08:02 :
+POST /test_upload HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Content-Type: multipart/form-data; boundary=---------------------------39410535014262075981780725422
+Content-Length: 224
+Origin: http://localhost:8080
+Connection: keep-alive
+Referer: http://localhost:8080/test_upload
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+-----------------------------39410535014262075981780725422
+Content-Disposition: form-data; name="file"; filename=""
+Content-Type: application/octet-stream
+
+
+-----------------------------39410535014262075981780725422--
+
+
