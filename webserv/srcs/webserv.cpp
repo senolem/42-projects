@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/27 03:17:09 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/27 03:22:31 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	webserv::startServer(void)
 							FD_SET(client->getSocket().fd, &_write_fds);
 						}
 					}
-					if (client->isOpen() && FD_ISSET(client->getSocket().fd, &_write_fds) && !FD_ISSET(client->getSocket().fd, &_read_fds))
+					if (client->isOpen() && FD_ISSET(client->getSocket().fd, &_write_fds))
 					{
 						if (!client->getParsedRequests().empty() || !client->getDone())
 						{
