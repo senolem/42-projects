@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/27 16:39:03 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/27 20:58:30 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int	Client::getRequest(void)
 		{
 			if (_check_size)
 			{
-				pos2 = _buffer.find("0\r\n", _pos);
+				pos2 = _buffer.find("\r\n0\r\n", _pos);
 				if (pos2 != std::string::npos)
 				{
 					pos2 += 3;
