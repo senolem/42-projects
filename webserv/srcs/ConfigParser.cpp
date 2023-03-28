@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:24:48 by melones           #+#    #+#             */
-/*   Updated: 2023/03/28 18:46:00 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/28 18:51:34 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,25 +116,6 @@ int	ConfigParser::prepareParsing(void)
 	std::string::iterator	iter3;
 	std::string::iterator	iter4;
 	
-	i = _config_string.find(";");
-	while (i != std::string::npos)
-	{
-		if (_config_string.length() > i + 2)
-		{
-			if (_config_string[i + 1] != '\n' && _config_string.substr(i + 1, 2) != "\r\n")
-			{
-				_exception = "Unclosed field parameters near character " + itostr(i);
-				return (1);
-			}
-		}
-		else
-		{
-			_exception = "Unclosed field parameters near character " + itostr(i);
-			return (1);
-		}
-		i += 1;
-		i = _config_string.find(";", i);
-	}
 	i = _config_string.find("#");
 	while (i != std::string::npos)
 	{
