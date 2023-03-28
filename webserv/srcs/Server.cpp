@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:16 by melones           #+#    #+#             */
-/*   Updated: 2023/03/27 16:22:16 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/28 02:39:53 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	Server::writeAccessLog(const std::string &str)
 		std::cout << RED + ERROR + GREEN + SERV + NONE + " Cannot write to log file\n";
 	else
 	{
-		_log_file << str << "\n";
+		_log_file << str.substr(0, LOG_REQUEST_LENGTH_LIMIT) << "\n";
 		_log_file.flush();
 	}
 }

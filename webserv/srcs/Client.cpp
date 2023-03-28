@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/27 22:13:22 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/28 02:41:57 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,8 +155,12 @@ int	Client::getRequest(void)
 	}
 	if (_buffer.length() > 0 && _reading_done)
 	{
-		std::cout << BLUE << INFO << GREEN << SERV << NONE << " Request received from " << _resolved << " (length " << _buffer.length() << ") :\n";
-		std::cout << _buffer << "\n";
+		std::string	colon;
+		if (PRINT_REQUESTS)
+			colon = " :";
+		std::cout << BLUE << INFO << GREEN << SERV << NONE << " Request received from " << _resolved << " (length " << _buffer.length() << ")" << colon << "\n";
+		if (PRINT_REQUESTS)
+			std::cout << _buffer << "\n";
 		_server->writeAccessLog("Request received from " + _resolved + " " + get_date() + " :" + "\n" + _buffer + "\n");
 		if (pos2 != std::string::npos)
 			_buffer.erase(pos2);

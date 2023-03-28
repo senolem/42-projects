@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:24:48 by melones           #+#    #+#             */
-/*   Updated: 2023/03/24 01:42:40 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/28 02:27:37 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -488,7 +488,12 @@ void	ConfigParser::insertField(std::vector<char *> config, t_route *route)
 			route->upload = false;
 	}
 	else if (field == "upload_path")
-		route->upload_path = *iter;
+	{
+		char	cwd[256];
+		getcwd(cwd, sizeof(cwd));
+		std::string	cwd_str(cwd);
+		route->upload_path = cwd_str + "/" + *iter;
+	}
 }
 
 void	ConfigParser::fillDefault(t_route *route)

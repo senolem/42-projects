@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/03/28 01:15:40 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/28 03:08:06 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,18 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 	}
 	if (vect_iter != vhosts.end())
 		request.path = getPath(vect_iter, vect.at(1), &request.matched_subserver, request.method);
+	if (request.path.length() > 2)
+	{
+		for (size_t i = 0; i < request.path.size(); i++)
+		{
+			if (request.path[i] == '%' && i + 2 < request.path.size() && std::isxdigit(request.path[i + 2]))
+			{
+				int	value = strtol(request.path.substr(i + 1, 2).c_str(), NULL, 16);
+				if (value >= 0 && value <= 127)
+					request.path.replace(i, 3, 1, static_cast<char>(value));
+			}
+		}
+	}
 	if (vect_iter == vhosts.end() || request.path.empty())
 		return (returnStatusCode(request, 500));
 	if ((request.method == "GET" && request.matched_subserver->second.methods_allowed.get == false) ||\
@@ -101,10 +113,10 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 		else if (vect.size() == 2)
 		{
 			size_t	pos = findCaseInsensitive(vect.at(1), "boundary=");
-			if (pos != std::string::npos && vect.at(0).length() > 14 && vect.at(1).length() > pos + 11 + 2)
+			if (pos != std::string::npos && vect.at(0).length() > 14 && vect.at(1).length() > pos + 9)
 			{
 				request.content_type = strToLower(vect.at(0).substr(14));
-				request.boundary = vect.at(1).substr(pos + 11, vect.at(1).length() - (pos + 11 + 2));
+				request.boundary = vect.at(1).substr(pos + 9, vect.at(1).length() - (pos + 7));
 				if (!(request.boundary.length() > 0 && request.boundary.length() <= 70 && !std::isspace(request.boundary.at(request.boundary.length() - 1))))
 					return (returnStatusCode(request, 500));
 			}
@@ -562,7 +574,66 @@ void	RequestHandler::handlePostResponse(t_request &request, t_response &response
 	if (cgi_iter != request.matched_subserver->second.cgi_pass.end())
 		handleCgi(request, response, file_stream, cgi_iter);
 	else if (request.content_type == "multipart/form-data")
-		std::cout << "bonjour je suis l'upload" << "\n";
+	{
+		size_t		boundary_end_pos = 0;
+		size_t		filename_pos = 0;
+		size_t		filename_end_pos = 0;
+		size_t		content_pos = 0;
+		std::string	boundary = "--" + request.boundary;
+		std::string	boundary_end = "--" + request.boundary + "--";
+		std::string	part;
+		std::string	filename;
+		std::string	content;
+
+		for (size_t i = 0; i != std::string::npos; i = request.body.find(boundary, i))
+		{
+			i += boundary.length();
+			boundary_end_pos = request.body.find(boundary, i);
+			if (boundary_end_pos == std::string::npos)
+			{
+				request.status = 400;
+				return ;
+			}
+			part = request.body.substr(i, boundary_end_pos - i);
+			i = boundary_end_pos + boundary.length();
+			filename_pos = part.find("filename=\"");
+			if (filename_pos != std::string::npos)
+			{
+				filename_end_pos = part.find("\"", filename_pos + 10);
+				if (filename_end_pos == std::string::npos)
+				{
+					request.status = 400;
+					return ;
+				}
+				filename = part.substr(filename_pos + 10, filename_end_pos - filename_pos - 10);
+				content_pos = part.find("\r\n\r\n");
+				if (content_pos == std::string::npos)
+				{
+					request.status = 400;
+					return ;
+				}
+				content = part.substr(content_pos + 4);
+			}
+			else
+			{
+				request.status = 400;
+				return ;
+			}
+			if (!filename.empty())
+			{
+				std::ofstream	file((request.matched_subserver->second.upload_path + "/" + filename).c_str(), std::ios::binary | std::ios::out);
+				if (!file.is_open())
+				{
+					request.status = 500;
+					return ;
+				}
+				file.write(content.c_str(), content.length());
+				if (file.is_open())
+					file.close();
+				response.status_code = "204 No Content";
+			}
+		}
+	}
 	else
 		request.status = 405;
 }

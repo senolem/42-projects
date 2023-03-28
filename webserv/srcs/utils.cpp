@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/03/27 22:10:03 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/28 02:57:28 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,8 +152,9 @@ int	get_path_type(const std::string &path)
 {
 	struct stat	st;
 	int			res;
+	std::string	tmp(path);
 
-	res = stat(path.c_str(), &st);
+	res = stat(tmp.c_str(), &st);
 	if (res == 0)
 	{
 		if (st.st_mode & S_IFREG)
