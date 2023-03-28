@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 17:12:42 by melones           #+#    #+#             */
-/*   Updated: 2023/03/24 01:43:24 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/29 00:00:32 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ std::string	DirectoryListing::getModifiedDate(struct stat &st)
 
 void	DirectoryListing::generate(t_response &response, t_request &request)
 {
+	size_t						i = 0;
 	struct stat					st;
 	std::string					page;
 	std::string					tmp(request.path);
@@ -91,7 +92,15 @@ void	DirectoryListing::generate(t_response &response, t_request &request)
 	if (request.path.at(request.path.length() - 1) == '/' && request.path.length() > 0)
 		tmp.erase(request.path.length() - 1);
 	directory = tmp.substr(tmp.find_last_of('/'));
-	tmp.erase(tmp.find(request.matched_subserver->second.root), request.matched_subserver->second.root.length());
+	i = tmp.find(request.matched_subserver->second.root);
+	if (i != std::string::npos && tmp != request.matched_subserver->second.root)
+		tmp.erase(i, request.matched_subserver->second.root.length());
+	else if (tmp == request.matched_subserver->second.root)
+	{
+		i = tmp.find('/');
+		if (i != std::string::npos)
+			tmp.erase(0, i);
+	}
 	full_path = request.path;
 	if (full_path.length() > 0 && full_path.at(0) == '/')
 		full_path.erase(0);
