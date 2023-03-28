@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/03/28 17:02:31 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/28 20:55:31 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ int	get_path_type(const std::string &path)
 		else
 			return (-1);
 	}
-	else if (res == -1 && errno == ENOENT)
+	else if (res == -1 && (errno == ENOENT || errno == ENOTDIR))
 		return (-2);
 	return (-1);
 }

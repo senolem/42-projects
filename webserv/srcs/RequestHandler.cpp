@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/03/28 03:08:06 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/28 20:52:36 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,16 +294,21 @@ std::string	RequestHandler::getResponse(t_request request)
 	else
 	{
 		setContentType(request, &response, request.path);
-		if (request.method == "GET" || request.method == "HEAD")
-			handleGetResponse(request, response);
-		else if (request.method == "POST")
-			handlePostResponse(request, response);
-		else if (request.method == "DELETE")
-			handleDeleteResponse(request, response);
-		if (request.status != 0)
-			setStatusErrorPage(&response, request);
-		if (request.method == "HEAD")
-			response.content.clear();
+		if (request.matched_subserver->second.redirect.second != 0)
+			handleRedirection(request, response);
+		else
+		{
+			if (request.method == "GET" || request.method == "HEAD")
+				handleGetResponse(request, response);
+			else if (request.method == "POST")
+				handlePostResponse(request, response);
+			else if (request.method == "DELETE")
+				handleDeleteResponse(request, response);
+			if (request.status != 0)
+				setStatusErrorPage(&response, request);
+			if (request.method == "HEAD")
+				response.content.clear();
+		}
 	}
 	response_stream << response.version << " " << response.status_code << "\r\n" << "Connection: close\r\n" << "Transfer-Encoding: " << response.transfer_encoding << "\r\n";
 	if (request.status == 405)
@@ -313,6 +318,8 @@ std::string	RequestHandler::getResponse(t_request request)
 		for (std::vector<std::string>::iterator iter = response.set_cookie.begin(); iter != response.set_cookie.end(); iter++)
 			response_stream << "Set-Cookie: " << *iter << "\r\n";
 	}
+	if (!response.location.empty())
+		response_stream << "Location: " << response.location << "\r\n";
 	if (!response.content.empty())
 	{
 		response_stream << "Content-Type: " << response.content_type << "\r\n";
@@ -369,9 +376,10 @@ std::string	RequestHandler::getPath(vectorIterator vectIter, std::string path, m
 		{
 			result = map_iter->second.root + path;
 			*subserver = map_iter;
-			i = result.find("/" + search, 0);
+			std::string	tmp = "/" + search;
+			i = result.rfind(tmp);
 			if (i != std::string::npos)
-				result.erase(i, search.length() + 1);
+				result.erase(i, tmp.length());
 			if ((method == "GET" || method == "HEAD") && path.find('.') == std::string::npos)
 			{
 				for (size_t j = 0; j < map_iter->second.index.size(); j++)
@@ -654,6 +662,18 @@ void	RequestHandler::handleDeleteResponse(t_request &request, t_response &respon
 	}
 	else
 		request.status = 404;
+}
+
+void	RequestHandler::handleRedirection(t_request &request, t_response &response)
+{
+	response.location = request.matched_subserver->second.redirect.first;
+	if (request.matched_subserver->second.redirect.second == 301)
+		response.status_code = "301 Moved Permanently";
+	else if (request.matched_subserver->second.redirect.second == 302)
+		response.status_code = "302 Found";
+	response.content = "<html>\n<head>\n<title>" + response.status_code + "</title>\n</head>\n<body>\n<h1>" + response.status_code +\
+		"</h1>\n<p>The document has moved <a href=\"" + response.location + "\">here</a>.</p>\n</body>\n</html>";
+	response.content_length = response.content.size();
 }
 
 t_request	RequestHandler::returnStatusCode(t_request &request, int status)

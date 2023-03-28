@@ -55,6 +55,7 @@ class RequestHandler
 		void								handleGetResponse(t_request &request, t_response &response);
 		void								handlePostResponse(t_request &request, t_response &response);
 		void								handleDeleteResponse(t_request &request, t_response &response);
+		void								handleRedirection(t_request &request, t_response &response);
 		t_request							returnStatusCode(t_request &request, int status);
 		int									isAccepted(t_request header, const std::string &type);
 		void								initErrors(void);

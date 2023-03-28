@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/03/28 17:11:00 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/28 19:06:19 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_route
 	std::string						upload_path;
 	std::string						match;
 	std::pair<std::string, int>		redirect;
-	s_route(void) : type(false), client_max_body_size(0), autoindex(false), upload(false)
+	s_route(void) : type(false), client_max_body_size(0), autoindex(false), upload(false), redirect(std::pair<std::string, int>("", 0))
 	{
 		
 	}
@@ -124,6 +124,7 @@ typedef struct s_response
 	std::string					body;
 	std::string					allow;
 	std::vector<std::string>	set_cookie;
+	std::string					location;
 	s_response(void) : version("HTTP/1.1"), content_length(0), transfer_encoding("identity")
 	{
 		
