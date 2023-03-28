@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:08:34 by melones           #+#    #+#             */
-/*   Updated: 2023/03/24 01:51:14 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/28 16:00:56 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 # define OUTPUT_HPP
 # include <string>
 
-const std::string	SERV = "[SERVER]";
-const std::string	WEBSERV = "[webserv]";
+const std::string	SERV = "[Server]";
+const std::string	WEBSERV = "[Webserv]";
+const std::string	CONFIGPARSER = "[ConfigParser]";
 const std::string	ERROR = "[ERROR]";
 const std::string	INFO = "[INFO]";
 const std::string	RED = "\033[31m";

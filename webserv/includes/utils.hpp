@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 21:08:51 by melones           #+#    #+#             */
-/*   Updated: 2023/03/27 21:57:02 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/28 17:19:46 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ bool						toLowerCharCompare(char c1, char c2);
 bool						toLowerStringCompare(std::string s1, std::string s2);
 std::string					strToLower(const std::string &str);
 size_t						findCaseInsensitive(std::string str, std::string to_search, size_t pos = 0);
+bool						stringIsNumeric(const std::string& str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/03/28 02:57:28 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/28 17:02:31 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	printIntStringMap(const std::map<int, std::string> map)
 
 	while (iter != iter2)
 	{
-		std::cout << "	- " << iter->first << " : " << iter->second << std::endl;
+		std::cout << "	- " << iter->first << " : " << iter->second << "\n";
 		++iter;
 	}
 }
@@ -78,7 +78,7 @@ void	printCgiMap(const std::map<std::string, t_cgi> map)
 	
 	while (iter != iter2)
 	{
-		std::cout << "	- [" << iter->second.filetype << "] path : " << iter->second.path << std::endl;
+		std::cout << "	- [" << iter->second.filetype << "] path : " << iter->second.path << "\n";
 		++iter;
 	}
 }
@@ -242,4 +242,14 @@ size_t	findCaseInsensitive(std::string str, std::string to_search, size_t pos)
 	std::transform(str.begin(), str.end(), str.begin(), ::tolower);
 	std::transform(to_search.begin(), to_search.end(), to_search.begin(), ::tolower);
 	return (str.find(to_search, pos));
+}
+
+bool	stringIsNumeric(const std::string& str)
+{
+	for (size_t i = 0; i < str.size(); i++)
+	{
+		if (!isdigit(str[i]))
+			return (false);
+	}
+	return (true);
 }

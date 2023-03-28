@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:22:13 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/24 01:41:49 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/28 18:13:52 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ class ConfigParser
 		size_t												_nb_vhost;
 		std::vector<size_t>									_pos;
 		std::vector<std::multimap<std::string, t_route> >	*_vhosts;
+		std::string											_exception;
+		std::string											_server_id;
+		std::string											_route_id;
+		std::vector<int>									_ports;
 
 		struct is_whitespace
 		{
@@ -48,12 +52,15 @@ class ConfigParser
 		int		sanityCheck(void);
 		int		prepareParsing(void);
 		int		syntaxCheck(void);
+		int		duplicatePortCheck(void);
 		int		parseConfig(void);
-		int		parseField(std::string field, t_route *route);
-		t_route	*parseRoute(std::string config);
+		int		parseField(std::string field, t_route *route, t_route_set *route_set, int type);
+		t_route	*parseRoute(std::string config, int type);
 		void	initFieldList(void);
-		void	insertField(std::vector<char *> config, t_route *route);
+		int		insertField(std::vector<char *> config, t_route *route, t_route_set *route_set);
 		void	fillDefault(t_route *route);
+		int		checkRouteSet(std::vector<char *> config, t_route_set route_set);
+		int		checkRouteUnset(t_route_set route_set, int type);
 };
 
 #endif

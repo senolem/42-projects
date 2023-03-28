@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/03/27 18:58:38 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/28 17:11:00 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ typedef struct s_field_traits
 {
 	size_t	minimum_arguments;
 	size_t	maximum_arguments;
-	bool	optional;
 	bool	available_location;
+	bool	multi;
 }	t_field_traits;
 
 enum routes_type
@@ -63,11 +63,31 @@ typedef struct s_route
 	bool							upload;
 	std::string						upload_path;
 	std::string						match;
-	s_route(void) : type(false), client_max_body_size(-1), autoindex(false), upload(false)
+	std::pair<std::string, int>		redirect;
+	s_route(void) : type(false), client_max_body_size(0), autoindex(false), upload(false)
 	{
 		
 	}
 }	t_route;
+
+typedef struct s_route_set
+{	
+	bool	listen;
+	bool	server_name;
+	bool	access_log;
+	bool	client_max_body_size;
+	bool	root;
+	bool	index;
+	bool	methods_allowed;
+	bool	autoindex;
+	bool	upload;
+	bool	upload_path;
+	bool	redirect;
+	s_route_set(void) : listen(false), server_name(false), access_log(false), client_max_body_size(false), root(false), index(false), methods_allowed(false), autoindex(false), upload(false), upload_path(false), redirect(false)
+	{
+		
+	}
+}	t_route_set;
 
 typedef struct s_request
 {
