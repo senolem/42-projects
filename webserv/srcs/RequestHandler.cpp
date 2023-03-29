@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/03/28 20:52:36 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/29 15:38:00 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -546,6 +546,94 @@ void	RequestHandler::handleCgi(t_request &request, t_response &response, std::st
 	}
 }
 
+void	RequestHandler::handleUpload(t_request &request, t_response &response)
+{
+	size_t						boundary_pos = 0;
+	size_t						boundary_end_pos = 0;
+	size_t						content_pos = 0;
+	size_t						found = 0;
+	std::string					boundary = "--" + request.boundary;
+	std::string					boundary_end = "--" + request.boundary + "--";
+	std::string					multipart;
+	std::string					filename;
+	std::string					content;
+	std::vector<std::string>	vect;
+
+	boundary_pos = request.body.find(boundary);
+	boundary_end_pos = request.body.find(boundary_end);
+	if (boundary_pos == std::string::npos || boundary_end_pos == std::string::npos)
+		return (returnStatusCodeVoid(request, 400));
+	multipart = request.body.substr(boundary_pos, boundary_end_pos + boundary_end.length());
+	for (size_t i = 0; i != std::string::npos; i = multipart.find(boundary, i))
+	{
+		if (multipart.find(boundary_end, i) == i)
+			return ;
+		i += boundary.length() + 2;
+		content_pos = multipart.find("\r\n\r\n", i);
+		if (content_pos == std::string::npos)
+			return (returnStatusCodeVoid(request, 400));
+		found = i;
+		for (size_t j = multipart.find("\r\n", i); j != std::string::npos; j = multipart.find("\r\n", j))
+		{
+			if (j > content_pos)
+				break ;
+			vect.push_back(multipart.substr(found, j - found));
+			j += 2;
+			found = j;
+		}
+		if (vect.size() < 2)
+			return (returnStatusCodeVoid(request, 400));
+		else
+		{
+			for (std::vector<std::string>::iterator iter = vect.begin(); iter != vect.end(); iter++)
+			{
+				if (findCaseInsensitive(*iter, "content-disposition") != std::string::npos)
+				{
+					size_t	k = findCaseInsensitive(*iter, "filename=\"");
+					if (k != std::string::npos)
+					{
+						size_t	l = iter->find('"', k + 10);
+						if (l != std::string::npos)
+						{
+							filename = iter->substr(k + 10, l - (k + 10));
+							break ;
+						}
+						else
+							return (returnStatusCodeVoid(request, 400));
+					}
+					else
+						return (returnStatusCodeVoid(request, 400));
+				}
+			}
+			if (filename.empty())
+			{
+				i += boundary.length();
+				continue ;
+			}
+			else
+			{
+				size_t found2 = multipart.find("\r\n" + boundary, content_pos);
+				if (found2 == std::string::npos)
+					return (returnStatusCodeVoid(request, 400));
+				content = multipart.substr(content_pos + 4, found2 - (content_pos + 4));
+				std::ofstream	file((request.matched_subserver->second.upload_path + "/" + filename).c_str(), std::ios::binary | std::ios::out);
+				if (!file.is_open())
+				{
+					request.status = 500;
+					return ;
+				}
+				file.write(content.c_str(), content.length());
+				if (file.is_open())
+					file.close();
+				response.status_code = "204 No Content";
+			}
+			vect.clear();
+		}
+		i += boundary.length();
+	}
+	(void)response;
+}
+
 void	RequestHandler::handleGetResponse(t_request &request, t_response &response)
 {
 	std::stringstream						file_stream;
@@ -583,64 +671,10 @@ void	RequestHandler::handlePostResponse(t_request &request, t_response &response
 		handleCgi(request, response, file_stream, cgi_iter);
 	else if (request.content_type == "multipart/form-data")
 	{
-		size_t		boundary_end_pos = 0;
-		size_t		filename_pos = 0;
-		size_t		filename_end_pos = 0;
-		size_t		content_pos = 0;
-		std::string	boundary = "--" + request.boundary;
-		std::string	boundary_end = "--" + request.boundary + "--";
-		std::string	part;
-		std::string	filename;
-		std::string	content;
-
-		for (size_t i = 0; i != std::string::npos; i = request.body.find(boundary, i))
-		{
-			i += boundary.length();
-			boundary_end_pos = request.body.find(boundary, i);
-			if (boundary_end_pos == std::string::npos)
-			{
-				request.status = 400;
-				return ;
-			}
-			part = request.body.substr(i, boundary_end_pos - i);
-			i = boundary_end_pos + boundary.length();
-			filename_pos = part.find("filename=\"");
-			if (filename_pos != std::string::npos)
-			{
-				filename_end_pos = part.find("\"", filename_pos + 10);
-				if (filename_end_pos == std::string::npos)
-				{
-					request.status = 400;
-					return ;
-				}
-				filename = part.substr(filename_pos + 10, filename_end_pos - filename_pos - 10);
-				content_pos = part.find("\r\n\r\n");
-				if (content_pos == std::string::npos)
-				{
-					request.status = 400;
-					return ;
-				}
-				content = part.substr(content_pos + 4);
-			}
-			else
-			{
-				request.status = 400;
-				return ;
-			}
-			if (!filename.empty())
-			{
-				std::ofstream	file((request.matched_subserver->second.upload_path + "/" + filename).c_str(), std::ios::binary | std::ios::out);
-				if (!file.is_open())
-				{
-					request.status = 500;
-					return ;
-				}
-				file.write(content.c_str(), content.length());
-				if (file.is_open())
-					file.close();
-				response.status_code = "204 No Content";
-			}
-		}
+		if (request.matched_subserver->second.upload)
+			handleUpload(request, response);
+		else
+			request.status = 403;
 	}
 	else
 		request.status = 405;
@@ -680,6 +714,11 @@ t_request	RequestHandler::returnStatusCode(t_request &request, int status)
 {
 	request.status = status;
 	return (request);
+}
+
+void	RequestHandler::returnStatusCodeVoid(t_request &request, int status)
+{
+	request.status = status;
 }
 
 int	RequestHandler::isAccepted(t_request request, const std::string &type)

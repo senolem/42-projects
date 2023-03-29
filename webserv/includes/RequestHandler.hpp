@@ -52,11 +52,13 @@ class RequestHandler
 		void								setContentType(t_request &request, t_response *header, std::string path);
 		void								setStatusErrorPage(t_response *header, const t_request &request);
 		void								handleCgi(t_request &request, t_response &response, std::stringstream &file_stream, std::map<std::string, t_cgi>::iterator cgi_iter);
+		void								handleUpload(t_request &request, t_response &response);
 		void								handleGetResponse(t_request &request, t_response &response);
 		void								handlePostResponse(t_request &request, t_response &response);
 		void								handleDeleteResponse(t_request &request, t_response &response);
 		void								handleRedirection(t_request &request, t_response &response);
 		t_request							returnStatusCode(t_request &request, int status);
+		void								returnStatusCodeVoid(t_request &request, int status);
 		int									isAccepted(t_request header, const std::string &type);
 		void								initErrors(void);
 		void								initTypes(void);
