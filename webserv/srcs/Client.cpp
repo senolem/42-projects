@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/28 02:41:57 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/29 18:21:21 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,7 @@ int	Client::getRequest(void)
 	_request_size += rd;
 	if (_check_size)
 		_body_size = _buffer.length() - _pos;
-	if ((client_max_body_size != 0 && _body_size > client_max_body_size) ||
-		(_request_size > MAX_REQUEST_SIZE_PROTECTION && MAX_REQUEST_SIZE_PROTECTION != 0))
+	if (_request_size > MAX_REQUEST_SIZE_PROTECTION && MAX_REQUEST_SIZE_PROTECTION != 0)
 		return (-2);
 	if (rd == 0)
 		_reading_done = true;
@@ -164,15 +163,17 @@ int	Client::getRequest(void)
 		_server->writeAccessLog("Request received from " + _resolved + " " + get_date() + " :" + "\n" + _buffer + "\n");
 		if (pos2 != std::string::npos)
 			_buffer.erase(pos2);
-		_request = _request_handler->parseRequest(_buffer);
-		_request.remote_addr = _host;
-		_buffer.clear();
-		_check_size = false;
-		_body_size = 0;
-		_request_size = 0;
-		_is_chunked = false;
-		_content_length = -1;
-		_pos = std::string::npos;
+		if (client_max_body_size != 0 && (_body_size > client_max_body_size)) // Why? Because if we stop send 413 before the client has finished sending response, we get an NS_ERROR_NET_RESET
+		{
+			resetGetRequest();
+			return (-2);
+		}
+		else
+		{
+			_request = _request_handler->parseRequest(_buffer);
+			_request.remote_addr = _host;
+		}
+		resetGetRequest();
 		return (1);
 	}
 	return (0);
@@ -231,7 +232,7 @@ int	Client::sendResponse(void)
 		_sent = 0;
 		return (-1);
 	}
-	i = send(_socket.fd, str.c_str(), str.length(), 0);
+	i = send(_socket.fd, str.c_str(), str.length(), MSG_NOSIGNAL);
 	if (i == -1)
 	{
 		_open = false;
@@ -267,4 +268,15 @@ void	Client::resetTimeout(void)
 	struct timeval	tv;
 	gettimeofday(&tv, NULL);
 	_request_time = tv.tv_usec;
+}
+
+void	Client::resetGetRequest(void)
+{
+	_buffer.clear();
+	_check_size = false;
+	_body_size = 0;
+	_request_size = 0;
+	_is_chunked = false;
+	_content_length = -1;
+	_pos = std::string::npos;
 }

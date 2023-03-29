@@ -30,7 +30,16 @@
 	<header>
 		<h1>webserv</h1>
 	</header>
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu dui sit amet mi efficitur facilisis. Sed euismod gravida enim, nec fringilla urna fermentum et. Vestibulum euismod, risus sed varius commodo, nisl odio feugiat ex, a pulvinar elit elit nec nulla. Fusce vestibulum risus vel felis ornare, in ultricies nisl bibendum. Ut non nibh eget arcu consectetur vehicula. Nunc commodo malesuada leo, ut rhoncus nulla cursus sed.</p><br>
+	<p id="motd">Welcome to the test homepage of Webserv. Click on one of the elements in the list to access a test.</p><br>
+	<ul>
+		<li><a href="test_html/test.html">HTML Test (with video + audio file)</a></li>
+		<li><a href="test_cgi/test.html">PHP Test (Uppercase 1/2, rainbow class, relative path)</a></li>
+		<li><a href="test_cgi/hello_world.py">Python Test (Environment variables)</a></li>
+		<li><a href="one/two/three/">Location multi-path Test (points to /un/dos/tres)</a></li>
+		<li><a href="test_upload/">Upload Test</a></li>
+		<li><a href="/upload">Uploaded files (directory listing + location redirection)</a></li>
+		<li><a href="/redirect/to">HTTP Redirection Test (returns Location: https://intra.42.fr)</a></li>
+	</ul>
 	<img src="test.png" alt="Test Image"><br>
 	<iframe width="560" height="315" src="https://www.youtube.com/embed/g9gHC2quF3A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><br>
 	<div id="ejs_wrapper"><div id="ejs_test"></div></div>

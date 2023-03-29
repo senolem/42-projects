@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 17:12:42 by melones           #+#    #+#             */
-/*   Updated: 2023/03/29 00:00:32 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/29 15:47:03 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ DirectoryListing	&DirectoryListing::operator=(const DirectoryListing &src)
 
 std::string	DirectoryListing::getPage(void)
 {
-	std::ifstream		file("directory_listing.html");
+	std::ifstream		file("directory_listing/directory_listing.html");
 	std::stringstream	string_stream;
 
 	if (!file.is_open())

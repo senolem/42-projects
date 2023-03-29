@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/28 19:23:42 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/29 18:29:30 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	webserv::startServer(void)
 							t_request	tmp;
 							tmp.status = 413;
 							client->setResponse(iter->getResponse(tmp));
-							FD_SET(client->getSocket().fd, &_write_fds_bak);
+							FD_SET(client->getSocket().fd, &_write_fds);
 						}
 					}
 					if (client->isOpen() && FD_ISSET(client->getSocket().fd, &_write_fds))
@@ -128,7 +128,6 @@ void	webserv::startServer(void)
 						else if (ret == -1)
 							std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to send response to client " << client->getResolved() << "\n";
 					}
-					client->checkTimeout();
 					if (!client->isOpen())
 					{
 						std::cout << BLUE << INFO << CYAN << WEBSERV << NONE << " Closing connection to client " << client->getResolved() << "\n";

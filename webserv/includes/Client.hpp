@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:48:37 by melones           #+#    #+#             */
-/*   Updated: 2023/03/27 22:12:58 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/29 18:16:11 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ class Client
 		int							sendResponse(void);
 		void						checkTimeout(void);
 		void						resetTimeout(void);
+		void						resetGetRequest(void);
 
 	private:
 		Server						*_server;
