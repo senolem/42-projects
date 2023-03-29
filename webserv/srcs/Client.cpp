@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/29 18:21:21 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/29 18:30:11 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ int	Client::getRequest(void)
 		_server->writeAccessLog("Request received from " + _resolved + " " + get_date() + " :" + "\n" + _buffer + "\n");
 		if (pos2 != std::string::npos)
 			_buffer.erase(pos2);
-		if (client_max_body_size != 0 && (_body_size > client_max_body_size)) // Why? Because if we stop send 413 before the client has finished sending response, we get an NS_ERROR_NET_RESET
+		if (client_max_body_size != 0 && (_body_size > client_max_body_size)) // Why don't we stop reading? Because if we send 413 before the client has finished sending response, we get an NS_ERROR_NET_RESET
 		{
 			resetGetRequest();
 			return (-2);
