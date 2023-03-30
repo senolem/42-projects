@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/30 13:47:42 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/30 17:54:04 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,8 @@ Client  &Client::operator=(const Client &src)
 int	Client::getRequest(void)
 {
 	char		buffer[BUFFER_SIZE];
-	int			buffer_size = sizeof(buffer);
+	int			buffer_size = BUFFER_SIZE;
 	int			rd = 0;
-	int			client_max_body_size = _server->getVirtualHosts().begin()->second.client_max_body_size;
 	size_t		i = 0;
 	std::string	tmp;
 	size_t		pos2 = std::string::npos;
@@ -151,7 +150,7 @@ int	Client::getRequest(void)
 		if (rd < buffer_size && _check_size && _content_length == -1 && !_is_chunked && !_reading_done)
 		{
 			_reading_done = true;
-			pos2 = rd;
+			pos2 = _request_size;
 		}
 	}
 	if (_buffer.length() > 0 && _reading_done)
@@ -165,16 +164,8 @@ int	Client::getRequest(void)
 		_server->writeAccessLog("Request received from " + _resolved + " " + get_date() + " :" + "\n" + _buffer + "\n");
 		if (pos2 != std::string::npos)
 			_buffer.erase(pos2);
-		if (client_max_body_size != 0 && (_body_size > client_max_body_size)) // Why don't we stop reading? Because if we send 413 before the client has finished sending response, we get an NS_ERROR_NET_RESET
-		{
-			resetGetRequest();
-			return (-2);
-		}
-		else
-		{
-			_request = _request_handler->parseRequest(_buffer);
-			_request.remote_addr = _host;
-		}
+		_request = _request_handler->parseRequest(_buffer);
+		_request.remote_addr = _host;
 		resetGetRequest();
 		return (1);
 	}
@@ -227,7 +218,10 @@ int	Client::sendResponse(void)
 	std::string	str;
 
 	if (_sent <= _response.size())
+	{
 		str = _response.substr(_sent, BUFFER_SIZE);
+		std::cout << str << "\n";
+	}
 	else
 	{
 		_open = false;

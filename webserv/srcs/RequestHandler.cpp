@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RequestHandler.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/03/29 17:27:21 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/30 18:56:44 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 	std::string											content_length;
 	std::string											content_type;
 
-	buffer_vect = split_string(buffer, "\r\n");	vect = split_string(buffer_vect.at(0), " ");
+	buffer_vect = split_string(buffer, "\r\n");
+	vect = split_string(buffer_vect.at(0), " ");
 	if (vect.size() != 3)
 		return (returnStatusCode(request, 400));
 	request.method = vect.at(0);
@@ -101,6 +102,8 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 		request.body = buffer.substr(i + 4);
 		if (toLowerStringCompare("chunked", request.transfer_encoding))
 			parseChunkedBody(request);
+		if (request.matched_subserver->second.client_max_body_size != 0 && ((ssize_t)request.body.size() > request.matched_subserver->second.client_max_body_size))
+			return (returnStatusCode(request, 413));
 	}
 	request.cookie = parseCookieHeader(getHeader(buffer_vect, "Cookie:"));
 	request.accept = parseAcceptHeader(getHeader(buffer_vect, "Accept:"));
@@ -159,6 +162,8 @@ std::multimap<float, std::string>	RequestHandler::parseAcceptHeader(const std::s
 	std::vector<std::string>::iterator	iter2;
 	size_t								i;
 
+	if (header.empty())
+		return (accept_header);
 	trimmed.erase(std::remove_if(trimmed.begin(), trimmed.end(), ::isspace), trimmed.end());
 	i = trimmed.find(":");
 	if (i != std::string::npos && i + 1 <= trimmed.length())
@@ -457,7 +462,7 @@ void	RequestHandler::setContentType(t_request &request, t_response *response, st
 		response->content_type = iter->second;
 	else
 		response->content_type = "text/plain";
-	if (!isAccepted(request, response->content_type))
+	if (!request.accept.empty() && !isAccepted(request, response->content_type))
 		request.status = 406;
 }
 
@@ -544,6 +549,42 @@ void	RequestHandler::handleCgi(t_request &request, t_response &response, std::st
 			response.content_length = response.content.length();
 		}
 	}
+}
+
+int	RequestHandler::handleCgiPathInfo(t_request &request)
+{
+	size_t									i = 0;
+	size_t									slash_count = 0;
+	std::map<std::string, t_cgi>::iterator	iter = request.matched_subserver->second.cgi_pass.begin();
+	std::map<std::string, t_cgi>::iterator	iter2 = request.matched_subserver->second.cgi_pass.end();
+
+	while (iter != iter2)
+	{
+		i = request.path.rfind(iter->first);
+		if (i != std::string::npos)
+		{
+			for (size_t j = request.path.find("/", i + iter->first.length()); j != std::string::npos; j = request.path.find("/", j))
+			{
+				++slash_count;
+				j += 1;
+			}
+			if (slash_count == 1)
+			{
+				if (get_path_type(request.path.substr(0, i + iter->first.length())) == 0)
+				{
+					if (request.path.length() > i + iter->first.length())
+					{
+						request.path_info = request.path.substr(1 + i + iter->first.length());
+						request.path.erase(i + iter->first.length());
+					}
+					return (0);
+				}
+			}
+			slash_count = 0;
+		}
+		++iter;
+	}
+	return (1);
 }
 
 void	RequestHandler::handleUpload(t_request &request, t_response &response)

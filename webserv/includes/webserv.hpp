@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/30 10:40:24 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/30 16:42:35 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 # define BUFFER_SIZE 4096
 # define MAX_REQUEST_SIZE_PROTECTION 100000000
 # define MAX_CLIENTS_PER_SOCKET 1000
-# define PRINT_REQUESTS 0
-# define LOG_REQUEST_LENGTH_LIMIT -1
+# define PRINT_REQUESTS 1
+# define LOG_REQUEST_LENGTH_LIMIT 1024
 # include <iostream>
 # include <string>
 # include <cstring>

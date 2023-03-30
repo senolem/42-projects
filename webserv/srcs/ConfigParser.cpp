@@ -6,7 +6,7 @@
 /*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:24:48 by melones           #+#    #+#             */
-/*   Updated: 2023/03/30 10:08:33 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/30 15:18:25 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -487,7 +487,7 @@ void	ConfigParser::initFieldList(void)
 	_field_list["listen"] = (t_field_traits){1, 1, false, false};
 	_field_list["server_name"] = (t_field_traits){1, 1, false, false};
 	_field_list["access_log"] = (t_field_traits){1, 1, false, false};
-	_field_list["client_max_body_size"] = (t_field_traits){1, 1, false, false};
+	_field_list["client_max_body_size"] = (t_field_traits){1, 1, true, false};
 	_field_list["error_page"] = (t_field_traits){2, 2, false, true};
 	_field_list["root"] = (t_field_traits){1, 1, true, false};
 	_field_list["index"] = (t_field_traits){1, 0, true, false};

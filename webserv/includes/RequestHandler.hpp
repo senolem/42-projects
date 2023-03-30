@@ -52,6 +52,7 @@ class RequestHandler
 		void								setContentType(t_request &request, t_response *header, std::string path);
 		void								setStatusErrorPage(t_response *header, const t_request &request);
 		void								handleCgi(t_request &request, t_response &response, std::stringstream &file_stream, std::map<std::string, t_cgi>::iterator cgi_iter);
+		int									handleCgiPathInfo(t_request &request);
 		void								handleUpload(t_request &request, t_response &response);
 		void								handleGetResponse(t_request &request, t_response &response);
 		void								handlePostResponse(t_request &request, t_response &response);

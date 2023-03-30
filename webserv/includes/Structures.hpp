@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Structures.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/03/28 19:06:19 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/30 14:31:46 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct s_request
 	std::string										content_length;
 	std::string										transfer_encoding;
 	std::string										query;
+	std::string										path_info;
 	std::string										remote_addr;
 	std::multimap<std::string, t_route>::iterator	matched_subserver;
 	int												status;
