@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/29 18:30:11 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/30 13:47:42 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ Client::Client(Server *server, RequestHandler *request_handler) : _server(server
 		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to set socket to non-blocking mode");
 	int opt = 1;
 	if (setsockopt(_socket.fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0)
+		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to set socket options");
+	if (setsockopt(_socket.fd, SOL_SOCKET, SO_NOSIGPIPE, &opt, sizeof(opt)) < 0)
 		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to set socket options");
 	_host = inet_ntoa(_socket.sockaddr_.sin_addr);
 	_port = htons(_socket.sockaddr_.sin_port);
@@ -232,7 +234,7 @@ int	Client::sendResponse(void)
 		_sent = 0;
 		return (-1);
 	}
-	i = send(_socket.fd, str.c_str(), str.length(), MSG_NOSIGNAL);
+	i = send(_socket.fd, str.c_str(), str.length(), 0);
 	if (i == -1)
 	{
 		_open = false;

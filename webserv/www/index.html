@@ -40,7 +40,22 @@
 		<li><a href="/upload">Uploaded files (directory listing + location redirection)</a></li>
 		<li><a href="/redirect/to">HTTP Redirection Test (returns Location: https://intra.42.fr)</a></li>
 	</ul>
-	<img src="test.png" alt="Test Image"><br>
+	<audio id="yoshi_audio" src="yoshi.mp3"></audio>
+	<img id="yoshi_image" src="test.png" alt="Test Image"><br>
+	<script>
+		var yoshi_image = document.getElementById('yoshi_image');
+		var yoshi_audio = document.getElementById('yoshi_audio');
+		
+		yoshi_image.addEventListener('mouseover', function()
+		{
+			yoshi_audio.play();
+		});
+		yoshi_image.addEventListener('mouseleave', function()
+		{
+			yoshi_audio.pause();
+			yoshi_audio.currentTime = 0;
+		});
+	</script>
 	<iframe width="560" height="315" src="https://www.youtube.com/embed/g9gHC2quF3A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><br>
 	<div id="ejs_wrapper"><div id="ejs_test"></div></div>
 	<div id="ruffle_test"></div>

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ConfigParser.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 12:24:48 by melones           #+#    #+#             */
-/*   Updated: 2023/03/28 18:51:34 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/30 10:08:33 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,7 +252,7 @@ int	ConfigParser::parseConfig(void)
 		j = _configs[i].find("server{");
 		if (j == std::string::npos)
 		{
-			_exception = "Cannot find server field in server block #" + i;
+			_exception = "Cannot find server field in server block #" + itostr(i);
 			delete vhosts;
 			return (1);
 		}
@@ -261,7 +261,7 @@ int	ConfigParser::parseConfig(void)
 			_configs[i].erase(_configs[i].size() - 1, 1);
 		else
 		{
-			_exception = "Unclosed brackets for server field #" + i;
+			_exception = "Unclosed brackets for server field #" + itostr(i);
 			delete vhosts;
 			return (1);
 		}

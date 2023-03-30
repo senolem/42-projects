@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:16 by melones           #+#    #+#             */
-/*   Updated: 2023/03/28 02:39:53 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/30 10:49:57 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,12 @@ void	Server::writeAccessLog(const std::string &str)
 {
 	if (!_log_file.is_open())
 		std::cout << RED + ERROR + GREEN + SERV + NONE + " Cannot write to log file\n";
-	else
+	else if (LOG_REQUEST_LENGTH_LIMIT != -1)
 	{
-		_log_file << str.substr(0, LOG_REQUEST_LENGTH_LIMIT) << "\n";
+		if (LOG_REQUEST_LENGTH_LIMIT == 0)
+			_log_file << str << "\n";
+		else
+			_log_file << str.substr(0, LOG_REQUEST_LENGTH_LIMIT) << "\n";
 		_log_file.flush();
 	}
 }

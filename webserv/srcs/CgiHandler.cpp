@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   CgiHandler.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:42:02 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/28 20:54:38 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/30 14:09:54 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,16 @@ CgiHandler::CgiHandler(std::string &cgi_path, RequestHandler &request_handler, t
 	_env["REQUEST_METHOD"] = _request.method;
 	i = _request.path.rfind("." + _request_handler.getFiletype() + "/");
 	if (i != std::string::npos)
-		_env["PATH_INFO"] = _request.path.substr(i + 1, _request.path.length() - i + 1);
+		_env["PATH_INFO"] = _request.path.substr(i + ("." + _request_handler.getFiletype() + "/").length());
+	else
+		_env["PATH_INFO"] = _script_path;
+	std::cout << "path_info " << _env["PATH_INFO"] << "\n";
 	_env["PATH_TRANSLATED"] = _script_path;
 	i = _request.path.rfind("." + _request_handler.getFiletype());
 	if (i != std::string::npos)
-		_env["SCRIPT_NAME"] = _request.path.substr(0, i + 1);
+		_env["SCRIPT_NAME"] = _request.path.substr(0, i + ("." + _request_handler.getFiletype()).length());
+	else
+		_env["SCRIPT_NAME"] = _script_path;
 	_env["QUERY_STRING"] = _request.query;
 	_env["CONTENT_LENGTH"] = _request.content_length;
 	_env["CONTENT_TYPE"] = _request.content_type;
@@ -161,6 +166,7 @@ std::string	CgiHandler::executeCgi(void)
 	for (size_t i = 0; env[i]; i++)
 		delete[] env[i];
 	delete[] env;
+	std::cout << body << "\n";
 	return (body);
 }
 
