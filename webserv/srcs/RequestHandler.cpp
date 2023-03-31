@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/03/31 03:32:59 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/31 03:54:24 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,7 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 		vect.at(1) = vect.at(1).substr(0, i);
 	}
 	if (vect_iter != vhosts.end())
-	{
 		request.path = getPath(vect_iter, vect.at(1), &request.matched_subserver, request.method);
-		request.path_info = vect.at(1);
-	}
 	if (request.path.length() > 2)
 	{
 		for (size_t i = 0; i < request.path.size(); i++)
@@ -549,42 +546,6 @@ void	RequestHandler::handleCgi(t_request &request, t_response &response, std::st
 			response.content_length = response.content.length();
 		}
 	}
-}
-
-int	RequestHandler::handleCgiPathInfo(t_request &request)
-{
-	size_t									i = 0;
-	size_t									slash_count = 0;
-	std::map<std::string, t_cgi>::iterator	iter = request.matched_subserver->second.cgi_pass.begin();
-	std::map<std::string, t_cgi>::iterator	iter2 = request.matched_subserver->second.cgi_pass.end();
-
-	while (iter != iter2)
-	{
-		i = request.path.rfind(iter->first);
-		if (i != std::string::npos)
-		{
-			for (size_t j = request.path.find("/", i + iter->first.length()); j != std::string::npos; j = request.path.find("/", j))
-			{
-				++slash_count;
-				j += 1;
-			}
-			if (slash_count == 1)
-			{
-				if (get_path_type(request.path.substr(0, i + iter->first.length())) == 0)
-				{
-					if (request.path.length() > i + iter->first.length())
-					{
-						request.path_info = request.path.substr(1 + i + iter->first.length());
-						request.path.erase(i + iter->first.length());
-					}
-					return (0);
-				}
-			}
-			slash_count = 0;
-		}
-		++iter;
-	}
-	return (1);
 }
 
 void	RequestHandler::handleUpload(t_request &request, t_response &response)

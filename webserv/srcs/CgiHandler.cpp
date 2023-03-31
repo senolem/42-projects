@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:42:02 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/31 02:49:08 by melones          ###   ########.fr       */
+/*   Updated: 2023/03/31 03:53:52 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,6 @@ std::string	CgiHandler::executeCgi(void)
 	char		**env = map_split(_env);
 	int			status;
 
-	std::cout << "CGI ENV :\n";
-	for (size_t i = 0; env[i]; i++)
-	{
-		std::cout << env[i] << "\n";
-	}
 	if (!file_in || !file_out || !env)
 	{
 		if (!env)

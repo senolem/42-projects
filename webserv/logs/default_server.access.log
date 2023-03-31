@@ -8128,3 +8128,477 @@ Content-Type: image/png
 ‰PNG
 
    IHDR         {C­  2tEXtDream "cinematic 
+Request received from 10.0.2.2:59699 on 31-03-2023 at 03:41:23 :
+GET /ruffle/tboi.swf HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: */*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+
+
+Request received from 10.0.2.2:59700 on 31-03-2023 at 03:41:24 :
+GET /cgi_test/hello_world.py HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Referer: http://localhost:8080/
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+
+
+Request received from 10.0.2.2:59809 on 31-03-2023 at 03:44:03 :
+GET /cgi_test/hello_world.py HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+
+
+Request received from 127.0.0.1:42710 on 31-03-2023 at 03:44:20 :
+GET / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:42716 on 31-03-2023 at 03:44:20 :
+POST / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Transfer-Encoding: chunked
+Content-Type: test/file
+Accept-Encoding: gzip
+
+0
+
+
+
+Request received from 127.0.0.1:42732 on 31-03-2023 at 03:44:20 :
+HEAD / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+
+
+
+Request received from 127.0.0.1:46024 on 31-03-2023 at 03:44:34 :
+GET / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:46030 on 31-03-2023 at 03:44:34 :
+POST / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Transfer-Encoding: chunked
+Content-Type: test/file
+Accept-Encoding: gzip
+
+0
+
+
+
+Request received from 127.0.0.1:46040 on 31-03-2023 at 03:44:34 :
+HEAD / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+
+
+
+Request received from 127.0.0.1:56348 on 31-03-2023 at 03:44:57 :
+GET / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:56356 on 31-03-2023 at 03:44:57 :
+POST / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Transfer-Encoding: chunked
+Content-Type: test/file
+Accept-Encoding: gzip
+
+0
+
+
+
+Request received from 127.0.0.1:56362 on 31-03-2023 at 03:44:57 :
+HEAD / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+
+
+
+Request received from 127.0.0.1:47746 on 31-03-2023 at 03:46:05 :
+GET / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:47754 on 31-03-2023 at 03:46:05 :
+POST / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Transfer-Encoding: chunked
+Content-Type: test/file
+Accept-Encoding: gzip
+
+0
+
+
+
+Request received from 127.0.0.1:47758 on 31-03-2023 at 03:46:05 :
+HEAD / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+
+
+
+Request received from 127.0.0.1:42874 on 31-03-2023 at 03:47:13 :
+GET / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:42886 on 31-03-2023 at 03:47:13 :
+POST / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Transfer-Encoding: chunked
+Content-Type: test/file
+Accept-Encoding: gzip
+
+0
+
+
+
+Request received from 127.0.0.1:42898 on 31-03-2023 at 03:47:13 :
+HEAD / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+
+
+
+Request received from 127.0.0.1:47450 on 31-03-2023 at 03:48:53 :
+GET / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:47462 on 31-03-2023 at 03:48:53 :
+POST / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Transfer-Encoding: chunked
+Content-Type: test/file
+Accept-Encoding: gzip
+
+0
+
+
+
+Request received from 127.0.0.1:47478 on 31-03-2023 at 03:48:53 :
+HEAD / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+
+
+
+Request received from 127.0.0.1:47482 on 31-03-2023 at 03:48:53 :
+GET /directory HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:47496 on 31-03-2023 at 03:48:53 :
+GET /directory/youpi.bad_extension HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:47504 on 31-03-2023 at 03:48:53 :
+GET /directory/youpi.bla HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:41496 on 31-03-2023 at 03:50:21 :
+GET / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:41506 on 31-03-2023 at 03:50:21 :
+POST / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Transfer-Encoding: chunked
+Content-Type: test/file
+Accept-Encoding: gzip
+
+0
+
+
+
+Request received from 127.0.0.1:41518 on 31-03-2023 at 03:50:21 :
+HEAD / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+
+
+
+Request received from 127.0.0.1:41520 on 31-03-2023 at 03:50:21 :
+GET /directory HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:41536 on 31-03-2023 at 03:50:21 :
+GET /directory/youpi.bad_extension HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:41538 on 31-03-2023 at 03:50:21 :
+GET /directory/youpi.bla HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:48054 on 31-03-2023 at 03:51:35 :
+GET / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:48056 on 31-03-2023 at 03:51:35 :
+POST / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Transfer-Encoding: chunked
+Content-Type: test/file
+Accept-Encoding: gzip
+
+0
+
+
+
+Request received from 127.0.0.1:48060 on 31-03-2023 at 03:51:35 :
+HEAD / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+
+
+
+Request received from 127.0.0.1:48076 on 31-03-2023 at 03:51:35 :
+GET /directory HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:48084 on 31-03-2023 at 03:51:35 :
+GET /directory/youpi.bad_extension HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:48094 on 31-03-2023 at 03:51:35 :
+GET /directory/youpi.bla HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:48106 on 31-03-2023 at 03:51:35 :
+GET /directory/oulalala HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:48118 on 31-03-2023 at 03:51:35 :
+GET /directory/nop HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:48126 on 31-03-2023 at 03:51:35 :
+GET /directory/nop/ HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:48130 on 31-03-2023 at 03:51:35 :
+GET /directory/nop/other.pouic HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:48136 on 31-03-2023 at 03:51:35 :
+GET /directory/nop/other.pouac HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:48148 on 31-03-2023 at 03:51:35 :
+GET /directory/Yeah HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:48150 on 31-03-2023 at 03:51:35 :
+GET /directory/Yeah/not_happy.bad_extension HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:48166 on 31-03-2023 at 03:51:35 :
+PUT /put_test/file_should_exist_after HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Transfer-Encoding: chunked
+Accept-Encoding: gzip
+
+3e8
+eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+Request received from 10.0.2.2:60065 on 31-03-2023 at 03:51:49 :
+GET /cgi_test/hello_world.py HTTP/1.1
+Host: localhost:8080
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: http://localhost:8080/
+Connection: keep-alive
+Cookie: mycookie=abc123; mycookie2=efg456
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+
+
+
+Request received from 127.0.0.1:52080 on 31-03-2023 at 03:53:06 :
+GET / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:52092 on 31-03-2023 at 03:53:06 :
+POST / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Transfer-Encoding: chunked
+Content-Type: test/file
+Accept-Encoding: gzip
+
+0
+
+
+
+Request received from 127.0.0.1:52102 on 31-03-2023 at 03:53:06 :
+HEAD / HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+
+
+
+Request received from 127.0.0.1:52110 on 31-03-2023 at 03:53:06 :
+GET /directory HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:52118 on 31-03-2023 at 03:53:06 :
+GET /directory/youpi.bad_extension HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
+Request received from 127.0.0.1:52130 on 31-03-2023 at 03:53:06 :
+GET /directory/youpi.bla HTTP/1.1
+Host: 127.0.0.1:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+
