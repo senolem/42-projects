@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   CgiHandler.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:42:02 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/30 14:09:54 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/31 02:49:08 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,26 @@
 
 CgiHandler::CgiHandler(std::string &cgi_path, RequestHandler &request_handler, t_request &request, t_response &response) : _cgi_path(cgi_path), _request_handler(request_handler), _request(request), _response(response)
 {
-	size_t		i = 0;
 	char		cwd[256];
 
 	getcwd(cwd, sizeof(cwd));
 	_script_path = cwd;
 	_script_path.append("/" + _request.path);
-	_env["REDIRECT_STATUS"] = "200";
+	if (_script_path.find(".php") != std::string::npos)
+		_env["REDIRECT_STATUS"] = "200";
 	_env["SERVER_PROTOCOL"] = _request.version;
 	_env["SERVER_PORT"] = _request.matched_subserver->second.listen;
 	_env["REQUEST_METHOD"] = _request.method;
-	i = _request.path.rfind("." + _request_handler.getFiletype() + "/");
-	if (i != std::string::npos)
-		_env["PATH_INFO"] = _request.path.substr(i + ("." + _request_handler.getFiletype() + "/").length());
-	else
-		_env["PATH_INFO"] = _script_path;
-	std::cout << "path_info " << _env["PATH_INFO"] << "\n";
+	_env["REQUEST_URI"] = _script_path;
 	_env["PATH_TRANSLATED"] = _script_path;
-	i = _request.path.rfind("." + _request_handler.getFiletype());
-	if (i != std::string::npos)
-		_env["SCRIPT_NAME"] = _request.path.substr(0, i + ("." + _request_handler.getFiletype()).length());
-	else
-		_env["SCRIPT_NAME"] = _script_path;
+	_env["SCRIPT_NAME"] = _cgi_path;
+	_env["PATH_INFO"] = _script_path;
 	_env["QUERY_STRING"] = _request.query;
-	_env["CONTENT_LENGTH"] = _request.content_length;
-	_env["CONTENT_TYPE"] = _request.content_type;
+	if (_request.method == "POST")
+	{
+		_env["CONTENT_LENGTH"] = _request.content_length;
+		_env["CONTENT_TYPE"] = _request.content_type;
+	}
 	_env["HTTP_COOKIE"] = parseCookie(request.cookie);
 	_env["REMOTE_ADDR"] = _request.remote_addr;
 	_env["SERVER_NAME"] = _request.matched_subserver->second.server_name;
@@ -83,6 +78,11 @@ std::string	CgiHandler::executeCgi(void)
 	char		**env = map_split(_env);
 	int			status;
 
+	std::cout << "CGI ENV :\n";
+	for (size_t i = 0; env[i]; i++)
+	{
+		std::cout << env[i] << "\n";
+	}
 	if (!file_in || !file_out || !env)
 	{
 		if (!env)
@@ -166,7 +166,6 @@ std::string	CgiHandler::executeCgi(void)
 	for (size_t i = 0; env[i]; i++)
 		delete[] env[i];
 	delete[] env;
-	std::cout << body << "\n";
 	return (body);
 }
 

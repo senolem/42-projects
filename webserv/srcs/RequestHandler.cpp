@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RequestHandler.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/03/30 18:56:44 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/31 03:32:59 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 		vect.at(1) = vect.at(1).substr(0, i);
 	}
 	if (vect_iter != vhosts.end())
+	{
 		request.path = getPath(vect_iter, vect.at(1), &request.matched_subserver, request.method);
+		request.path_info = vect.at(1);
+	}
 	if (request.path.length() > 2)
 	{
 		for (size_t i = 0; i < request.path.size(); i++)
@@ -142,7 +145,7 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 			return (returnStatusCode(request, 403));
 	}
 	else if (res == 1 && request.matched_subserver->second.autoindex == false)
-		return (returnStatusCode(request, 403));
+		return (returnStatusCode(request, 404));
 	else if (res == 1 && request.matched_subserver->second.autoindex == true)
 		request.autoindex = true;
 	else if (res == -2)
@@ -273,18 +276,24 @@ void	RequestHandler::parseCgiBodyHeaders(t_request &request, t_response &respons
 	{
 		std::string	tmp = body.substr(i, body.find("\r\n", i) - i);
 		if (tmp.length() > 8 && toLowerStringCompare("Status: ", tmp.substr(0, 8)))
-			request.status = std::atoi(tmp.substr(8, tmp.size()).c_str());
+		{
+			int	status = std::atoi(tmp.substr(8).c_str());
+			if (status >= 400 && status <= 500)
+				request.status = status;
+			else
+				response.status_code = tmp.substr(8);
+		}
 		else if (tmp.length() > 14 && toLowerStringCompare("Content-type: ", tmp.substr(0, 14)))
-			response.content_type = tmp.substr(14, tmp.size()).c_str();
+			response.content_type = tmp.substr(14).c_str();
 		else if (tmp.length() > 16 && toLowerStringCompare("Content-length: ", tmp.substr(0, 16)))
 		{
-			response.content_length = std::atoi(tmp.substr(16, tmp.size()).c_str());
+			response.content_length = std::atoi(tmp.substr(16).c_str());
 			skip = 1;
 		}
 		else if (tmp.length() > 19 && toLowerStringCompare("Transfer-encoding: ", tmp.substr(0, 19)))
-			response.transfer_encoding = tmp.substr(19, tmp.size()).c_str();
+			response.transfer_encoding = tmp.substr(19).c_str();
 		else if (tmp.length() > 12 && toLowerStringCompare("Set-cookie: ", tmp.substr(0, 12)))
-			response.set_cookie.push_back(tmp.substr(12, tmp.size()).c_str());
+			response.set_cookie.push_back(tmp.substr(12).c_str());
 		i += tmp.size() + 2;
 	}
 }
@@ -370,21 +379,12 @@ std::string	RequestHandler::getPath(vectorIterator vectIter, std::string path, m
 		search = _currentRoot;
 	while (map_iter != map_iter2)
 	{
-		i = search.find_last_of('/');
-		if (i != std::string::npos)
+		if (map_iter->second.type == LOCATION && ("/" + search).find(map_iter->second.match) == 0)
 		{
-			match = search.substr(0, i);
-			if (map_iter->second.match == "/" + match)
-				search = match;
-		}
-		if (map_iter->second.type == LOCATION && map_iter->second.match == "/" + search)
-		{
-			result = map_iter->second.root + path;
+			result = "/" + search;
+			result.erase(0, map_iter->second.match.length());
+			result = map_iter->second.root + result;
 			*subserver = map_iter;
-			std::string	tmp = "/" + search;
-			i = result.rfind(tmp);
-			if (i != std::string::npos)
-				result.erase(i, tmp.length());
 			if ((method == "GET" || method == "HEAD") && path.find('.') == std::string::npos)
 			{
 				for (size_t j = 0; j < map_iter->second.index.size(); j++)

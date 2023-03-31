@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/30 17:54:04 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/31 03:33:36 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ Client::Client(Server *server, RequestHandler *request_handler) : _server(server
 		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to set socket to non-blocking mode");
 	int opt = 1;
 	if (setsockopt(_socket.fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0)
-		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to set socket options");
-	if (setsockopt(_socket.fd, SOL_SOCKET, SO_NOSIGPIPE, &opt, sizeof(opt)) < 0)
 		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to set socket options");
 	_host = inet_ntoa(_socket.sockaddr_.sin_addr);
 	_port = htons(_socket.sockaddr_.sin_port);
@@ -131,10 +129,10 @@ int	Client::getRequest(void)
 		{
 			if (_check_size)
 			{
-				pos2 = _buffer.find("\r\n0\r\n", _pos);
+				pos2 = _buffer.find("0\r\n\r\n", _pos);
 				if (pos2 != std::string::npos)
 				{
-					pos2 += 3;
+					pos2 += 5;
 					_reading_done = true;
 				}
 			}
@@ -162,9 +160,9 @@ int	Client::getRequest(void)
 		if (PRINT_REQUESTS)
 			std::cout << _buffer << "\n";
 		_server->writeAccessLog("Request received from " + _resolved + " " + get_date() + " :" + "\n" + _buffer + "\n");
-		if (pos2 != std::string::npos)
-			_buffer.erase(pos2);
 		_request = _request_handler->parseRequest(_buffer);
+		if (pos2 != std::string::npos)
+			_buffer.clear();
 		_request.remote_addr = _host;
 		resetGetRequest();
 		return (1);
@@ -218,10 +216,7 @@ int	Client::sendResponse(void)
 	std::string	str;
 
 	if (_sent <= _response.size())
-	{
 		str = _response.substr(_sent, BUFFER_SIZE);
-		std::cout << str << "\n";
-	}
 	else
 	{
 		_open = false;

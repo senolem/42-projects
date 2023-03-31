@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   webserv.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/30 10:39:59 by albaur           ###   ########.fr       */
+/*   Updated: 2023/03/30 20:15:48 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	webserv::startServer(void)
 	std::vector<Client*>::iterator	iter4;
 	int								client_fd;
 
+	signal(SIGPIPE, SIG_IGN);
 	for (size_t i = 0; i < _nb_vhost; i++)
 	{
 		std::map<int, t_socket>::iterator	iter;
