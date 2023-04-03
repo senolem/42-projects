@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/04/03 11:19:23 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/03 11:25:48 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,9 +170,6 @@ t_socket	webserv::createSocket(int port)
 		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to get socket flags");
 	if (fcntl(_socket.fd, F_SETFL, flags | O_NONBLOCK) < 0)
 		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to set socket to non-blocking mode");
-	int opt = 1;
-	if (setsockopt(_socket.fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0)
-		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to set socket options");
 	_socket.sockaddr_.sin_family = AF_INET;
 	_socket.sockaddr_.sin_addr.s_addr = INADDR_ANY;
 	_socket.sockaddr_.sin_port = htons(port);
