@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/03/30 20:15:48 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/03 11:19:23 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 webserv::webserv(std::vector<std::multimap<std::string, t_route> > *src) : _vhosts(src), _nb_vhost(_vhosts->size())
 {
+	extern t_close_server	close_server_;
+	close_server_.active_connections = &_activeConnections;
+	close_server_.vhosts = _vhosts;
 	FD_ZERO(&_read_fds);
 	FD_ZERO(&_write_fds);
 	FD_ZERO(&_read_fds_bak);
@@ -57,7 +60,7 @@ void	webserv::startServer(void)
 	std::vector<Client*>::iterator	iter3;
 	std::vector<Client*>::iterator	iter4;
 	int								client_fd;
-
+	
 	signal(SIGPIPE, SIG_IGN);
 	for (size_t i = 0; i < _nb_vhost; i++)
 	{
@@ -162,6 +165,14 @@ t_socket	webserv::createSocket(int port)
 	_socket.fd = socket(AF_INET, SOCK_STREAM, 0);
 	if (_socket.fd < 0)
 		throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Failed to create socket");
+	int	flags = fcntl(_socket.fd, F_GETFL);
+	if (flags < 0)
+		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to get socket flags");
+	if (fcntl(_socket.fd, F_SETFL, flags | O_NONBLOCK) < 0)
+		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to set socket to non-blocking mode");
+	int opt = 1;
+	if (setsockopt(_socket.fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0)
+		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to set socket options");
 	_socket.sockaddr_.sin_family = AF_INET;
 	_socket.sockaddr_.sin_addr.s_addr = INADDR_ANY;
 	_socket.sockaddr_.sin_port = htons(port);

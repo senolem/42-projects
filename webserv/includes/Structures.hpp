@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/03/31 03:54:28 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/03 11:02:49 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,5 +136,11 @@ typedef struct s_socket
 	int			fd;
 	sockaddr_in	sockaddr_;	
 }	t_socket;
+
+typedef struct s_close_server
+{
+	std::map<int, int>									*active_connections;
+	std::vector<std::multimap<std::string, t_route> >	*vhosts;
+}	t_close_server;
 
 #endif

@@ -6,12 +6,14 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:16:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/28 16:08:50 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/03 10:59:42 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "webserv.hpp"
 #include "ConfigParser.hpp"
+
+t_close_server	close_server_;
 
 int	main(int argc, char **argv)
 {
@@ -19,8 +21,14 @@ int	main(int argc, char **argv)
 	{
 		ConfigParser										config;
 		std::vector<std::multimap<std::string, t_route> >	*vhosts;
+		struct sigaction									sa;
 		try
-		{	
+		{
+			sa.sa_sigaction = close_server;
+			sigemptyset(&sa.sa_mask);
+			sa.sa_flags = SA_SIGINFO;
+			if (sigaction(SIGINT, &sa, NULL) == -1)
+				throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Failed register signal handler");
 			if (argc == 1)
 			{
 				std::cout << BLUE + INFO + GREEN + WEBSERV + NONE << " No configuration file provided. Using default: conf/default.conf\n";

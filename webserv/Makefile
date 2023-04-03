@@ -6,7 +6,7 @@
 #    By: melones <melones@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/15 15:17:23 by albaur            #+#    #+#              #
-#    Updated: 2023/03/22 19:40:28 by melones          ###   ########.fr        #
+#    Updated: 2023/04/03 10:47:52 by melones          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ C_EXTENSION = .cpp
 #		눈_눈			SOURCES			눈_눈
 
 MAIN_PATH	=	
-MAIN_FILES 	= 	main Exception ConfigParser RequestHandler CgiHandler DirectoryListing webserv Server Client utils
+MAIN_FILES 	= 	main Exception ConfigParser RequestHandler CgiHandler DirectoryListing webserv Server Client utils CloseServer
 SRCS_FILES	+=	$(addprefix $(MAIN_PATH), $(MAIN_FILES))
 
 SRCS_FILES_EXT	+= 	$(addsuffix $(C_EXTENSION), $(SRCS_FILES))
