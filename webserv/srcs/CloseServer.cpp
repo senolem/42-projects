@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 10:47:00 by melones           #+#    #+#             */
-/*   Updated: 2023/04/03 19:00:00 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/03 20:22:14 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	close_server(int sig, siginfo_t *info, void *context)
 	(void)context;
 	if (sig == SIGINT)
 	{
+		delete close_server_.vhosts;
 		for (std::map<int, int>::iterator iter = close_server_.active_connections->begin(); iter != close_server_.active_connections->end(); iter++)
 			close(iter->first);
 		std::cout << "\rClosing Webserv...\n";

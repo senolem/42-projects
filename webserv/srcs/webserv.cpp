@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/04/03 20:02:31 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/03 20:21:47 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 webserv::webserv(std::vector<std::multimap<std::string, t_route> > *src) : _vhosts(src), _nb_vhost(_vhosts->size())
 {
 	extern t_close_server	close_server_;
+
 	close_server_.active_connections = &_activeConnections;
 	close_server_.vhosts = _vhosts;
 	FD_ZERO(&_read_fds);
@@ -30,9 +31,12 @@ webserv::webserv(const webserv &src) : _subservers(src._subservers), _vhosts(src
 
 webserv::~webserv(void)
 {
+	extern t_close_server	close_server_;
+
 	delete _vhosts;
-	for (size_t i = 0; _sockets.size(); i++)
-		close(_sockets[i].fd);
+	close_server_.vhosts = NULL;
+	for (std::map<int, int>::iterator iter = close_server_.active_connections->begin(); iter != close_server_.active_connections->end(); iter++)
+			close(iter->first);
 }
 
 webserv	&webserv::operator=(const webserv &src)
