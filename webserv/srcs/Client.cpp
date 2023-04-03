@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/03/31 03:33:36 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/03 20:00:39 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	Client::getRequest(void)
 	int			buffer_size = BUFFER_SIZE;
 	int			rd = 0;
 	size_t		i = 0;
+	size_t		j = 0;
 	std::string	tmp;
 	size_t		pos2 = std::string::npos;
 
@@ -94,6 +95,11 @@ int	Client::getRequest(void)
 		return (-2);
 	if (rd == 0)
 		_reading_done = true;
+	if (_reading_done == true && rd == 0 && _buffer.size() == 0)
+	{
+		_open = false;
+		return (-3);
+	}
 	else if (rd > 0)
 	{
 		resetTimeout();
@@ -105,23 +111,30 @@ int	Client::getRequest(void)
 		}
 		if (!_is_chunked && _content_length == -1)
 		{
-			while (_buffer.find("\r\n\r\n", i) != std::string::npos || _buffer.find("\r\n", i) == i)
+			i =_buffer.find("\r\n");
+			while (i != std::string::npos)
 			{
-				std::string	tmp = _buffer.substr(i, _buffer.find("\r\n", i) - i);
+				tmp = _buffer.substr(j, i - j);
 				if (tmp.length() > 16 && toLowerStringCompare("content-length: ", tmp.substr(0, 16)))
 				{
 					int	tmp_length = std::atoi(tmp.substr(16, tmp.size()).c_str());
 					if (tmp_length >= 0)
 						_content_length = tmp_length;
 					else
-						_content_length = 0;	
+						_content_length = 0;
+					break ;
 				}
 				else if (tmp.length() > 19 && toLowerStringCompare("transfer-encoding: ", tmp.substr(0, 19)))
 				{
 					if (toLowerStringCompare("chunked", tmp.substr(19, tmp.size())))
-						_is_chunked = true;		
+					{
+						_is_chunked = true;
+						break ;
+					}
 				}
-				i += tmp.size() + 2;
+				i += 2;
+				j = i;
+				i = _buffer.find("\r\n", i);
 			}
 			tmp.clear();
 		}
@@ -134,12 +147,13 @@ int	Client::getRequest(void)
 				{
 					pos2 += 5;
 					_reading_done = true;
+					std::cout << "reading done 1\n";
 				}
 			}
 		}
 		else if (_content_length >= 0)
 		{
-			if (_check_size && _content_length >= 0 && (size_t)_content_length <= _buffer.length() - _pos + 4)
+			if (_check_size && (size_t)_content_length <= _buffer.length() - _pos + 4)
 			{
 				pos2 = (_pos + 4) + _content_length;
 				_reading_done = true;

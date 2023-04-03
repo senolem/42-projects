@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/04/03 11:25:48 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/03 20:02:31 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	webserv::startServer(void)
 	std::vector<Client*>::iterator	iter3;
 	std::vector<Client*>::iterator	iter4;
 	int								client_fd;
+	timeval							timeout = {10, 0};
 	
 	signal(SIGPIPE, SIG_IGN);
 	for (size_t i = 0; i < _nb_vhost; i++)
@@ -82,9 +83,34 @@ void	webserv::startServer(void)
 	{
 		_read_fds = _read_fds_bak;
 		_write_fds = _write_fds_bak;
-		status = select(getMaxFd() + 1, &_read_fds, &_write_fds, NULL, NULL);
+		status = select(getMaxFd() + 1, &_read_fds, &_write_fds, NULL, &timeout);
+		timeout.tv_sec = 10;
 		if (status == -1)
 			throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Failed to select");
+		else if (status == 0)
+		{
+			iter = _subservers.begin();
+			iter2 = _subservers.end();
+			while (iter != iter2)
+			{
+				iter3 = iter->getClients()->begin();
+				iter4 = iter->getClients()->end();
+				while (iter3 != iter4)
+				{
+					Client	*client = *iter3;
+					client->checkTimeout();
+					if (!client->isOpen())
+					{
+						if (removeClient(client, iter, iter3, iter4))
+							continue ;
+						else
+							break ;
+					}
+					++iter3;
+				}
+				++iter;
+			}
+		}
 		else
 		{
 			iter = _subservers.begin();
@@ -102,6 +128,7 @@ void	webserv::startServer(void)
 				while (iter3 != iter4)
 				{
 					Client	*client = *iter3;
+					client->checkTimeout();
 					if (client->isOpen() && FD_ISSET(client->getSocket().fd, &_read_fds))
 					{
 						int	ret = client->getRequest();
@@ -134,26 +161,34 @@ void	webserv::startServer(void)
 					}
 					if (!client->isOpen())
 					{
-						std::cout << BLUE << INFO << CYAN << WEBSERV << NONE << " Closing connection to client " << client->getResolved() << "\n";
-						FD_CLR(client->getSocket().fd, &_read_fds_bak);
-						FD_CLR(client->getSocket().fd, &_write_fds_bak);
-						_activeConnections.erase(client->getSocket().fd);
-						delete client;
-						iter->getClients()->erase(iter3);
-						if (iter->getClients()->empty())
-							break ;
-						else
-						{
-							iter3 = iter->getClients()->begin();
-							iter4 = iter->getClients()->end();
+						if (removeClient(client, iter, iter3, iter4))
 							continue ;
-						}
+						else
+							break ;
 					}
 					++iter3;
 				}
 				++iter;
 			}
 		}
+	}
+}
+
+int	webserv::removeClient(Client *client, std::vector<Server>::iterator	&iter, std::vector<Client*>::iterator &iter3, std::vector<Client*>::iterator &iter4)
+{
+	std::cout << BLUE << INFO << CYAN << WEBSERV << NONE << " Closing connection to client " << client->getResolved() << "\n";
+	FD_CLR(client->getSocket().fd, &_read_fds_bak);
+	FD_CLR(client->getSocket().fd, &_write_fds_bak);
+	_activeConnections.erase(client->getSocket().fd);
+	delete client;
+	iter->getClients()->erase(iter3);
+	if (iter->getClients()->empty())
+		return (0);
+	else
+	{
+		iter3 = iter->getClients()->begin();
+		iter4 = iter->getClients()->end();
+		return (1);
 	}
 }
 

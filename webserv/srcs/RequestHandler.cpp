@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/03/31 03:54:24 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/03 19:20:26 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 	std::string											content_length;
 	std::string											content_type;
 
-	buffer_vect = split_string(buffer, "\r\n");
+	i = buffer.find("\r\n\r\n");
+	if (i == std::string::npos)
+		return (returnStatusCode(request, 400));
+	buffer_vect = split_string(buffer.substr(0, i), "\r\n");
 	vect = split_string(buffer_vect.at(0), " ");
 	if (vect.size() != 3)
 		return (returnStatusCode(request, 400));
@@ -67,6 +70,11 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 	if (vect_iter == vhosts.end())
 		return (returnStatusCode(request, 500));
 	request.matched_subserver = vect_iter->begin();
+	if (i != std::string::npos)
+	{
+		if (request.matched_subserver->second.client_max_body_size != 0 && ((ssize_t)(buffer.size() - (i + 4)) > request.matched_subserver->second.client_max_body_size))
+			return (returnStatusCode(request, 413));
+	}
 	i = vect.at(1).find("?");
 	if (i != std::string::npos)
 	{
@@ -379,8 +387,8 @@ std::string	RequestHandler::getPath(vectorIterator vectIter, std::string path, m
 		if (map_iter->second.type == LOCATION && ("/" + search).find(map_iter->second.match) == 0)
 		{
 			result = "/" + search;
-			result.erase(0, map_iter->second.match.length());
-			result = map_iter->second.root + result;
+			result.erase(0, map_iter->second.match.length() + 1);
+			result = map_iter->second.root + "/" + result;
 			*subserver = map_iter;
 			if ((method == "GET" || method == "HEAD") && path.find('.') == std::string::npos)
 			{

@@ -6,14 +6,14 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/04/03 10:42:00 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/03 19:52:39 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WEBSERV_HPP
 # define WEBSERV_HPP
 # define BUFFER_SIZE 4096
-# define MAX_REQUEST_SIZE_PROTECTION 100000000
+# define MAX_REQUEST_SIZE_PROTECTION 0
 # define MAX_CLIENTS_PER_SOCKET 1000
 # define PRINT_REQUESTS 0
 # define LOG_REQUEST_LENGTH_LIMIT 1024
@@ -79,6 +79,7 @@ class webserv
 		void												printConfig(void);
 		int													getMaxFd(void);
 		std::vector<std::multimap<std::string, t_route> >	&getVirtualHosts(void);
+		int													removeClient(Client *client, std::vector<Server>::iterator	&iter, std::vector<Client*>::iterator &iter3, std::vector<Client*>::iterator &iter4);
 };
 
 #endif
