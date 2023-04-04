@@ -42,7 +42,7 @@ class RequestHandler
 		std::multimap<float, std::string>	parseAcceptHeader(const std::string &header);
 		std::string							parseTransferEncodingHeader(const std::string &header);
 		void								parseChunkedBody(t_request &request);
-		std::map<std::string, std::string>	parseCookieHeader(const std::string &header);
+		std::string							parseCookieHeader(const std::vector<std::string> buffer_vect);
 		std::string							parseHostHeader(const std::string &header);
 		void								parseCgiBodyHeaders(t_request &request, t_response &response, std::string &body, int &skip, size_t &i);
 		std::string							getResponse(t_request request);

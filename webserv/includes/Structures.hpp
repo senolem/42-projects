@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Structures.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/04/03 11:02:49 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/04 14:23:57 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct s_request
 	std::string										version;
 	std::string										host;
 	std::multimap<float, std::string>				accept;
-	std::map<std::string, std::string>				cookie;
+	std::string										cookie;
 	std::string										body;
 	std::string										content_type;
 	std::string										boundary;

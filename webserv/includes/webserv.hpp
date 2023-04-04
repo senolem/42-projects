@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   webserv.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/04/03 19:52:39 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/04 15:49:35 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define BUFFER_SIZE 4096
 # define MAX_REQUEST_SIZE_PROTECTION 0
 # define MAX_CLIENTS_PER_SOCKET 1000
-# define PRINT_REQUESTS 0
+# define PRINT_REQUESTS 1
 # define LOG_REQUEST_LENGTH_LIMIT 1024
 # include <iostream>
 # include <string>
@@ -45,6 +45,7 @@
 # include <set>
 # include "Structures.hpp"
 # include "Server.hpp"
+# include "Client.hpp"
 # include "utils.hpp"
 # include "Output.hpp"
 # include "CloseServer.hpp"

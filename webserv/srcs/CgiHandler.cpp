@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   CgiHandler.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:42:02 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/31 03:53:52 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/04 14:26:16 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ CgiHandler::CgiHandler(std::string &cgi_path, RequestHandler &request_handler, t
 		_env["CONTENT_LENGTH"] = _request.content_length;
 		_env["CONTENT_TYPE"] = _request.content_type;
 	}
-	_env["HTTP_COOKIE"] = parseCookie(request.cookie);
+	_env["HTTP_COOKIE"] = request.cookie;
 	_env["REMOTE_ADDR"] = _request.remote_addr;
 	_env["SERVER_NAME"] = _request.matched_subserver->second.server_name;
 	_env["SERVER_SOFTWARE"] = "Webserv/1.0";
@@ -162,19 +162,4 @@ std::string	CgiHandler::executeCgi(void)
 		delete[] env[i];
 	delete[] env;
 	return (body);
-}
-
-std::string	CgiHandler::parseCookie(const std::map<std::string, std::string> &cookies)
-{
-	std::map<std::string, std::string>::const_iterator	iter = cookies.begin();
-	std::map<std::string, std::string>::const_iterator	iter2 = cookies.end();
-	std::string											parsedCookies;
-
-	while (iter != iter2)
-	{
-		parsedCookies.append("HTTP_" + iter->first + "=" + iter->second);
-		if (++iter != iter2)
-			parsedCookies.append("&");
-	}
-	return (parsedCookies);
 }

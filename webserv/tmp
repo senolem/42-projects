@@ -1,6 +1,0 @@
-[34m[INFO][32m[Webserv][0m No configuration file provided. Using default: conf/default.conf
-[34m[INFO][33m[ConfigParser][0m Configuration parsed. [2] server blocks loaded.
-[34m[INFO][36m[Webserv][0m Socket successfully created for port 8080
-[34m[INFO][36m[Webserv][0m Socket successfully created for port 5000
-[34m[INFO][36m[Webserv][0m Waiting for connection...
-Closing Webserv...

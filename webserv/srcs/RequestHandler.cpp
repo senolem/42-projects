@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RequestHandler.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/04/03 19:20:26 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/04 14:39:39 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 		if (request.matched_subserver->second.client_max_body_size != 0 && ((ssize_t)request.body.size() > request.matched_subserver->second.client_max_body_size))
 			return (returnStatusCode(request, 413));
 	}
-	request.cookie = parseCookieHeader(getHeader(buffer_vect, "Cookie:"));
+	request.cookie = parseCookieHeader(buffer_vect);
 	request.accept = parseAcceptHeader(getHeader(buffer_vect, "Accept:"));
 	content_type = strToLower(getHeader(buffer_vect, "Content-Type:"));
 	if (request.method == "POST" && content_type.length() >= 14)
@@ -242,24 +242,34 @@ void	RequestHandler::parseChunkedBody(t_request &request)
 	request.content_length = body.length();
 }
 
-std::map<std::string, std::string>	RequestHandler::parseCookieHeader(const std::string &header)
+std::string	RequestHandler::parseCookieHeader(const std::vector<std::string> buffer_vect)
 {
-	std::map<std::string, std::string>	cookie_header;
-	std::vector<std::string>			vect;
-	std::vector<std::string>			vect2;
+	std::string	cookies;
+	bool		semicolon = false;
 
-	if (header.length() > 8)
+	for (std::vector<std::string>::const_iterator iter = buffer_vect.begin(); iter != buffer_vect.end(); iter++)
 	{
-		vect = split_string(header.substr(8), "; ");
-		for (std::vector<std::string>::iterator iter = vect.begin(); iter != vect.end(); iter++)
+		if (findCaseInsensitive(*iter, "cookie:") == 0)
 		{
-			vect2 = split_string(*iter, "=");
-			if (vect2.size() != 2)
-				continue ;
-			cookie_header.insert(std::pair<std::string, std::string>(vect2.at(0), vect2.at(1)));
+			std::string					tmp(iter->substr(8));
+			std::vector<std::string>	tmp_vect;
+			tmp.erase(std::remove_if(tmp.begin(), tmp.end(), ::isspace), tmp.end());
+			tmp_vect = split_string(tmp, ";");
+			for (std::vector<std::string>::iterator iter2 = tmp_vect.begin(); iter2 != tmp_vect.end(); iter2++)
+			{
+				size_t	i = 0;
+				i = iter->find("=");
+				if (i != std::string::npos && i < iter->length())
+				{
+					if (semicolon)
+						cookies.append(";");
+					cookies.append(*iter2);
+					semicolon = true;
+				}
+			}
 		}
 	}
-	return (cookie_header);
+	return (cookies);
 }
 
 std::string	RequestHandler::parseHostHeader(const std::string &header)
