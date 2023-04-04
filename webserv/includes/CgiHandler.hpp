@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:30:45 by albaur            #+#    #+#             */
-/*   Updated: 2023/03/23 19:58:45 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/04 23:45:10 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ class CgiHandler
 		t_request							&_request;
 		t_response							&_response;
 
-		std::string							parseCookie(const std::map<std::string, std::string> &cookies);
+		void								cleanCgi(t_exec_cgi &cgi);
 };
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Structures.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/04/04 14:23:57 by albaur           ###   ########.fr       */
+/*   Updated: 2023/04/04 23:41:38 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,5 +142,16 @@ typedef struct s_close_server
 	std::map<int, int>									*active_connections;
 	std::vector<std::multimap<std::string, t_route> >	*vhosts;
 }	t_close_server;
+
+typedef struct s_exec_cgi
+{
+	int			stdin_bak;
+	int			stdout_bak;
+	std::FILE	*file_in;
+	std::FILE	*file_out;
+	int			fd_in;
+	int			fd_out;
+	char		**env;
+}	t_exec_cgi;
 
 #endif

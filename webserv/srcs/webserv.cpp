@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   webserv.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/04/04 15:56:15 by albaur           ###   ########.fr       */
+/*   Updated: 2023/04/05 01:12:02 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void	webserv::startServer(void)
 						else if (ret == 1)
 							FD_SET(client->getSocket().fd, &_write_fds_bak);
 						else if (ret == -1)
-							std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to read request from client " << client->getResolved() << "\n";
+							std::cerr << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to read request from client " << client->getResolved() << "\n";
 						else if (ret == -2)
 						{
 							t_request	tmp;
@@ -161,7 +161,7 @@ void	webserv::startServer(void)
 							client->setSent(0);
 						}
 						else if (ret == -1)
-							std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to send response to client " << client->getResolved() << "\n";
+							std::cerr << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to send response to client " << client->getResolved() << "\n";
 					}
 					if (!client->isOpen())
 					{
@@ -241,7 +241,7 @@ webserv::vectorIterator	webserv::getHost(std::string host)
 			return (vect_iter);
 		++vect_iter;
 	}
-	std::cout << RED << ERROR << CYAN << WEBSERV << NONE << " Host \"" << host << "\" did not match any of the server blocks\n";
+	std::cerr << RED << ERROR << CYAN << WEBSERV << NONE << " Host \"" << host << "\" did not match any of the server blocks\n";
 	return (vect_iter);
 }
 

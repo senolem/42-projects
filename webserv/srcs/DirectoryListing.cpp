@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 17:12:42 by melones           #+#    #+#             */
-/*   Updated: 2023/03/29 15:47:03 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/05 01:02:27 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,14 +109,14 @@ void	DirectoryListing::generate(t_response &response, t_request &request)
 	DIR	*dir = opendir(request.path.c_str());
 	if (!dir)
 	{
-		std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to open folder " << request.path << "\n";
+		std::cerr << RED << ERROR << GREEN << SERV << NONE << " Failed to open folder " << request.path << "\n";
 		request.status = 500;
 		return ;
 	}
 	page = getPage();
 	if (page == "500")
 	{
-		std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to open directory listing template\n";
+		std::cerr << RED << ERROR << GREEN << SERV << NONE << " Failed to open directory listing template\n";
 		request.status = 500;
 		return ;
 	}

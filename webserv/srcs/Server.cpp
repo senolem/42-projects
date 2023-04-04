@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:16 by melones           #+#    #+#             */
-/*   Updated: 2023/03/30 10:49:57 by albaur           ###   ########.fr       */
+/*   Updated: 2023/04/05 01:02:27 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ Server::Server(webserv &webserv_, std::multimap<std::string, t_route> &vhosts, t
 	_request_handler = new RequestHandler(webserv_, vhosts);
 	_log_file.open(_vhosts.begin()->second.access_log.c_str(), std::ios::out | std::ios::app);
 	if (!_log_file.is_open())
-		std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to open log file (Does the parent folder exists?)\n";
+		std::cerr << RED << ERROR << GREEN << SERV << NONE << " Failed to open log file (Does the parent folder exists?)\n";
 }
 
 Server::Server(const Server &src) : _webserv(src._webserv), _vhosts(src._vhosts), _socket(src._socket)
@@ -41,7 +41,7 @@ Server	&Server::operator=(const Server &src)
 		this->_request_handler = new RequestHandler(src._webserv, src._vhosts);
 		this->_log_file.open(src._vhosts.begin()->second.access_log.c_str(), std::ios::out | std::ios::app);
 		if (!_log_file.is_open())
-			std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to open log file (Does the parent folder exists?)\n";
+			std::cerr << RED << ERROR << GREEN << SERV << NONE << " Failed to open log file (Does the parent folder exists?)\n";
 	}
 	return (*this);
 }
@@ -76,7 +76,7 @@ const std::multimap<std::string, t_route>	&Server::getVirtualHosts(void)
 void	Server::writeAccessLog(const std::string &str)
 {
 	if (!_log_file.is_open())
-		std::cout << RED + ERROR + GREEN + SERV + NONE + " Cannot write to log file\n";
+		std::cerr << RED + ERROR + GREEN + SERV + NONE + " Cannot write to log file\n";
 	else if (LOG_REQUEST_LENGTH_LIMIT != -1)
 	{
 		if (LOG_REQUEST_LENGTH_LIMIT == 0)

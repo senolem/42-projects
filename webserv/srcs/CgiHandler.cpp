@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   CgiHandler.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:42:02 by albaur            #+#    #+#             */
-/*   Updated: 2023/04/04 14:26:16 by albaur           ###   ########.fr       */
+/*   Updated: 2023/04/05 01:02:27 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,34 +67,40 @@ CgiHandler	&CgiHandler::operator=(const CgiHandler &src)
 std::string	CgiHandler::executeCgi(void)
 {
 	pid_t		pid;
-	int			stdin_bak = dup(STDIN_FILENO);
-	int			stdout_bak = dup(STDOUT_FILENO);
-	std::FILE	*file_in = std::tmpfile();
-	std::FILE	*file_out = std::tmpfile();
-	int			fd_in = fileno(file_in);
-	int			fd_out = fileno(file_out);
+	t_exec_cgi	cgi;
 	bool		readingDone = false;
-	std::string	body;
-	char		**env = map_split(_env);
+	std::string	body;	
 	int			status;
 
-	if (!file_in || !file_out || !env)
+	cgi.stdin_bak = dup(STDIN_FILENO);
+	cgi.stdout_bak = dup(STDOUT_FILENO);
+	cgi.file_in = std::tmpfile();
+	cgi.file_out = std::tmpfile();
+	cgi.fd_in = fileno(cgi.file_in);
+	cgi.fd_out = fileno(cgi.file_out);
+	cgi.env = map_split(_env);
+	if (!cgi.file_in || !cgi.file_out || !cgi.env)
 	{
-		if (!env)
-			std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to allocate env for cgi\n";
+		if (!cgi.env)
+			std::cerr << RED << ERROR << GREEN << SERV << NONE << " Failed to allocate env for cgi\n";
 		else
-			std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to create temporary file for cgi\n";
+			std::cerr << RED << ERROR << GREEN << SERV << NONE << " Failed to create temporary file for cgi\n";
+		cleanCgi(cgi);
 		return ("Status: 502\r\n\r\n");
 	}
-	if (write(fd_in, _request.body.c_str(), _request.body.length()) < 0)
+	if (write(cgi.fd_in, _request.body.c_str(), _request.body.length()) < 0)
+	{
+		cleanCgi(cgi);
 		return ("Status: 502\r\n\r\n");
+	}
 	else
 	{
-		lseek(fd_in, 0, SEEK_SET);
+		lseek(cgi.fd_in, 0, SEEK_SET);
 		pid = fork();
 		if (pid == -1)
 		{
-			std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to fork process\n";
+			std::cerr << RED << ERROR << GREEN << SERV << NONE << " Failed to fork process\n";
+			cleanCgi(cgi);
 			return ("Status: 502\r\n\r\n");
 		}
 		else if (pid == 0)
@@ -117,11 +123,12 @@ std::string	CgiHandler::executeCgi(void)
 				std::strcpy(argv[0], _script_path.c_str());
 				argv[1] = 0;
 			}
-			dup2(fd_in, STDIN_FILENO);
-			dup2(fd_out, STDOUT_FILENO);
-			execve(_cgi_path.c_str(), argv, env);
-			std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to execute cgi\n";
+			dup2(cgi.fd_in, STDIN_FILENO);
+			dup2(cgi.fd_out, STDOUT_FILENO);
+			execve(_cgi_path.c_str(), argv, cgi.env);
+			std::cerr << RED << ERROR << GREEN << SERV << NONE << " Failed to execute cgi\n";
 			write(STDOUT_FILENO, "Status: 500\r\n\r\n", 16);
+			cleanCgi(cgi);
 			exit(1);
 		}
 		else
@@ -129,37 +136,48 @@ std::string	CgiHandler::executeCgi(void)
 			char	buffer[1024];
 			if (waitpid(pid, &status, 0) == -1)
 			{
-				std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to wait for child\n";
+				std::cerr << RED << ERROR << GREEN << SERV << NONE << " Failed to wait for child\n";
+				cleanCgi(cgi);
 				return ("Status: 500\r\n\r\n");
 			}
 			if (WEXITSTATUS(status) && WIFEXITED((status)))
 			{
-				std::cout << RED << ERROR << GREEN << SERV << NONE << " Failed to execute cgi script\n";
+				std::cerr << RED << ERROR << GREEN << SERV << NONE << " Failed to execute cgi script\n";
+				cleanCgi(cgi);
 				return ("Status: 502\r\n\r\n");
 			}
-			lseek(fd_out, 0, SEEK_SET);
+			lseek(cgi.fd_out, 0, SEEK_SET);
 			while (!readingDone)
 			{
 				int	ret;
 				memset(buffer, 0, sizeof(buffer));
-				ret = read(fd_out, buffer, sizeof(buffer) - 1);
+				ret = read(cgi.fd_out, buffer, sizeof(buffer) - 1);
 				if (ret == 0)
 					readingDone = true;
 				else if (ret > 0)
 					body.append(buffer);
 				else
+				{
+					cleanCgi(cgi);
 					return ("Status: 502\r\n\r\n");
+				}
 			}
 		}
 	}
-	dup2(stdin_bak, STDIN_FILENO);
-	dup2(stdout_bak, STDOUT_FILENO);
-	std::fclose(file_in);
-	std::fclose(file_out);
-	close(fd_in);
-	close(fd_out);
-	for (size_t i = 0; env[i]; i++)
-		delete[] env[i];
-	delete[] env;
+	cleanCgi(cgi);
 	return (body);
+}
+
+
+void	CgiHandler::cleanCgi(t_exec_cgi &cgi)
+{
+	dup2(cgi.stdin_bak, STDIN_FILENO);
+	dup2(cgi.stdout_bak, STDOUT_FILENO);
+	std::fclose(cgi.file_in);
+	std::fclose(cgi.file_out);
+	close(cgi.fd_in);
+	close(cgi.fd_out);
+	for (size_t i = 0; cgi.env[i]; i++)
+		delete[] cgi.env[i];
+	delete[] cgi.env;
 }

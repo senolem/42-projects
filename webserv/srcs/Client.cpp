@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/04/04 15:43:31 by albaur           ###   ########.fr       */
+/*   Updated: 2023/04/05 00:59:12 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,11 +260,8 @@ void	Client::checkTimeout(void)
 {
 	struct timeval	tv;
 	gettimeofday(&tv, NULL);
-	if (tv.tv_usec - _request_time > 5000000)
-	{
+	if (tv.tv_usec - _request_time > 120000000)
 		_open = false;
-		std::cout << "timeout" << "\n";
-	}
 }
 
 void	Client::resetTimeout(void)

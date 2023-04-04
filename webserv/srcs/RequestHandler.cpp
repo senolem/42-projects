@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RequestHandler.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/04/04 14:39:39 by albaur           ###   ########.fr       */
+/*   Updated: 2023/04/05 01:02:27 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -543,7 +543,7 @@ void	RequestHandler::handleCgi(t_request &request, t_response &response, std::st
 	response.content_length = response.content.size();
 	if (access(cgi_iter->second.path.c_str(), X_OK))
 	{
-		std::cout << RED << ERROR << GREEN << SERV << NONE << " CGI at path " << cgi_iter->second.path << " does not exists or has invalid execution permissions.\n";
+		std::cerr << RED << ERROR << GREEN << SERV << NONE << " CGI at path " << cgi_iter->second.path << " does not exists or has invalid execution permissions.\n";
 		request.status = 502;
 	}
 	else
