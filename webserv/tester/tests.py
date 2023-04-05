@@ -30,9 +30,9 @@ def testGet() -> str:
 	return (OK)
 
 def testGetSmall() -> str:
-	response = requests.get(baseUrl() + '/test.png')
+	response = requests.get(baseUrl() + '/' + config.FILE_IMAGE)
 	try:
-		with open(config.SERVER_ROOT + 'test.png', 'rb') as file:
+		with open(config.SERVER_ROOT + config.FILE_IMAGE, 'rb') as file:
 			file_content = file.read()
 	except FileNotFoundError:
 		raise
@@ -75,23 +75,6 @@ def testGetHuge() -> str:
 	if (int(response.headers["Content-Length"]) != len(file_content)):
 		return (E_WRONG_CONTENT_LENGTH)
 	if (response.headers["Content-Type"] != "application/octet-stream"):
-		return (E_WRONG_CONTENT_TYPE)
-	if (response.content != file_content):
-		return (E_WRONG_CONTENT)
-	return (OK)
-
-def testGetSmall() -> str:
-	response = requests.get(baseUrl() + '/test.png')
-	try:
-		with open(config.SERVER_ROOT + 'test.png', 'rb') as file:
-			file_content = file.read()
-	except FileNotFoundError:
-		raise
-	if (response.status_code != 200):
-		return (E_WRONG_STATUS_CODE)
-	if (int(response.headers["Content-Length"]) != len(file_content)):
-		return (E_WRONG_CONTENT_LENGTH)
-	if (response.headers["Content-Type"] != "image/png"):
 		return (E_WRONG_CONTENT_TYPE)
 	if (response.content != file_content):
 		return (E_WRONG_CONTENT)

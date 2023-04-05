@@ -33,7 +33,7 @@ def batchStart() -> None:
 		]},
 		{"test_category": "POST", "functions": [
 			{"test_description": "POST /cgi_test/to_upper.php (200)", "test_function": testPostUppercase},
-			{"test_description": "GET /test.png (200)", "test_function": testGet}
+			{"test_description": "GET /{} (200)".format(config.FILE_IMAGE), "test_function": testGet}
 		]},
 		{"test_category": "Status codes", "functions": [
 			{"test_description": "PATCH / (501)", "test_function": testNotImplanted},
@@ -54,7 +54,7 @@ def batchStart() -> None:
 		]},
 		{"test_category": "Upload", "functions": [
 			{"test_description": "POST / (upload {}) (204)".format(config.FILE_1), "test_function": testUploadSingle},
-			{"test_description": "POST / (upload {} & {}.bin) (204)".format(config.FILE_1, config.FILE_2), "test_function": testUploadMultiple}
+			{"test_description": "POST / (upload {} & {}) (204)".format(config.FILE_1, config.FILE_2), "test_function": testUploadMultiple}
 		]},
 		]
 	for current_test in tests:
