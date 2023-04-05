@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/04/05 12:38:51 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/05 18:17:59 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 		if (!file.is_open())
 			return (returnStatusCode(request, 403));
 	}
-	else if (res == 1 && request.matched_subserver->second.autoindex == false)
+	else if (res == 1 && request.matched_subserver->second.autoindex == false && (request.matched_subserver->second.upload == false && request.content_type != "multipart/form-data"))
 		return (returnStatusCode(request, 404));
 	else if (res == 1 && request.matched_subserver->second.autoindex == true)
 		request.autoindex = true;
@@ -396,24 +396,29 @@ std::string	RequestHandler::getPath(vectorIterator vectIter, std::string path, m
 		search = _currentRoot;
 	while (map_iter != map_iter2)
 	{
-		if (map_iter->second.type == LOCATION && ("/" + search).find(map_iter->second.match) == 0)
+		std::string	tmp = "/" + search;
+		i = tmp.find(map_iter->second.match);
+		if (map_iter->second.type == LOCATION && i == 0)
 		{
-			result = "/" + search;
-			result.erase(0, map_iter->second.match.length() + 1);
-			result = map_iter->second.root + "/" + result;
-			*subserver = map_iter;
-			if ((method == "GET" || method == "HEAD") && path.find('.') == std::string::npos)
+			if ((tmp.length() == map_iter->second.match.length()) || (tmp.length() > map_iter->second.match.length() && tmp.at(map_iter->second.match.length()) == '/'))
 			{
-				for (size_t j = 0; j < map_iter->second.index.size(); j++)
+				result = "/" + search;
+				result.erase(0, map_iter->second.match.length() + 1);
+				result = map_iter->second.root + "/" + result;
+				*subserver = map_iter;
+				if ((method == "GET" || method == "HEAD") && path.find('.') == std::string::npos)
 				{
-					if (!get_path_type(result + "/" + map_iter->second.index[j]))
+					for (size_t j = 0; j < map_iter->second.index.size(); j++)
 					{
-						_currentRoot = search;
-						return (result + "/" + map_iter->second.index[j]);
+						if (!get_path_type(result + "/" + map_iter->second.index[j]))
+						{
+							_currentRoot = search;
+							return (result + "/" + map_iter->second.index[j]);
+						}
 					}
 				}
+				return (result);
 			}
-			return (result);
 		}
 		++map_iter;
 	}
