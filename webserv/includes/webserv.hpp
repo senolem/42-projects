@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/04/05 01:17:32 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/05 01:22:41 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define WEBSERV_HPP
 # define BUFFER_SIZE 8192
 # define MAX_REQUEST_SIZE_PROTECTION 0
-# define MAX_CLIENTS_PER_SOCKET 128
+# define MAX_CLIENTS_PER_SOCKET 1000
 # define PRINT_REQUESTS 0
 # define LOG_REQUEST_LENGTH_LIMIT -1
 # include <iostream>

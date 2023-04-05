@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/04/05 01:02:27 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/05 12:38:51 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 	if (request.method != "GET" && request.method != "POST" && request.method != "DELETE" && request.method != "HEAD")
 		return (returnStatusCode(request, 501));
 	request.version = vect.at(2);
+	if (request.version != "HTTP/1.1")
+		return (returnStatusCode(request, 505));
 	request.host = parseHostHeader(getHeader(buffer_vect, "Host:"));
 	if (request.host.empty())
 		return (returnStatusCode(request, 400));
@@ -114,7 +116,7 @@ t_request	RequestHandler::parseRequest(std::string buffer)
 			return (returnStatusCode(request, 413));
 	}
 	request.cookie = parseCookieHeader(buffer_vect);
-	request.accept = parseAcceptHeader(getHeader(buffer_vect, "Accept:"));
+	request.accept = parseAcceptHeader(strToLower(getHeader(buffer_vect, "Accept:")));
 	content_type = strToLower(getHeader(buffer_vect, "Content-Type:"));
 	if (request.method == "POST" && content_type.length() >= 14)
 	{
