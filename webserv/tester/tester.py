@@ -41,10 +41,12 @@ def batchStart() -> None:
 			{"test_description": "PATCH /", "test_function": testNotImplanted},
 			{"test_description": "DELETE /", "test_function": testNotAllowed},
 			{"test_description": "PATCH /html_test", "test_function": testNotImplantedLocation},
-			{"test_description": "DELETE /html_test", "test_function": testNotAllowedLocation}
+			{"test_description": "DELETE /html_test", "test_function": testNotAllowedLocation},
+			{"test_description": "GET /forbidden.bin", "test_function": testForbidden}
 		]},
 		{"test_category": "CGI", "functions": [
 			{"test_description": "GET /cgi_test/print_numbers.php", "test_function": testCgiNumbers},
+			{"test_description": "GET /cgi_test/print_numbers.py", "test_function": testCgiPythonNumbers},
 			{"test_description": "GET /cgi_test/print_query.php?foo=bar&bar=foo", "test_function": testCgiQuery}
 		]},
 		{"test_category": "Upload", "functions": [

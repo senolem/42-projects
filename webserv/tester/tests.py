@@ -1,6 +1,7 @@
 import config
 import sys
 import requests
+import http.client
 
 OK = "OK"
 E_WRONG_STATUS_CODE = "Wrong status code"
@@ -133,6 +134,12 @@ def testNotAllowedLocation() -> str:
 		return (E_WRONG_STATUS_CODE)
 	return (OK)
 
+def testForbidden() -> str:
+	response = requests.get(baseUrl() + 'forbidden.bin')
+	if (response.status_code != 403):
+		return (E_WRONG_STATUS_CODE)
+	return (OK)
+
 def testCgiNumbers() -> str:
 	response = requests.get(baseUrl() + 'cgi_test/print_numbers.php')
 	if (response.status_code != 200):
@@ -140,6 +147,18 @@ def testCgiNumbers() -> str:
 	if (int(response.headers["Content-Length"]) != 12):
 		return (E_WRONG_CONTENT_LENGTH)
 	if (response.headers["Content-Type"] != "text/html; charset=UTF-8"):
+		return (E_WRONG_CONTENT_TYPE)
+	if (response.text != "012345678910"):
+		return (E_WRONG_CONTENT)
+	return (OK)
+
+def testCgiPythonNumbers() -> str:
+	response = requests.get(baseUrl() + 'cgi_test/print_numbers.py')
+	if (response.status_code != 200):
+		return (E_WRONG_STATUS_CODE)
+	if (int(response.headers["Content-Length"]) != 12):
+		return (E_WRONG_CONTENT_LENGTH)
+	if (response.headers["Content-Type"] != "text/plain"):
 		return (E_WRONG_CONTENT_TYPE)
 	if (response.text != "012345678910"):
 		return (E_WRONG_CONTENT)
