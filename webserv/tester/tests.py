@@ -1,6 +1,7 @@
 import os
 import requests
 import config
+import urllib.parse
 from tester import safe_remove
 
 OK = "OK"
@@ -11,6 +12,17 @@ E_WRONG_CONTENT = "Wrong content"
 
 def baseUrl() -> str:
 	return ("http://{}:{}/".format(config.SERVER_ADDRESS, config.SERVER_PORT))
+
+def chunk_generator(data: str, chunk_size: int):
+	data_len = len(data)
+	chunk_fmt = '{:X}\r\n{}\r\n'
+	chunks = []
+	for i in range(0, data_len, chunk_size):
+		chunk = data[i:i+chunk_size]
+		encoded_chunk = chunk_fmt.format(len(chunk), chunk)
+		chunks.append(encoded_chunk)
+	chunks.append('0\r\n\r\n')
+	return chunks
 
 def testGet() -> str:
 	response = requests.get(baseUrl())
@@ -82,7 +94,7 @@ def testGetHuge() -> str:
 
 def testPostUppercase() -> str:
 	data = {'text_input': "Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
-	response = requests.post(baseUrl() + '/cgi_test/to_upper.php', data=data)
+	response = requests.post(baseUrl() + 'cgi_test/to_upper.php', data=data)
 	if (response.status_code != 200):
 		return (E_WRONG_STATUS_CODE)
 	if (int(response.headers["Content-Length"]) != len(data["text_input"])):
@@ -90,6 +102,25 @@ def testPostUppercase() -> str:
 	if (response.headers["Content-Type"] != "text/html; charset=UTF-8"):
 		return (E_WRONG_CONTENT_TYPE)
 	if (response.text != data["text_input"].upper()):
+		return (E_WRONG_CONTENT)
+	return (OK)
+
+def testPostUppercaseChunked() -> str:
+	lorem_ipsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
+	lorem_ipsum *= 125
+	form = 'text_input=' + lorem_ipsum
+	chunks = chunk_generator(form, 256)
+	encoded_chunks = list(chunks)
+	data = ''.join(encoded_chunks)
+	headers = {'Transfer-Encoding': 'chunked', 'Content-Type': 'application/x-www-form-urlencoded'}
+	response = requests.post(baseUrl() + 'cgi_test/to_upper.php', data=data, headers=headers)
+	if (response.status_code != 200):
+		return (E_WRONG_STATUS_CODE)
+	if (int(response.headers["Content-Length"]) != len(lorem_ipsum)):
+		return (E_WRONG_CONTENT_LENGTH)
+	if (response.headers["Content-Type"] != "text/html; charset=UTF-8"):
+		return (E_WRONG_CONTENT_TYPE)
+	if (response.text != lorem_ipsum.upper()):
 		return (E_WRONG_CONTENT)
 	return (OK)
 

@@ -33,7 +33,7 @@ def batchStart() -> None:
 		]},
 		{"test_category": "POST", "functions": [
 			{"test_description": "POST /cgi_test/to_upper.php (200)", "test_function": testPostUppercase},
-			{"test_description": "GET /{} (200)".format(config.FILE_IMAGE), "test_function": testGet}
+			{"test_description": "POST /cgi_test/to_upper.php (chunked) (200)", "test_function": testPostUppercaseChunked}
 		]},
 		{"test_category": "Status codes", "functions": [
 			{"test_description": "PATCH / (501)", "test_function": testNotImplanted},

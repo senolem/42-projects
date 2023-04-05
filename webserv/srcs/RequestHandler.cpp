@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/04/05 22:40:57 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/06 01:55:39 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,6 @@ void	RequestHandler::parseChunkedBody(t_request &request)
 		request.status = 400;
 		return ;
 	}
-	body += "\r\n";
 	request.body = body;
 	request.content_length = body.length();
 }
