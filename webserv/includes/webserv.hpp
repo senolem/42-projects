@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/04/05 01:22:41 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/05 22:28:52 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ class webserv
 
 		void												startServer(void);
 		t_socket											createSocket(int port);
-		vectorIterator										getHost(std::string host);
-		std::string											resolveHost(std::string host);
+		vectorIterator										getHost(const std::string &host);
+		std::string											resolveHost(const std::string &host);
 		void												printConfig(void);
 		int													getMaxFd(void);
 		std::vector<std::multimap<std::string, t_route> >	&getVirtualHosts(void);

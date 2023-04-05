@@ -1,5 +1,4 @@
 import os
-import sys
 import config
 from typing import Callable
 from tests import *
@@ -17,8 +16,7 @@ def runTest(test_description: str, test_func: Callable) -> None:
 		print("{}Failed to open file {}{}".format(C_RED, e.filename, C_NONE))
 		exit(1)
 	except Exception as e:
-		print("{}An error occurred: {}{}".format(C_RED, e, C_NONE))
-		print("{}Failed to connect to server {}:{}{}".format(C_RED, config.SERVER_ADDRESS, config.SERVER_PORT, C_NONE))
+		print("{}Error: {}{}".format(C_RED, e, C_NONE))
 		exit(1)
 	if (result == "OK"):
 		print("✅ {} : {}OK!{}".format(test_description, C_GREEN, C_NONE))
@@ -60,6 +58,23 @@ def batchStart() -> None:
 			runTest(current_function["test_description"], current_function["test_function"])
 		print("")
 
+def prepare() -> None:
+	safe_remove(config.SERVER_ROOT + 'uploads/100MB.bin')
+	safe_remove(config.SERVER_ROOT + 'uploads/50MB.bin')
+	os.chmod(config.SERVER_ROOT + 'forbidden.bin', 0o000)
+def cleanup() -> None:
+	safe_remove(config.SERVER_ROOT + 'uploads/100MB.bin')
+	safe_remove(config.SERVER_ROOT + 'uploads/50MB.bin')
+	os.chmod(config.SERVER_ROOT + 'forbidden.bin', 0o755)
+
+def safe_remove(file_path):
+	try:
+		os.remove(file_path)
+	except OSError:
+		pass
+
 if (__name__ == "__main__"):
 	print("🌐 Webserv Tester v{} by albaur{}{}\n".format(VERSION, C_BLUE, C_NONE))
+	prepare()
 	batchStart()
+	cleanup()

@@ -38,18 +38,18 @@ class RequestHandler
 		~RequestHandler(void);
 		RequestHandler	&operator=(const RequestHandler &src);
 		
-		t_request							parseRequest(std::string buffer);
+		t_request							parseRequest(const std::string &buffer);
 		std::multimap<float, std::string>	parseAcceptHeader(const std::string &header);
 		std::string							parseTransferEncodingHeader(const std::string &header);
 		void								parseChunkedBody(t_request &request);
 		std::string							parseCookieHeader(const std::vector<std::string> buffer_vect);
 		std::string							parseHostHeader(const std::string &header);
 		void								parseCgiBodyHeaders(t_request &request, t_response &response, std::string &body, int &skip, size_t &i);
-		std::string							getResponse(t_request request);
-		std::string							getPath(vectorIterator vectIter, std::string path, mapIterator *subserver, std::string method);
+		std::string							getResponse(t_request &request);
+		std::string							getPath(vectorIterator vectIter, std::string path, mapIterator *subserver, const std::string &method);
 		std::string							getFiletype(void);
-		std::string							getHeader(std::vector<std::string> header, std::string field);
-		void								setContentType(t_request &request, t_response *header, std::string path);
+		std::string							getHeader(const std::vector<std::string> &header, const std::string &field);
+		void								setContentType(t_request &request, t_response *response, const std::string &path);
 		void								setStatusErrorPage(t_response *header, const t_request &request);
 		void								handleCgi(t_request &request, t_response &response, std::stringstream &file_stream, std::map<std::string, t_cgi>::iterator cgi_iter);
 		void								handleUpload(t_request &request, t_response &response);

@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:48:37 by melones           #+#    #+#             */
-/*   Updated: 2023/03/29 18:16:11 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/05 22:22:59 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ class Client
 		void						setSent(size_t sent);
 		bool						isOpen(void);
 		bool						isResponseEmpty(void);
-		void						setResponse(std::string response);
+		void						setResponse(const std::string &response);
 		int							sendResponse(void);
 		void						checkTimeout(void);
 		void						resetTimeout(void);

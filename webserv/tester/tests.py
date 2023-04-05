@@ -1,7 +1,7 @@
-import config
-import sys
+import os
 import requests
-import http.client
+import config
+from tester import safe_remove
 
 OK = "OK"
 E_WRONG_STATUS_CODE = "Wrong status code"
@@ -15,7 +15,7 @@ def baseUrl() -> str:
 def testGet() -> str:
 	response = requests.get(baseUrl())
 	try:
-		with open('../www/index.html', 'rb') as file:
+		with open(config.SERVER_ROOT + 'index.html', 'rb') as file:
 			file_content = file.read()
 	except FileNotFoundError:
 		raise
@@ -32,7 +32,7 @@ def testGet() -> str:
 def testGetSmall() -> str:
 	response = requests.get(baseUrl() + '/test.png')
 	try:
-		with open('../www/test.png', 'rb') as file:
+		with open(config.SERVER_ROOT + 'test.png', 'rb') as file:
 			file_content = file.read()
 	except FileNotFoundError:
 		raise
@@ -49,7 +49,7 @@ def testGetSmall() -> str:
 def testGetMedium() -> str:
 	response = requests.get(baseUrl() + '/ruffle/tboi.swf')
 	try:
-		with open('../www/ruffle/tboi.swf', 'rb') as file:
+		with open(config.SERVER_ROOT + 'ruffle/tboi.swf', 'rb') as file:
 			file_content = file.read()
 	except FileNotFoundError:
 		raise
@@ -66,7 +66,7 @@ def testGetMedium() -> str:
 def testGetHuge() -> str:
 	response = requests.get(baseUrl() + '/100MB.bin')
 	try:
-		with open('../www/100MB.bin', 'rb') as file:
+		with open(config.SERVER_ROOT + '100MB.bin', 'rb') as file:
 			file_content = file.read()
 	except FileNotFoundError:
 		raise
@@ -83,7 +83,7 @@ def testGetHuge() -> str:
 def testGetSmall() -> str:
 	response = requests.get(baseUrl() + '/test.png')
 	try:
-		with open('../www/test.png', 'rb') as file:
+		with open(config.SERVER_ROOT + 'test.png', 'rb') as file:
 			file_content = file.read()
 	except FileNotFoundError:
 		raise
@@ -178,7 +178,7 @@ def testCgiQuery() -> str:
 
 def testUploadSingle() -> str:
 	try:
-		with open('../www/100MB.bin', 'rb') as file:
+		with open(config.SERVER_ROOT + '100MB.bin', 'rb') as file:
 			file_content = file.read()
 	except FileNotFoundError:
 		raise
@@ -188,19 +188,23 @@ def testUploadSingle() -> str:
 		print(response.status_code)
 		return (E_WRONG_STATUS_CODE)
 	try:
-		with open('../www/uploads/100MB.bin', 'rb') as file:
+		with open(config.SERVER_ROOT + 'uploads/100MB.bin', 'rb') as file:
 			uploaded_file_content = file.read()
 	except FileNotFoundError:
+		safe_remove(config.SERVER_ROOT + 'uploads/100MB.bin')
 		raise
 	if (len(uploaded_file_content) != len(file_content)):
+		safe_remove(config.SERVER_ROOT + 'uploads/100MB.bin')
 		return (E_WRONG_CONTENT_LENGTH)
 	if (uploaded_file_content != file_content):
+		safe_remove(config.SERVER_ROOT + 'uploads/100MB.bin')
 		return (E_WRONG_CONTENT)
+	safe_remove(config.SERVER_ROOT + 'uploads/100MB.bin')
 	return (OK)
 
 def testUploadMultiple() -> str:
 	try:
-		with open('../www/100MB.bin', 'rb') as file1, open('../www/50MB.bin', 'rb') as file2:
+		with open(config.SERVER_ROOT + '100MB.bin', 'rb') as file1, open(config.SERVER_ROOT + '50MB.bin', 'rb') as file2:
 			file1_content = file1.read()
 			file2_content = file2.read()
 	except FileNotFoundError:
@@ -212,13 +216,21 @@ def testUploadMultiple() -> str:
 		print(response.status_code)
 		return (E_WRONG_STATUS_CODE)
 	try:
-		with open('../www/uploads/100MB.bin', 'rb') as file1, open('../www/uploads/50MB.bin', 'rb') as file2:
+		with open(config.SERVER_ROOT + 'uploads/100MB.bin', 'rb') as file1, open(config.SERVER_ROOT + 'uploads/50MB.bin', 'rb') as file2:
 			uploaded_file1_content = file1.read()
 			uploaded_file2_content = file2.read()
 	except FileNotFoundError:
+		safe_remove(config.SERVER_ROOT + 'uploads/100MB.bin')
+		safe_remove(config.SERVER_ROOT + 'uploads/50MB.bin')
 		raise
 	if (len(uploaded_file1_content) != len(file1_content)) or (len(uploaded_file2_content) != len(file2_content)):
+		safe_remove(config.SERVER_ROOT + 'uploads/100MB.bin')
+		safe_remove(config.SERVER_ROOT + 'uploads/50MB.bin')
 		return (E_WRONG_CONTENT_LENGTH)
 	if (uploaded_file1_content != file1_content) or (uploaded_file2_content != file2_content):
+		safe_remove(config.SERVER_ROOT + 'uploads/100MB.bin')
+		safe_remove(config.SERVER_ROOT + 'uploads/50MB.bin')
 		return (E_WRONG_CONTENT)
+	safe_remove(config.SERVER_ROOT + 'uploads/100MB.bin')
+	safe_remove(config.SERVER_ROOT + 'uploads/50MB.bin')
 	return (OK)

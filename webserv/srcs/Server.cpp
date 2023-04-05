@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:16 by melones           #+#    #+#             */
-/*   Updated: 2023/04/05 01:02:27 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/05 22:41:48 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ std::vector<Client*>	*Server::getClients(void)
 	return (&_clients);
 }
 
-std::string	Server::getResponse(t_request request)
+std::string	Server::getResponse(t_request &request)
 {
 	return (_request_handler->getResponse(request));
 }

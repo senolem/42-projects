@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/04/05 01:12:02 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/05 22:44:20 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,10 @@ void	webserv::startServer(void)
 					if (client->isOpen() && FD_ISSET(client->getSocket().fd, &_write_fds))
 					{
 						if (client->isResponseEmpty())
-							client->setResponse(iter->getResponse(client->getParsedRequest()));
+						{
+							t_request	tmp = client->getParsedRequest();
+							client->setResponse(iter->getResponse(tmp));
+						}
 						int	ret = client->sendResponse();
 						if (ret == 0 && !client->isResponseEmpty())
 						{
@@ -221,7 +224,7 @@ t_socket	webserv::createSocket(int port)
 	return (_socket);
 }
 
-webserv::vectorIterator	webserv::getHost(std::string host)
+webserv::vectorIterator	webserv::getHost(const std::string &host)
 {
 	vectorIterator				vect_iter = _vhosts->begin();
 	vectorIterator				vect_iter2 = _vhosts->end();
@@ -245,7 +248,7 @@ webserv::vectorIterator	webserv::getHost(std::string host)
 	return (vect_iter);
 }
 
-std::string	webserv::resolveHost(std::string host)
+std::string	webserv::resolveHost(const std::string &host)
 {
 	int							result = 0;
 	struct addrinfo				hints, *res;

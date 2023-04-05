@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:29:38 by melones           #+#    #+#             */
-/*   Updated: 2023/03/31 03:33:51 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/05 22:47:21 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,7 @@ char	to_lower(char c)
 		return (c);
 }
 
-bool	toLowerStringCompare(std::string s1, std::string s2)
+bool	toLowerStringCompare(const std::string &s1, const std::string &s2)
 {
 	std::string::iterator	iter;
 	std::string				lower_s1(s1.size(), ' ');

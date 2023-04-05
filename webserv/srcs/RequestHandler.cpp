@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/04/05 18:17:59 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/05 22:40:57 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ RequestHandler	&RequestHandler::operator=(const RequestHandler &src)
 	return (*this);
 }
 
-t_request	RequestHandler::parseRequest(std::string buffer)
+t_request	RequestHandler::parseRequest(const std::string &buffer)
 {
 	t_request											request;
 	std::vector<std::string>							buffer_vect;
@@ -315,7 +315,7 @@ void	RequestHandler::parseCgiBodyHeaders(t_request &request, t_response &respons
 	}
 }
 
-std::string	RequestHandler::getResponse(t_request request)
+std::string	RequestHandler::getResponse(t_request &request)
 {
 	std::stringstream	response_stream;
 	t_response			response;
@@ -363,7 +363,7 @@ std::string	RequestHandler::getResponse(t_request request)
 	return (response_stream.str());
 }
 
-std::string	RequestHandler::getPath(vectorIterator vectIter, std::string path, mapIterator *subserver, std::string method)
+std::string	RequestHandler::getPath(vectorIterator vectIter, std::string path, mapIterator *subserver, const std::string &method)
 {
 	std::vector<std::string>	vect;
 	std::string					search;
@@ -441,14 +441,14 @@ std::string	RequestHandler::getFiletype(void)
 	return (_filetype);
 }
 
-std::string	RequestHandler::getHeader(std::vector<std::string> header, std::string field)
+std::string	RequestHandler::getHeader(const std::vector<std::string> &header, const std::string &field)
 {
-	size_t								i = 0;
-	std::vector<std::string>::iterator	iter = header.begin();
-	std::vector<std::string>::iterator	iter2 = header.end();
-	std::string							ret;
-	std::string							to_lower;
-	std::string							tmp;
+	size_t										i = 0;
+	std::vector<std::string>::const_iterator	iter = header.begin();
+	std::vector<std::string>::const_iterator	iter2 = header.end();
+	std::string									ret;
+	std::string									to_lower;
+	std::string									tmp;
 
 	to_lower = strToLower(field);
 	while (iter != iter2)
@@ -467,7 +467,7 @@ std::string	RequestHandler::getHeader(std::vector<std::string> header, std::stri
 	return (ret);
 }
 
-void	RequestHandler::setContentType(t_request &request, t_response *response, std::string path)
+void	RequestHandler::setContentType(t_request &request, t_response *response, const std::string &path)
 {
 	// Technically, this function should rather determine which content type
 	// should be returned if we'd like to manage serving multiple versions of a given

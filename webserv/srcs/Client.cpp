@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/04/05 19:50:08 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/05 22:26:54 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,7 @@ bool	Client::isResponseEmpty(void)
 	return (_response.empty());
 }
 
-void	Client::setResponse(std::string response)
+void	Client::setResponse(const std::string &response)
 {
 	_response = response;
 }
