@@ -64,9 +64,9 @@ def testGetMedium() -> str:
 	return (OK)
 
 def testGetHuge() -> str:
-	response = requests.get(baseUrl() + '/100MB.bin')
+	response = requests.get(baseUrl() + '/' + config.FILE_1)
 	try:
-		with open(config.SERVER_ROOT + '100MB.bin', 'rb') as file:
+		with open(config.SERVER_ROOT + config.FILE_1, 'rb') as file:
 			file_content = file.read()
 	except FileNotFoundError:
 		raise
@@ -135,8 +135,42 @@ def testNotAllowedLocation() -> str:
 	return (OK)
 
 def testForbidden() -> str:
-	response = requests.get(baseUrl() + 'forbidden.bin')
+	response = requests.get(baseUrl() + config.FILE_FORBIDDEN)
 	if (response.status_code != 403):
+		print (response.status_code)
+		return (E_WRONG_STATUS_CODE)
+	return (OK)
+
+def testNotFound() -> str:
+	response = requests.get(baseUrl() + config.FILE_NOT_FOUND)
+	if (response.status_code != 404):
+		return (E_WRONG_STATUS_CODE)
+	return (OK)
+
+def testNotFoundLocation() -> str:
+	response = requests.get(baseUrl() + 'html_test/' + config.FILE_NOT_FOUND)
+	if (response.status_code != 404):
+		return (E_WRONG_STATUS_CODE)
+	return (OK)
+
+def testPermanentRedirection() -> str:
+	response = requests.get(baseUrl() + 'to/redirect', allow_redirects=False)
+	if (response.status_code != 301):
+		print(response.status_code)
+		return (E_WRONG_STATUS_CODE)
+	return (OK)
+
+def testTemporaryRedirection() -> str:
+	response = requests.get(baseUrl() + 'redirect/to/', allow_redirects=False)
+	if (response.status_code != 302):
+		print(response.status_code)
+		return (E_WRONG_STATUS_CODE)
+	return (OK)
+
+def testTemporaryRedirectionNotFound() -> str:
+	response = requests.get(baseUrl() + 'redirect/to/' + config.FILE_NOT_FOUND)
+	if (response.status_code != 404):
+		print(response.status_code)
 		return (E_WRONG_STATUS_CODE)
 	return (OK)
 
@@ -178,59 +212,59 @@ def testCgiQuery() -> str:
 
 def testUploadSingle() -> str:
 	try:
-		with open(config.SERVER_ROOT + '100MB.bin', 'rb') as file:
+		with open(config.SERVER_ROOT + config.FILE_1, 'rb') as file:
 			file_content = file.read()
 	except FileNotFoundError:
 		raise
-	files = {'file': ('100MB.bin', file_content, 'application/octet-stream')}
+	files = {'file': (config.FILE_1, file_content, 'application/octet-stream')}
 	response = requests.post(baseUrl() + 'upload_files', files=files)
 	if (response.status_code != 204):
 		print(response.status_code)
 		return (E_WRONG_STATUS_CODE)
 	try:
-		with open(config.SERVER_ROOT + 'uploads/100MB.bin', 'rb') as file:
+		with open(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1, 'rb') as file:
 			uploaded_file_content = file.read()
 	except FileNotFoundError:
-		safe_remove(config.SERVER_ROOT + 'uploads/100MB.bin')
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1)
 		raise
 	if (len(uploaded_file_content) != len(file_content)):
-		safe_remove(config.SERVER_ROOT + 'uploads/100MB.bin')
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1)
 		return (E_WRONG_CONTENT_LENGTH)
 	if (uploaded_file_content != file_content):
-		safe_remove(config.SERVER_ROOT + 'uploads/100MB.bin')
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1)
 		return (E_WRONG_CONTENT)
-	safe_remove(config.SERVER_ROOT + 'uploads/100MB.bin')
+	safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1)
 	return (OK)
 
 def testUploadMultiple() -> str:
 	try:
-		with open(config.SERVER_ROOT + '100MB.bin', 'rb') as file1, open(config.SERVER_ROOT + '50MB.bin', 'rb') as file2:
+		with open(config.SERVER_ROOT + config.FILE_1, 'rb') as file1, open(config.SERVER_ROOT + config.FILE_2, 'rb') as file2:
 			file1_content = file1.read()
 			file2_content = file2.read()
 	except FileNotFoundError:
 		raise
-	files = {'file1': ('100MB.bin', file1_content, 'application/octet-stream'), 
-			'file2': ('50MB.bin', file2_content, 'application/octet-stream')}
+	files = {'file1': (config.FILE_1, file1_content, 'application/octet-stream'), 
+			'file2': (config.FILE_2, file2_content, 'application/octet-stream')}
 	response = requests.post(baseUrl() + 'upload_files', files=files)
 	if (response.status_code != 204):
 		print(response.status_code)
 		return (E_WRONG_STATUS_CODE)
 	try:
-		with open(config.SERVER_ROOT + 'uploads/100MB.bin', 'rb') as file1, open(config.SERVER_ROOT + 'uploads/50MB.bin', 'rb') as file2:
+		with open(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1, 'rb') as file1, open(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_2, 'rb') as file2:
 			uploaded_file1_content = file1.read()
 			uploaded_file2_content = file2.read()
 	except FileNotFoundError:
-		safe_remove(config.SERVER_ROOT + 'uploads/100MB.bin')
-		safe_remove(config.SERVER_ROOT + 'uploads/50MB.bin')
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1)
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_2)
 		raise
 	if (len(uploaded_file1_content) != len(file1_content)) or (len(uploaded_file2_content) != len(file2_content)):
-		safe_remove(config.SERVER_ROOT + 'uploads/100MB.bin')
-		safe_remove(config.SERVER_ROOT + 'uploads/50MB.bin')
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1)
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_2)
 		return (E_WRONG_CONTENT_LENGTH)
 	if (uploaded_file1_content != file1_content) or (uploaded_file2_content != file2_content):
-		safe_remove(config.SERVER_ROOT + 'uploads/100MB.bin')
-		safe_remove(config.SERVER_ROOT + 'uploads/50MB.bin')
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1)
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_2)
 		return (E_WRONG_CONTENT)
-	safe_remove(config.SERVER_ROOT + 'uploads/100MB.bin')
-	safe_remove(config.SERVER_ROOT + 'uploads/50MB.bin')
+	safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1)
+	safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_2)
 	return (OK)
