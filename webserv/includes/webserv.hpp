@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   webserv.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/04/06 11:16:11 by albaur           ###   ########.fr       */
+/*   Updated: 2023/04/06 23:53:09 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define BUFFER_SIZE 8192
 # define MAX_REQUEST_SIZE_PROTECTION 0
 # define MAX_CLIENTS_PER_SOCKET 1000
+# define CLIENT_TIMEOUT 30
 # define PRINT_REQUESTS 0
 # define LOG_REQUEST_LENGTH_LIMIT -1
 # include <iostream>
@@ -72,14 +73,18 @@ class webserv
 		~webserv(void);
 		webserv	&operator=(const webserv &src);
 
-		void												startServer(void);
+		void												initSockets(void);
 		t_socket											createSocket(int port);
+		void												handleSocketsRead(Client *client, std::vector<Server>::iterator iter);
+		void												handleSocketsWrite(Client *client, std::vector<Server>::iterator iter);
+		void												startServer(void);
+		void												checkHangingClients(void);
+		int													removeClient(Client *client, std::vector<Server>::iterator	&iter, std::vector<Client*>::iterator &iter3, std::vector<Client*>::iterator &iter4);
 		vectorIterator										getHost(const std::string &host);
 		std::string											resolveHost(const std::string &host);
-		void												printConfig(void);
-		int													getMaxFd(void);
 		std::vector<std::multimap<std::string, t_route> >	&getVirtualHosts(void);
-		int													removeClient(Client *client, std::vector<Server>::iterator	&iter, std::vector<Client*>::iterator &iter3, std::vector<Client*>::iterator &iter4);
+		int													getMaxFd(void);
+		void												printConfig(void);
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/04/05 22:44:20 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/06 23:53:18 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,8 @@ webserv	&webserv::operator=(const webserv &src)
 	return (*this);
 }
 
-void	webserv::startServer(void)
+void	webserv::initSockets(void)
 {
-	int								status = 0; 
-	std::vector<Server>::iterator	iter;
-	std::vector<Server>::iterator	iter2;
-	std::vector<Client*>::iterator	iter3;
-	std::vector<Client*>::iterator	iter4;
-	int								client_fd;
-	timeval							timeout = {10, 0};
-	
-	signal(SIGPIPE, SIG_IGN);
 	for (size_t i = 0; i < _nb_vhost; i++)
 	{
 		std::map<int, t_socket>::iterator	iter;
@@ -81,121 +72,6 @@ void	webserv::startServer(void)
 			_activeConnections[iter->second.fd] = 1;
 		}
 		_subservers.push_back(Server(*this, _vhosts->at(i), iter->second));
-	}
-	std::cout << BLUE << INFO << CYAN << WEBSERV << NONE << " Waiting for connection...\n";
-	while (1)
-	{
-		_read_fds = _read_fds_bak;
-		_write_fds = _write_fds_bak;
-		status = select(getMaxFd() + 1, &_read_fds, &_write_fds, NULL, &timeout);
-		timeout.tv_sec = 10;
-		if (status == -1)
-			throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Failed to select");
-		else if (status == 0)
-		{
-			iter = _subservers.begin();
-			iter2 = _subservers.end();
-			while (iter != iter2)
-			{
-				iter3 = iter->getClients()->begin();
-				iter4 = iter->getClients()->end();
-				while (iter3 != iter4)
-				{
-					Client	*client = *iter3;
-					client->checkTimeout();
-					if (!client->isOpen())
-					{
-						if (removeClient(client, iter, iter3, iter4))
-							continue ;
-						else
-							break ;
-					}
-					++iter3;
-				}
-				++iter;
-			}
-		}
-		else
-		{
-			iter = _subservers.begin();
-			iter2 = _subservers.end();
-			while (iter != iter2)
-			{
-				if (FD_ISSET(iter->getSocket().fd, &_read_fds))
-				{
-					client_fd = iter->newConnection();
-					_activeConnections[client_fd] = 1;
-					FD_SET(client_fd, &_read_fds_bak);
-				}
-				iter3 = iter->getClients()->begin();
-				iter4 = iter->getClients()->end();
-				while (iter3 != iter4)
-				{
-					Client	*client = *iter3;
-					client->checkTimeout();
-					if (client->isOpen() && FD_ISSET(client->getSocket().fd, &_read_fds))
-					{
-						int	ret = client->getRequest();
-						if (ret == 0)
-							FD_SET(client->getSocket().fd, &_read_fds_bak);
-						else if (ret == 1)
-							FD_SET(client->getSocket().fd, &_write_fds_bak);
-						else if (ret == -1)
-							std::cerr << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to read request from client " << client->getResolved() << "\n";
-						else if (ret == -2)
-						{
-							t_request	tmp;
-							tmp.status = 413;
-							client->setResponse(iter->getResponse(tmp));
-							FD_SET(client->getSocket().fd, &_write_fds);
-						}
-					}
-					if (client->isOpen() && FD_ISSET(client->getSocket().fd, &_write_fds))
-					{
-						if (client->isResponseEmpty())
-						{
-							t_request	tmp = client->getParsedRequest();
-							client->setResponse(iter->getResponse(tmp));
-						}
-						int	ret = client->sendResponse();
-						if (ret == 0 && !client->isResponseEmpty())
-						{
-							std::cout << BLUE << INFO <<  CYAN << WEBSERV << NONE << " Response sent to client " << client->getResolved() << " (length " << client->getSent() << ")\n";
-							client->setSent(0);
-						}
-						else if (ret == -1)
-							std::cerr << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to send response to client " << client->getResolved() << "\n";
-					}
-					if (!client->isOpen())
-					{
-						if (removeClient(client, iter, iter3, iter4))
-							continue ;
-						else
-							break ;
-					}
-					++iter3;
-				}
-				++iter;
-			}
-		}
-	}
-}
-
-int	webserv::removeClient(Client *client, std::vector<Server>::iterator	&iter, std::vector<Client*>::iterator &iter3, std::vector<Client*>::iterator &iter4)
-{
-	std::cout << BLUE << INFO << CYAN << WEBSERV << NONE << " Closing connection to client " << client->getResolved() << "\n";
-	FD_CLR(client->getSocket().fd, &_read_fds_bak);
-	FD_CLR(client->getSocket().fd, &_write_fds_bak);
-	_activeConnections.erase(client->getSocket().fd);
-	delete client;
-	iter->getClients()->erase(iter3);
-	if (iter->getClients()->empty())
-		return (0);
-	else
-	{
-		iter3 = iter->getClients()->begin();
-		iter4 = iter->getClients()->end();
-		return (1);
 	}
 }
 
@@ -222,6 +98,157 @@ t_socket	webserv::createSocket(int port)
 		throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Failed to listen socket for port " + itostr(port));
 	std::cout << BLUE << INFO << CYAN << WEBSERV << NONE << " Socket successfully created for port " << port << "\n";
 	return (_socket);
+}
+
+void	webserv::handleSocketsRead(Client *client, std::vector<Server>::iterator iter)
+{
+	int	ret = client->getRequest();
+	if (ret == 0)
+		FD_SET(client->getSocket().fd, &_read_fds_bak);
+	else if (ret == 1)
+		FD_SET(client->getSocket().fd, &_write_fds_bak);
+	else if (ret == -1)
+		std::cerr << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to read request from client " << client->getResolved() << "\n";
+	else if (ret == -2)
+	{
+		t_request	tmp;
+		tmp.status = 413;
+		client->setResponse(iter->getResponse(tmp));
+		FD_SET(client->getSocket().fd, &_write_fds);
+	}
+}
+
+void	webserv::handleSocketsWrite(Client *client, std::vector<Server>::iterator iter)
+{
+	if (client->isResponseEmpty())
+	{
+		t_request	tmp = client->getParsedRequest();
+		client->setResponse(iter->getResponse(tmp));
+	}
+	int	ret = client->sendResponse();
+	if (ret == 0 && !client->isResponseEmpty())
+	{
+		std::cout << BLUE << INFO <<  CYAN << WEBSERV << NONE << " Response sent to client " << client->getResolved() << " (length " << client->getSent() << ")\n";
+		client->setSent(0);
+	}
+	else if (ret == -1)
+		std::cerr << RED << ERROR << CYAN << WEBSERV << NONE << " Failed to send response to client " << client->getResolved() << "\n";
+}
+
+void	webserv::startServer(void)
+{
+	int								status = 0; 
+	std::vector<Server>::iterator	iter;
+	std::vector<Server>::iterator	iter2;
+	std::vector<Client*>::iterator	iter3;
+	std::vector<Client*>::iterator	iter4;
+	int								client_fd;
+	timeval							timeout = {5, 0};
+	
+	signal(SIGPIPE, SIG_IGN);
+	initSockets();
+	std::cout << BLUE << INFO << CYAN << WEBSERV << NONE << " Waiting for connection...\n";
+	while (1)
+	{
+		_read_fds = _read_fds_bak;
+		_write_fds = _write_fds_bak;
+		status = select(getMaxFd() + 1, &_read_fds, &_write_fds, NULL, &timeout);
+		timeout.tv_sec = 5;
+		if (status == -1)
+			throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Failed to select");
+		else if (status == 0)
+			checkHangingClients();
+		else
+		{
+			iter = _subservers.begin();
+			iter2 = _subservers.end();
+			while (iter != iter2)
+			{
+				if (FD_ISSET(iter->getSocket().fd, &_read_fds))
+				{
+					client_fd = iter->newConnection();
+					_activeConnections[client_fd] = 1;
+					FD_SET(client_fd, &_read_fds_bak);
+				}
+				iter3 = iter->getClients()->begin();
+				iter4 = iter->getClients()->end();
+				while (iter3 != iter4)
+				{
+					Client	*client = *iter3;
+					client->checkTimeout();
+					if (client->isOpen() && FD_ISSET(client->getSocket().fd, &_read_fds))
+						handleSocketsRead(client, iter);
+					if (client->isOpen() && FD_ISSET(client->getSocket().fd, &_write_fds))
+						handleSocketsWrite(client, iter);
+					if (!client->isOpen())
+					{
+						if (removeClient(client, iter, iter3, iter4))
+							continue ;
+						else
+							break ;
+					}
+					++iter3;
+				}
+				++iter;
+			}
+		}
+	}
+}
+
+void	webserv::checkHangingClients(void)
+{
+	std::vector<Server>::iterator	iter = _subservers.begin();
+	std::vector<Server>::iterator	iter2 = _subservers.end();
+	std::vector<Client*>::iterator	iter3;
+	std::vector<Client*>::iterator	iter4;
+
+	while (iter != iter2)
+	{
+		iter3 = iter->getClients()->begin();
+		iter4 = iter->getClients()->end();
+		while (iter3 != iter4)
+		{
+			Client	*client = *iter3;
+			client->checkTimeout();
+			if (!client->isOpen())
+			{
+				if (removeClient(client, iter, iter3, iter4))
+					continue ;
+				else
+					break ;
+			}
+			++iter3;
+		}
+		++iter;
+	}
+}
+
+int	webserv::removeClient(Client *client, std::vector<Server>::iterator	&iter, std::vector<Client*>::iterator &iter3, std::vector<Client*>::iterator &iter4)
+{
+	std::string	timed_out;
+	if (client->hasTimedOut())
+		timed_out = " (timed out)";
+	std::cout << BLUE << INFO << CYAN << WEBSERV << NONE << " Closing connection to client " << client->getResolved() << timed_out << "\n";
+	if (client->hasTimedOut())
+	{
+		t_request	tmp;
+		tmp.status = 408;
+		client->setResponse(iter->getResponse(tmp));
+		client->sendResponse();
+	}
+	FD_CLR(client->getSocket().fd, &_read_fds_bak);
+	FD_CLR(client->getSocket().fd, &_write_fds_bak);
+	_activeConnections.erase(client->getSocket().fd);
+	delete client;
+	iter->getClients()->erase(iter3);
+	if (iter->getClients()->empty())
+		return (0);
+	else
+	{
+		iter3 = iter->getClients()->begin();
+		iter4 = iter->getClients()->end();
+		return (1);
+	}
 }
 
 webserv::vectorIterator	webserv::getHost(const std::string &host)

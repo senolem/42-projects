@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:48:37 by melones           #+#    #+#             */
-/*   Updated: 2023/04/05 22:22:59 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/06 22:58:58 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ class Client
 		void						setSent(size_t sent);
 		bool						isOpen(void);
 		bool						isResponseEmpty(void);
+		bool						hasTimedOut(void);
 		void						setResponse(const std::string &response);
 		int							sendResponse(void);
 		void						checkTimeout(void);
@@ -62,6 +63,7 @@ class Client
 		bool						_is_chunked;
 		ssize_t						_content_length;
 		size_t						_pos;
+		bool						_timed_out;
 };
 
 #endif

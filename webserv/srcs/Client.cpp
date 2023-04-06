@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/04/05 22:26:54 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/06 23:39:11 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ Client::Client(Server *server, RequestHandler *request_handler) : _server(server
 	_is_chunked = false;
 	_content_length = -1;
 	_pos = std::string::npos;
+	_timed_out = false;
 	resetTimeout();
 	std::cout << BLUE << INFO << GREEN << SERV << NONE << " Connection successfully established to " << _resolved << "\n";
 }
@@ -218,6 +219,11 @@ bool	Client::isResponseEmpty(void)
 	return (_response.empty());
 }
 
+bool	Client::hasTimedOut(void)
+{
+	return (_timed_out);
+}
+
 void	Client::setResponse(const std::string &response)
 {
 	_response = response;
@@ -260,15 +266,19 @@ void	Client::checkTimeout(void)
 {
 	struct timeval	tv;
 	gettimeofday(&tv, NULL);
-	if (tv.tv_usec - _request_time > 10000000)
+	long long elapsed_us = (tv.tv_sec * 1000000 + tv.tv_usec) - _request_time;
+	if (elapsed_us > CLIENT_TIMEOUT * 1000000)
+	{
 		_open = false;
+		_timed_out = true;
+	}
 }
 
 void	Client::resetTimeout(void)
 {
 	struct timeval	tv;
 	gettimeofday(&tv, NULL);
-	_request_time = tv.tv_usec;
+	_request_time = tv.tv_sec * 1000000 + tv.tv_usec;
 }
 
 void	Client::resetGetRequest(void)
