@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:42:02 by albaur            #+#    #+#             */
-/*   Updated: 2023/04/05 01:02:27 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/07 00:41:04 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,26 @@ CgiHandler	&CgiHandler::operator=(const CgiHandler &src)
 	return (*this);
 }
 
+void	CgiHandler::buildArgv(char **argv)
+{
+	if (_script_path.find(".py") != std::string::npos) // subject asks for script path as first argument but we instead need the interpreter for python
+	{
+		argv = new char*[3];
+		argv[0] = new char[strlen(_cgi_path.c_str()) + 1];
+		argv[1] = new char[strlen(_script_path.c_str()) + 1];
+		std::strcpy(argv[0], _cgi_path.c_str());
+		std::strcpy(argv[1], _script_path.c_str());
+		argv[2] = 0;
+	}
+	else
+	{
+		argv = new char*[2];
+		argv[0] = new char[_script_path.size() + 1];
+		std::strcpy(argv[0], _script_path.c_str());
+		argv[1] = 0;
+	}
+}
+
 std::string	CgiHandler::executeCgi(void)
 {
 	pid_t		pid;
@@ -105,24 +125,9 @@ std::string	CgiHandler::executeCgi(void)
 		}
 		else if (pid == 0)
 		{
-			char	**argv;
+			char	**argv = NULL;
 
-			if (_script_path.find(".py") != std::string::npos) // subject asks for script path as first argument but we instead need the interpreter for python
-			{
-				argv = new char*[3];
-				argv[0] = new char[strlen(_cgi_path.c_str()) + 1];
-				argv[1] = new char[strlen(_script_path.c_str()) + 1];
-				std::strcpy(argv[0], _cgi_path.c_str());
-				std::strcpy(argv[1], _script_path.c_str());
-				argv[2] = 0;
-			}
-			else
-			{
-				argv = new char*[2];
-				argv[0] = new char[_script_path.size() + 1];
-				std::strcpy(argv[0], _script_path.c_str());
-				argv[1] = 0;
-			}
+			buildArgv(argv);
 			dup2(cgi.fd_in, STDIN_FILENO);
 			dup2(cgi.fd_out, STDOUT_FILENO);
 			execve(_cgi_path.c_str(), argv, cgi.env);
@@ -167,7 +172,6 @@ std::string	CgiHandler::executeCgi(void)
 	cleanCgi(cgi);
 	return (body);
 }
-
 
 void	CgiHandler::cleanCgi(t_exec_cgi &cgi)
 {
