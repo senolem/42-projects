@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   webserv.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/04/05 22:28:52 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/06 11:16:11 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,16 @@
 # include <string>
 # include <cstring>
 # include <vector>
+# include <fstream>
+# include <sstream>
+# include <algorithm>
+# include <map>
+# include <ctime>
+# include <set>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/socket.h>
 # include <netinet/in.h>
-# include <poll.h>
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -37,12 +42,6 @@
 # include <sys/time.h>
 # include <dirent.h>
 # include <signal.h>
-# include <fstream>
-# include <sstream>
-# include <algorithm>
-# include <map>
-# include <ctime>
-# include <set>
 # include "Output.hpp"
 # include "Structures.hpp"
 # include "Server.hpp"

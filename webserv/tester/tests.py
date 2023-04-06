@@ -3,6 +3,7 @@ import requests
 import config
 import urllib.parse
 from tester import safe_remove
+from requests_toolbelt import MultipartEncoder
 
 OK = "OK"
 E_WRONG_STATUS_CODE = "Wrong status code"
@@ -151,7 +152,6 @@ def testNotAllowedLocation() -> str:
 def testForbidden() -> str:
 	response = requests.get(baseUrl() + config.FILE_FORBIDDEN)
 	if (response.status_code != 403):
-		print (response.status_code)
 		return (E_WRONG_STATUS_CODE)
 	return (OK)
 
@@ -170,21 +170,18 @@ def testNotFoundLocation() -> str:
 def testPermanentRedirection() -> str:
 	response = requests.get(baseUrl() + 'to/redirect', allow_redirects=False)
 	if (response.status_code != 301):
-		print(response.status_code)
 		return (E_WRONG_STATUS_CODE)
 	return (OK)
 
 def testTemporaryRedirection() -> str:
 	response = requests.get(baseUrl() + 'redirect/to/', allow_redirects=False)
 	if (response.status_code != 302):
-		print(response.status_code)
 		return (E_WRONG_STATUS_CODE)
 	return (OK)
 
 def testTemporaryRedirectionNotFound() -> str:
 	response = requests.get(baseUrl() + 'redirect/to/' + config.FILE_NOT_FOUND)
 	if (response.status_code != 404):
-		print(response.status_code)
 		return (E_WRONG_STATUS_CODE)
 	return (OK)
 
@@ -233,7 +230,6 @@ def testUploadSingle() -> str:
 	files = {'file': (config.FILE_1, file_content, 'application/octet-stream')}
 	response = requests.post(baseUrl() + 'upload_files', files=files)
 	if (response.status_code != 204):
-		print(response.status_code)
 		return (E_WRONG_STATUS_CODE)
 	try:
 		with open(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1, 'rb') as file:
@@ -261,7 +257,41 @@ def testUploadMultiple() -> str:
 			'file2': (config.FILE_2, file2_content, 'application/octet-stream')}
 	response = requests.post(baseUrl() + 'upload_files', files=files)
 	if (response.status_code != 204):
-		print(response.status_code)
+		return (E_WRONG_STATUS_CODE)
+	try:
+		with open(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1, 'rb') as file1, open(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_2, 'rb') as file2:
+			uploaded_file1_content = file1.read()
+			uploaded_file2_content = file2.read()
+	except FileNotFoundError:
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1)
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_2)
+		raise
+	if (len(uploaded_file1_content) != len(file1_content)) or (len(uploaded_file2_content) != len(file2_content)):
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1)
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_2)
+		return (E_WRONG_CONTENT_LENGTH)
+	if (uploaded_file1_content != file1_content) or (uploaded_file2_content != file2_content):
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1)
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_2)
+		return (E_WRONG_CONTENT)
+	safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1)
+	safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_2)
+	return (OK)
+
+def testUploadMultipleChunked() -> str:
+	try:
+		with open(config.SERVER_ROOT + config.FILE_1, 'rb') as file1, open(config.SERVER_ROOT + config.FILE_2, 'rb') as file2:
+			file1_content = file1.read()
+			file2_content = file2.read()
+	except FileNotFoundError:
+		raise
+	files = MultipartEncoder(fields={
+		'file1': (config.FILE_1, file1_content, 'application/octet-stream'),
+		'file2': (config.FILE_2, file2_content, 'application/octet-stream')
+	})
+	headers = {'Content-Type': files.content_type}
+	response = requests.post(baseUrl() + 'upload_files', data=files, headers=headers, stream=True)
+	if (response.status_code != 204):
 		return (E_WRONG_STATUS_CODE)
 	try:
 		with open(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1, 'rb') as file1, open(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_2, 'rb') as file2:
