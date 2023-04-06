@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RequestHandler.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/04/06 01:55:39 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/06 16:29:21 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,7 @@ void	RequestHandler::parseChunkedBody(t_request &request)
 	std::string	tmp;
 	int			malformed = 1;
 
+	std::cout << "is chunked\n";
 	while (i < request.body.size())
 	{
 		size_t	len = request.body.find("\r\n", i);

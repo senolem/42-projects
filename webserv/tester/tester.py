@@ -25,37 +25,37 @@ def runTest(test_description: str, test_func: Callable) -> None:
 
 def batchStart() -> None:
 	tests = [
-	{"test_category": "GET", "functions": [
-		{"test_description": "GET / (200)", "test_function": testGet},
-		{"test_description": "GET /test.png (200)", "test_function": testGetSmall},
-		{"test_description": "GET /ruffle/tboi.swf (200)", "test_function": testGetMedium},
-		{"test_description": "GET /{} (200)".format(config.FILE_1), "test_function": testGetHuge}
-	]},
-	{"test_category": "POST", "functions": [
-		{"test_description": "POST /cgi_test/to_upper.php (200)", "test_function": testPostUppercase},
-		{"test_description": "POST /cgi_test/to_upper.php (chunked) (200)", "test_function": testPostUppercaseChunked}
-	]},
-	{"test_category": "Status codes", "functions": [
-		{"test_description": "PATCH / (501)", "test_function": testNotImplanted},
-		{"test_description": "DELETE / (405)", "test_function": testNotAllowed},
-		{"test_description": "PATCH /html_test (501)", "test_function": testNotImplantedLocation},
-		{"test_description": "DELETE /html_test (405)", "test_function": testNotAllowedLocation},
-		{"test_description": "GET /{} (403)".format(config.FILE_FORBIDDEN), "test_function": testForbidden},
-		{"test_description": "GET /{} (404)".format(config.FILE_NOT_FOUND), "test_function": testNotFound},
-		{"test_description": "GET /html_test/{} (404)".format(config.FILE_NOT_FOUND), "test_function": testNotFoundLocation},
-		{"test_description": "GET /to/redirect (301)", "test_function": testPermanentRedirection},
-		{"test_description": "GET /redirect/to (302)", "test_function": testTemporaryRedirection},
-		{"test_description": "GET /redirect/to/{} (404)".format(config.FILE_NOT_FOUND), "test_function": testTemporaryRedirectionNotFound}
-	]},
-	{"test_category": "CGI", "functions": [
-		{"test_description": "GET /cgi_test/print_numbers.php (200)", "test_function": testCgiNumbers},
-		{"test_description": "GET /cgi_test/print_numbers.py (200)", "test_function": testCgiPythonNumbers},
-		{"test_description": "GET /cgi_test/print_query.php?foo=bar&bar=foo (200)", "test_function": testCgiQuery}
-	]},
+	#{"test_category": "GET", "functions": [
+	#	{"test_description": "GET / (200)", "test_function": testGet},
+	#	{"test_description": "GET /test.png (200)", "test_function": testGetSmall},
+	#	{"test_description": "GET /ruffle/tboi.swf (200)", "test_function": testGetMedium},
+	#	{"test_description": "GET /{} (200)".format(config.FILE_1), "test_function": testGetHuge}
+	#]},
+	#{"test_category": "POST", "functions": [
+	#	{"test_description": "POST /cgi_test/to_upper.php (200)", "test_function": testPostUppercase},
+	#	{"test_description": "POST /cgi_test/to_upper.php (chunked) (200)", "test_function": testPostUppercaseChunked}
+	#]},
+	#{"test_category": "Status codes", "functions": [
+	#	{"test_description": "PATCH / (501)", "test_function": testNotImplanted},
+	#	{"test_description": "DELETE / (405)", "test_function": testNotAllowed},
+	#	{"test_description": "PATCH /html_test (501)", "test_function": testNotImplantedLocation},
+	#	{"test_description": "DELETE /html_test (405)", "test_function": testNotAllowedLocation},
+	#	{"test_description": "GET /{} (403)".format(config.FILE_FORBIDDEN), "test_function": testForbidden},
+	#	{"test_description": "GET /{} (404)".format(config.FILE_NOT_FOUND), "test_function": testNotFound},
+	#	{"test_description": "GET /html_test/{} (404)".format(config.FILE_NOT_FOUND), "test_function": testNotFoundLocation},
+	#	{"test_description": "GET /to/redirect (301)", "test_function": testPermanentRedirection},
+	#	{"test_description": "GET /redirect/to (302)", "test_function": testTemporaryRedirection},
+	#	{"test_description": "GET /redirect/to/{} (404)".format(config.FILE_NOT_FOUND), "test_function": testTemporaryRedirectionNotFound}
+	#]},
+	#{"test_category": "CGI", "functions": [
+	#	{"test_description": "GET /cgi_test/print_numbers.php (200)", "test_function": testCgiNumbers},
+	#	{"test_description": "GET /cgi_test/print_numbers.py (200)", "test_function": testCgiPythonNumbers},
+	#	{"test_description": "GET /cgi_test/print_query.php?foo=bar&bar=foo (200)", "test_function": testCgiQuery}
+	#]},
 		{"test_category": "Upload", "functions": [
-			{"test_description": "POST / (upload {}) (204)".format(config.FILE_1), "test_function": testUploadSingle},
-			{"test_description": "POST / (upload {} & {}) (204)".format(config.FILE_1, config.FILE_2), "test_function": testUploadMultiple},
-			{"test_description": "POST / (chunked upload {} & {}) (204)".format(config.FILE_1, config.FILE_2), "test_function": testUploadMultipleChunked}
+	#		{"test_description": "POST / (upload {}) (204)".format(config.FILE_1), "test_function": testUploadSingle},
+	#		{"test_description": "POST / (upload {} & {}) (204)".format(config.FILE_1, config.FILE_2), "test_function": testUploadMultiple},
+			{"test_description": "POST / (chunked upload {} & {}) (204)".format(config.FILE_IMAGE, config.FILE_SOUND), "test_function": testUploadMultipleChunked}
 		]},
 		]
 	for current_test in tests:

@@ -280,35 +280,35 @@ def testUploadMultiple() -> str:
 
 def testUploadMultipleChunked() -> str:
 	try:
-		with open(config.SERVER_ROOT + config.FILE_1, 'rb') as file1, open(config.SERVER_ROOT + config.FILE_2, 'rb') as file2:
+		with open(config.SERVER_ROOT + config.FILE_IMAGE, 'rb') as file1, open(config.SERVER_ROOT + config.FILE_SOUND, 'rb') as file2:
 			file1_content = file1.read()
 			file2_content = file2.read()
 	except FileNotFoundError:
 		raise
 	files = MultipartEncoder(fields={
-		'file1': (config.FILE_1, file1_content, 'application/octet-stream'),
-		'file2': (config.FILE_2, file2_content, 'application/octet-stream')
+		'file1': (config.FILE_IMAGE, file1_content, 'application/octet-stream'),
+		'file2': (config.FILE_SOUND, file2_content, 'application/octet-stream')
 	})
-	headers = {'Content-Type': files.content_type}
+	headers = {'Content-Type': 'multipart/form-data', 'Transfer-Encoding': "chunked"}
 	response = requests.post(baseUrl() + 'upload_files', data=files, headers=headers, stream=True)
 	if (response.status_code != 204):
 		return (E_WRONG_STATUS_CODE)
 	try:
-		with open(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1, 'rb') as file1, open(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_2, 'rb') as file2:
+		with open(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_IMAGE, 'rb') as file1, open(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_SOUND, 'rb') as file2:
 			uploaded_file1_content = file1.read()
 			uploaded_file2_content = file2.read()
 	except FileNotFoundError:
-		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1)
-		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_2)
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_IMAGE)
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_SOUND)
 		raise
 	if (len(uploaded_file1_content) != len(file1_content)) or (len(uploaded_file2_content) != len(file2_content)):
-		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1)
-		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_2)
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_IMAGE)
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_SOUND)
 		return (E_WRONG_CONTENT_LENGTH)
 	if (uploaded_file1_content != file1_content) or (uploaded_file2_content != file2_content):
-		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1)
-		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_2)
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_IMAGE)
+		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_SOUND)
 		return (E_WRONG_CONTENT)
-	safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1)
-	safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_2)
+	safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_IMAGE)
+	safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_SOUND)
 	return (OK)
