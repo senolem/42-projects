@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/04/07 15:01:50 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/07 16:27:33 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,18 +86,7 @@ t_request	RequestHandler::parseRequest(const std::string &buffer)
 	}
 	if (vect_iter != vhosts.end())
 		request.path = getPath(vect_iter, vect.at(1), &request.matched_subserver, request.method);
-	if (request.path.length() > 2)
-	{
-		for (size_t i = 0; i < request.path.size(); i++)
-		{
-			if (request.path[i] == '%' && i + 2 < request.path.size() && std::isxdigit(request.path[i + 2]))
-			{
-				int	value = strtol(request.path.substr(i + 1, 2).c_str(), NULL, 16);
-				if (value >= 0 && value <= 127)
-					request.path.replace(i, 3, 1, static_cast<char>(value));
-			}
-		}
-	}
+	request.path = decodeUrlEncoded(request.path);
 	if (vect_iter == vhosts.end() || request.path.empty())
 		return (returnStatusCode(request, 500));
 	if ((request.method == "GET" && request.matched_subserver->second.methods_allowed.get == false) ||\
@@ -118,27 +107,8 @@ t_request	RequestHandler::parseRequest(const std::string &buffer)
 	request.cookie = parseCookieHeader(buffer_vect);
 	request.accept = parseAcceptHeader(strToLower(getHeader(buffer_vect, "Accept:")));
 	content_type = strToLower(getHeader(buffer_vect, "Content-Type:"));
-	if (request.method == "POST" && content_type.length() >= 14)
-	{
-		vect = split_string(content_type, ";");
-		if (vect.size() == 1 && vect.at(0).length() > 14)
-			request.content_type = strToLower(content_type.substr(14));
-		else if (vect.size() == 2)
-		{
-			size_t	pos = findCaseInsensitive(vect.at(1), "boundary=");
-			if (pos != std::string::npos && vect.at(0).length() > 14 && vect.at(1).length() > pos + 9)
-			{
-				request.content_type = strToLower(vect.at(0).substr(14));
-				request.boundary = vect.at(1).substr(pos + 9, vect.at(1).length() - (pos + 7));
-				if (!(request.boundary.length() > 0 && request.boundary.length() <= 70 && !std::isspace(request.boundary.at(request.boundary.length() - 1))))
-					return (returnStatusCode(request, 500));
-			}
-			else
-				return (returnStatusCode(request, 500));
-		}
-		else
-			return (returnStatusCode(request, 500));
-	}
+	if (request.method == "POST" && content_type.length() >= 14 && parseContentTypeHeader(request, content_type))
+		return (returnStatusCode(request, 500));
 	content_length = getHeader(buffer_vect, "Content-Length:");
 	if (request.method == "POST" && content_length.length() >= 16)
 		request.content_length = content_length.substr(16);
@@ -202,6 +172,31 @@ std::string	RequestHandler::parseTransferEncodingHeader(const std::string &heade
 	if (split.size() != 2)
 		return (std::string());
 	return (split.at(1));
+}
+
+int	RequestHandler::parseContentTypeHeader(t_request &request, const std::string &header)
+{
+	std::vector<std::string>	vect;
+
+	vect = split_string(header, ";");
+	if (vect.size() == 1 && vect.at(0).length() > 14)
+		request.content_type = strToLower(header.substr(14));
+	else if (vect.size() == 2)
+	{
+		size_t	pos = findCaseInsensitive(vect.at(1), "boundary=");
+		if (pos != std::string::npos && vect.at(0).length() > 14 && vect.at(1).length() > pos + 9)
+		{
+			request.content_type = strToLower(vect.at(0).substr(14));
+			request.boundary = vect.at(1).substr(pos + 9, vect.at(1).length() - (pos + 7));
+			if (!(request.boundary.length() > 0 && request.boundary.length() <= 70 && !std::isspace(request.boundary.at(request.boundary.length() - 1))))
+				return (1);
+		}
+		else
+			return (1);
+	}
+	else
+		return (1);
+	return (0);
 }
 
 void	RequestHandler::parseChunkedBody(t_request &request)
@@ -314,6 +309,25 @@ void	RequestHandler::parseCgiBodyHeaders(t_request &request, t_response &respons
 	}
 }
 
+std::string	RequestHandler::decodeUrlEncoded(std::string &str)
+{
+	std::string	tmp(str);
+
+	if (tmp.length() > 2)
+	{
+		for (size_t i = 0; i < tmp.size(); i++)
+		{
+			if (tmp[i] == '%' && i + 2 < tmp.size() && std::isxdigit(tmp[i + 2]))
+			{
+				int	value = strtol(tmp.substr(i + 1, 2).c_str(), NULL, 16);
+				if (value >= 0 && value <= 127)
+					tmp.replace(i, 3, 1, static_cast<char>(value));
+			}
+		}
+	}
+	return (tmp);
+}
+
 std::string	RequestHandler::getResponse(t_request &request)
 {
 	std::stringstream	response_stream;
@@ -338,6 +352,8 @@ std::string	RequestHandler::getResponse(t_request &request)
 				setStatusErrorPage(&response, request);
 			if (request.method == "HEAD")
 				response.content.clear();
+			if (response.transfer_encoding.empty())
+				response.transfer_encoding = "identity";
 		}
 	}
 	response_stream << response.version << " " << response.status_code << "\r\n" << "Connection: close\r\n" << "Transfer-Encoding: " << response.transfer_encoding << "\r\n";

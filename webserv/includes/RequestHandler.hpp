@@ -41,10 +41,12 @@ class RequestHandler
 		t_request							parseRequest(const std::string &buffer);
 		std::multimap<float, std::string>	parseAcceptHeader(const std::string &header);
 		std::string							parseTransferEncodingHeader(const std::string &header);
+		int									parseContentTypeHeader(t_request &request, const std::string &header);
 		void								parseChunkedBody(t_request &request);
 		std::string							parseCookieHeader(const std::vector<std::string> buffer_vect);
 		std::string							parseHostHeader(const std::string &header);
 		void								parseCgiBodyHeaders(t_request &request, t_response &response, std::string &body, int &skip, size_t &i);
+		std::string							decodeUrlEncoded(std::string &str);
 		std::string							getResponse(t_request &request);
 		std::string							getPath(vectorIterator vectIter, std::string path, mapIterator *subserver, const std::string &method);
 		std::string							getFiletype(void);

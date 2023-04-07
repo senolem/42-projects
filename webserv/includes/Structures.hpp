@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:57:36 by melones           #+#    #+#             */
-/*   Updated: 2023/04/04 23:41:38 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/07 16:25:56 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ typedef struct s_response
 	std::string					allow;
 	std::vector<std::string>	set_cookie;
 	std::string					location;
-	s_response(void) : version("HTTP/1.1"), content_length(0), transfer_encoding("identity")
+	s_response(void) : version("HTTP/1.1"), content_length(0)
 	{
 		
 	}
