@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/04/06 23:39:11 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/07 15:00:33 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,15 @@ int	Client::getRequest(void)
 			while (i != std::string::npos)
 			{
 				tmp = _buffer.substr(j, i - j);
-				if (tmp.length() > 16 && toLowerStringCompare("content-length: ", tmp.substr(0, 16)))
+				if (tmp.length() > 19 && toLowerStringCompare("transfer-encoding: ", tmp.substr(0, 19)))
+				{
+					if (toLowerStringCompare("chunked", tmp.substr(19, tmp.size())))
+					{
+						_is_chunked = true;
+						break ;
+					}
+				}
+				else if (tmp.length() > 16 && toLowerStringCompare("content-length: ", tmp.substr(0, 16)))
 				{
 					int	tmp_length = std::atoi(tmp.substr(16, tmp.size()).c_str());
 					if (tmp_length >= 0)
@@ -124,14 +132,6 @@ int	Client::getRequest(void)
 					else
 						_content_length = 0;
 					break ;
-				}
-				else if (tmp.length() > 19 && toLowerStringCompare("transfer-encoding: ", tmp.substr(0, 19)))
-				{
-					if (toLowerStringCompare("chunked", tmp.substr(19, tmp.size())))
-					{
-						_is_chunked = true;
-						break ;
-					}
 				}
 				i += 2;
 				j = i;
@@ -168,11 +168,11 @@ int	Client::getRequest(void)
 	if (_buffer.length() > 0 && _reading_done)
 	{
 		std::string	colon;
-		if (PRINT_REQUESTS)
+		if (PRINT_REQUESTS && PRINT_REQUEST_LENGTH_LIMIT > 0)
 			colon = " :";
 		std::cout << BLUE << INFO << GREEN << SERV << NONE << " Request received from " << _resolved << " (length " << _buffer.length() << ")" << colon << "\n";
-		if (PRINT_REQUESTS)
-			std::cout << _buffer << "\n";
+		if (PRINT_REQUESTS && PRINT_REQUEST_LENGTH_LIMIT > 0)
+			std::cout << _buffer.substr(0, PRINT_REQUEST_LENGTH_LIMIT) << "\n";
 		_server->writeAccessLog("Request received from " + _resolved + " " + get_date() + " :" + "\n" + _buffer + "\n");
 		_request = _request_handler->parseRequest(_buffer);
 		if (pos2 != std::string::npos)

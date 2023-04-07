@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RequestHandler.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/04/06 16:29:21 by albaur           ###   ########.fr       */
+/*   Updated: 2023/04/07 15:01:50 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,6 @@ void	RequestHandler::parseChunkedBody(t_request &request)
 	std::string	tmp;
 	int			malformed = 1;
 
-	std::cout << "is chunked\n";
 	while (i < request.body.size())
 	{
 		size_t	len = request.body.find("\r\n", i);
@@ -300,15 +299,15 @@ void	RequestHandler::parseCgiBodyHeaders(t_request &request, t_response &respons
 			else
 				response.status_code = tmp.substr(8);
 		}
-		else if (tmp.length() > 14 && toLowerStringCompare("Content-type: ", tmp.substr(0, 14)))
+		else if (tmp.length() > 19 && toLowerStringCompare("Transfer-encoding: ", tmp.substr(0, 19)))
+			response.transfer_encoding = tmp.substr(19).c_str();
+		else if (tmp.length() > 14 && toLowerStringCompare("Content-type: ", tmp.substr(0, 14)) && response.transfer_encoding.empty())
 			response.content_type = tmp.substr(14).c_str();
 		else if (tmp.length() > 16 && toLowerStringCompare("Content-length: ", tmp.substr(0, 16)))
 		{
 			response.content_length = std::atoi(tmp.substr(16).c_str());
 			skip = 1;
 		}
-		else if (tmp.length() > 19 && toLowerStringCompare("Transfer-encoding: ", tmp.substr(0, 19)))
-			response.transfer_encoding = tmp.substr(19).c_str();
 		else if (tmp.length() > 12 && toLowerStringCompare("Set-cookie: ", tmp.substr(0, 12)))
 			response.set_cookie.push_back(tmp.substr(12).c_str());
 		i += tmp.size() + 2;
@@ -557,7 +556,7 @@ void	RequestHandler::handleCgi(t_request &request, t_response &response, std::st
 	{
 		CgiHandler	cgi_handler(cgi_iter->second.path, *this, request, response);
 		body = cgi_handler.executeCgi();
-		if (body.size() == 0)
+		if (body.size() == 0 && request.method == "POST")
 			response.status_code = "204 No Content";
 		parseCgiBodyHeaders(request, response, body, skip, i);
 		size_t	k = body.length();

@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:42:02 by albaur            #+#    #+#             */
-/*   Updated: 2023/04/07 00:41:04 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/07 14:29:04 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,9 @@ CgiHandler	&CgiHandler::operator=(const CgiHandler &src)
 	return (*this);
 }
 
-void	CgiHandler::buildArgv(char **argv)
+char	**CgiHandler::buildArgv(void)
 {
+	char	**argv;
 	if (_script_path.find(".py") != std::string::npos) // subject asks for script path as first argument but we instead need the interpreter for python
 	{
 		argv = new char*[3];
@@ -82,6 +83,7 @@ void	CgiHandler::buildArgv(char **argv)
 		std::strcpy(argv[0], _script_path.c_str());
 		argv[1] = 0;
 	}
+	return (argv);
 }
 
 std::string	CgiHandler::executeCgi(void)
@@ -91,6 +93,7 @@ std::string	CgiHandler::executeCgi(void)
 	bool		readingDone = false;
 	std::string	body;	
 	int			status;
+	char		**argv;
 
 	cgi.stdin_bak = dup(STDIN_FILENO);
 	cgi.stdout_bak = dup(STDOUT_FILENO);
@@ -125,9 +128,7 @@ std::string	CgiHandler::executeCgi(void)
 		}
 		else if (pid == 0)
 		{
-			char	**argv = NULL;
-
-			buildArgv(argv);
+			argv = buildArgv();
 			dup2(cgi.fd_in, STDIN_FILENO);
 			dup2(cgi.fd_out, STDOUT_FILENO);
 			execve(_cgi_path.c_str(), argv, cgi.env);

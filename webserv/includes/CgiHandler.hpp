@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:30:45 by albaur            #+#    #+#             */
-/*   Updated: 2023/04/07 00:41:12 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/07 13:47:43 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ class CgiHandler
 		t_request							&_request;
 		t_response							&_response;
 
-		void								buildArgv(char **argv);
+		char								**buildArgv();
 		void								cleanCgi(t_exec_cgi &cgi);
 };
 

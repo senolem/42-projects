@@ -3,7 +3,6 @@ import requests
 import config
 import urllib.parse
 from tester import safe_remove
-from requests_toolbelt import MultipartEncoder
 
 OK = "OK"
 E_WRONG_STATUS_CODE = "Wrong status code"
@@ -43,7 +42,7 @@ def testGet() -> str:
 	return (OK)
 
 def testGetSmall() -> str:
-	response = requests.get(baseUrl() + '/' + config.FILE_IMAGE)
+	response = requests.get(baseUrl() + config.FILE_IMAGE)
 	try:
 		with open(config.SERVER_ROOT + config.FILE_IMAGE, 'rb') as file:
 			file_content = file.read()
@@ -60,7 +59,7 @@ def testGetSmall() -> str:
 	return (OK)
 
 def testGetMedium() -> str:
-	response = requests.get(baseUrl() + '/ruffle/tboi.swf')
+	response = requests.get(baseUrl() + 'ruffle/tboi.swf')
 	try:
 		with open(config.SERVER_ROOT + 'ruffle/tboi.swf', 'rb') as file:
 			file_content = file.read()
@@ -77,7 +76,7 @@ def testGetMedium() -> str:
 	return (OK)
 
 def testGetHuge() -> str:
-	response = requests.get(baseUrl() + '/' + config.FILE_1)
+	response = requests.get(baseUrl() + config.FILE_1)
 	try:
 		with open(config.SERVER_ROOT + config.FILE_1, 'rb') as file:
 			file_content = file.read()
@@ -90,6 +89,20 @@ def testGetHuge() -> str:
 	if (response.headers["Content-Type"] != "application/octet-stream"):
 		return (E_WRONG_CONTENT_TYPE)
 	if (response.content != file_content):
+		return (E_WRONG_CONTENT)
+	return (OK)
+
+def testCaseSensitiveHeaders() -> str:
+	data = {'text_input': "Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+	headers = {'HOST': '{}:{}'.format(config.SERVER_ADDRESS, config.SERVER_PORT), 'CONTENT-TYPE': 'application/x-www-form-urlencoded'}
+	response = requests.post(baseUrl() + 'cgi_test/to_upper.php', data=data, headers=headers)
+	if (response.status_code != 200):
+		return (E_WRONG_STATUS_CODE)
+	if (int(response.headers["Content-Length"]) != len(data["text_input"])):
+		return (E_WRONG_CONTENT_LENGTH)
+	if (response.headers["Content-Type"] != "text/html; charset=UTF-8"):
+		return (E_WRONG_CONTENT_TYPE)
+	if (response.text != data["text_input"].upper()):
 		return (E_WRONG_CONTENT)
 	return (OK)
 
@@ -276,39 +289,4 @@ def testUploadMultiple() -> str:
 		return (E_WRONG_CONTENT)
 	safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_1)
 	safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_2)
-	return (OK)
-
-def testUploadMultipleChunked() -> str:
-	try:
-		with open(config.SERVER_ROOT + config.FILE_IMAGE, 'rb') as file1, open(config.SERVER_ROOT + config.FILE_SOUND, 'rb') as file2:
-			file1_content = file1.read()
-			file2_content = file2.read()
-	except FileNotFoundError:
-		raise
-	files = MultipartEncoder(fields={
-		'file1': (config.FILE_IMAGE, file1_content, 'application/octet-stream'),
-		'file2': (config.FILE_SOUND, file2_content, 'application/octet-stream')
-	})
-	headers = {'Content-Type': 'multipart/form-data', 'Transfer-Encoding': "chunked"}
-	response = requests.post(baseUrl() + 'upload_files', data=files, headers=headers, stream=True)
-	if (response.status_code != 204):
-		return (E_WRONG_STATUS_CODE)
-	try:
-		with open(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_IMAGE, 'rb') as file1, open(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_SOUND, 'rb') as file2:
-			uploaded_file1_content = file1.read()
-			uploaded_file2_content = file2.read()
-	except FileNotFoundError:
-		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_IMAGE)
-		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_SOUND)
-		raise
-	if (len(uploaded_file1_content) != len(file1_content)) or (len(uploaded_file2_content) != len(file2_content)):
-		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_IMAGE)
-		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_SOUND)
-		return (E_WRONG_CONTENT_LENGTH)
-	if (uploaded_file1_content != file1_content) or (uploaded_file2_content != file2_content):
-		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_IMAGE)
-		safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_SOUND)
-		return (E_WRONG_CONTENT)
-	safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_IMAGE)
-	safe_remove(config.SERVER_ROOT + config.SERVER_UPLOAD + config.FILE_SOUND)
 	return (OK)

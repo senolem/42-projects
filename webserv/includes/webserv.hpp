@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:21:31 by albaur            #+#    #+#             */
-/*   Updated: 2023/04/06 23:53:09 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/07 14:07:45 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 # define MAX_REQUEST_SIZE_PROTECTION 0
 # define MAX_CLIENTS_PER_SOCKET 1000
 # define CLIENT_TIMEOUT 30
-# define PRINT_REQUESTS 0
+# define PRINT_REQUESTS 1
 # define LOG_REQUEST_LENGTH_LIMIT -1
+# define PRINT_REQUEST_LENGTH_LIMIT 512
 # include <iostream>
 # include <string>
 # include <cstring>
