@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/04/07 16:27:33 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/09 23:50:43 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -352,10 +352,10 @@ std::string	RequestHandler::getResponse(t_request &request)
 				setStatusErrorPage(&response, request);
 			if (request.method == "HEAD")
 				response.content.clear();
-			if (response.transfer_encoding.empty())
-				response.transfer_encoding = "identity";
 		}
 	}
+	if (response.transfer_encoding.empty())
+		response.transfer_encoding = "identity";
 	response_stream << response.version << " " << response.status_code << "\r\n" << "Connection: close\r\n" << "Transfer-Encoding: " << response.transfer_encoding << "\r\n";
 	if (request.status == 405)
 		response_stream << "Allow: " << response.allow << "\r\n";
