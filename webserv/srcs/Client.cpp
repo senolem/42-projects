@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 19:56:02 by melones           #+#    #+#             */
-/*   Updated: 2023/04/07 15:00:33 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/11 23:19:46 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,13 @@
 
 Client::Client(Server *server, RequestHandler *request_handler) : _server(server), _socket(), _request(), _host(), _port(), _resolved(), _request_time(0), _request_handler(request_handler), _open(false)
 {
-	int	flags = 0;
 	int	addrlen = sizeof(_socket.sockaddr_);
 
 	memset(&_socket.sockaddr_, 0, sizeof(_socket.sockaddr_));
 	_socket.fd = accept(_server->getSocket().fd, (sockaddr *)&_socket.sockaddr_, (socklen_t*)&addrlen);
 	if (_socket.fd < 0)
 		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to accept connection");
-	flags = fcntl(_socket.fd, F_GETFL);
-	if (flags < 0)
-		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to get socket flags");
-	if (fcntl(_socket.fd, F_SETFL, flags | O_NONBLOCK) < 0)
+	if (fcntl(_socket.fd, F_SETFL, O_NONBLOCK) < 0)
 		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to set socket to non-blocking mode");
 	int opt = 1;
 	if (setsockopt(_socket.fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0)

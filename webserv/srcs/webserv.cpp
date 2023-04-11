@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 20:53:22 by melones           #+#    #+#             */
-/*   Updated: 2023/04/06 23:53:18 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/11 23:20:12 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,7 @@ t_socket	webserv::createSocket(int port)
 	_socket.fd = socket(AF_INET, SOCK_STREAM, 0);
 	if (_socket.fd < 0)
 		throw Exception(RED + ERROR + CYAN + WEBSERV + NONE + " Failed to create socket");
-	int	flags = fcntl(_socket.fd, F_GETFL);
-	if (flags < 0)
-		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to get socket flags");
-	if (fcntl(_socket.fd, F_SETFL, flags | O_NONBLOCK) < 0)
+	if (fcntl(_socket.fd, F_SETFL, O_NONBLOCK) < 0)
 		throw Exception(RED + ERROR + GREEN + SERV + NONE + " Failed to set socket to non-blocking mode");
 	_socket.sockaddr_.sin_family = AF_INET;
 	_socket.sockaddr_.sin_addr.s_addr = INADDR_ANY;

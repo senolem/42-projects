@@ -6,7 +6,7 @@
 /*   By: melones <melones@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 19:41:15 by melones           #+#    #+#             */
-/*   Updated: 2023/04/09 23:50:43 by melones          ###   ########.fr       */
+/*   Updated: 2023/04/11 23:17:23 by melones          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,7 +289,7 @@ void	RequestHandler::parseCgiBodyHeaders(t_request &request, t_response &respons
 		if (tmp.length() > 8 && toLowerStringCompare("Status: ", tmp.substr(0, 8)))
 		{
 			int	status = std::atoi(tmp.substr(8).c_str());
-			if (status >= 400 && status <= 500)
+			if (status >= 400 && status <= 599)
 				request.status = status;
 			else
 				response.status_code = tmp.substr(8);
@@ -354,9 +354,9 @@ std::string	RequestHandler::getResponse(t_request &request)
 				response.content.clear();
 		}
 	}
-	if (response.transfer_encoding.empty())
-		response.transfer_encoding = "identity";
-	response_stream << response.version << " " << response.status_code << "\r\n" << "Connection: close\r\n" << "Transfer-Encoding: " << response.transfer_encoding << "\r\n";
+	response_stream << response.version << " " << response.status_code << "\r\n" << "Connection: close\r\n";
+	if (!response.transfer_encoding.empty())
+		response_stream << "Transfer-Encoding: " << response.transfer_encoding << "\r\n";
 	if (request.status == 405)
 		response_stream << "Allow: " << response.allow << "\r\n";
 	if (!response.set_cookie.empty())
