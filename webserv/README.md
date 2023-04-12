@@ -24,7 +24,7 @@ This project also provides a custom python tester than can be adapted to your ow
 | error_page  | any valid HTTP status code followed by an existing html file  | 404 default_error/404.html |
 | root  | any valid folder  | www |
 | methods_allowed  | GET \| HEAD \| POST \| DELETE | HEAD GET |
-| index | any single or multiples existing html file | index.html |
+| index | any single or multiples existing html file in ascending order | index.html |
 | autoindex  | on \| off | on |
 | cgi_pass | any file extension followed by an existing binary file | .php /usr/bin/php-cgi |
 | redirect | any valid URI followed by 301 \| 302 | https://absoluflash.co 301 |
