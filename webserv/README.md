@@ -1,6 +1,6 @@
 # webserv
 
-Webserv project done all by myself.
+Webserv project done in solo.
 
 <p align="center">
   <img src="https://i.imgur.com/nRNes00.png">
