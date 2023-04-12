@@ -11,6 +11,8 @@ Server has been stress tested with siege to support 1000 concurrent connections,
 
 Upload is supported when sending a valid multipart/form-data body.
 
+This project also provides a custom python tester than can be adapted to your own website. It currently has some GET, POST, status codes, CGI and uploads tests.
+
 ## Configuration
 
 | Parameter  | Accepted arguments | Example |
@@ -42,5 +44,3 @@ An example default.conf file is available in the conf folder.
 # define LOG_REQUEST_LENGTH_LIMIT -1 // Print or not incoming requests in log file, and limit their size (-1 to disable logging, 0 to disable logging limit or any number > 0 to limit logged request size)
 # define PRINT_REQUEST_LENGTH_LIMIT 512 // Limit printed request in stdout 
 ```
-
-This project also provides a custom python tester than can be adapted to your own website. It currently has some GET, POST, status codes, CGI and uploads tests.
