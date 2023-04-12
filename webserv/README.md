@@ -29,9 +29,9 @@ Upload is supported when sending a valid multipart/form-data body.
 
 Each parameter can be attributed to a location block except for listen, server_name, error_page and access_log.
 
-There is also parameters inside the includes/webserv.hpp file :
+An example default.conf file is available in the conf folder.
 
-## webserv.hpp parameters
+## includes/webserv.hpp parameters
 
 ```c++
 # define BUFFER_SIZE 8192 // BUFFER_SIZE used for recv/send
@@ -42,7 +42,5 @@ There is also parameters inside the includes/webserv.hpp file :
 # define LOG_REQUEST_LENGTH_LIMIT -1 // Print or not incoming requests in log file, and limit their size (-1 to disable logging, 0 to disable logging limit or any number > 0 to limit logged request size)
 # define PRINT_REQUEST_LENGTH_LIMIT 512 // Limit printed request in stdout 
 ```
-
-An example default.conf file is available in the conf folder.
 
 This project also provides a custom python tester than can be adapted to your own website. It currently has some GET, POST, status codes, CGI and uploads tests.
