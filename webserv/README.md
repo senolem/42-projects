@@ -11,7 +11,7 @@ Server has been stress tested with siege to support 1000 concurrent connections,
 
 Upload is supported when sending a valid multipart/form-data body.
 
-Configuration syntax is inspired by nginx. Accepted parameters are the following :
+## Configuration
 
 | Parameter  | Accepted arguments | Example |
 | ------------- | ------------- | ------------- |
