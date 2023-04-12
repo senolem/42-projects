@@ -7,7 +7,7 @@ Webserv project done all by myself.
 </p>
 
 Accepted methods are GET, HEAD, POST and DELETE.
-Server has been stress tested with siege to support 1000 concurrent connections, with an availability of 99.9%.
+Server has been stress tested with siege to support 1000 concurrent connections, with an availability of 99.9% on an empty page.
 
 Upload is supported when sending a valid multipart/form-data body.
 
