@@ -35,7 +35,7 @@ There is also parameters inside the includes/webserv.hpp file :
 
 ```c++
 # define BUFFER_SIZE 8192 // BUFFER_SIZE used for recv/send
-# define MAX_REQUEST_SIZE_PROTECTION 0 // Additionnal protection to avoid server overloading by sending huge headers
+# define MAX_REQUEST_SIZE_PROTECTION 0 // Additional protection to avoid server overloading by sending huge headers
 # define MAX_CLIENTS_PER_SOCKET 1000 // Maximum concurrent connections for each listened port
 # define CLIENT_TIMEOUT 30 // Time in seconds before the connection to a client is closed (timer is resetted if the client sends data)
 # define PRINT_REQUESTS 1 // Print or not incoming requests in stdout
