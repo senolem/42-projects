@@ -37,10 +37,10 @@ An example default.conf file is available in the conf folder.
 
 ```c++
 # define BUFFER_SIZE 8192 // BUFFER_SIZE used for recv/send
-# define MAX_REQUEST_SIZE_PROTECTION 0 // Additional protection to avoid server overloading by sending huge headers
+# define MAX_REQUEST_SIZE_PROTECTION 0 // Additional protection to avoid server overloading by sending huge headers (0 to disable headers size limit or any number > 0 to limit size of incoming request's headers)
 # define MAX_CLIENTS_PER_SOCKET 1000 // Maximum concurrent connections for each listened port
 # define CLIENT_TIMEOUT 30 // Time in seconds before the connection to a client is closed (timer is resetted if the client sends data)
 # define PRINT_REQUESTS 1 // Print or not incoming requests in stdout
-# define LOG_REQUEST_LENGTH_LIMIT -1 // Print or not incoming requests in log file, and limit their size (-1 to disable logging, 0 to disable logging limit or any number > 0 to limit logged request size)
+# define LOG_REQUEST_LENGTH_LIMIT -1 // Print or not incoming requests in log file, and limit their size (-1 to disable logging, 0 to disable logging size limit or any number > 0 to limit logged request size)
 # define PRINT_REQUEST_LENGTH_LIMIT 512 // Limit printed request in stdout 
 ```
