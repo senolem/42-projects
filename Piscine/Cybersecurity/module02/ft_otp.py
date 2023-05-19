@@ -55,8 +55,8 @@ def generate_otp_uri(secret: bytes, name: str, issuer: str) -> str:
 	otp_uri = f"otpauth://totp/{issuer}:{name}?secret={base32_secret}&issuer={issuer}"
 	return otp_uri
 
-def generate_qr_code():
-	otp_uri = generate_otp_uri(decrypt_secret(), 'ft_otp', 'albaur')
+def generate_qr_code(key: str):
+	otp_uri = generate_otp_uri(key, 'ft_otp', 'albaur')
 	qr = qrcode.QRCode(version=1, box_size=10, border=4)
 	qr.add_data(otp_uri)
 	qr.make(fit=True)
@@ -87,10 +87,10 @@ def main():
 		print(key)
 		encrypt_secret(key.encode())
 		print("ft_otp.key file created successfully. You can now generate OTPs using python3 ./ft_otp.py -k ft_otp.key")
-		generate_qr_code()
+		generate_qr_code(key.encode())
 
 if (__name__ == "__main__"):
-	if len(sys.argv) != 3 or (sys.argv[1] != '-k' and sys.argv[1] != '-g' and sys.argv[1] != '-q'):
+	if (len(sys.argv) < 2 or len(sys.argv) > 3) or (sys.argv[1] != '-k' and sys.argv[1] != '-g' and sys.argv[1] != '-q') or ((sys.argv[1] == '-k' or sys.argv[1] == '-g') and len(sys.argv) != 3) or (sys.argv[1] == '-q' and len(sys.argv) != 2):
 		sys.exit("Usage: python3 ./ft_otp.py [-gkq] secret|key")
 	elif sys.argv[1] == '-g' and (get_secret_len() < 64 or is_hex(get_secret_str())):
 		sys.exit("Error: key must be at least 64 hexadecimal characters.")
