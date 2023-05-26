@@ -57,6 +57,7 @@ def scrap_images(link: str, saved_images: set, path: str):
 						with open(img_full_path, "wb") as file:
 							try:
 								file.write(requests.get(img_url).content)
+								file.close()
 							except Exception as e:
 								file.close()
 								sys.exit(f"error: cannot retrieve data from a URL! ({e})")
