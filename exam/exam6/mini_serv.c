@@ -82,7 +82,7 @@ int main(int argc, char **argv)
 {
 	if (argc != 2)
 	{
-		write(2, "Wrong number of arguments\n", 12);
+		write(2, "Wrong number of arguments\n", 26);
 		exit(1);
 	}
 
