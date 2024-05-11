@@ -32,7 +32,9 @@ make front | back
 - Profiles with customization, match history
 - Friends system
 - Socket.IO realtime chat system, rooms and private messages, Colyseus integrations
-- Client-side prediction (I tried), client-side physics engine using cannon-es
+- Client-side prediction (I tried), client-side physics engine using cannon-es (because why not)
+
+Could be a solid online game platform like jklm.fun with some more love...
 
 ## Team
 albaur, averon and faventur
