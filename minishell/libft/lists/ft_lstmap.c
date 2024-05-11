@@ -6,7 +6,7 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 10:44:34 by faventur          #+#    #+#             */
-/*   Updated: 2022/03/04 16:45:03 by faventur         ###   ########.fr       */
+/*   Updated: 2022/11/21 10:32:34 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,43 @@
 
 #include "libft.h"
 
+void	*ft_lst_content_creator(t_list *lst, t_list *new_lst,
+		void *(*f)(void *), void (*del)(void *))
+{
+	void	*tmp2;
+
+	tmp2 = f(lst->content);
+	if (!tmp2)
+	{
+		ft_lstclear(&new_lst, del);
+		return (NULL);
+	}
+	return (tmp2);
+}
+
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*new_lst;
 	t_list	*temp;
+	void	*tmp2;
 
-	new_lst = NULL;
-	temp = NULL;
 	if (!lst || !f || !del)
 		return (NULL);
+	new_lst = NULL;
 	while (lst)
 	{
-		temp = ft_lstnew(f(lst->content));
+		tmp2 = ft_lst_content_creator(lst, new_lst, f, del);
+		if (!tmp2)
+			return (NULL);
+		temp = ft_lstnew(tmp2);
 		if (temp == NULL)
 		{
-			ft_lstclear(&temp, del);
-			break ;
+			ft_lstclear(&new_lst, del);
+			free(tmp2);
+			return (NULL);
 		}
 		ft_lstadd_back(&new_lst, temp);
 		lst = lst->next;
 	}
-	ft_lstclear(&lst, del);
 	return (new_lst);
 }

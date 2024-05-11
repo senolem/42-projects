@@ -6,7 +6,7 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 09:53:37 by faventur          #+#    #+#             */
-/*   Updated: 2022/07/12 17:09:14 by faventur         ###   ########.fr       */
+/*   Updated: 2022/09/25 11:00:54 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ void	ft_stackclear(t_stack *stack, void (*del)(void *))
 		ft_stackdelone(stack, delenda, del);
 		delenda = temp;
 	}
+	stack->bottom = NULL;
 }

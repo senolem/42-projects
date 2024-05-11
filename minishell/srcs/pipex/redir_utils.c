@@ -6,11 +6,27 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 12:19:04 by albaur            #+#    #+#             */
-/*   Updated: 2022/07/23 18:24:45 by faventur         ###   ########.fr       */
+/*   Updated: 2022/09/19 12:22:48 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	ft_open_up(char *path, t_var *var, t_redir i)
+{
+	var->fd[i.fd] = open(path, i.mode, 0644);
+	if (i.type == greater_than_type && var->fd[i.fd] < 0)
+		open(path, 513, 0644);
+	else if (i.type == greater_than_type && var->fd[i.fd] > 0)
+	{
+		close(var->fd[i.fd]);
+		unlink(path);
+		var->fd[i.fd] = open(path, 513, 0644);
+	}
+	if (var->fd[i.fd] < 0)
+		return (ret_err("minishell:", strerror(errno), 1));
+	return (0);
+}
 
 static t_redir	rdata(int mode, int type, int fd)
 {
@@ -37,9 +53,7 @@ int	redir_fd(t_stack **av, t_var *var, t_redir i)
 			else
 				return (ret_err("minishell: parse error", NULL, 1));
 			path = ft_lst_to_arrdup(node->content);
-			var->fd[i.fd] = open(path, i.mode, 0644);
-			if (var->fd[i.fd] < 0)
-				return (ret_err("minishell:", strerror(errno), 1));
+			ft_open_up(path, var, i);
 			node_del(node->prev, av);
 			node_del(node, av);
 			free(path);
@@ -63,7 +77,7 @@ int	ft_redir_parser(t_stack *av, t_var *var)
 	{
 		i = -1;
 		if (!ft_tokcmp(node->content, greater_than_type))
-			i = redir_fd(&av, var, rdata(513, greater_than_type, 1));
+			i = redir_fd(&av, var, rdata(0, greater_than_type, 1));
 		else if (!ft_tokcmp(node->content, smaller_than_type))
 			i = redir_fd(&av, var, rdata(0, smaller_than_type, 0));
 		else if (!ft_tokcmp(node->content, d_greater_than_type))

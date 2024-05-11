@@ -20,7 +20,7 @@
 
 void	ft_stackdelone(t_stack *stack, t_node *node, void (*del)(void *))
 {
-	if (!node || !stack || !stack->top || !del)
+	if (!node || !stack || !del)
 		return ;
 	if (node->next == NULL)
 	{

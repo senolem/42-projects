@@ -6,7 +6,7 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 16:44:33 by faventur          #+#    #+#             */
-/*   Updated: 2022/06/27 17:50:54 by faventur         ###   ########.fr       */
+/*   Updated: 2022/11/21 10:42:25 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	**ft_arr_freer_index(char **arr, size_t *index)
 {
 	ssize_t	i;
 
-	if (!arr || !*arr)
+	if (!arr)
 		return (NULL);
 	i = *index - 1;
 	while (i >= 0)
