@@ -9,7 +9,7 @@ Please be aware that I'm a student thus take nothing in my code for granted, the
 ## You can find me here
 
 - [@senolem (GitHub)](https://www.github.com/senolem)
-- [melones#4454 (Discord)](#)
+- [melones. (Discord, with the dot)](#)
 - [me@melones.fr (Email)](mailto:me@melones.fr)
 
 
